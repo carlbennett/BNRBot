@@ -63,8 +63,8 @@ Begin Window wMain
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "Verdana"
-      TextSize        =   11
+      TextFont        =   "Arial"
+      TextSize        =   12
       TextUnit        =   0
       Top             =   0
       Underline       =   ""
@@ -112,8 +112,8 @@ Begin Window wMain
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "Verdana"
-      TextSize        =   11
+      TextFont        =   "Arial"
+      TextSize        =   12
       TextUnit        =   0
       Top             =   41
       Underline       =   ""
@@ -195,8 +195,8 @@ Begin Window wMain
       Text            =   "Offline"
       TextAlign       =   1
       TextColor       =   "#Colors.UI.ControlTextColor"
-      TextFont        =   "Verdana"
-      TextSize        =   11
+      TextFont        =   "Arial"
+      TextSize        =   12
       TextUnit        =   0
       Top             =   14
       Transparent     =   True
@@ -255,8 +255,8 @@ Begin Window wMain
       TabStop         =   True
       Text            =   ""
       TextColor       =   "#Colors.UI.ControlTextColor"
-      TextFont        =   "Verdana"
-      TextSize        =   11
+      TextFont        =   "Arial"
+      TextSize        =   12
       TextUnit        =   0
       Top             =   371
       Underline       =   ""
