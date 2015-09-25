@@ -1,0 +1,24 @@
+*.7z
+*.app
+*.bak
+*.class
+*.diff
+*.dmg
+*.err
+*.exe
+*.gz
+*.iso
+*.jar
+*.log
+*.rar
+*.swp
+*.tar
+*.vi
+*.vim
+*.zip
+.DS_Store
+.Spotlight-V100
+.Trashes
+._*
+BNRBot\ v2.dat
+Thumbs.db
