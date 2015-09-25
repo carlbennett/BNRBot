@@ -1,5 +1,5 @@
 #tag Window
-Begin Window wClanConfirmation
+Begin Windows wClanConfirmation
    BackColor       =   48
    Backdrop        =   ""
    CloseButton     =   True

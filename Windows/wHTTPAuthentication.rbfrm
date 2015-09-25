@@ -1,10 +1,10 @@
 #tag Window
-Begin Window wClanInvitation
+Begin Windows wHTTPAuthentication
    BackColor       =   48
    Backdrop        =   ""
    CloseButton     =   True
    Composite       =   False
-   Frame           =   0
+   Frame           =   1
    FullScreen      =   False
    HasBackColor    =   True
    Height          =   149
@@ -19,9 +19,9 @@ Begin Window wClanInvitation
    MinHeight       =   149
    MinimizeButton  =   True
    MinWidth        =   360
-   Placement       =   2
+   Placement       =   1
    Resizeable      =   False
-   Title           =   "Clan Invitation Received"
+   Title           =   "HTTP Authentication Required"
    Visible         =   True
    Width           =   360
    Begin Label txtJunk
@@ -47,7 +47,7 @@ Begin Window wClanInvitation
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "You have been invited to a clan!"
+      Text            =   "Authentication is required in order to proceed"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
       TextFont        =   "Verdana"
@@ -82,7 +82,7 @@ Begin Window wClanInvitation
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Clan Name: "
+      Text            =   "Realm:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
       TextFont        =   "Verdana"
@@ -94,7 +94,7 @@ Begin Window wClanInvitation
       Visible         =   True
       Width           =   80
    End
-   Begin TextArea fldClanName
+   Begin TextField fldUsername
       AcceptTabs      =   ""
       Alignment       =   0
       AutoDeactivate  =   True
@@ -102,13 +102,13 @@ Begin Window wClanInvitation
       BackColor       =   "#Colors.Black"
       Bold            =   ""
       Border          =   False
+      CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
       Height          =   15
       HelpTag         =   ""
-      HideSelection   =   True
       Index           =   -2147483648
       Italic          =   ""
       Left            =   120
@@ -119,61 +119,13 @@ Begin Window wClanInvitation
       LockRight       =   True
       LockTop         =   True
       Mask            =   ""
-      Multiline       =   False
-      ReadOnly        =   True
+      Password        =   ""
+      ReadOnly        =   False
       Scope           =   0
-      ScrollbarHorizontal=   ""
-      ScrollbarVertical=   False
-      Styled          =   False
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "CLAN.NAME"
-      TextColor       =   "#Colors.White"
-      TextFont        =   "Arial"
-      TextSize        =   12
-      TextUnit        =   0
-      Top             =   34
-      Underline       =   ""
-      UseFocusRing    =   True
-      Visible         =   True
-      Width           =   220
-   End
-   Begin TextArea fldClanTag
-      AcceptTabs      =   ""
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   "#Colors.Black"
-      Bold            =   ""
-      Border          =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Format          =   ""
-      Height          =   15
-      HelpTag         =   ""
-      HideSelection   =   True
-      Index           =   -2147483648
-      Italic          =   ""
-      Left            =   120
-      LimitText       =   0
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Mask            =   ""
-      Multiline       =   False
-      ReadOnly        =   True
-      Scope           =   0
-      ScrollbarHorizontal=   ""
-      ScrollbarVertical=   False
-      Styled          =   False
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "CLAN.TAG"
+      Text            =   ""
       TextColor       =   "#Colors.White"
       TextFont        =   "Arial"
       TextSize        =   12
@@ -207,7 +159,7 @@ Begin Window wClanInvitation
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Clan Tag:"
+      Text            =   "Username:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
       TextFont        =   "Verdana"
@@ -219,7 +171,7 @@ Begin Window wClanInvitation
       Visible         =   True
       Width           =   80
    End
-   Begin TextArea fldClanInviter
+   Begin TextField fldPassword
       AcceptTabs      =   ""
       Alignment       =   0
       AutoDeactivate  =   True
@@ -227,14 +179,15 @@ Begin Window wClanInvitation
       BackColor       =   "#Colors.Black"
       Bold            =   ""
       Border          =   False
+      CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
       Height          =   15
       HelpTag         =   ""
-      HideSelection   =   True
       Index           =   -2147483648
+      InitialParent   =   ""
       Italic          =   ""
       Left            =   120
       LimitText       =   0
@@ -244,16 +197,13 @@ Begin Window wClanInvitation
       LockRight       =   True
       LockTop         =   True
       Mask            =   ""
-      Multiline       =   False
-      ReadOnly        =   True
+      Password        =   True
+      ReadOnly        =   False
       Scope           =   0
-      ScrollbarHorizontal=   ""
-      ScrollbarVertical=   False
-      Styled          =   False
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "CLAN.INVITER"
+      Text            =   ""
       TextColor       =   "#Colors.White"
       TextFont        =   "Arial"
       TextSize        =   12
@@ -287,7 +237,7 @@ Begin Window wClanInvitation
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Invited By:"
+      Text            =   "Password:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
       TextFont        =   "Verdana"
@@ -299,12 +249,12 @@ Begin Window wClanInvitation
       Visible         =   True
       Width           =   80
    End
-   Begin PushButton btnAccept
+   Begin PushButton btnProceed
       AutoDeactivate  =   True
       Bold            =   ""
       ButtonStyle     =   0
       Cancel          =   ""
-      Caption         =   "&Accept"
+      Caption         =   "&Proceed"
       Default         =   True
       Enabled         =   True
       Height          =   22
@@ -330,12 +280,12 @@ Begin Window wClanInvitation
       Visible         =   True
       Width           =   80
    End
-   Begin PushButton btnDecline
+   Begin PushButton btnCancel
       AutoDeactivate  =   True
       Bold            =   ""
       ButtonStyle     =   0
       Cancel          =   True
-      Caption         =   "&Decline"
+      Caption         =   "&Cancel"
       Default         =   ""
       Enabled         =   True
       Height          =   22
@@ -361,36 +311,50 @@ Begin Window wClanInvitation
       Visible         =   True
       Width           =   80
    End
-   Begin PushButton btnIgnore
+   Begin TextArea fldRealm
+      AcceptTabs      =   ""
+      Alignment       =   0
       AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   "#Colors.Black"
       Bold            =   ""
-      ButtonStyle     =   0
-      Cancel          =   False
-      Caption         =   "&Ignore"
-      Default         =   ""
+      Border          =   False
+      DataField       =   ""
+      DataSource      =   ""
       Enabled         =   True
-      Height          =   22
+      Format          =   ""
+      Height          =   15
       HelpTag         =   ""
+      HideSelection   =   True
       Index           =   -2147483648
-      InitialParent   =   ""
       Italic          =   ""
-      Left            =   20
+      Left            =   120
+      LimitText       =   0
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
+      Mask            =   ""
+      Multiline       =   False
+      ReadOnly        =   True
       Scope           =   0
-      TabIndex        =   9
+      ScrollbarHorizontal=   ""
+      ScrollbarVertical=   False
+      Styled          =   False
+      TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "Verdana"
+      Text            =   "REALM"
+      TextColor       =   "#Colors.White"
+      TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   111
+      Top             =   34
       Underline       =   ""
+      UseFocusRing    =   True
       Visible         =   True
-      Width           =   80
+      Width           =   220
    End
 End
 #tag EndWindow
@@ -480,7 +444,7 @@ End
 
 #tag EndWindowCode
 
-#tag Events btnAccept
+#tag Events btnProceed
 	#tag Event
 		Sub Action()
 		  
@@ -490,17 +454,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events btnDecline
-	#tag Event
-		Sub Action()
-		  
-		  Self.Result = Me
-		  Self.Hide()
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events btnIgnore
+#tag Events btnCancel
 	#tag Event
 		Sub Action()
 		  

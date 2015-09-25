@@ -1,5 +1,5 @@
 #tag Window
-Begin Window wUpdater
+Begin Windows wUpdater
    BackColor       =   48
    Backdrop        =   ""
    CloseButton     =   True
@@ -157,6 +157,7 @@ Begin Window wUpdater
       Width           =   100
    End
    Begin Timer GUITimer
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   0
@@ -168,6 +169,7 @@ Begin Window wUpdater
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   0
+      Visible         =   True
       Width           =   32
    End
    Begin HTTPSecureSocket HTTP
@@ -175,6 +177,7 @@ Begin Window wUpdater
       CertificatePassword=   ""
       CertificateRejectionFile=   ""
       ConnectionType  =   2
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   0
@@ -185,6 +188,7 @@ Begin Window wUpdater
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   172
+      Visible         =   True
       Width           =   32
    End
 End

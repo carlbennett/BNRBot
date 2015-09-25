@@ -1,5 +1,5 @@
 #tag Window
-Begin Window wMain
+Begin Windows wMain
    BackColor       =   "#Colors.UI.WindowBackColor"
    Backdrop        =   ""
    CloseButton     =   True
@@ -422,7 +422,7 @@ End
 		  
 		  Dim Config As Configuration
 		  If Me.SelectedConfig >= 0 And Me.SelectedConfig <= UBound(Settings.Configurations) _
-		     Then Config = Settings.Configurations(Me.SelectedConfig) Else Config = Nil
+		    Then Config = Settings.Configurations(Me.SelectedConfig) Else Config = Nil
 		    
 		    Select Case AscB(Key)
 		    Case &HC8 '// F1

@@ -1,5 +1,5 @@
 #tag Window
-Begin Window wProfile
+Begin Windows wProfile
    BackColor       =   48
    Backdrop        =   ""
    CloseButton     =   True

@@ -1,5 +1,5 @@
 #tag Window
-Begin Window wConfig
+Begin Windows wConfig
    BackColor       =   "#Colors.UI.WindowBackColor"
    Backdrop        =   ""
    CloseButton     =   True
@@ -137,6 +137,7 @@ Begin Window wConfig
    End
    Begin TCPSocket VerByteSocket
       Address         =   ""
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   386
@@ -147,6 +148,7 @@ Begin Window wConfig
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   397
+      Visible         =   True
       Width           =   32
    End
    Begin PushButton btnDeleteProfile

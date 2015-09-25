@@ -1,5 +1,5 @@
 #tag Window
-Begin Window wClanRemoveMember
+Begin Windows wClanCreationInvitation
    BackColor       =   48
    Backdrop        =   ""
    CloseButton     =   True
@@ -7,21 +7,21 @@ Begin Window wClanRemoveMember
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   True
-   Height          =   126
+   Height          =   349
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
-   MaxHeight       =   126
+   MaxHeight       =   149
    MaximizeButton  =   False
    MaxWidth        =   32000
    MenuBar         =   ""
    MenuBarVisible  =   True
-   MinHeight       =   126
+   MinHeight       =   349
    MinimizeButton  =   True
    MinWidth        =   360
    Placement       =   2
    Resizeable      =   False
-   Title           =   "Really remove clan member?"
+   Title           =   "Create Clan Invitation Received"
    Visible         =   True
    Width           =   360
    Begin Label txtJunk
@@ -47,7 +47,7 @@ Begin Window wClanRemoveMember
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Are you sure you wish to remove this member?"
+      Text            =   "You have been invited to create a clan!"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
       TextFont        =   "Verdana"
@@ -82,7 +82,7 @@ Begin Window wClanRemoveMember
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Username:"
+      Text            =   "Clan Name: "
       TextAlign       =   0
       TextColor       =   "#Colors.White"
       TextFont        =   "Verdana"
@@ -94,7 +94,7 @@ Begin Window wClanRemoveMember
       Visible         =   True
       Width           =   80
    End
-   Begin TextArea fldUsername
+   Begin TextArea fldClanName
       AcceptTabs      =   ""
       Alignment       =   0
       AutoDeactivate  =   True
@@ -128,7 +128,7 @@ Begin Window wClanRemoveMember
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "USERNAME"
+      Text            =   "CLAN.NAME"
       TextColor       =   "#Colors.White"
       TextFont        =   "Arial"
       TextSize        =   12
@@ -139,7 +139,7 @@ Begin Window wClanRemoveMember
       Visible         =   True
       Width           =   220
    End
-   Begin TextArea fldClanRank
+   Begin TextArea fldClanTag
       AcceptTabs      =   ""
       Alignment       =   0
       AutoDeactivate  =   True
@@ -173,7 +173,7 @@ Begin Window wClanRemoveMember
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "CLAN.RANK"
+      Text            =   "CLAN.TAG"
       TextColor       =   "#Colors.White"
       TextFont        =   "Arial"
       TextSize        =   12
@@ -207,7 +207,7 @@ Begin Window wClanRemoveMember
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Clan Rank:"
+      Text            =   "Clan Tag:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
       TextFont        =   "Verdana"
@@ -219,12 +219,92 @@ Begin Window wClanRemoveMember
       Visible         =   True
       Width           =   80
    End
-   Begin PushButton btnRemove
+   Begin TextArea fldClanInviter
+      AcceptTabs      =   ""
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   "#Colors.Black"
+      Bold            =   ""
+      Border          =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   15
+      HelpTag         =   ""
+      HideSelection   =   True
+      Index           =   -2147483648
+      Italic          =   ""
+      Left            =   120
+      LimitText       =   0
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Mask            =   ""
+      Multiline       =   False
+      ReadOnly        =   True
+      Scope           =   0
+      ScrollbarHorizontal=   ""
+      ScrollbarVertical=   False
+      Styled          =   False
+      TabIndex        =   6
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "CLAN.INVITER"
+      TextColor       =   "#Colors.White"
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   80
+      Underline       =   ""
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   220
+   End
+   Begin Label txtJunk
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   15
+      HelpTag         =   ""
+      Index           =   3
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   40
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   ""
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   5
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Invited By:"
+      TextAlign       =   0
+      TextColor       =   "#Colors.White"
+      TextFont        =   "Verdana"
+      TextSize        =   11
+      TextUnit        =   0
+      Top             =   80
+      Transparent     =   True
+      Underline       =   ""
+      Visible         =   True
+      Width           =   80
+   End
+   Begin PushButton btnAccept
       AutoDeactivate  =   True
       Bold            =   ""
       ButtonStyle     =   0
       Cancel          =   ""
-      Caption         =   "&Remove"
+      Caption         =   "&Accept"
       Default         =   True
       Enabled         =   True
       Height          =   22
@@ -239,23 +319,23 @@ Begin Window wClanRemoveMember
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   7
+      TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "Verdana"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   88
+      Top             =   311
       Underline       =   ""
       Visible         =   True
       Width           =   80
    End
-   Begin PushButton btnCancel
+   Begin PushButton btnDecline
       AutoDeactivate  =   True
       Bold            =   ""
       ButtonStyle     =   0
       Cancel          =   True
-      Caption         =   "&Cancel"
+      Caption         =   "&Decline"
       Default         =   ""
       Enabled         =   True
       Height          =   22
@@ -270,13 +350,128 @@ Begin Window wClanRemoveMember
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   8
+      TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "Verdana"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   88
+      Top             =   311
+      Underline       =   ""
+      Visible         =   True
+      Width           =   80
+   End
+   Begin PushButton btnIgnore
+      AutoDeactivate  =   True
+      Bold            =   ""
+      ButtonStyle     =   0
+      Cancel          =   False
+      Caption         =   "&Ignore"
+      Default         =   ""
+      Enabled         =   True
+      Height          =   22
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   20
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   11
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "Verdana"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   311
+      Underline       =   ""
+      Visible         =   True
+      Width           =   80
+   End
+   Begin Listbox lstMembers
+      AutoDeactivate  =   True
+      AutoHideScrollbars=   True
+      Bold            =   ""
+      Border          =   False
+      ColumnCount     =   1
+      ColumnsResizable=   True
+      ColumnWidths    =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      DefaultRowHeight=   15
+      Enabled         =   True
+      EnableDrag      =   ""
+      EnableDragReorder=   ""
+      GridLinesHorizontal=   0
+      GridLinesVertical=   0
+      HasHeading      =   False
+      HeadingIndex    =   -1
+      Height          =   190
+      HelpTag         =   ""
+      Hierarchical    =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      InitialValue    =   ""
+      Italic          =   ""
+      Left            =   120
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      RequiresSelection=   ""
+      Scope           =   0
+      ScrollbarHorizontal=   ""
+      ScrollBarVertical=   True
+      SelectionType   =   0
+      TabIndex        =   8
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "Verdana"
+      TextSize        =   11
+      TextUnit        =   0
+      Top             =   107
+      Underline       =   ""
+      UseFocusRing    =   False
+      Visible         =   True
+      Width           =   220
+      _ScrollWidth    =   -1
+   End
+   Begin Label txtJunk
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   15
+      HelpTag         =   ""
+      Index           =   4
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   40
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   ""
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   7
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Members:"
+      TextAlign       =   0
+      TextColor       =   "#Colors.White"
+      TextFont        =   "Verdana"
+      TextSize        =   11
+      TextUnit        =   0
+      Top             =   107
+      Transparent     =   True
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -369,7 +564,7 @@ End
 
 #tag EndWindowCode
 
-#tag Events btnRemove
+#tag Events btnAccept
 	#tag Event
 		Sub Action()
 		  
@@ -379,7 +574,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events btnCancel
+#tag Events btnDecline
 	#tag Event
 		Sub Action()
 		  
@@ -387,5 +582,49 @@ End
 		  Self.Hide()
 		  
 		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnIgnore
+	#tag Event
+		Sub Action()
+		  
+		  Self.Result = Me
+		  Self.Hide()
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events lstMembers
+	#tag Event
+		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
+		  
+		  #pragma Unused column
+		  
+		  If row = Me.ListIndex Then
+		    g.ForeColor = Colors.UI.ListSelectionColor
+		  Else
+		    g.ForeColor = Colors.UI.ControlBackColor
+		  End If
+		  
+		  g.FillRect(0, 0, g.Width, g.Height)
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
+		  
+		  If row = Me.ListIndex Then
+		    g.ForeColor = Colors.UI.ControlBackColor
+		  Else
+		    g.ForeColor = Colors.UI.ListSelectionColor
+		  End If
+		  
+		  If row >= 0 And row < Me.ListCount Then _
+		  g.DrawString(Me.Cell(row, column), x, y, g.Width - x * 2, True)
+		  
+		  Return True
+		  
+		End Function
 	#tag EndEvent
 #tag EndEvents
