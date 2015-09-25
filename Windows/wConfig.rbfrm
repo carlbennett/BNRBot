@@ -1,5 +1,5 @@
 #tag Window
-Begin Windows wConfig
+Begin Window wConfig
    BackColor       =   "#Colors.UI.WindowBackColor"
    Backdrop        =   ""
    CloseButton     =   True
@@ -2702,11 +2702,11 @@ End
 		        (RC.PanelIndex = Pages.Value Or RC.PanelIndex = -1) Then
 		        g.ForeColor = Colors.UI.ControlBorderColor
 		        
-		        g.DrawLine(X + W, Y - 1, X + W, Y + H) '// Right
+		        g.DrawLine(X + W, Y - 1, X + W, Y + H) // Right
 		        If RC <> Me.lstCategories Then
-		          g.DrawLine(X - 1, Y - 1, X - 1, Y + H) '// Left
-		          g.DrawLine(X - 1, Y - 1, X + W, Y - 1) '// Top
-		          g.DrawLine(X - 1, Y + H, X + W, Y + H) '// Bottom
+		          g.DrawLine(X - 1, Y - 1, X - 1, Y + H) // Left
+		          g.DrawLine(X - 1, Y - 1, X + W, Y - 1) // Top
+		          g.DrawLine(X - 1, Y + H, X + W, Y + H) // Bottom
 		        End If
 		        
 		      End If
@@ -3154,9 +3154,9 @@ End
 		  
 		  Dim NewTimestamp As Byte = Config.Timestamp
 		  
-		  If column = 0 Then '// Dates
+		  If column = 0 Then // Dates
 		    Select Case row
-		    Case 0 '// Short Date
+		    Case 0 // Short Date
 		      Me.CellCheck(1, 0) = False
 		      Me.CellCheck(2, 0) = False
 		      If Me.CellCheck(0, 0) = True Then _
@@ -3164,7 +3164,7 @@ End
 		      NewTimestamp = BitAnd(NewTimestamp, Bitwise.OnesComplement(Config.TimestampShortDate))
 		      NewTimestamp = BitAnd(NewTimestamp, Bitwise.OnesComplement(Config.TimestampAbbreviatedDate))
 		      NewTimestamp = BitAnd(NewTimestamp, Bitwise.OnesComplement(Config.TimestampLongDate))
-		    Case 1 '// Abbreviated Date
+		    Case 1 // Abbreviated Date
 		      Me.CellCheck(0, 0) = False
 		      Me.CellCheck(2, 0) = False
 		      NewTimestamp = BitAnd(NewTimestamp, Bitwise.OnesComplement(Config.TimestampShortDate))
@@ -3172,7 +3172,7 @@ End
 		      NewTimestamp = BitOr(NewTimestamp, Config.TimestampAbbreviatedDate) Else _
 		      NewTimestamp = BitAnd(NewTimestamp, Bitwise.OnesComplement(Config.TimestampAbbreviatedDate))
 		      NewTimestamp = BitAnd(NewTimestamp, Bitwise.OnesComplement(Config.TimestampLongDate))
-		    Case 2 '// Long Date
+		    Case 2 // Long Date
 		      Me.CellCheck(0, 0) = False
 		      Me.CellCheck(1, 0) = False
 		      NewTimestamp = BitAnd(NewTimestamp, Bitwise.OnesComplement(Config.TimestampShortDate))
@@ -3181,21 +3181,21 @@ End
 		      NewTimestamp = BitOr(NewTimestamp, Config.TimestampLongDate) Else _
 		      NewTimestamp = BitAnd(NewTimestamp, Bitwise.OnesComplement(Config.TimestampLongDate))
 		    End Select
-		  ElseIf column = 2 Then '// Times
+		  ElseIf column = 2 Then // Times
 		    Select Case row
-		    Case 0 '// Short Time
+		    Case 0 // Short Time
 		      Me.CellCheck(1, 2) = False
 		      If Me.CellCheck(2, 2) = True Then _
 		      NewTimestamp = BitOr(NewTimestamp, Config.TimestampShortTime) Else _
 		      NewTimestamp = BitAnd(NewTimestamp, Bitwise.OnesComplement(Config.TimestampShortTime))
 		      NewTimestamp = BitAnd(NewTimestamp, Bitwise.OnesComplement(Config.TimestampLongTime))
-		    Case 1 '// Long Time
+		    Case 1 // Long Time
 		      Me.CellCheck(0, 2) = False
 		      NewTimestamp = BitAnd(NewTimestamp, Bitwise.OnesComplement(Config.TimestampShortTime))
 		      If Me.CellCheck(1, 2) = True Then _
 		      NewTimestamp = BitOr(NewTimestamp, Config.TimestampLongTime) Else _
 		      NewTimestamp = BitAnd(NewTimestamp, Bitwise.OnesComplement(Config.TimestampLongTime))
-		    Case 2 '// Military Time
+		    Case 2 // Military Time
 		      If Me.CellCheck(2, 2) = True Then _
 		      NewTimestamp = BitOr(NewTimestamp, Config.TimestampMilitaryTime) Else _
 		      NewTimestamp = BitAnd(NewTimestamp, Bitwise.OnesComplement(Config.TimestampMilitaryTime))
@@ -3731,9 +3731,9 @@ End
 		  Settings.PrefPingRanges = Ranges
 		  
 		  If wMain.lstUsers_Viewing_Channel() = True Then
-		    '// Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
-		    '// not actually touch the ListBox (RectControl) so that it will redraw, so
-		    '// I'm using the little cheat:
+		    // Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
+		    // not actually touch the ListBox (RectControl) so that it will redraw, so
+		    // I'm using the little cheat:
 		    i = wMain.lstUsers.DefaultRowHeight
 		    wMain.lstUsers.DefaultRowHeight = 0
 		    wMain.lstUsers.DefaultRowHeight = i
@@ -3925,7 +3925,7 @@ End
 		    If BarBitmap <> Nil Then
 		      
 		      If FlushRight = False Then
-		        '// Determine widths of all ping ranges:
+		        // Determine widths of all ping ranges:
 		        i = Me.ListCount - 1
 		        OffsetX = BarBitmap.Width
 		        While i >= 0
@@ -3935,7 +3935,7 @@ End
 		        Wend
 		      End If
 		      
-		      '// Draw the bars for this row:
+		      // Draw the bars for this row:
 		      i = 1
 		      While i <= BarCount
 		        If FlushRight = True Then X = g.Width - (i * BarBitmap.Width) _
@@ -4012,12 +4012,12 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  '// Update GUI:
+		  // Update GUI:
 		  Dim i As Integer = lstPingRanges.DefaultRowHeight
 		  lstPingRanges.DefaultRowHeight = 0
 		  lstPingRanges.DefaultRowHeight = i
 		  
-		  '// Update Settings:
+		  // Update Settings:
 		  Settings.PrefPingRangesFlushRight = Me.Value
 		  
 		End Sub

@@ -1,5 +1,5 @@
 #tag Window
-Begin Windows wMain
+Begin Window wMain
    BackColor       =   "#Colors.UI.WindowBackColor"
    Backdrop        =   ""
    CloseButton     =   True
@@ -402,11 +402,11 @@ End
 		      If (RC IsA TextArea Or RC IsA TextField Or RC IsA ListBox Or RC = Me.txtChannel) And RC.Visible = True Then
 		        g.ForeColor = Colors.UI.ControlBorderColor
 		        
-		        g.DrawLine(X + W, Y - 1, X + W, Y + H) '// Right
+		        g.DrawLine(X + W, Y - 1, X + W, Y + H) // Right
 		        If RC <> Me.lstProfiles Then
-		          g.DrawLine(X - 1, Y - 1, X - 1, Y + H) '// Left
-		          g.DrawLine(X - 1, Y - 1, X + W, Y - 1) '// Top
-		          g.DrawLine(X - 1, Y + H, X + W, Y + H) '// Bottom
+		          g.DrawLine(X - 1, Y - 1, X - 1, Y + H) // Left
+		          g.DrawLine(X - 1, Y - 1, X + W, Y - 1) // Top
+		          g.DrawLine(X - 1, Y + H, X + W, Y + H) // Bottom
 		        End If
 		        
 		      End If
@@ -425,21 +425,21 @@ End
 		    Then Config = Settings.Configurations(Me.SelectedConfig) Else Config = Nil
 		    
 		    Select Case AscB(Key)
-		    Case &HC8 '// F1
+		    Case &HC8 // F1
 		      
 		      If Config <> Nil And Config.BNET <> Nil Then Config.BNET.DoReconnect()
 		      
-		    Case &HC9 '// F2
+		    Case &HC9 // F2
 		      
 		      If Config <> Nil And Config.BNET <> Nil Then Config.BNET.DoDisconnect()
 		      
-		    Case &HCA '// F3
+		    Case &HCA // F3
 		      
 		      wConfig.Show()
 		      
-		    Case &HCB '// F4
+		    Case &HCB // F4
 		      
-		      If Keyboard.AltKey = True Then Return False '// Alt + F4 lololol
+		      If Keyboard.AltKey = True Then Return False // Alt + F4 lololol
 		      If Config <> Nil Then Config.ClearChat(False)
 		      
 		    Case Else
@@ -590,9 +590,9 @@ End
 		  If Me.fldInput.ReadOnly = True Then Me.fldInput.ReadOnly = False
 		  Me.lstUsers_View = Config.CachelstUsers_View
 		  
-		  '// Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
-		  '// not actually touch the ListBox (RectControl) so that it will redraw, so
-		  '// I'm using the little cheat:
+		  // Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
+		  // not actually touch the ListBox (RectControl) so that it will redraw, so
+		  // I'm using the little cheat:
 		  Dim i As Integer = Me.lstProfiles.DefaultRowHeight
 		  Me.lstProfiles.DefaultRowHeight = 0
 		  Me.lstProfiles.DefaultRowHeight = i
@@ -828,7 +828,7 @@ End
 			    
 			  Case Me.lstUsers_View_Channel_Flags
 			    
-			    '// 0x01      0x08          0x04        0x02
+			    // 0x01      0x08          0x04        0x02
 			    Dim Admins(), Moderators(), Speakers(), Operators() As Dictionary
 			    
 			    i = 0
@@ -1041,7 +1041,7 @@ End
 			    
 			  Case Me.lstUsers_View_Friends_Location
 			    
-			    '// Statuses() is reused as the Locations() instead.
+			    // Statuses() is reused as the Locations() instead.
 			    
 			    i = 0
 			    While i < Config.BNET.FriendsList.Count
@@ -1602,9 +1602,9 @@ End
 		  #If DebugBuild = True Then
 		    Me.AddRow("")
 		    Me.Cell(Me.LastIndex, 1) = "The_Lynxy@Azeroth"
-		    Me.CellTag(Me.LastIndex, 0) = "3RAW 2R3W 0" '// Statstring
-		    Me.CellTag(Me.LastIndex, 1) = 0 '// Flags
-		    Me.CellTag(Me.LastIndex, 2) = 0 '// Ping
+		    Me.CellTag(Me.LastIndex, 0) = "3RAW 2R3W 0" // Statstring
+		    Me.CellTag(Me.LastIndex, 1) = 0 // Flags
+		    Me.CellTag(Me.LastIndex, 2) = 0 // Ping
 		  #EndIf
 		  
 		End Sub
@@ -1736,14 +1736,14 @@ End
 		        + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
 		      Else
 		        base.Item(base.Count - 1).Tag = MemClass.WriteDWORD(Config.BNET.Product, True) _
-		        + MemClass.WriteCString(AccountName) '// Do not use unique name here.
+		        + MemClass.WriteCString(AccountName) // Do not use unique name here.
 		      End If
 		      
 		    Else
 		      
 		      base.Append(New MenuItem("View Profile"))
 		      base.Item(base.Count - 1).Tag = MemClass.WriteDWORD(Config.BNET.Product, True) _
-		      + MemClass.WriteCString(AccountName) '// Do not use unique name here.
+		      + MemClass.WriteCString(AccountName) // Do not use unique name here.
 		      
 		    End If
 		    
@@ -1996,8 +1996,8 @@ End
 	#tag Event
 		Sub DoubleClick()
 		  
-		  '// Apparently Me.MouseX and Me.MouseY are the same as Self.MouseX and Self.MouseY
-		  '// So, because of this, we have to take the difference of our Top/Left values to find *our* MouseX/MouseY
+		  // Apparently Me.MouseX and Me.MouseY are the same as Self.MouseX and Self.MouseY
+		  // So, because of this, we have to take the difference of our Top/Left values to find *our* MouseX/MouseY
 		  
 		  Dim x As Integer = Self.MouseX - Me.Left
 		  Dim y As Integer = Self.MouseY - Me.Top
@@ -2027,9 +2027,9 @@ End
 		  
 		  Self.lstUsers_View = Self.lstUsers_View
 		  
-		  '// Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
-		  '// not actually touch the ListBox (RectControl) so that it will redraw, so
-		  '// I'm using the little cheat:
+		  // Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
+		  // not actually touch the ListBox (RectControl) so that it will redraw, so
+		  // I'm using the little cheat:
 		  Dim i As Integer = Self.lstProfiles.DefaultRowHeight
 		  Self.lstProfiles.DefaultRowHeight = 0
 		  Self.lstProfiles.DefaultRowHeight = i

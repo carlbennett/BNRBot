@@ -158,7 +158,7 @@ Protected Module Globals
 	#tag Method, Flags = &h0
 		Function Avg(ParamArray Values As Integer) As Integer
 		  
-		  '// Average the Values together and return the result.
+		  // Average the Values together and return the result.
 		  
 		  Dim ret As Integer, i As Integer
 		  
@@ -189,8 +189,8 @@ Protected Module Globals
 	#tag Method, Flags = &h0
 		Function BSHA1(Data As String) As String
 		  
-		  '// "Broken" SHA-1 Hashing
-		  '// U.S. Standard Hashing Algorithm Version 1
+		  // "Broken" SHA-1 Hashing
+		  // U.S. Standard Hashing Algorithm Version 1
 		  
 		  Soft Declare Sub hashPassword Lib "BNCSutil.dll" (Password As Ptr, outBuffer As Ptr)
 		  
@@ -215,23 +215,23 @@ Protected Module Globals
 		  Soft Declare Function getExeInfo Lib "BNCSutil.dll" (Filename As Ptr, EXEInfo As Ptr, _
 		  EXEInfoSize As Integer, Version As Ptr, Platform As Integer) As Integer
 		  
-		  'Soft Declare Function CheckRevisionEx Lib "Files/CheckRevision.dll" (ByVal GameFile1 As String, _
-		  'ByVal GameFile2 As String, ByVal GameFile3 As String, ByVal ValueString As String, _
-		  'ByRef version As Long, ByRef Checksum As Long, ByVal EXEinfo As String, _
-		  'ByVal PathToDLL As String, ByVal sUnused As String, ByVal PathToVideoBin As String) As Long
-		  'CRevResult = CheckRevisionEx(Starcraft.exe, Storm.Dll, Battle.Snp, ChecksumFormula, _
-		  'EXEVersion, ChecksumResult, EXEinfo,LockdownFile.dll, vbNullString, Star.Bin)
+		  //Soft Declare Function CheckRevisionEx Lib "Files/CheckRevision.dll" (ByVal GameFile1 As String, _
+		  //ByVal GameFile2 As String, ByVal GameFile3 As String, ByVal ValueString As String, _
+		  //ByRef version As Long, ByRef Checksum As Long, ByVal EXEinfo As String, _
+		  //ByVal PathToDLL As String, ByVal sUnused As String, ByVal PathToVideoBin As String) As Long
+		  //CRevResult = CheckRevisionEx(Starcraft.exe, Storm.Dll, Battle.Snp, ChecksumFormula, _
+		  //EXEVersion, ChecksumResult, EXEinfo,LockdownFile.dll, vbNullString, Star.Bin)
 		  
-		  'Soft Declare Function checkrevision_ld Lib "libbnet.dll" (sFile1 As String, _
-		  'sFile2 As String, sFile3 As String, sValueString As String, ByRef lVersion As Long, ByRef lCheck
-		  'As String, ByVal sLockdownFile As String, ByVal sVideoFile As String) As Long
+		  //Soft Declare Function checkrevision_ld Lib "libbnet.dll" (sFile1 As String, _
+		  //sFile2 As String, sFile3 As String, sValueString As String, ByRef lVersion As Long, ByRef lCheck
+		  //As String, ByVal sLockdownFile As String, ByVal sVideoFile As String) As Long
 		  
 		  Dim GameFile1 As New MemoryBlock(1)
 		  Dim GameFile2 As New MemoryBlock(1)
 		  Dim GameFile3 As New MemoryBlock(1)
 		  Dim sValueString As MemoryBlock = Globals.StringToMemory(ValueString)
-		  Dim dwEXEVersion As New MemoryBlock(4) '// for the result
-		  Dim dwChecksum As New MemoryBlock(4) '// for the result
+		  Dim dwEXEVersion As New MemoryBlock(4) // for the result
+		  Dim dwChecksum As New MemoryBlock(4) // for the result
 		  Dim sEXEInfo As New MemoryBlock(256)
 		  Dim sDLLPath As String, DLLFile As MemoryBlock
 		  Dim sUnused As New MemoryBlock(1)
@@ -243,7 +243,7 @@ Protected Module Globals
 		  If UBound(Files) >= 2 Then GameFile3 = Globals.StringToMemory(Files(2))
 		  If UBound(Files) >= 3 Then PathToVideoBin = Globals.StringToMemory(Files(3))
 		  
-		  DLLFile = Globals.StringToMemory(sDLLPath) '// buffer the path to the DLL
+		  DLLFile = Globals.StringToMemory(sDLLPath) // buffer the path to the DLL
 		  
 		  Dim CRevResult As UInt32 = CheckRevisionEx(GameFile1, GameFile2, GameFile3, sValueString, _
 		  dwEXEVersion, dwChecksum, sEXEInfo, DLLFile, sUnused, PathToVideoBin)
@@ -264,10 +264,10 @@ Protected Module Globals
 		  While i <= Len(Source)
 		    
 		    If Invert = False Then
-		      '// Source must contain nothing outside of pattern.
+		      // Source must contain nothing outside of pattern.
 		      If InStr(Pattern, Mid(Source, i, 1)) <= 0 Then Return False
 		    Else
-		      '// Source must contain nothing inside of pattern.
+		      // Source must contain nothing inside of pattern.
 		      If InStr(Pattern, Mid(Source, i, 1)) >= 1 Then Return False
 		    End If
 		    
@@ -286,10 +286,10 @@ Protected Module Globals
 		  While i <= LenB(Source)
 		    
 		    If Invert = False Then
-		      '// Source must contain nothing outside of pattern.
+		      // Source must contain nothing outside of pattern.
 		      If InStrB(Pattern, MidB(Source, i, 1)) <= 0 Then Return False
 		    Else
-		      '// Source must contain nothing inside of pattern.
+		      // Source must contain nothing inside of pattern.
 		      If InStrB(Pattern, MidB(Source, i, 1)) >= 1 Then Return False
 		    End If
 		    
@@ -325,12 +325,12 @@ Protected Module Globals
 	#tag Method, Flags = &h0
 		Function ColorMix(aMix As Color, bMix As Color, favor As Integer = 0) As Color
 		  
-		  '// favor:
-		  '//   -2 = favor aMix x2
-		  '//   -1 = favor aMix x1
-		  '//    0 = favor both
-		  '//   +1 = favor bMix x1
-		  '//   +2 = favor bMix x2
+		  // favor:
+		  //   -2 = favor aMix x2
+		  //   -1 = favor aMix x1
+		  //    0 = favor both
+		  //   +1 = favor bMix x1
+		  //   +2 = favor bMix x2
 		  
 		  Dim ret As Color
 		  Dim f1, f2, f3 As Integer
@@ -352,7 +352,7 @@ Protected Module Globals
 		    f1 = 5
 		    f2 = 1
 		    f3 = 4
-		  Else
+		  Else // favor < -2 Or favor == 0 Or favor > 2
 		    f1 = 2
 		    f2 = 1
 		    f3 = 1
@@ -469,10 +469,10 @@ Protected Module Globals
 	#tag Method, Flags = &h0
 		Sub CreateLagIcons()
 		  
-		  '// Sizes:
-		  '//   03x11 x3
-		  '//   18x11 x1
-		  '//  =27x11
+		  // Sizes:
+		  //   03x11 x3
+		  //   18x11 x1
+		  //  =27x11
 		  
 		  If Globals.imgLagGreen = Nil Then
 		    Globals.imgLagGreen = New Picture(3, imgLagIcons.Height, imgLagIcons.Depth)
@@ -503,7 +503,7 @@ Protected Module Globals
 		  Dim Icons() As UserIcon
 		  Dim Img As Picture = imgUserIcons
 		  
-		  '// Column 0: Products & Flags
+		  // Column 0: Products & Flags
 		  Icons.Append(New UserIcon(0, &H01, 0, Img, 0, 0))
 		  Icons.Append(New UserIcon(0, &H08, 0, Img, 1, 0))
 		  Icons.Append(New UserIcon(0, &H02, 0, Img, 2, 0))
@@ -526,7 +526,7 @@ Protected Module Globals
 		  Icons.Append(New UserIcon(Packets.BNETProduct_W3XP, 0, 0, Img, 19, 0))
 		  Icons.Append(New UserIcon(0, 0, MemClass.ReadDWORD("SPWN", 1, False), Img, 20, 0))
 		  
-		  '// Column 1: Warcraft III Characters
+		  // Column 1: Warcraft III Characters
 		  Icons.Append(New UserIcon(Packets.BNETProduct_WAR3, 0, MemClass.ReadDWORD("W3H1", 1, False), Img, 0, 1))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_WAR3, 0, MemClass.ReadDWORD("W3H2", 1, False), Img, 1, 1))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_WAR3, 0, MemClass.ReadDWORD("W3H3", 1, False), Img, 2, 1))
@@ -553,7 +553,7 @@ Protected Module Globals
 		  Icons.Append(New UserIcon(Packets.BNETProduct_WAR3, 0, MemClass.ReadDWORD("W3R4", 1, False), Img, 23, 1))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_WAR3, 0, MemClass.ReadDWORD("W3R5", 1, False), Img, 24, 1))
 		  
-		  '// Column 2: Warcraft III The Frozen Throne Characters
+		  // Column 2: Warcraft III The Frozen Throne Characters
 		  Icons.Append(New UserIcon(Packets.BNETProduct_W3XP, 0, MemClass.ReadDWORD("W3H1", 1, False), Img, 0, 2))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_W3XP, 0, MemClass.ReadDWORD("W3H2", 1, False), Img, 1, 2))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_W3XP, 0, MemClass.ReadDWORD("W3H3", 1, False), Img, 2, 2))
@@ -591,14 +591,14 @@ Protected Module Globals
 		  Icons.Append(New UserIcon(Packets.BNETProduct_W3XP, 0, MemClass.ReadDWORD("W3D5", 1, False), Img, 29, 2))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_W3XP, 0, MemClass.ReadDWORD("W3D6", 1, False), Img, 30, 2))
 		  
-		  '// Column 3: Clan Icons
+		  // Column 3: Clan Icons
 		  Icons.Append(New UserIcon(MemClass.ReadDWORD("CLAN", 1, False), 0, 0, Img, 0, 3))
 		  Icons.Append(New UserIcon(MemClass.ReadDWORD("CLAN", 1, False), 0, 1, Img, 1, 3))
 		  Icons.Append(New UserIcon(MemClass.ReadDWORD("CLAN", 1, False), 0, 2, Img, 2, 3))
 		  Icons.Append(New UserIcon(MemClass.ReadDWORD("CLAN", 1, False), 0, 3, Img, 3, 3))
 		  Icons.Append(New UserIcon(MemClass.ReadDWORD("CLAN", 1, False), 0, 4, Img, 4, 3))
 		  
-		  '// Column 4: Diablo Shareware & Diablo Retail
+		  // Column 4: Diablo Shareware & Diablo Retail
 		  Icons.Append(New UserIcon(Packets.BNETProduct_DSHR, 0, 1, Img, 0, 4))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_DRTL, 0, 1, Img, 1, 4))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_DRTL, 0, 2, Img, 2, 4))
@@ -613,7 +613,7 @@ Protected Module Globals
 		  Icons.Append(New UserIcon(Packets.BNETProduct_DRTL, 0, 11, Img, 10, 4))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_DRTL, 0, 12, Img, 11, 4))
 		  
-		  '// Column 7: Starcraft & Warcraft II Sponsors
+		  // Column 7: Starcraft & Warcraft II Sponsors
 		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, MemClass.ReadDWORD("WCRF", 1, False), Img, 0, 7))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, MemClass.ReadDWORD("WCPL", 1, False), Img, 1, 7))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, MemClass.ReadDWORD("WCGO", 1, False), Img, 2, 7))
@@ -621,40 +621,40 @@ Protected Module Globals
 		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, MemClass.ReadDWORD("WCBR", 1, False), Img, 4, 7))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, MemClass.ReadDWORD("WCPG", 1, False), Img, 5, 7))
 		  
-		  '// Column 5: Starcraft & Warcraft II Wins, Ranks & Ratings
-		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 12, Img, 11, 5)) '// Ladder Rating
-		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 13, Img, 12, 5)) '// Ladder Rank
-		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 14, Img, 13, 5)) '// Highest Ladder Rating
-		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 1, Img, 0, 5)) '// 0 Wins
-		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 2, Img, 1, 5)) '// 1 Win
-		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 3, Img, 2, 5)) '// 2 Wins
-		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 4, Img, 3, 5)) '// etc.
+		  // Column 5: Starcraft & Warcraft II Wins, Ranks & Ratings
+		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 12, Img, 11, 5)) // Ladder Rating
+		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 13, Img, 12, 5)) // Ladder Rank
+		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 14, Img, 13, 5)) // Highest Ladder Rating
+		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 1, Img, 0, 5)) // 0 Wins
+		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 2, Img, 1, 5)) // 1 Win
+		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 3, Img, 2, 5)) // 2 Wins
+		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 4, Img, 3, 5)) // etc.
 		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 5, Img, 4, 5))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 6, Img, 5, 5))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 7, Img, 6, 5))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 8, Img, 7, 5))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 9, Img, 8, 5))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 10, Img, 9, 5))
-		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 11, Img, 10, 5)) '// 10+ Wins
+		  Icons.Append(New UserIcon(Packets.BNETProduct_STAR, 0, 11, Img, 10, 5)) // 10+ Wins
 		  
-		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 16, Img, 29, 5)) '// Blue #1
-		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 14, Img, 27, 5)) '// Blue Border
-		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 15, Img, 28, 5)) '// Gold #1
-		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 13, Img, 26, 5)) '// Blue Tint Gold Border
-		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 12, Img, 25, 5)) '// Red Tint Gold Border
-		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 1, Img, 14, 5)) '// 0 Wins
-		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 2, Img, 15, 5)) '// 1 Win
-		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 3, Img, 16, 5)) '// 2 Wins
-		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 4, Img, 17, 5)) '// etc.
+		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 16, Img, 29, 5)) // Blue #1
+		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 14, Img, 27, 5)) // Blue Border
+		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 15, Img, 28, 5)) // Gold #1
+		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 13, Img, 26, 5)) // Blue Tint Gold Border
+		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 12, Img, 25, 5)) // Red Tint Gold Border
+		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 1, Img, 14, 5)) // 0 Wins
+		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 2, Img, 15, 5)) // 1 Win
+		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 3, Img, 16, 5)) // 2 Wins
+		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 4, Img, 17, 5)) // etc.
 		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 5, Img, 18, 5))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 6, Img, 19, 5))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 7, Img, 20, 5))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 8, Img, 21, 5))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 9, Img, 22, 5))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 10, Img, 23, 5))
-		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 11, Img, 24, 5)) '// 10+ Wins
+		  Icons.Append(New UserIcon(Packets.BNETProduct_W2BN, 0, 11, Img, 24, 5)) // 10+ Wins
 		  
-		  '// Give this new list to the cache:
+		  // Give this new list to the cache:
 		  Globals.UserIcons = Icons
 		  
 		End Sub
@@ -675,7 +675,7 @@ Protected Module Globals
 		  SystemTime.Short(8) = Value.Hour
 		  SystemTime.Short(10) = Value.Minute
 		  SystemTime.Short(12) = Value.Second
-		  SystemTime.Short(14) = 0 '// Milliseconds
+		  SystemTime.Short(14) = 0 // Milliseconds
 		  
 		  Dim FileTime As New MemoryBlock(8)
 		  
@@ -689,8 +689,8 @@ Protected Module Globals
 	#tag Method, Flags = &h0
 		Function DecryptCDKey(CDKey As String, ClientToken As UInt32, ServerToken As UInt32) As String
 		  
-		  '// We must return 36 bytes exactly.
-		  '// If we return 0 bytes, an error occurred.
+		  // We must return 36 bytes exactly.
+		  // If we return 0 bytes, an error occurred.
 		  
 		  Soft Declare Function kd_quick Lib "BNCSutil.dll" (CDKey As Ptr, _
 		  Client_Token As Integer, Server_Token As Integer, Public_Value As Ptr, _
@@ -765,7 +765,7 @@ Protected Module Globals
 	#tag Method, Flags = &h0
 		Function EncryptOLSPW(Password As String) As String
 		  
-		  '// OLS Password Hashing
+		  // OLS Password Hashing
 		  
 		  Return Globals.BSHA1(Password)
 		  
@@ -775,7 +775,7 @@ Protected Module Globals
 	#tag Method, Flags = &h0
 		Function EncryptOLSPW(Password As String, ClientToken As UInt32, ServerToken As UInt32) As String
 		  
-		  '// OLS Password Hashing
+		  // OLS Password Hashing
 		  
 		  Soft Declare Sub doubleHashPassword Lib "BNCSutil.dll" (Password As Ptr, _
 		  ClientToken As Integer, ServerToken As Integer, outBuffer As Ptr)
@@ -920,7 +920,7 @@ Protected Module Globals
 		      Continue While
 		    End If
 		    
-		    '// Clan
+		    // Clan
 		    If Icon.Product = dwProduct And Icon.Flags = 0 And Icon.ExtraData = Rank Then Exit While
 		    
 		    i = i - 1
@@ -940,19 +940,19 @@ Protected Module Globals
 		  
 		  If UDPSupport = False Then retUDP = Globals.imgNoUDP Else retUDP = Nil
 		  
-		  '// w is used to determine how much width we need per bar:
+		  // w is used to determine how much width we need per bar:
 		  w = (Globals.imgLagGreen.Width + Globals.imgLagYellow.Width + Globals.imgLagRed.Width) / 3
 		  
-		  '// h is used to determine how much height we need for everything:
+		  // h is used to determine how much height we need for everything:
 		  h = (Globals.imgLagGreen.Height + Globals.imgLagYellow.Height + Globals.imgLagRed.Height + Globals.imgNoUDP.Height) / 4
 		  
-		  '// d is used to determine how much depth we need for everything:
+		  // d is used to determine how much depth we need for everything:
 		  d = (Globals.imgLagGreen.Depth + Globals.imgLagYellow.Depth + Globals.imgLagRed.Depth + Globals.imgNoUDP.Depth) / 4
 		  
-		  '// Find the ping value, and calculate our final width:
+		  // Find the ping value, and calculate our final width:
 		  If Settings.PrefPingRangesFlushRight = False Then
 		    
-		    '// Find width based on bar count. While doing this, look for our ping range.
+		    // Find width based on bar count. While doing this, look for our ping range.
 		    i = 0
 		    j = w
 		    While i <= UBound(Settings.PrefPingRanges)
@@ -966,14 +966,14 @@ Protected Module Globals
 		    
 		  Else
 		    
-		    '// Find our ping range, ignoring the widths of all other ping ranges:
+		    // Find our ping range, ignoring the widths of all other ping ranges:
 		    i = 0
 		    j = 0
 		    While i <= UBound(Settings.PrefPingRanges)
 		      PR = Settings.PrefPingRanges(i)
 		      If PR <> Nil And Ping >= PR.LowestPing And Ping <= PR.HighestPing Then
 		        retPR = PR
-		        Exit While '// We're done, so let's exit this loop to save time.
+		        Exit While // We're done, so let's exit this loop to save time.
 		      End If
 		      i = i + 1
 		    Wend
@@ -982,7 +982,7 @@ Protected Module Globals
 		  End If
 		  
 		  If retPR <> Nil Then
-		    '// Compile the ping icon:
+		    // Compile the ping icon:
 		    retPing = New Picture(j, h, d)
 		    retPing.Graphics.ForeColor = Colors.Black
 		    retPing.Graphics.FillRect(0, 0, retPing.Graphics.Width, retPing.Graphics.Height)
@@ -1009,17 +1009,17 @@ Protected Module Globals
 		    Wend
 		  End If
 		  
-		  '// Compile the final icon:
+		  // Compile the final icon:
 		  If retUDP <> Nil And retPing = Nil Then
-		    '// We did not compile the ping, and UDP is not supported.
+		    // We did not compile the ping, and UDP is not supported.
 		    ret = retUDP
 		    
 		  ElseIf retUDP = Nil And retPing <> Nil Then
-		    '// We compiled the ping, but UDP is supported.
+		    // We compiled the ping, but UDP is supported.
 		    ret = retPing
 		    
 		  ElseIf retUDP <> Nil And retPing <> Nil Then
-		    '// We compiled both the ping and the UDP icon. We must merge them.
+		    // We compiled both the ping and the UDP icon. We must merge them.
 		    ret = New Picture(retUDP.Width + retPing.Width, _
 		    (retUDP.Height + retPing.Height) / 2, (retUDP.Depth + retPing.Depth) / 2)
 		    
@@ -1030,7 +1030,7 @@ Protected Module Globals
 		    ret.Mask(True).Graphics.DrawPicture(retPing.Mask(True), retUDP.Width, 0)
 		    
 		  Else
-		    '// Nothing was compiled whatsoever.
+		    // Nothing was compiled whatsoever.
 		    ret = Nil
 		    
 		  End If
@@ -1055,7 +1055,7 @@ Protected Module Globals
 		      Continue While
 		    End If
 		    
-		    '// Product
+		    // Product
 		    If Icon.Product = Product And Icon.Flags = 0 And Icon.ExtraData = 0 Then Exit While
 		    
 		    i = i - 1
@@ -1122,31 +1122,31 @@ Protected Module Globals
 		  "Rank:  " + Globals.ClanRankName(Rank) + EndOfLine + _
 		  "Location:  "
 		  
-		  'Select Case LocationType
-		  'Case &H00 '// Offline
-		  'sTmp = sTmp + "Offline"
-		  '
-		  'Case &H01 '// Not in chat
-		  'sTmp = sTmp + "Not in chat"
-		  '
-		  'Case &H02 '// In chat
-		  'sTmp = sTmp + "In chat (" + Location + ")"
-		  '
-		  'Case &H03 '// In a public game
-		  'sTmp = sTmp + "In a public game (" + Location + ")"
-		  '
-		  'Case &H04 '// In a private game, and you are not that person's friend.
-		  'sTmp = sTmp + "In a private game"
-		  '
-		  'Case &H05 '// In a private game, and you are that person's friend.
-		  'sTmp = sTmp + "In a private game (" + Location + ")"
-		  '
-		  'End Select
+		  //Select Case LocationType
+		  //Case &H00 // Offline
+		  //sTmp = sTmp + "Offline"
+		  //
+		  //Case &H01 // Not in chat
+		  //sTmp = sTmp + "Not in chat"
+		  //
+		  //Case &H02 // In chat
+		  //sTmp = sTmp + "In chat (" + Location + ")"
+		  //
+		  //Case &H03 // In a public game
+		  //sTmp = sTmp + "In a public game (" + Location + ")"
+		  //
+		  //Case &H04 // In a private game, and you are not that person's friend.
+		  //sTmp = sTmp + "In a private game"
+		  //
+		  //Case &H05 // In a private game, and you are that person's friend.
+		  //sTmp = sTmp + "In a private game (" + Location + ")"
+		  //
+		  //End Select
 		  Select Case LocationType
-		  Case &H00 '// Offline
+		  Case &H00 // Offline
 		    sTmp = sTmp + "Offline"
 		    
-		  Case &H01 '// Online
+		  Case &H01 // Online
 		    sTmp = sTmp + "Online (" + Location + ")"
 		    
 		  End Select
@@ -1167,22 +1167,22 @@ Protected Module Globals
 		  "Location:  "
 		  
 		  Select Case LocationType
-		  Case &H00 '// Offline
+		  Case &H00 // Offline
 		    sTmp = sTmp + "Offline"
 		    
-		  Case &H01 '// Not in chat
+		  Case &H01 // Not in chat
 		    sTmp = sTmp + "Not in chat"
 		    
-		  Case &H02 '// In chat
+		  Case &H02 // In chat
 		    sTmp = sTmp + "In chat (" + Location + ")"
 		    
-		  Case &H03 '// In a public game
+		  Case &H03 // In a public game
 		    sTmp = sTmp + "In a public game (" + Location + ")"
 		    
-		  Case &H04 '// In a private game, and you are not that person's friend.
+		  Case &H04 // In a private game, and you are not that person's friend.
 		    sTmp = sTmp + "In a private game"
 		    
-		  Case &H05 '// In a private game, and you are that person's friend.
+		  Case &H05 // In a private game, and you are that person's friend.
 		    sTmp = sTmp + "In a private game (" + Location + ")"
 		    
 		  End Select
@@ -1239,7 +1239,7 @@ Protected Module Globals
 		      Continue While
 		    End If
 		    
-		    '// Statstring: WAR3
+		    // Statstring: WAR3
 		    If FoundStats = False And Product = Packets.BNETProduct_WAR3 And _
 		      Icon.Product = Packets.BNETProduct_WAR3 And Icon.ExtraData = WCIcon And _
 		      WCIcon <> 0 And WCIcon <> Product Then
@@ -1247,7 +1247,7 @@ Protected Module Globals
 		      g.DrawPicture(Icon.Bitmap, 0, 0)
 		    End If
 		    
-		    '// Statstring: W3XP
+		    // Statstring: W3XP
 		    If FoundStats = False And Product = Packets.BNETProduct_W3XP And _
 		      Icon.Product = Packets.BNETProduct_W3XP And Icon.ExtraData = WCIcon And _
 		      WCIcon <> 0 And WCIcon <> Product Then
@@ -1255,7 +1255,7 @@ Protected Module Globals
 		      g.DrawPicture(Icon.Bitmap, 0, 0)
 		    End If
 		    
-		    '// Statstring: STAR, JSTR, W2BN (Spawn)
+		    // Statstring: STAR, JSTR, W2BN (Spawn)
 		    If FoundStats = False And (Product = Packets.BNETProduct_STAR Or _
 		      Product = Packets.BNETProduct_JSTR Or Globals.IsWarcraftII(Product) = True) And _
 		      Icon.Product = 0 And Icon.Flags = 0 And Icon.ExtraData = IconSPWN And _
@@ -1264,7 +1264,7 @@ Protected Module Globals
 		      g.DrawPicture(Icon.Bitmap, 0, 0)
 		    End If
 		    
-		    '// Statstring: STAR, SEXP, JSTR, SSHR, W2BN (Sponsors)
+		    // Statstring: STAR, SEXP, JSTR, SSHR, W2BN (Sponsors)
 		    If FoundStats = False And (Globals.IsStarcraft(Product) = True Or _
 		      Globals.IsWarcraftII(Product) = True) And Icon.ExtraData = LegacyIcon And _
 		      Icon.Flags = 0 And LegacyIcon <> 0 And LegacyIcon <> Product Then
@@ -1272,7 +1272,7 @@ Protected Module Globals
 		      g.DrawPicture(Icon.Bitmap, 0, 0)
 		    End If
 		    
-		    '// Statstring: STAR, SEXP, JSTR, SSHR (Rating/Rank/Highest Rating)
+		    // Statstring: STAR, SEXP, JSTR, SSHR (Rating/Rank/Highest Rating)
 		    If FoundStats = False And Globals.IsStarcraft(Product) = True And _
 		      Globals.IsStarcraft(Icon.Product) = True And Icon.Flags = 0 And _
 		      ((Icon.ExtraData = 12 And Rating > 0) _
@@ -1291,7 +1291,7 @@ Protected Module Globals
 		      End If
 		    End If
 		    
-		    '// Statstring: STAR, SEXP, JSTR, SSHR (Wins)
+		    // Statstring: STAR, SEXP, JSTR, SSHR (Wins)
 		    If FoundStats = False And Globals.IsStarcraft(Product) = True And _
 		      Globals.IsStarcraft(Icon.Product) = True And Icon.ExtraData <> 0 Then
 		      If (Icon.ExtraData - 1 = Wins And Wins >= 0 And Wins <= 10) Or (Icon.ExtraData = 11 And Wins > 10) Then
@@ -1300,7 +1300,7 @@ Protected Module Globals
 		      End If
 		    End If
 		    
-		    '// Statstring: W2BN (Rating/Rank/Highest Rating/IronMan Rating/IronMan Rank)
+		    // Statstring: W2BN (Rating/Rank/Highest Rating/IronMan Rating/IronMan Rank)
 		    If FoundStats = False And Globals.IsWarcraftII(Product) = True And _
 		      Globals.IsWarcraftII(Icon.Product) = True And Icon.Flags = 0 And _
 		      ((Icon.ExtraData = 16 And IronManRank = 1) Or _
@@ -1325,7 +1325,7 @@ Protected Module Globals
 		      End If
 		    End If
 		    
-		    '// Statstring: W2BN (Wins)
+		    // Statstring: W2BN (Wins)
 		    If FoundStats = False And Globals.IsWarcraftII(Product) = True And _
 		      Globals.IsWarcraftII(Icon.Product) = True And Icon.ExtraData <> 0 Then
 		      If (Icon.ExtraData - 1 = Wins And Wins >= 0 And Wins <= 10) Or (Icon.ExtraData = 11 And Wins > 10) Then
@@ -1334,13 +1334,13 @@ Protected Module Globals
 		      End If
 		    End If
 		    
-		    '// Flags
+		    // Flags
 		    If FoundFlags = False And BitAnd(Flags, Icon.Flags) > 0 And Icon.ExtraData = 0 And Icon.Product = 0 Then
 		      FoundFlags = True
 		      If FoundStats = False Then g.DrawPicture(Icon.Bitmap, 0, 0)
 		    End If
 		    
-		    '// Product
+		    // Product
 		    If FoundProduct = False And Icon.Flags = 0 And Icon.Product = Product And Icon.ExtraData = 0 Then
 		      FoundProduct = True
 		      g.DrawPicture(Icon.Bitmap, 28, 0)
@@ -1352,8 +1352,8 @@ Protected Module Globals
 		  If FoundFlags = False And FoundStats = False And FoundProduct = False Then Buffer = Globals.imgUserIconUnrecognized()
 		  
 		  If LenB(OverlayText) > 0 Then
-		    '// Draw once with black, then again with yellow
-		    '// (that way it's easier to see the text if the icon is yellow already)
+		    // Draw once with black, then again with yellow
+		    // (that way it's easier to see the text if the icon is yellow already)
 		    g.ForeColor = Colors.Black
 		    g.DrawString(OverlayText, 28 - g.StringWidth(OverlayText), g.Height - 1, 26, False)
 		    g.ForeColor = Colors.Yellow
@@ -1547,7 +1547,7 @@ Protected Module Globals
 		    
 		  Case "Profile"
 		    
-		    '// Reusing BNETText as a variable here, we will clear it at the end.
+		    // Reusing BNETText as a variable here, we will clear it at the end.
 		    
 		    BNETText = NthField(Rest, " ", 1)
 		    sTmp = NthField(Rest, " ", 2)
@@ -1695,7 +1695,7 @@ Protected Module Globals
 		    
 		  End Select
 		  
-		  '// Reply to Battle.net:
+		  // Reply to Battle.net:
 		  
 		  If LenB(BNETText) > 0 Then
 		    If Config.BNET <> Nil And Config.BNET.IsConnected = True And LenB(Config.BNET.UniqueName) > 0 Then
@@ -2263,8 +2263,8 @@ Protected Module Globals
 	#tag Method, Flags = &h0
 		Function StringToMemory(Source As String) As MemoryBlock
 		  
-		  '// Used for API calls.
-		  '// Allows us to give a string through a pointer address.
+		  // Used for API calls.
+		  // Allows us to give a string through a pointer address.
 		  
 		  Dim kMemory As New MemoryBlock(LenB(Source) + 1)
 		  kMemory.StringValue(0, LenB(Source)) = Source
@@ -2294,31 +2294,31 @@ Protected Module Globals
 		    LSecond = "s"
 		  End If
 		  
-		  '// BEGIN CONVERSIONS
+		  // BEGIN CONVERSIONS
 		  
-		  '// Period is in seconds:
+		  // Period is in seconds:
 		  Seconds = Period
 		  
-		  '// 60 seconds in 1 minute:
+		  // 60 seconds in 1 minute:
 		  Minutes = Seconds \ 60
 		  Seconds = Seconds Mod 60
 		  
-		  '// 60 minutes in 1 hour:
+		  // 60 minutes in 1 hour:
 		  Hours = Minutes \ 60
 		  Minutes = Minutes Mod 60
 		  
-		  '// 24 hours in 1 day:
+		  // 24 hours in 1 day:
 		  Days = Hours \ 24
 		  Hours = Hours Mod 24
 		  
-		  '// 365 days in 1 year:
+		  // 365 days in 1 year:
 		  Years = Days \ 365
 		  Days = Days Mod 365
 		  
-		  '// END CONVERSIONS
+		  // END CONVERSIONS
 		  
 		  If Fullstring = True Then
-		    '// Return something like "5 days, 0 hours, 1 minute, 13 seconds"
+		    // Return something like "5 days, 0 hours, 1 minute, 13 seconds"
 		    If ShortLegend = False Then
 		      Buffer = Buffer + Str(Years) + " " + LYear
 		      If Years <> 1 Then Buffer = Buffer + "s"
@@ -2338,7 +2338,7 @@ Protected Module Globals
 		    Return Buffer
 		  End If
 		  
-		  '// Return something like "5 days, 1 minute, 13 seconds"
+		  // Return something like "5 days, 1 minute, 13 seconds"
 		  
 		  If Years <> 0 Then
 		    If ShortLegend = False Then
@@ -2422,10 +2422,10 @@ Protected Module Globals
 	#tag Method, Flags = &h0
 		Function WildcardMatchVB(Source As String, Pattern As String) As Boolean
 		  
-		  '// This mimcks the Visual-basic style of wildcard matching,
-		  '// which uses asterisks as the "wildcard" character.
-		  '//
-		  '// UNSUPPORTED PATTERN: *Some*thing*   (* >= 3)
+		  // This will mimic the Visual Basic style of wildcard matching,
+		  // which uses asterisks as the "wildcard" character.
+		  //
+		  // UNSUPPORTED PATTERN: *Some*thing*   (* >= 3)
 		  
 		  Dim Asterisk As String = "*"
 		  
@@ -2435,22 +2435,22 @@ Protected Module Globals
 		  Dim MPattern As String = Mid(sPattern, Len(Asterisk) + 1, Len(sPattern) - Len(Asterisk) * 2)
 		  Dim RPattern As String = Mid(sPattern, Len(Asterisk) + 1)
 		  
-		  '// Match left side    (Pattern:  *Some)
+		  // Match left side    (Pattern:  *Some)
 		  If Left(sPattern, Len(Asterisk)) = Asterisk And _   // YES Left-side
 		    Right(sPattern, Len(Asterisk)) <> Asterisk And _ // NOT right-side
 		    Right(Source, Len(RPattern)) = RPattern Then Return True
 		    
-		    '// Match right side   (Pattern:  Some*)
+		    // Match right side   (Pattern:  Some*)
 		    If Left(sPattern, Len(Asterisk)) <> Asterisk And _  // NOT left-side
 		      Right(sPattern, Len(Asterisk)) = Asterisk And _  // YES right-side
 		      Left(Source, Len(LPattern)) = LPattern Then Return True
 		      
-		      '// Match middle       (Pattern: *Some*)
+		      // Match middle       (Pattern: *Some*)
 		      If Left(sPattern, Len(Asterisk)) = Asterisk And _   // YES left-side
 		        Right(sPattern, Len(Asterisk)) = Asterisk And _  // YES right-side
 		        InStr(Source, MPattern) > 0 Then Return True
 		        
-		        '// Match left + right (Pattern: Some*thing)
+		        // Match left + right (Pattern: Some*thing)
 		        If Left(sPattern, Len(Asterisk)) <> Asterisk And _   // NOT left-side
 		          Right(sPattern, Len(Asterisk)) <> Asterisk And _  // NOT right-side
 		          CountFields(sPattern, Asterisk) = 2 And _         // Field1*Field2

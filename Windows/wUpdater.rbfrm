@@ -1,5 +1,5 @@
 #tag Window
-Begin Windows wUpdater
+Begin Window wUpdater
    BackColor       =   48
    Backdrop        =   ""
    CloseButton     =   True
@@ -286,10 +286,10 @@ End
 		      If (RC IsA TextArea Or RC IsA TextField Or RC IsA ListBox) And RC.Visible = True Then
 		        g.ForeColor = Colors.UI.ControlBorderColor
 		        
-		        g.DrawLine(X + W, Y - 1, X + W, Y + H) '// Right
-		        g.DrawLine(X - 1, Y - 1, X - 1, Y + H) '// Left
-		        g.DrawLine(X - 1, Y - 1, X + W, Y - 1) '// Top
-		        g.DrawLine(X - 1, Y + H, X + W, Y + H) '// Bottom
+		        g.DrawLine(X + W, Y - 1, X + W, Y + H) // Right
+		        g.DrawLine(X - 1, Y - 1, X - 1, Y + H) // Left
+		        g.DrawLine(X - 1, Y - 1, X + W, Y - 1) // Top
+		        g.DrawLine(X - 1, Y + H, X + W, Y + H) // Bottom
 		        
 		      End If
 		    End If
@@ -466,13 +466,13 @@ End
 		  #pragma Unused content
 		  
 		  Select Case httpStatus
-		  Case 301, 302, 307 '// Redirect
+		  Case 301, 302, 307 // Redirect
 		    
 		    SetStatus("Redirecting to another URL...")
 		    HTTP.requestHeaders.SetHeader("User-Agent", App.VersionString())
 		    Me.Get(Self.GetHeaderValue(headers, "Location"))
 		    
-		  Case 303 '// See Other
+		  Case 303 // See Other
 		    
 		    SetStatus("An update is available!", "Found an update, click " + btnUpdate.Caption + " to download.")
 		    Self.UpdateURL = Self.GetHeaderValue(headers, "Location")
@@ -480,16 +480,16 @@ End
 		    btnUpdate.Default = True
 		    btnUpdate.Visible = True
 		    
-		  Case 304 '// Not Modified
+		  Case 304 // Not Modified
 		    
 		    SetStatus("No update available!", "You're running the latest revision.")
 		    If Self.WasAutomatic = True Then Self.Close()
 		    
-		  Case 401 '// Not authorized
+		  Case 401 // Not authorized
 		    
 		    SetStatus("Authentication cancelled!", "Authentication was cancelled by user.")
 		    
-		  Case 404 '// Not Found
+		  Case 404 // Not Found
 		    
 		    SetStatus("Unknown or invalid product!", "We're running an unknown or invalid application.")
 		    

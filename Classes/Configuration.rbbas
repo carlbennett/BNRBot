@@ -124,8 +124,8 @@ Protected Class Configuration
 	#tag Method, Flags = &h0
 		Sub AddChatTimestamp()
 		  
-		  '// First, check to see if we should run in the first place:
-		  '//   Are we set to off, or are we set to military time without a short/long time?
+		  // First, check to see if we should run in the first place:
+		  //   Are we set to off, or are we set to military time without a short/long time?
 		  If Me.Timestamp = Me.TimestampOff Or Me.Timestamp = Me.TimestampMilitaryTime Then Return
 		  
 		  If Me.RTFData = Nil Then Me.RTFData = New StyledText()
@@ -202,7 +202,7 @@ Protected Class Configuration
 		  
 		  If Me.Timestamp <> Me.TimestampOff And Me.Timestamp <> Me.TimestampMilitaryTime Then
 		    If LenB(SR.Text) > 0 Then
-		      If LeftB(SR.Text, 1) = ChrB(32) Then SR.Text = MidB(SR.Text, 2) '// Skip first space.
+		      If LeftB(SR.Text, 1) = ChrB(32) Then SR.Text = MidB(SR.Text, 2) // Skip first space.
 		      Me.RTFData.AppendStyleRun(SR)
 		      If Me.RTFField <> Nil Then
 		        Me.RTFField.SelTextFont = SR.Font
@@ -232,7 +232,7 @@ Protected Class Configuration
 		Sub ClearChat(Silently As Boolean)
 		  
 		  If Me.RTFData = Nil Then Me.RTFData = New StyledText()
-		  Me.RTFData.Text = "" '// Clears EVERYTHING including StyleRuns.
+		  Me.RTFData.Text = "" // Clears EVERYTHING including StyleRuns.
 		  
 		  If Silently = True Then Return
 		  

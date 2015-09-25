@@ -142,15 +142,15 @@ Protected Module Packets
 	#tag Method, Flags = &h1
 		Protected Function CreateSID_AUTH_CHECK(ClientToken As UInt32, EXEVersion As UInt32, EXEChecksum As UInt32, EXEInfo As String, CDKeyOwner As String, SpawnKey As Boolean, CDKeys() As String) As String
 		  
-		  '// Each CD-key is encoded first (36 bytes / 9 DWORDs) before arriving to this function.
+		  // Each CD-key is encoded first (36 bytes / 9 DWORDs) before arriving to this function.
 		  
 		  Dim Buffer As String
 		  Dim Prebuffer As String, Keys As UInt32 = 0
 		  
-		  '// We pre-buffer our CD-keys so that we can make sure we tell Battle.net how
-		  '// many exactly CD-keys there are. The only reason to pre-buffer the keys is
-		  '// so that we can add/remove accidentally invalid keys here, before they get
-		  '// sent to the Battle.net server for checking.
+		  // We pre-buffer our CD-keys so that we can make sure we tell Battle.net how
+		  // many exactly CD-keys there are. The only reason to pre-buffer the keys is
+		  // so that we can add/remove accidentally invalid keys here, before they get
+		  // sent to the Battle.net server for checking.
 		  
 		  For Each CDKey As String In CDKeys
 		    If LenB(CDKey) = 36 Then
@@ -159,7 +159,7 @@ Protected Module Packets
 		    End If
 		  Next
 		  
-		  '// Buffer the rest of the packet, including the pre-buffer...
+		  // Buffer the rest of the packet, including the pre-buffer...
 		  
 		  MemClass.WriteDWORD(Buffer, ClientToken, True)
 		  MemClass.WriteDWORD(Buffer, EXEVersion, True)
@@ -801,22 +801,22 @@ Protected Module Packets
 		  
 		  If Sock.Config <> Nil Then
 		    Select Case Status
-		    Case &H00 '// Successfully created account name.
-		    Case &H04 '// Name already exists.
+		    Case &H00 // Successfully created account name.
+		    Case &H04 // Name already exists.
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Your account already exists." + EndOfLine)
-		    Case &H07 '// Name is too short/blank.
+		    Case &H07 // Name is too short/blank.
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Your account name is too short." + EndOfLine)
-		    Case &H08 '// Name contains an illegal character.
+		    Case &H08 // Name contains an illegal character.
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Your account name contains invalid characters." + EndOfLine)
-		    Case &H09 '// Name contains an illegal word.
+		    Case &H09 // Name contains an illegal word.
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Your account name uses a banned word." + EndOfLine)
-		    Case &H0A '// Name contains too few alphanumeric characters.
+		    Case &H0A // Name contains too few alphanumeric characters.
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Your account name doesn't have enough alphanumeric characters." + EndOfLine)
-		    Case &H0B '// Name contains adjacent punctuation characters.
+		    Case &H0B // Name contains adjacent punctuation characters.
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Your account name contains adjacent punctuations." + EndOfLine)
-		    Case &H0C '// Name contains too many punctuation characters.
+		    Case &H0C // Name contains too many punctuation characters.
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Your account name contains too many punctuations." + EndOfLine)
-		    Case Else '// Any other: Name already exists.
+		    Case Else // Any other: Name already exists.
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Unknown NLS create failure." + EndOfLine)
 		    End Select
 		  End If
@@ -843,15 +843,15 @@ Protected Module Packets
 		  
 		  If Sock.Config <> Nil Then
 		    Select Case Status
-		    Case &H00 '// Logon accepted, requires proof.
+		    Case &H00 // Logon accepted, requires proof.
 		      If Sock.BNLS.IsConnected = False Then Sock.BNLS.DoConnect()
 		      Sock.BNLS.Send(Packets.CreateBNLS_LOGONPROOF(MidB(PktData, 5)))
-		    Case &H01 '// Account doesn't exist.
+		    Case &H01 // Account doesn't exist.
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Account is non-existant; ")
 		      Sock.Config.AddChat(False, Colors.Yellow, "creating it..." + EndOfLine)
-		    Case &H05 '// Account requires upgrade.
+		    Case &H05 // Account requires upgrade.
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Account requires upgrade. (NYI)" + EndOfLine)
-		    Case Else '// Unknown (failure).
+		    Case Else // Unknown (failure).
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Unknown NLS logon failure." + EndOfLine)
 		    End Select
 		  End If
@@ -860,7 +860,7 @@ Protected Module Packets
 		    Sock.DoDisconnect(False)
 		    Return False
 		  ElseIf Status = &H01 Then
-		    '// Try to create the account...
+		    // Try to create the account...
 		    If Sock.Config.BNLSEnabled = True Then
 		      If Sock.BNLS <> Nil And Sock.BNLS.IsConnected = False And Sock.BNLS.IsConnecting = False Then Sock.BNLS.DoConnect()
 		      Sock.BNLS.Send(Packets.CreateBNLS_CREATEACCOUNT(Sock.Config.Username, Sock.Config.Password))
@@ -889,7 +889,7 @@ Protected Module Packets
 		  
 		  If Sock.Config <> Nil Then
 		    Select Case Status
-		    Case &H00, &H0E '// Logon successful. (OR) An email address should be registered for this account.
+		    Case &H00, &H0E // Logon successful. (OR) An email address should be registered for this account.
 		      
 		      If Sock.BNLS <> Nil Then Sock.BNLS.Close()
 		      
@@ -905,17 +905,17 @@ Protected Module Packets
 		      
 		      Packets.SendAfterLogonSIDs(Sock)
 		      
-		    Case &H02 '// Incorrect password.
+		    Case &H02 // Incorrect password.
 		      
 		      If Sock.Config <> Nil Then Sock.Config.AddChat(True, Colors.Red, "BNET: Your password is incorrect." + EndOfLine)
 		      Sock.DoDisconnect(False)
 		      Return False
 		      
-		    Case &H0F '// Custom error. A string at the end of this message contains the error.
+		    Case &H0F // Custom error. A string at the end of this message contains the error.
 		      
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: " + MoreInfo + "." + EndOfLine)
 		      
-		    Case Else '// Unknown (failure).
+		    Case Else // Unknown (failure).
 		      
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Unknown NLS logon proof failure." + EndOfLine)
 		      
@@ -944,38 +944,38 @@ Protected Module Packets
 		  Dim MoreInfo As String = MemClass.ReadCString(PktData, 5)
 		  
 		  Select Case Result
-		  Case &H000 '// Passed challenge
-		  Case &H100 '// Old game version
+		  Case &H000 // Passed challenge
+		  Case &H100 // Old game version
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Old game version." + EndOfLine)
-		  Case &H101 '// Invalid version
+		  Case &H101 // Invalid version
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Invalid game version." + EndOfLine)
-		  Case &H102 '// Game version must be downgraded
+		  Case &H102 // Game version must be downgraded
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Game version is too new." + EndOfLine)
-		  Case Sock.VersionByte '// Invalid version code
+		  Case Sock.VersionByte // Invalid version code
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Invalid version byte code." + EndOfLine)
-		  Case &H200 '// CD-Key is invalid
+		  Case &H200 // CD-Key is invalid
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Your CD-Key is invalid." + EndOfLine)
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: You are probably now banned for 2 weeks." + EndOfLine)
-		  Case &H201 '// CD-Key is in use
+		  Case &H201 // CD-Key is in use
 		    If LenB(MoreInfo) < 1 Then _
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Your CD-Key is in use." + EndOfLine) Else _
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Your CD-Key is in use by " + MoreInfo + "." + EndOfLine)
-		  Case &H202 '// CD-Key is banned
+		  Case &H202 // CD-Key is banned
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Your CD-Key is banned." + EndOfLine)
-		  Case &H203 '// CD-Key is for another game
+		  Case &H203 // CD-Key is for another game
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Your CD-Key is for another game." + EndOfLine)
-		  Case &H210 '// Expansion-set CD-Key is invalid
+		  Case &H210 // Expansion-set CD-Key is invalid
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Your expansion-set CD-Key is invalid." + EndOfLine)
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: You are probably now banned for 2 weeks." + EndOfLine)
-		  Case &H211 '// Expansion-set CD-Key is in use
+		  Case &H211 // Expansion-set CD-Key is in use
 		    If LenB(MoreInfo) < 1 Then _
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Your expansion-set CD-Key is in use." + EndOfLine) Else _
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Your expansion-set CD-Key is in use by " + MoreInfo + "." + EndOfLine)
-		  Case &H212 '// Expansion-set CD-Key is banned
+		  Case &H212 // Expansion-set CD-Key is banned
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Your expansion-set CD-Key is banned." + EndOfLine)
-		  Case &H213 '// Expansion-set CD-Key is for another game
+		  Case &H213 // Expansion-set CD-Key is for another game
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Your expansion-set CD-Key is for another game." + EndOfLine)
-		  Case Else '// Unknown result code
+		  Case Else // Unknown result code
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Protocol error - unknown version/cd-key check result." + EndOfLine)
 		  End Select
 		  
@@ -1066,11 +1066,11 @@ Protected Module Packets
 		  Dim colorA, colorB, colorC As Color
 		  Dim bTmp As Boolean
 		  
-		  '// A timer on the wMain delays the users list redraw a tiny bit so that it doesn't lag so much.
-		  '// The lag is caused by the code updating the list N*N times, therefore causing a small (<50ms) pause.
-		  '// Delaying it until "after everything is done" reverses this to just N*1 times.
-		  '// How much time to wait is determined by the lstUsersTimer's Period on wMain.
-		  '// A significant performance increase is seen when the Period is 100ms.
+		  // A timer on the wMain delays the users list redraw a tiny bit so that it doesn't lag so much.
+		  // The lag is caused by the code updating the list N*N times, therefore causing a small (<50ms) pause.
+		  // Delaying it until "after everything is done" reverses this to just N*1 times.
+		  // How much time to wait is determined by the lstUsersTimer's Period on wMain.
+		  // A significant performance increase is seen when the Period is 100ms.
 		  
 		  If wMain.IsConfigSelected(Sock.Config) = False And EventID <> 9 Then
 		    
@@ -1268,7 +1268,7 @@ Protected Module Packets
 		    If Sock.Config.SpamPrevention = True Then dTmp = Sock.ChannelUsers.Lookup(Username, Nil)
 		    bTmp = (Sock.Config.SpamPrevention = True And dTmp <> Nil And dTmp.Value("TimeEntered").DoubleValue + 400000 > Microseconds())
 		    
-		    '// If bTmp = True then they are talking at most 0.4 seconds after entering.
+		    // If bTmp = True then they are talking at most 0.4 seconds after entering.
 		    
 		    If dTmp <> Nil Then
 		      dTmp.Value("LastMessageTime") = Microseconds()
@@ -1335,13 +1335,13 @@ Protected Module Packets
 		      Sock.Config.AddChat(False, Colors.Gray, Text + EndOfLine)
 		    End If
 		    
-		  Case &H0D '// full
+		  Case &H0D // full
 		    
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: The channel ")
 		    Sock.Config.AddChat(False, Colors.Maroon, Text)
 		    Sock.Config.AddChat(False, Colors.Red, " is full." + EndOfLine)
 		    
-		  Case &H0E '// empty
+		  Case &H0E // empty
 		    
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: The channel ")
 		    Sock.Config.AddChat(False, Colors.Maroon, Text)
@@ -1349,7 +1349,7 @@ Protected Module Packets
 		    Sock.Config.AddChat(False, Colors.Yellow, "; forcing join..." + EndOfLine)
 		    Sock.Send(Packets.CreateSID_JOINCHANNEL(&H2, Text))
 		    
-		  Case &H0F '// restricted
+		  Case &H0F // restricted
 		    
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: The channel ")
 		    Sock.Config.AddChat(False, Colors.Maroon, Text)
@@ -1396,7 +1396,7 @@ Protected Module Packets
 		    If Sock.Config.SpamPrevention = True Then dTmp = Sock.ChannelUsers.Lookup(Username, Nil)
 		    bTmp = (Sock.Config.SpamPrevention = True And dTmp <> Nil And dTmp.Value("TimeEntered").DoubleValue + 400000 > Microseconds())
 		    
-		    '// If bTmp = True then they are talking at most 0.4 seconds after entering.
+		    // If bTmp = True then they are talking at most 0.4 seconds after entering.
 		    
 		    If dTmp <> Nil Then
 		      dTmp.Value("LastMessageTime") = Microseconds()
@@ -1504,13 +1504,13 @@ Protected Module Packets
 		  If Cookie <> 0 Then Return False
 		  
 		  Select Case Result
-		  Case &H00 '// Successfully disbanded the clan
+		  Case &H00 // Successfully disbanded the clan
 		    Sock.Config.AddChat(True, Colors.Lime, "BNET: The clan was successfully disbanded." + EndOfLine)
 		    
-		  Case &H04 '// Cannot quit clan, not one week old yet
+		  Case &H04 // Cannot quit clan, not one week old yet
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: The clan is too new for it to be disbanded." + EndOfLine)
 		    
-		  Case &H05 '// Not authorized to disband the clan
+		  Case &H05 // Not authorized to disband the clan
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: You are not authorized to disband the clan." + EndOfLine)
 		    
 		  Case Else
@@ -1540,7 +1540,7 @@ Protected Module Packets
 		  If Sock.IsConnected = False Then Return False
 		  If LenB(PktData) <> 6 Then Return False
 		  
-		  '// (BYTE) Unknown (0)
+		  // (BYTE) Unknown (0)
 		  Sock.ClanTag = MemClass.ReadDWORD(PktData, 2, True)
 		  Sock.ClanRank = MemClass.ReadBYTE(PktData, 6)
 		  
@@ -1579,22 +1579,22 @@ Protected Module Packets
 		  Dim Username As String = MemClass.ReadCString(Data, 1)
 		  
 		  Select Case Result
-		  Case &H00 '// Invitation accepted
+		  Case &H00 // Invitation accepted
 		    Sock.Config.AddChat(True, Colors.Lime, "BNET: Clan invitation to ")
 		    Sock.Config.AddChat(False, Colors.Green, Username)
 		    Sock.Config.AddChat(False, Colors.Lime, " accepted." + EndOfLine)
 		    
-		  Case &H04 '// Invitation declined
+		  Case &H04 // Invitation declined
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Clan invitation to ")
 		    Sock.Config.AddChat(False, Colors.Maroon, Username)
 		    Sock.Config.AddChat(False, Colors.Red, " rejected." + EndOfLine)
 		    
-		  Case &H05 '// Failed to invite user
+		  Case &H05 // Failed to invite user
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Clan invitation to ")
 		    Sock.Config.AddChat(False, Colors.Maroon, Username)
 		    Sock.Config.AddChat(False, Colors.Red, " failed." + EndOfLine)
 		    
-		  Case &H09 '// Clan is full
+		  Case &H09 // Clan is full
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Clan invitation to ")
 		    Sock.Config.AddChat(False, Colors.Maroon, Username)
 		    Sock.Config.AddChat(False, Colors.Red, " failed because the clan is full." + EndOfLine)
@@ -1865,27 +1865,27 @@ Protected Module Packets
 		  Dim Username As String = MemClass.ReadCString(Data, 1)
 		  
 		  Select Case Result
-		  Case &H00 '// Successfully changed rank
+		  Case &H00 // Successfully changed rank
 		    Sock.Config.AddChat(True, Colors.Lime, "BNET: Successfully changed the rank of ")
 		    Sock.Config.AddChat(False, Colors.Green, Username)
 		    Sock.Config.AddChat(False, Colors.Lime, "." + EndOfLine)
 		    
-		  Case &H01 '// Failed to change rank
+		  Case &H01 // Failed to change rank
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Failed to change the rank of ")
 		    Sock.Config.AddChat(False, Colors.Maroon, Username)
 		    Sock.Config.AddChat(False, Colors.Red, "." + EndOfLine)
 		    
-		  Case &H02 '// Cannot change user's rank yet
+		  Case &H02 // Cannot change user's rank yet
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Cannot change the rank of ")
 		    Sock.Config.AddChat(False, Colors.Maroon, Username)
 		    Sock.Config.AddChat(False, Colors.Red, " yet." + EndOfLine)
 		    
-		  Case &H07 '// Not authorized to change user rank
+		  Case &H07 // Not authorized to change user rank
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: You are not authorized to change the rank of ")
 		    Sock.Config.AddChat(False, Colors.Maroon, Username)
 		    Sock.Config.AddChat(False, Colors.Red, "." + EndOfLine)
 		    
-		  Case &H08 '// Not allowed to change user rank
+		  Case &H08 // Not allowed to change user rank
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: You are not allowed to change the rank of ")
 		    Sock.Config.AddChat(False, Colors.Maroon, Username)
 		    Sock.Config.AddChat(False, Colors.Red, "." + EndOfLine)
@@ -1925,27 +1925,27 @@ Protected Module Packets
 		  Dim Username As String = Data
 		  
 		  Select Case Result
-		  Case &H00 '// Removed
+		  Case &H00 // Removed
 		    Sock.Config.AddChat(True, Colors.Lime, "BNET: Successfully removed ")
 		    Sock.Config.AddChat(False, Colors.Green, Username)
 		    Sock.Config.AddChat(False, Colors.Lime, " from the clan." + EndOfLine)
 		    
-		  Case &H01 '// Removal failed
+		  Case &H01 // Removal failed
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Failed to remove ")
 		    Sock.Config.AddChat(False, Colors.Maroon, Username)
 		    Sock.Config.AddChat(False, Colors.Red, " from the clan." + EndOfLine)
 		    
-		  Case &H02 '// Cannot be removed yet
+		  Case &H02 // Cannot be removed yet
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Cannot remove ")
 		    Sock.Config.AddChat(False, Colors.Maroon, Username)
 		    Sock.Config.AddChat(False, Colors.Red, " from the clan yet." + EndOfLine)
 		    
-		  Case &H07 '// Not authorized to remove
+		  Case &H07 // Not authorized to remove
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: You are not authorized to remove ")
 		    Sock.Config.AddChat(False, Colors.Maroon, Username)
 		    Sock.Config.AddChat(False, Colors.Red, " from the clan." + EndOfLine)
 		    
-		  Case &H08 '// Not allowed to remove
+		  Case &H08 // Not allowed to remove
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: You are not allowed to remove ")
 		    Sock.Config.AddChat(False, Colors.Maroon, Username)
 		    Sock.Config.AddChat(False, Colors.Red, " from the clan." + EndOfLine)
@@ -1979,7 +1979,7 @@ Protected Module Packets
 		  
 		  If Sock.Config <> Nil Then
 		    Select Case Result
-		    Case &H00 '// Account created
+		    Case &H00 // Account created
 		      Sock.Config.AddChat(True, Colors.Lime, "BNET: Account created successfully." + EndOfLine)
 		    Case &H01
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Your account name is too short." + EndOfLine)
@@ -2004,7 +2004,7 @@ Protected Module Packets
 		  
 		  If (Result = &H00 Or Result = &H05) Or (Result = &H04 And Sock.Config.CreateAccountsFirst = True) Then
 		    
-		    '// Try to logon...
+		    // Try to logon...
 		    Packets.SendLogonPkt(Sock, True)
 		    Return True
 		    
@@ -2055,7 +2055,7 @@ Protected Module Packets
 		  Sock.Config.AddChat(True, Colors.Red, "BNET: You have been disconnected for flooding." + EndOfLine)
 		  Sock.DoDisconnect(False)
 		  
-		  Sock.ReconnectTimer.Period = (1000 * 120) '// reconnect in 2 minutes
+		  Sock.ReconnectTimer.Period = (1000 * 120) // reconnect in 2 minutes
 		  Sock.ReconnectTimer.Mode = Sock.ReconnectTimer.ModeSingle
 		  Sock.ReconnectTimer.Enabled = True
 		  
@@ -2063,7 +2063,7 @@ Protected Module Packets
 		  
 		  'Sock.Config.AddChat(True, Colors.Red, "BNET: Reconnecting in 2 minutes..." + EndOfLine)
 		  
-		  Return False '// normally we'd return true, but we disconnect here, so we want to cancel the loop...
+		  Return False // normally we'd return true, but we disconnect here, so we want to cancel the loop...
 		  
 		End Function
 	#tag EndMethod
@@ -2148,11 +2148,11 @@ Protected Module Packets
 		  
 		  If Sock.FriendsList = Nil Then
 		    Sock.FriendsList = New Dictionary()
-		    '// Since we don't have the list, we have to recheck ourselves:
+		    // Since we don't have the list, we have to recheck ourselves:
 		    Sock.Send(Packets.CreateSID_FRIENDSLIST())
 		  Else
 		    If Sock.FriendsList.HasKey(OldIndex) = False Or Sock.FriendsList.HasKey(NewIndex) = False Then
-		      '// Since we don't have one of the two indexes, we have to recheck ourselves:
+		      // Since we don't have one of the two indexes, we have to recheck ourselves:
 		      Sock.Send(Packets.CreateSID_FRIENDSLIST())
 		    Else
 		      Dim dTmp1 As Dictionary = Sock.FriendsList.Value(OldIndex)
@@ -2215,7 +2215,7 @@ Protected Module Packets
 		  If dTmp = Nil Then
 		    dTmp = New Dictionary()
 		    Sock.FriendsList.Value(Index) = dTmp
-		    '// Since we don't have this index, we have to recheck ourselves:
+		    // Since we don't have this index, we have to recheck ourselves:
 		    Sock.Send(Packets.CreateSID_FRIENDSLIST())
 		  End If
 		  
@@ -2228,28 +2228,28 @@ Protected Module Packets
 		  #If DebugBuild = True Then
 		    If BitAnd(Status, &H01) > 0 Then
 		      Select Case Location
-		      Case &H00 '// User went offline; Battle.net will send a whisper so no message needs to be displayed.
-		      Case &H01 '// Sent SID_LEAVECHAT to Battle.net.
+		      Case &H00 // User went offline; Battle.net will send a whisper so no message needs to be displayed.
+		      Case &H01 // Sent SID_LEAVECHAT to Battle.net.
 		        Sock.Config.AddChat(True, Colors.Gray, _
 		        "BNET: Your friend " + dTmp.Value("Username") + " left chat."_
 		        + EndOfLine)
-		      Case &H02 '// Entered chat.
+		      Case &H02 // Entered chat.
 		        Sock.Config.AddChat(True, Colors.Gray, _
 		        "BNET: Your friend " + dTmp.Value("Username") + " entered the channel " + LocationName + "."_
 		        + EndOfLine)
-		      Case &H03 '// Joined a public game.
+		      Case &H03 // Joined a public game.
 		        Sock.Config.AddChat(True, Colors.Gray, _
 		        "BNET: Your friend " + dTmp.Value("Username") + " entered the game " + LocationName + "."_
 		        + EndOfLine)
-		      Case &H04 '// Joined a private game, not on friends list.
+		      Case &H04 // Joined a private game, not on friends list.
 		        Sock.Config.AddChat(True, Colors.Gray, _
 		        "BNET: Your friend " + dTmp.Value("Username") + " entered a private game."_
 		        + EndOfLine)
-		      Case &H05 '// Joined a private game, on friends list.
+		      Case &H05 // Joined a private game, on friends list.
 		        Sock.Config.AddChat(True, Colors.Gray, _
 		        "BNET: Your friend " + dTmp.Value("Username") + " entered the private game " + LocationName + "."_
 		        + EndOfLine)
-		      Case Else '// ???
+		      Case Else // ???
 		        Sock.Config.AddChat(True, Colors.Gray, _
 		        "BNET: Received unknown friend location in an update! " + MemClass.HexPrefix(Location, "0x", 2) _
 		        + EndOfLine)
@@ -2298,30 +2298,30 @@ Protected Module Packets
 		  Dim MoreInfo As String = MemClass.ReadCString(PktData, 5)
 		  
 		  Select Case Result
-		  Case &H00 '// Success
+		  Case &H00 // Success
 		    
 		    If Sock.BNLS <> Nil Then Sock.BNLS.Close()
 		    Packets.SendAfterLogonSIDs(Sock)
 		    Return True
 		    
-		  Case &H01 '// Account does not exist
+		  Case &H01 // Account does not exist
 		    
 		    If Sock.Config <> Nil Then
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Account is non-existant; ")
 		      Sock.Config.AddChat(False, Colors.Yellow, "creating it..." + EndOfLine)
 		    End If
 		    
-		    '// Try to create the account...
+		    // Try to create the account...
 		    Sock.Send(Packets.CreateSID_CREATEACCOUNT2(Globals.EncryptOLSPW(Sock.Password), Sock.Username))
 		    Return True
 		    
-		  Case &H02 '// Invalid password
+		  Case &H02 // Invalid password
 		    
 		    If Sock.Config <> Nil Then Sock.Config.AddChat(True, Colors.Red, "BNET: Your password is incorrect." + EndOfLine)
 		    Sock.DoDisconnect(False)
 		    Return False
 		    
-		  Case &H06 '// Account closed
+		  Case &H06 // Account closed
 		    
 		    If LenB(MoreInfo) < 1 Then _
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Your account has been closed." + EndOfLine) Else _
@@ -2329,7 +2329,7 @@ Protected Module Packets
 		    Sock.DoDisconnect(False)
 		    Return False
 		    
-		  Case Else '// Unknown result code
+		  Case Else // Unknown result code
 		    
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Protocol error - unknown logon result." + EndOfLine)
 		    Sock.DoDisconnect(False)
@@ -2428,20 +2428,20 @@ Protected Module Packets
 		  Game = MemClass.WriteDWORD(MemClass.ReadDWORD(CookieData, 1, True), False)
 		  Account = MemClass.ReadCString(CookieData, 5)
 		  
-		  '// Profile
+		  // Profile
 		  Keys.Append("profile\age")
 		  Keys.Append("profile\sex")
 		  Keys.Append("profile\location")
 		  Keys.Append("profile\description")
 		  
-		  '// Normal Games
+		  // Normal Games
 		  Keys.Append("record\" + Game + "\0\wins")
 		  Keys.Append("record\" + Game + "\0\losses")
 		  Keys.Append("record\" + Game + "\0\disconnects")
 		  Keys.Append("record\" + Game + "\0\last game result")
 		  Keys.Append("record\" + Game + "\0\last game")
 		  
-		  '// Ladder Games
+		  // Ladder Games
 		  Keys.Append("record\" + Game + "\1\wins")
 		  Keys.Append("record\" + Game + "\1\losses")
 		  Keys.Append("record\" + Game + "\1\disconnects")
@@ -2676,7 +2676,7 @@ Protected Module Packets
 		Protected Sub SendLogonPkt(Sock As BNETSocket, SkipAccountCreate As Boolean = False)
 		  
 		  Select Case Sock.LogonType
-		  Case &H0 '//OLS
+		  Case &H0 //OLS
 		    
 		    If Sock.Config.CreateAccountsFirst = False Or SkipAccountCreate = True Then
 		      Sock.Send(Packets.CreateSID_LOGONRESPONSE2(Sock.ClientToken, Sock.ServerToken, _
@@ -2687,9 +2687,9 @@ Protected Module Packets
 		      Sock.Send(Packets.CreateSID_CREATEACCOUNT2(Globals.BSHA1(Sock.Password), Sock.Username))
 		    End If
 		    
-		  Case &H1, &H2 '//NLS
+		  Case &H1, &H2 //NLS
 		    
-		    '// TODO: Implement local NLS.
+		    // TODO: Implement local NLS.
 		    If Sock.BNLS.IsConnected = False Then Sock.BNLS.DoConnect()
 		    
 		    If Sock.Config.CreateAccountsFirst = False Or SkipAccountCreate = True Then
@@ -2734,7 +2734,7 @@ Protected Module Packets
 		    EXEVersion, EXEChecksum, EXEInfo, Sock.MPQFilename)
 		    
 		    If CRevResult = &H0 Then
-		      '// Invalid check revision
+		      // Invalid check revision
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: CheckRevision() failed." + EndOfLine)
 		      Sock.DoDisconnect(False)
 		      Return False
@@ -2747,13 +2747,13 @@ Protected Module Packets
 		  
 		  Dim CDKeys(), TempKey As String
 		  
-		  '// CD-Key decrypting begins here.
-		  '// Exclude any products that don't use CD-Keys now.
-		  If Sock.Product <> Packets.BNETProduct_W3DM And _  '// Warcraft III Demo
-		    Sock.Product <> Packets.BNETProduct_CHAT And _ '// Telnet
-		    Sock.Product <> Packets.BNETProduct_DRTL And _ '// Diablo I
-		    Sock.Product <> Packets.BNETProduct_DSHR And _ '// Diablo I Shareware
-		    Sock.Product <> Packets.BNETProduct_SSHR Then  '// Starcraft Shareware
+		  // CD-Key decrypting begins here.
+		  // Exclude any products that don't use CD-Keys now.
+		  If Sock.Product <> Packets.BNETProduct_W3DM And _  // Warcraft III Demo
+		    Sock.Product <> Packets.BNETProduct_CHAT And _ // Telnet
+		    Sock.Product <> Packets.BNETProduct_DRTL And _ // Diablo I
+		    Sock.Product <> Packets.BNETProduct_DSHR And _ // Diablo I Shareware
+		    Sock.Product <> Packets.BNETProduct_SSHR Then  // Starcraft Shareware
 		    
 		    If InStr(Settings.FileCheckResults, "BNCSutil") > 0 Then
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Error - it appears BNCSutil.dll is missing." + EndOfLine)
@@ -2761,23 +2761,23 @@ Protected Module Packets
 		      Return False
 		    End If
 		    
-		    '// Decrypt original CD-Key
-		    '//
+		    // Decrypt original CD-Key
+		    //
 		    TempKey = Globals.DecryptCDKey(Sock.Config.CDKey, Sock.ClientToken, Sock.ServerToken)
 		    If LenB(TempKey) < 1 Then
-		      '// Invalid CD-Key
+		      // Invalid CD-Key
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Failed to validate your CD-Key." + EndOfLine)
 		      Sock.DoDisconnect(False)
 		      Return False
 		    End If
 		    CDKeys.Append(TempKey)
 		    
-		    '// Decrypt expansion CD-Key, if necessary
-		    '//
+		    // Decrypt expansion CD-Key, if necessary
+		    //
 		    If Sock.Product = Packets.BNETProduct_W3XP Or Sock.Product = Packets.BNETProduct_D2XP Then
 		      TempKey = Globals.DecryptCDKey(Sock.Config.CDKeyExpansion, Sock.ClientToken, Sock.ServerToken)
 		      If LenB(TempKey) < 1 Then
-		        '// Invalid CD-Key
+		        // Invalid CD-Key
 		        Sock.Config.AddChat(True, Colors.Red, "BNET: Failed to validate your expansion-set CD-Key." + EndOfLine)
 		        Sock.DoDisconnect(False)
 		        Return False
@@ -2787,7 +2787,7 @@ Protected Module Packets
 		    
 		  End If
 		  
-		  '// Send SID_AUTH_CHECK with or without CD-Keys...
+		  // Send SID_AUTH_CHECK with or without CD-Keys...
 		  Sock.Send(Packets.CreateSID_AUTH_CHECK(Sock.ClientToken, Sock.EXEVersion, Sock.EXEChecksum, Sock.EXEInfo, _
 		  Sock.Config.CDKeyOwner, (Sock.Config.CDKeySpawn = True And (Globals.IsStarcraft(Sock.Product) Or _
 		  Globals.IsWarcraftII(Sock.Product))), CDKeys))

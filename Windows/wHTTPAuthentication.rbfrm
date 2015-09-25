@@ -1,5 +1,5 @@
 #tag Window
-Begin Windows wHTTPAuthentication
+Begin Window wHTTPAuthentication
    BackColor       =   48
    Backdrop        =   ""
    CloseButton     =   True
@@ -423,10 +423,10 @@ End
 		      If (RC IsA TextArea Or RC IsA TextField Or RC IsA ListBox) And RC.Visible = True Then
 		        g.ForeColor = Colors.UI.ControlBorderColor
 		        
-		        g.DrawLine(X + W, Y - 1, X + W, Y + H) '// Right
-		        g.DrawLine(X - 1, Y - 1, X - 1, Y + H) '// Left
-		        g.DrawLine(X - 1, Y - 1, X + W, Y - 1) '// Top
-		        g.DrawLine(X - 1, Y + H, X + W, Y + H) '// Bottom
+		        g.DrawLine(X + W, Y - 1, X + W, Y + H) // Right
+		        g.DrawLine(X - 1, Y - 1, X - 1, Y + H) // Left
+		        g.DrawLine(X - 1, Y - 1, X + W, Y - 1) // Top
+		        g.DrawLine(X - 1, Y + H, X + W, Y + H) // Bottom
 		        
 		      End If
 		    End If

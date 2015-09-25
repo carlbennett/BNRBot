@@ -1,6 +1,6 @@
 #tag Class
 Protected Class MemClass
-Implements Readable, Writeable
+Implements Readable,Writeable
 	#tag Method, Flags = &h0
 		Sub ClearReadBuffer()
 		  
@@ -22,16 +22,16 @@ Implements Readable, Writeable
 	#tag Method, Flags = &h0
 		Sub Constructor()
 		  
-		  '// Reader
+		  // Reader
 		  Me.mReadBuffer = ""
 		  Me.mReadPosition = 0
 		  Me.AutoTrimReadBuffer = False
 		  
-		  '// Writer
+		  // Writer
 		  Me.mWriteBuffer = ""
 		  Me.mWritePosition = 0
 		  
-		  '// Endianness
+		  // Endianness
 		  Me.LittleEndian = TargetLittleEndian
 		  
 		  
@@ -41,15 +41,15 @@ Implements Readable, Writeable
 	#tag Method, Flags = &h0
 		Sub Constructor(LittleEndian As Boolean)
 		  
-		  '// Reader
+		  // Reader
 		  Me.mReadBuffer = ""
 		  Me.mReadPosition = 0
 		  
-		  '// Writer
+		  // Writer
 		  Me.mWriteBuffer = ""
 		  Me.mWritePosition = 0
 		  
-		  '// Endianness
+		  // Endianness
 		  Me.LittleEndian = LittleEndian
 		  
 		  
@@ -59,16 +59,16 @@ Implements Readable, Writeable
 	#tag Method, Flags = &h0
 		Sub Constructor(LittleEndian As Boolean, TrimReadBuffer As Boolean)
 		  
-		  '// Reader
+		  // Reader
 		  Me.mReadBuffer = ""
 		  Me.mReadPosition = 0
 		  Me.AutoTrimReadBuffer = TrimReadBuffer
 		  
-		  '// Writer
+		  // Writer
 		  Me.mWriteBuffer = ""
 		  Me.mWritePosition = 0
 		  
-		  '// Endianness
+		  // Endianness
 		  Me.LittleEndian = LittleEndian
 		  
 		End Sub
@@ -77,7 +77,7 @@ Implements Readable, Writeable
 	#tag Method, Flags = &h0
 		Sub Constructor(InitialData As MemoryBlock)
 		  
-		  '// Reader
+		  // Reader
 		  If InitialData <> Nil And InitialData.Size <> InitialData.SizeUnknown Then
 		    Me.mReadBuffer = InitialData.StringValue(0, InitialData.Size)
 		  Else
@@ -85,11 +85,11 @@ Implements Readable, Writeable
 		  End If
 		  Me.mReadPosition = 0
 		  
-		  '// Writer
+		  // Writer
 		  Me.mWriteBuffer = ""
 		  Me.mWritePosition = 0
 		  
-		  '// Endianness
+		  // Endianness
 		  Me.LittleEndian = TargetLittleEndian
 		  
 		  
@@ -99,7 +99,7 @@ Implements Readable, Writeable
 	#tag Method, Flags = &h0
 		Sub Constructor(InitialData As MemoryBlock, LittleEndian As Boolean)
 		  
-		  '// Reader
+		  // Reader
 		  If InitialData <> Nil And InitialData.Size <> InitialData.SizeUnknown Then
 		    Me.mReadBuffer = InitialData.StringValue(0, InitialData.Size)
 		  Else
@@ -107,11 +107,11 @@ Implements Readable, Writeable
 		  End If
 		  Me.mReadPosition = 0
 		  
-		  '// Writer
+		  // Writer
 		  Me.mWriteBuffer = ""
 		  Me.mWritePosition = 0
 		  
-		  '// Endianness
+		  // Endianness
 		  Me.LittleEndian = LittleEndian
 		  
 		  
@@ -121,7 +121,7 @@ Implements Readable, Writeable
 	#tag Method, Flags = &h0
 		Sub Constructor(InitialData As MemoryBlock, LittleEndian As Boolean, TrimReadBuffer As Boolean)
 		  
-		  '// Reader
+		  // Reader
 		  If InitialData <> Nil And InitialData.Size <> InitialData.SizeUnknown Then
 		    Me.mReadBuffer = InitialData.StringValue(0, InitialData.Size)
 		  Else
@@ -130,11 +130,11 @@ Implements Readable, Writeable
 		  Me.mReadPosition = 0
 		  Me.AutoTrimReadBuffer = TrimReadBuffer
 		  
-		  '// Writer
+		  // Writer
 		  Me.mWriteBuffer = ""
 		  Me.mWritePosition = 0
 		  
-		  '// Endianness
+		  // Endianness
 		  Me.LittleEndian = LittleEndian
 		  
 		  
@@ -144,15 +144,15 @@ Implements Readable, Writeable
 	#tag Method, Flags = &h0
 		Sub Constructor(InitialData As String)
 		  
-		  '// Reader
+		  // Reader
 		  Me.mReadBuffer = InitialData
 		  Me.mReadPosition = 0
 		  
-		  '// Writer
+		  // Writer
 		  Me.mWriteBuffer = ""
 		  Me.mWritePosition = 0
 		  
-		  '// Endianness
+		  // Endianness
 		  Me.LittleEndian = TargetLittleEndian
 		  
 		  
@@ -162,15 +162,15 @@ Implements Readable, Writeable
 	#tag Method, Flags = &h0
 		Sub Constructor(InitialData As String, LittleEndian As Boolean)
 		  
-		  '// Reader
+		  // Reader
 		  Me.mReadBuffer = InitialData
 		  Me.mReadPosition = 0
 		  
-		  '// Writer
+		  // Writer
 		  Me.mWriteBuffer = ""
 		  Me.mWritePosition = 0
 		  
-		  '// Endianness
+		  // Endianness
 		  Me.LittleEndian = LittleEndian
 		  
 		  
@@ -180,16 +180,16 @@ Implements Readable, Writeable
 	#tag Method, Flags = &h0
 		Sub Constructor(InitialData As String, LittleEndian As Boolean, TrimReadBuffer As Boolean)
 		  
-		  '// Reader
+		  // Reader
 		  Me.mReadBuffer = InitialData
 		  Me.mReadPosition = 0
 		  Me.AutoTrimReadBuffer = TrimReadBuffer
 		  
-		  '// Writer
+		  // Writer
 		  Me.mWriteBuffer = ""
 		  Me.mWritePosition = 0
 		  
-		  '// Endianness
+		  // Endianness
 		  Me.LittleEndian = LittleEndian
 		  
 		  
@@ -305,7 +305,7 @@ Implements Readable, Writeable
 	#tag Method, Flags = &h0
 		Sub Operator_Add(RHS As MemClass)
 		  
-		  '// RHS = Right-hand side (MemClass = (Self + RHS))
+		  // RHS = Right-hand side (MemClass = (Self + RHS))
 		  
 		  If RHS = Nil Then Return
 		  Self.WriteRaw RHS.GetWriteBuffer(False)
@@ -359,13 +359,13 @@ Implements Readable, Writeable
 		  
 		  If InStrB(Me.mReadPosition + 1, Me.mReadBuffer, ChrB(0)) <= 0 Then
 		    
-		    '// There is no null-terminator in the Source after or at this Index.
+		    // There is no null-terminator in the Source after or at this Index.
 		    Buffer = MidB(Me.mReadBuffer, Me.mReadPosition + 1, LenB(Me.mReadBuffer) - Me.mReadPosition + 1)
 		    Me.mReadPosition = LenB(Me.mReadBuffer)
 		    
 		  Else
 		    
-		    '// There is a null-terminator in the Source after or at this Index.
+		    // There is a null-terminator in the Source after or at this Index.
 		    Buffer = MidB(Me.mReadBuffer, Me.mReadPosition + 1, InStrB(Me.mReadPosition + 1, Me.mReadBuffer, ChrB(0)) - Me.mReadPosition - 1)
 		    Me.mReadPosition = InStrB(Me.mReadPosition + 1, Me.mReadBuffer, ChrB(0))
 		    
@@ -382,12 +382,12 @@ Implements Readable, Writeable
 		  
 		  If InStrB(Index, Source, ChrB(0)) <= 0 Then
 		    
-		    '// There is no null-terminator in the Source after or at this Index.
+		    // There is no null-terminator in the Source after or at this Index.
 		    Return MidB(Source, Index, LenB(Source) - Index)
 		    
 		  Else
 		    
-		    '// There is a null-terminator in the Source after or at this Index.
+		    // There is a null-terminator in the Source after or at this Index.
 		    Return MidB(Source, Index, InStrB(Index, Source, ChrB(0)) - Index)
 		    
 		  End If
@@ -775,12 +775,12 @@ Implements Readable, Writeable
 	#tag Method, Flags = &h0
 		Sub TrimReadBuffer()
 		  
-		  '// Trims the read buffer so that there is no data behind the ReadPosition value.
-		  '// This is mostly used in cases such as a push/pull buffer, or where the read
-		  '//   buffer is appended to and is later read from but it is never read as a whole.
-		  '//
-		  '// This function gets called during every Read* function if AutoTrimReadBuffer is
-		  '//   set to True.
+		  // Trims the read buffer so that there is no data behind the ReadPosition value.
+		  // This is mostly used in cases such as a push/pull buffer, or where the read
+		  //   buffer is appended to and is later read from but it is never read as a whole.
+		  //
+		  // This function gets called during every Read* function if AutoTrimReadBuffer is
+		  //   set to True.
 		  
 		  Me.mReadBuffer = MidB(Me.mReadBuffer, Me.mReadPosition + 1)
 		  Me.mReadPosition = 0
@@ -964,7 +964,7 @@ Implements Readable, Writeable
 	#tag Method, Flags = &h0
 		 Shared Sub WritePString(ByRef Source As String, Value As String)
 		  
-		  '// PString can only go up to 255 bytes in length.
+		  // PString can only go up to 255 bytes in length.
 		  Source = Source + ChrB(LenB(LeftB(Value, 255))) + LeftB(Value, 255)
 		  
 		End Sub
@@ -973,7 +973,7 @@ Implements Readable, Writeable
 	#tag Method, Flags = &h0
 		Sub WritePString(Source As String)
 		  
-		  '// PString can only go up to 255 bytes in length.
+		  // PString can only go up to 255 bytes in length.
 		  Me.WriteRaw ChrB(LenB(LeftB(Source, 255))) + LeftB(Source, 255)
 		  
 		End Sub

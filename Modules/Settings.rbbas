@@ -89,8 +89,8 @@ Protected Module Settings
 		  FoundLockdowns = (j > UBound(FoundLockdown))
 		  FoundVerChecks = (k > UBound(FoundVerCheck))
 		  
-		  '// We're finally done checking every file, except for the true hash files (we only
-		  '// checked for the Hashes folder, not each individual hash folder plus files).
+		  // We're finally done checking every file, except for the true hash files (we only
+		  // checked for the Hashes folder, not each individual hash folder plus files).
 		  
 		  If FoundBNCSUtil = False Then Result = Result + "Cannot find BNCSutil.dll on your system." + EndOfLine
 		  If FoundCheckRevisionDLL = False Then Result = Result + "Cannot find CheckRevision.dll on your system." + EndOfLine
@@ -251,8 +251,8 @@ Protected Module Settings
 	#tag Method, Flags = &h1
 		Protected Function MustRunAsAdmin() As Boolean
 		  
-		  '// DEPRECATED: no longer used
-		  '// STILL WORKS: can be used later...
+		  // DEPRECATED
+		  // This function is no longer used anywhere but can be used later.
 		  
 		  Return (OSVersionInformation.IsVista() = True Or OSVersionInformation.Is7() = True Or _
 		  OSVersionInformation.Is2008() = True)
@@ -269,16 +269,16 @@ Protected Module Settings
 		    Return
 		  End If
 		  
-		  '// First, get rid of the warning to idiots who try to edit the binary file:
+		  // First, get rid of the warning to idiots who try to edit the binary file:
 		  Call Buffer.ReadCString()
 		  
-		  '// Define some variables:
+		  // Define some variables:
 		  Dim Section As UInt32
 		  Dim Options As UInt32
 		  Dim Configs() As Configuration
 		  Dim PingRanges() As PingRange
 		  
-		  '// Second, retrieve the version of the file and then try to parse the file:
+		  // Second, retrieve the version of the file and then try to parse the file:
 		  Dim Version As Byte = Buffer.ReadBYTE()
 		  
 		  Select Case Version
@@ -293,9 +293,9 @@ Protected Module Settings
 		        Settings.PrefMinimizeToTray = (BitAnd(Options, &H02) > 0)
 		        Settings.PrefPingRangesFlushRight = (BitAnd(Options, &H04) > 0)
 		        
-		        '// Ping Ranges
-		        ReDim PingRanges(-1) '// Clear out any previous data (Fail safe check)
-		        Options = Buffer.ReadWORD() '// Options is reused as a variable...
+		        // Ping Ranges
+		        ReDim PingRanges(-1) // Clear out any previous data (Fail safe check)
+		        Options = Buffer.ReadWORD() // Options is reused as a variable...
 		        While UBound(PingRanges) + 1 < Options
 		          PingRanges.Append(New PingRange())
 		          PingRanges(UBound(PingRanges)).BarCount = Buffer.ReadDWORD()
@@ -342,7 +342,7 @@ Protected Module Settings
 		        Configs(UBound(Configs)).ProxyHost = Buffer.ReadCString()
 		        
 		      Case Else
-		        '// The section is unrecognized to us.
+		        // The section is unrecognized to us.
 		        Settings.AppendLoadError("Could not parse the settings file because it contains at least one (1) bad section.")
 		        Exit While
 		        
@@ -350,7 +350,7 @@ Protected Module Settings
 		      
 		    Wend
 		  Case Else
-		    '// The file version is unrecognized to us.
+		    // The file version is unrecognized to us.
 		    Settings.AppendLoadError("Could not parse the settings file because it reports an unrecognized version.")
 		    
 		  End Select
@@ -375,7 +375,7 @@ Protected Module Settings
 		    Settings.AppendSaveError("Could not save the settings file because it is actually a directory.")
 		    Return
 		  End If
-		  If Settings.CreateFile(File, "") = False Then 
+		  If Settings.CreateFile(File, "") = False Then
 		    Settings.AppendSaveError("Could not save the settings file because it either cannot be created or cannot be erased.")
 		    Return
 		  End If
@@ -405,16 +405,16 @@ Protected Module Settings
 		    Return ""
 		  End If
 		  
-		  '// Some temporary variables
+		  // Some temporary variables
 		  Dim Options As UInt32
 		  
-		  '// The warning
+		  // The warning
 		  Buffer.WriteCString("EDIT THIS FILE WITH BNRBOT, DO NOT MODIFY THIS FILE YOURSELF.")
 		  
-		  '// File version
+		  // File version
 		  Buffer.WriteBYTE(&H00)
 		  
-		  '// Section Global:
+		  // Section Global:
 		  Buffer.WriteDWORD(Settings.SectionGlobal)
 		  
 		  Options = &H00000000
@@ -423,10 +423,10 @@ Protected Module Settings
 		  If Settings.PrefPingRangesFlushRight = True Then Options = BitOr(Options, &H04)
 		  Buffer.WriteBYTE(Options)
 		  
-		  '// Ping Ranges
+		  // Ping Ranges
 		  Buffer.WriteWORD(UBound(Settings.PrefPingRanges) + 1)
 		  If UBound(Settings.PrefPingRanges) >= 0 Then
-		    Options = &H0000 '// Reuse Options as our loop variable.
+		    Options = &H0000 // Reuse Options as our loop variable.
 		    While Options <= UBound(Settings.PrefPingRanges) And Options < &HFFFF
 		      Buffer.WriteDWORD(Settings.PrefPingRanges(Options).BarCount)
 		      Buffer.WriteDWORD(Settings.PrefPingRanges(Options).BarColor)
@@ -436,7 +436,7 @@ Protected Module Settings
 		    Wend
 		  End If
 		  
-		  '// Section Profile(s):
+		  // Section Profile(s):
 		  For Each Config As Configuration In Settings.Configurations
 		    Buffer.WriteDWORD(Settings.SectionConfiguration)
 		    
@@ -478,7 +478,7 @@ Protected Module Settings
 		    
 		  Next
 		  
-		  '// Give back all the data:
+		  // Give back all the data:
 		  Return Buffer.GetWriteBuffer()
 		  
 		End Function

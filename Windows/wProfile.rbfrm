@@ -1,5 +1,5 @@
 #tag Window
-Begin Windows wProfile
+Begin Window wProfile
    BackColor       =   48
    Backdrop        =   ""
    CloseButton     =   True
@@ -1945,10 +1945,10 @@ End
 		        (RC.PanelIndex = -1 Or (RC.PanelIndex <> -1 And RC.PanelIndex = Pages.Value)) Then
 		        g.ForeColor = Colors.UI.ControlBorderColor
 		        
-		        g.DrawLine(X + W, Y - 1, X + W, Y + H) '// Right
-		        g.DrawLine(X - 1, Y - 1, X - 1, Y + H) '// Left
-		        g.DrawLine(X - 1, Y - 1, X + W, Y - 1) '// Top
-		        g.DrawLine(X - 1, Y + H, X + W, Y + H) '// Bottom
+		        g.DrawLine(X + W, Y - 1, X + W, Y + H) // Right
+		        g.DrawLine(X - 1, Y - 1, X - 1, Y + H) // Left
+		        g.DrawLine(X - 1, Y - 1, X + W, Y - 1) // Top
+		        g.DrawLine(X - 1, Y + H, X + W, Y + H) // Bottom
 		        
 		      End If
 		    End If

@@ -5,9 +5,9 @@ Inherits TCPSocket
 		Sub Connected()
 		  
 		  If Me.Config <> Nil Then
-		    '// Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
-		    '// not actually touch the ListBox (RectControl) so that it will redraw, so
-		    '// I'm using the little cheat:
+		    // Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
+		    // not actually touch the ListBox (RectControl) so that it will redraw, so
+		    // I'm using the little cheat:
 		    Dim i As Integer = wMain.lstProfiles.DefaultRowHeight
 		    wMain.lstProfiles.DefaultRowHeight = 0
 		    wMain.lstProfiles.DefaultRowHeight = i
@@ -103,9 +103,9 @@ Inherits TCPSocket
 		  
 		  If Me.Config = Nil Then Return
 		  
-		  '// Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
-		  '// not actually touch the ListBox (RectControl) so that it will redraw, so
-		  '// I'm using the little cheat:
+		  // Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
+		  // not actually touch the ListBox (RectControl) so that it will redraw, so
+		  // I'm using the little cheat:
 		  Dim i As Integer = wMain.lstProfiles.DefaultRowHeight
 		  wMain.lstProfiles.DefaultRowHeight = 0
 		  wMain.lstProfiles.DefaultRowHeight = i
@@ -375,20 +375,20 @@ Inherits TCPSocket
 		  Cookie = Globals.GenerateDWORD()
 		  Globals.ProfileCookies.Value(Cookie) = MemClass.WriteDWORD(Product, True) + MemClass.WriteCString(Username)
 		  
-		  '// Profile
+		  // Profile
 		  ProfileKeys.Append("profile\age")
 		  ProfileKeys.Append("profile\sex")
 		  ProfileKeys.Append("profile\location")
 		  ProfileKeys.Append("profile\description")
 		  
-		  '// Normal Games
+		  // Normal Games
 		  ProfileKeys.Append("record\" + Game + "\0\wins")
 		  ProfileKeys.Append("record\" + Game + "\0\losses")
 		  ProfileKeys.Append("record\" + Game + "\0\disconnects")
 		  ProfileKeys.Append("record\" + Game + "\0\last game result")
 		  ProfileKeys.Append("record\" + Game + "\0\last game")
 		  
-		  '// Ladder Games
+		  // Ladder Games
 		  ProfileKeys.Append("record\" + Game + "\1\wins")
 		  ProfileKeys.Append("record\" + Game + "\1\losses")
 		  ProfileKeys.Append("record\" + Game + "\1\disconnects")
