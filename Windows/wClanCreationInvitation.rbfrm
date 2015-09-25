@@ -46,7 +46,6 @@ Begin Window wClanCreationInvitation
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "You have been invited to create a clan!"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -81,7 +80,6 @@ Begin Window wClanCreationInvitation
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Clan Name: "
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -113,6 +111,8 @@ Begin Window wClanCreationInvitation
       Italic          =   ""
       Left            =   120
       LimitText       =   0
+      LineHeight      =   0
+      LineSpacing     =   1
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -158,6 +158,8 @@ Begin Window wClanCreationInvitation
       Italic          =   ""
       Left            =   120
       LimitText       =   0
+      LineHeight      =   0
+      LineSpacing     =   1
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -206,7 +208,6 @@ Begin Window wClanCreationInvitation
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Clan Tag:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -238,6 +239,8 @@ Begin Window wClanCreationInvitation
       Italic          =   ""
       Left            =   120
       LimitText       =   0
+      LineHeight      =   0
+      LineSpacing     =   1
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -286,7 +289,6 @@ Begin Window wClanCreationInvitation
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Invited By:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -463,7 +465,6 @@ Begin Window wClanCreationInvitation
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Members:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
