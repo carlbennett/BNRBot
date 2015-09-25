@@ -20,7 +20,8 @@
 .Spotlight-V100
 .Trashes
 ._*
-/BNRBot\ v2\ Libs/
-/BNRBot\ v2.dat
+/BNRBot\ Libs/
+/BNRBot.dat
+/DebugBNRBot/
 /Hashes/
 Thumbs.db

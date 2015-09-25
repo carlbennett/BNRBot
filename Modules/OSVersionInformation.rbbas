@@ -40,11 +40,11 @@ Protected Module OSVersionInformation
 		    if System.IsFunctionAvailable( "GetVersionExW", "Kernel32" ) then
 		      bUsingUnicode = true
 		      m = new MemoryBlock(284) ''use this for osversioninfoex structure (2000+ only)
-		      m.long(0) = m.size 'must set size before calling getversionex 
+		      m.long(0) = m.size 'must set size before calling getversionex
 		      ret = GetVersionExW(m) 'if not 2000+, will return 0
 		      if ret = 0 then
 		        m = new MemoryBlock(276)
-		        m.long(0) = m.size 'must set size before calling getversionex 
+		        m.long(0) = m.size 'must set size before calling getversionex
 		        ret = GetVersionExW(m)
 		        if ret = 0 then
 		          // Something really strange has happened, so use the A version
@@ -100,52 +100,52 @@ Protected Module OSVersionInformation
 		      mProductType = 0
 		    end try
 		    
-		    if bitwiseAnd(val(msuitemask), &h1) > 0 then 
+		    if bitwiseAnd(val(msuitemask), &h1) > 0 then
 		      mOSSuites  = "Small Business" + chr(9)
 		    end
-		    if bitwiseAnd(wsuitemask, &h2) > 0 then 
+		    if bitwiseAnd(wsuitemask, &h2) > 0 then
 		      mOSSuites  = mOSSuites + "Enterprise" + chr(9)
 		    end
-		    if bitwiseAnd(wsuitemask, &h4) > 0 then 
+		    if bitwiseAnd(wsuitemask, &h4) > 0 then
 		      mOSSuites  = mOSSuites + "BackOffice" + chr(9)
 		    end
-		    if bitwiseAnd(wsuitemask, &h8) > 0 then 
+		    if bitwiseAnd(wsuitemask, &h8) > 0 then
 		      mOSSuites  = mOSSuites + "Communications" + chr(9)
 		    end
-		    if bitwiseAnd(wsuitemask, &h10) > 0 then 
+		    if bitwiseAnd(wsuitemask, &h10) > 0 then
 		      mOSSuites  = mOSSuites + "Terminal Services" + chr(9)
 		    end
-		    if bitwiseAnd(wsuitemask, &h20) > 0 then 
+		    if bitwiseAnd(wsuitemask, &h20) > 0 then
 		      mOSSuites  = mOSSuites + "Small Business Restricted" + chr(9)
 		    end
-		    if bitwiseAnd(wsuitemask, &h40) > 0 then 
+		    if bitwiseAnd(wsuitemask, &h40) > 0 then
 		      mOSSuites  = mOSSuites + "Embedded NT" + chr(9)
 		    end
-		    if bitwiseAnd(wsuitemask, &h80) > 0 then 
+		    if bitwiseAnd(wsuitemask, &h80) > 0 then
 		      mOSSuites  = mOSSuites + "Data Center" + chr(9)
 		    end
-		    if bitwiseAnd(wsuitemask, &h100) > 0 then 
+		    if bitwiseAnd(wsuitemask, &h100) > 0 then
 		      mOSSuites  = mOSSuites + "Single User Terminal Services" + chr(9)
 		    end
-		    if bitwiseAnd(wsuitemask, &h200) > 0 then 
+		    if bitwiseAnd(wsuitemask, &h200) > 0 then
 		      mOSSuites  = mOSSuites + "Personal" + chr(9)
 		    end
-		    if bitwiseAnd(wsuitemask, &h400) > 0 then 
+		    if bitwiseAnd(wsuitemask, &h400) > 0 then
 		      mOSSuites  = mOSSuites + "Blade" + chr(9)
 		    end
-		    if bitwiseAnd(wsuitemask, &h800) > 0 then 
+		    if bitwiseAnd(wsuitemask, &h800) > 0 then
 		      mOSSuites  = mOSSuites + "Embedded Restricted" + chr(9)
 		    end
-		    if bitwiseAnd(wsuitemask, &h1000) > 0 then 
+		    if bitwiseAnd(wsuitemask, &h1000) > 0 then
 		      mOSSuites  = mOSSuites + "Security Appliance" + chr(9)
 		    end
 		    
 		    select case mproducttype
-		    case 1 
+		    case 1
 		      mmode = "Workstation"
-		    case 2 
+		    case 2
 		      mmode = "Domain Controller"
-		    case 3 
+		    case 3
 		      mmode = "Server"
 		    end select
 		    mextraInfo = szCSDVersion
@@ -164,7 +164,7 @@ Protected Module OSVersionInformation
 		        elseif mminorVersion = 1 then 'XP
 		          mOSName = "Windows XP"
 		          mIsXP = true
-		          mIsXPPlus = true 
+		          mIsXPPlus = true
 		          mbuildstring = str(mbuild)
 		        elseif mminorVersion = 2 then '2003
 		          mOSName = "Windows 2003"
@@ -460,8 +460,6 @@ Protected Module OSVersionInformation
 		http://msdn.microsoft.com/library/en-us/ sysinfo/base/getversionex.asp 
 		http://msdn.microsoft.com/library/default.asp?url=/library/en-us/sysinfo/base/osversioninfoex_str.asp
 		http://msdn.microsoft.com/library/default.asp?url=/library/en-us/sysinfo/base/osversioninfo_str.asp
-		
-		
 	#tag EndNote
 
 	#tag Note, Name = VB Type info
@@ -492,9 +490,6 @@ Protected Module OSVersionInformation
 		wProductType       As Byte ''154  
 		wReserved          As Byte ''155
 		End Type
-		
-		
-		
 	#tag EndNote
 
 

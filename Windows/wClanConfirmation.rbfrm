@@ -46,7 +46,6 @@ Begin Window wClanConfirmation
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "You requested to %ACTION% Clan %TAG%!"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -143,7 +142,6 @@ Begin Window wClanConfirmation
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "If you really want to do this, hit OK below.\r\n\r\nOtherwise, hit Cancel to not take any action."
       TextAlign       =   0
       TextColor       =   "#Colors.White"

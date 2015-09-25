@@ -77,7 +77,6 @@ Begin Window wUpdater
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Checking for updates..."
       TextAlign       =   1
       TextColor       =   "#Colors.White"
@@ -112,7 +111,6 @@ Begin Window wUpdater
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Connecting to update server..."
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -157,7 +155,6 @@ Begin Window wUpdater
       Width           =   100
    End
    Begin Timer GUITimer
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   0
@@ -165,11 +162,8 @@ Begin Window wUpdater
       Mode            =   2
       Period          =   500
       Scope           =   0
-      TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
-      Visible         =   True
       Width           =   32
    End
    Begin HTTPSecureSocket HTTP
@@ -177,18 +171,14 @@ Begin Window wUpdater
       CertificatePassword=   ""
       CertificateRejectionFile=   ""
       ConnectionType  =   2
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   0
       LockedInPosition=   False
       Scope           =   0
       Secure          =   True
-      TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   172
-      Visible         =   True
       Width           =   32
    End
 End
