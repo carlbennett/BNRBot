@@ -48,12 +48,15 @@ Inherits Application
 		  
 		  Dim sTmp As String = "BNRBot v"
 		  
-		  sTmp = sTmp + Str(Me.MajorVersion) + " Build "
+		  sTmp = sTmp + Str(Me.MajorVersion) + "."
+		  sTmp = sTmp + Str(Me.MinorVersion) + "."
+		  sTmp = sTmp + Str(Me.BugVersion) + "."
 		  
-		  Dim sTmp2 As String = Str(Me.NonReleaseVersion)
-		  If Len(sTmp2) <= 4 Then _
-		  sTmp = sTmp + Right("0000" + sTmp2, 4) Else _
-		  sTmp = sTmp + sTmp2
+		  #If DebugBuild = True Then
+		    sTmp = sTmp + Str(Me.NonReleaseVersion + 1) + " (Debug)"
+		  #Else
+		    sTmp = sTmp + Str(Me.NonReleaseVersion) + " (Release)"
+		  #EndIf
 		  
 		  Return sTmp
 		  
