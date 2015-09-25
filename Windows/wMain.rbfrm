@@ -424,7 +424,25 @@ End
 		  If Me.SelectedConfig >= 0 And Me.SelectedConfig <= UBound(Settings.Configurations) _
 		    Then Config = Settings.Configurations(Me.SelectedConfig) Else Config = Nil
 		    
-		    Select Case AscB(Key)
+		    Select Case Asc(Key)
+		    Case &H09 // Tab
+		      
+		      If Keyboard.ControlKey = True And Asc(Key) = 9 Then
+		        If Keyboard.ShiftKey = False Then
+		          If lstProfiles.ListIndex = lstProfiles.ListCount - 1 Then
+		            lstProfiles.ListIndex = 0
+		          Else
+		            lstProfiles.ListIndex = lstProfiles.ListIndex + 1
+		          End If
+		        Else
+		          If lstProfiles.ListIndex = 0 Then
+		            lstProfiles.ListIndex = lstProfiles.ListCount - 1
+		          Else
+		            lstProfiles.ListIndex = lstProfiles.ListIndex - 1
+		          End If
+		        End If
+		      End If
+		      
 		    Case &HC8 // F1
 		      
 		      If Config <> Nil And Config.BNET <> Nil Then Config.BNET.DoReconnect()

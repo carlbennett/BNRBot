@@ -2592,6 +2592,28 @@ End
 	#tag EndEvent
 
 	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  
+		  If Keyboard.ControlKey = True And Asc(Key) = 9 Then
+		    If Keyboard.ShiftKey = False Then
+		      If lstCategories.ListIndex = lstCategories.ListCount - 1 Then
+		        lstCategories.ListIndex = 0
+		      Else
+		        lstCategories.ListIndex = lstCategories.ListIndex + 1
+		      End If
+		    Else
+		      If lstCategories.ListIndex = 0 Then
+		        lstCategories.ListIndex = lstCategories.ListCount - 1
+		      Else
+		        lstCategories.ListIndex = lstCategories.ListIndex - 1
+		      End If
+		    End If
+		  End If
+		  
+		End Function
+	#tag EndEvent
+
+	#tag Event
 		Sub Maximize()
 		  
 		  Self.Refresh(True)
