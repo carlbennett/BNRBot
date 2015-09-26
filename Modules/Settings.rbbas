@@ -328,7 +328,7 @@ Protected Module Settings
 		        Configs(UBound(Configs)).VerbosePackets = (BitAnd(Options, &H08) > 0)
 		        Configs(UBound(Configs)).EnableUDP = (BitAnd(Options, &H10) > 0)
 		        Configs(UBound(Configs)).BNLSVersionCheck = (BitAnd(Options, &H20) > 0)
-		        Configs(UBound(Configs)).CBNETEnabled = (BitAnd(Options, &H40) > 0)
+		        // Unused Bit 0x40, used to be CBNET
 		        Configs(UBound(Configs)).ShowJoinLeaveMessages = (BitAnd(Options, &H80) > 0)
 		        Configs(UBound(Configs)).EnableUTF8 = (BitAnd(Options, &H100) > 0)
 		        Configs(UBound(Configs)).SpamPrevention = (BitAnd(Options, &H200) > 0)
@@ -337,7 +337,7 @@ Protected Module Settings
 		        Configs(UBound(Configs)).CreateAccountsFirst = (BitAnd(Options, &H1000) > 0)
 		        Configs(UBound(Configs)).ShowUserUpdateMessages = (BitAnd(Options, &H2000) > 0)
 		        
-		        Configs(UBound(Configs)).CBNETHost = Buffer.ReadCString()
+		        Call Buffer.ReadCString() // Unused String, used to be CBNET
 		        Configs(UBound(Configs)).ProxyType = Buffer.ReadBYTE()
 		        Configs(UBound(Configs)).ProxyHost = Buffer.ReadCString()
 		        
@@ -462,7 +462,7 @@ Protected Module Settings
 		    If Config.VerbosePackets = True Then Options = BitOr(Options, &H08)
 		    If Config.EnableUDP = True Then Options = BitOr(Options, &H10)
 		    If Config.BNLSVersionCheck = True Then Options = BitOr(Options, &H20)
-		    If Config.CBNETEnabled = True Then Options = BitOr(Options, &H40)
+		    // Unused Bit 0x40, used to be CBNET
 		    If Config.ShowJoinLeaveMessages = True Then Options = BitOr(Options, &H80)
 		    If Config.EnableUTF8 = True Then Options = BitOr(Options, &H100)
 		    If Config.SpamPrevention = True Then Options = BitOr(Options, &H200)
@@ -472,7 +472,7 @@ Protected Module Settings
 		    If Config.ShowUserUpdateMessages = True Then Options = BitOr(Options, &H2000)
 		    Buffer.WriteDWORD(Options)
 		    
-		    Buffer.WriteCString(Config.CBNETHost)
+		    Buffer.WriteCString("") // Unused String, used to be CBNET
 		    Buffer.WriteBYTE(Config.ProxyType)
 		    Buffer.WriteCString(Config.ProxyHost)
 		    

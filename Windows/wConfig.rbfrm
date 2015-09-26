@@ -7,16 +7,16 @@ Begin Window wConfig
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   True
-   Height          =   604
+   Height          =   585
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
-   MaxHeight       =   604
+   MaxHeight       =   585
    MaximizeButton  =   False
    MaxWidth        =   32000
    MenuBar         =   ""
    MenuBarVisible  =   True
-   MinHeight       =   604
+   MinHeight       =   585
    MinimizeButton  =   True
    MinWidth        =   512
    Placement       =   2
@@ -42,7 +42,7 @@ Begin Window wConfig
       GridLinesVertical=   0
       HasHeading      =   False
       HeadingIndex    =   -1
-      Height          =   604
+      Height          =   585
       HelpTag         =   ""
       Hierarchical    =   ""
       Index           =   -2147483648
@@ -99,7 +99,7 @@ Begin Window wConfig
       TextFont        =   "Verdana"
       TextSize        =   11
       TextUnit        =   0
-      Top             =   568
+      Top             =   549
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -130,22 +130,10 @@ Begin Window wConfig
       TextFont        =   "Verdana"
       TextSize        =   11
       TextUnit        =   0
-      Top             =   568
+      Top             =   549
       Underline       =   ""
       Visible         =   True
       Width           =   120
-   End
-   Begin TCPSocket VerByteSocket
-      Address         =   ""
-      Height          =   32
-      Index           =   -2147483648
-      Left            =   386
-      LockedInPosition=   False
-      Port            =   9367
-      Scope           =   0
-      TabPanelIndex   =   0
-      Top             =   397
-      Width           =   32
    End
    Begin PushButton btnDeleteProfile
       AutoDeactivate  =   True
@@ -173,7 +161,7 @@ Begin Window wConfig
       TextFont        =   "Verdana"
       TextSize        =   11
       TextUnit        =   0
-      Top             =   568
+      Top             =   549
       Underline       =   ""
       Visible         =   False
       Width           =   120
@@ -181,7 +169,7 @@ Begin Window wConfig
    Begin PagePanel Pages
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   554
+      Height          =   535
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -206,7 +194,7 @@ Begin Window wConfig
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         Height          =   530
+         Height          =   511
          HelpTag         =   ""
          Index           =   0
          InitialParent   =   "Pages"
@@ -464,7 +452,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   126
+         Top             =   107
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -498,7 +486,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   190
+         Top             =   171
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -530,7 +518,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   528
+         Top             =   509
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -562,7 +550,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   433
+         Top             =   414
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -596,7 +584,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   304
+         Top             =   285
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -630,7 +618,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   285
+         Top             =   266
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -664,7 +652,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   266
+         Top             =   247
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -698,7 +686,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   247
+         Top             =   228
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -732,7 +720,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   228
+         Top             =   209
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -766,7 +754,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   209
+         Top             =   190
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -800,7 +788,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   528
+         Top             =   509
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -834,7 +822,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   433
+         Top             =   414
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -882,7 +870,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   304
+         Top             =   285
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -926,7 +914,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   285
+         Top             =   266
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -969,7 +957,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   266
+         Top             =   247
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -1012,7 +1000,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   247
+         Top             =   228
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -1055,7 +1043,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   228
+         Top             =   209
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -1098,7 +1086,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   209
+         Top             =   190
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -1142,7 +1130,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   ""
-         Top             =   190
+         Top             =   171
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -1185,7 +1173,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   190
+         Top             =   171
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -1233,7 +1221,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   126
+         Top             =   107
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -1481,7 +1469,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   209
+         Top             =   190
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -1563,115 +1551,6 @@ Begin Window wConfig
          Visible         =   True
          Width           =   15
       End
-      Begin TextField fldCBNET
-         AcceptTabs      =   ""
-         Alignment       =   0
-         AutoDeactivate  =   True
-         AutomaticallyCheckSpelling=   False
-         BackColor       =   "#Colors.UI.ControlBackColor"
-         Bold            =   ""
-         Border          =   False
-         CueText         =   ""
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Format          =   ""
-         Height          =   15
-         HelpTag         =   "Enter the host of the CBNET here.\r\nDefault:  clan-warp.net"
-         Index           =   -2147483648
-         InitialParent   =   "Pages"
-         Italic          =   ""
-         Left            =   244
-         LimitText       =   0
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   True
-         LockTop         =   True
-         Mask            =   ""
-         Password        =   ""
-         ReadOnly        =   ""
-         Scope           =   0
-         TabIndex        =   15
-         TabPanelIndex   =   3
-         TabStop         =   True
-         Text            =   ""
-         TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
-         TextUnit        =   0
-         Top             =   107
-         Underline       =   ""
-         UseFocusRing    =   False
-         Visible         =   True
-         Width           =   256
-      End
-      Begin CheckBox chkCBNET
-         AutoDeactivate  =   True
-         Bold            =   ""
-         Caption         =   ""
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   15
-         HelpTag         =   "Enable CBNET for this profile?"
-         Index           =   -2147483648
-         InitialParent   =   "Pages"
-         Italic          =   ""
-         Left            =   227
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Scope           =   0
-         State           =   0
-         TabIndex        =   14
-         TabPanelIndex   =   3
-         TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
-         TextUnit        =   0
-         Top             =   107
-         Underline       =   ""
-         Value           =   False
-         Visible         =   True
-         Width           =   15
-      End
-      Begin Label txtCBNET
-         AutoDeactivate  =   True
-         Bold            =   ""
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   15
-         HelpTag         =   "Enter the host of the CBNET here.\r\nDefault:  clan-warp.net"
-         Index           =   -2147483648
-         InitialParent   =   "Pages"
-         Italic          =   ""
-         Left            =   132
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
-         LockTop         =   True
-         Multiline       =   ""
-         Scope           =   0
-         Selectable      =   False
-         TabIndex        =   13
-         TabPanelIndex   =   3
-         Text            =   "CBNET:"
-         TextAlign       =   0
-         TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
-         TextUnit        =   0
-         Top             =   107
-         Transparent     =   False
-         Underline       =   ""
-         Visible         =   True
-         Width           =   83
-      End
       Begin CheckBox chkJoinLeaveMsgs
          AutoDeactivate  =   True
          Bold            =   ""
@@ -1698,7 +1577,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   357
+         Top             =   338
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -1732,7 +1611,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   357
+         Top             =   338
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -1764,7 +1643,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   490
+         Top             =   471
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -1798,7 +1677,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   490
+         Top             =   471
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -2207,7 +2086,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   509
+         Top             =   490
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -2241,7 +2120,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   509
+         Top             =   490
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -2273,7 +2152,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   395
+         Top             =   376
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -2307,7 +2186,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   395
+         Top             =   376
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -2339,7 +2218,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   414
+         Top             =   395
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -2373,7 +2252,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   414
+         Top             =   395
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -2405,7 +2284,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   452
+         Top             =   433
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -2439,7 +2318,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   452
+         Top             =   433
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -2471,7 +2350,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   471
+         Top             =   452
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -2505,7 +2384,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   471
+         Top             =   452
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -2537,7 +2416,7 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   376
+         Top             =   357
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -2571,11 +2450,24 @@ Begin Window wConfig
          TextFont        =   "Verdana"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   376
+         Top             =   357
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
          Width           =   348
+      End
+      Begin TCPSocket VerByteSocket
+         Address         =   ""
+         Height          =   32
+         Index           =   -2147483648
+         InitialParent   =   "Pages"
+         Left            =   386
+         LockedInPosition=   False
+         Port            =   9367
+         Scope           =   0
+         TabPanelIndex   =   3
+         Top             =   378
+         Width           =   32
       End
    End
 End
@@ -2834,8 +2726,6 @@ End
 		  Config.BNLSHost = "clan-warp.net"
 		  Config.BNLSEnabled = False
 		  Config.BNLSVersionCheck = True
-		  Config.CBNETHost = "clan-warp.net"
-		  Config.CBNETEnabled = False
 		  Config.Product = Packets.BNETProduct_STAR
 		  Config.VersionByte = &HD3
 		  Config.CDKey = ""
@@ -2862,80 +2752,6 @@ End
 		  
 		  wMain.lstProfiles.AddRow(Settings.Configurations(UBound(Settings.Configurations)).Name)
 		  wMain.lstProfiles.CellTag(wMain.lstProfiles.LastIndex, 0) = UBound(Settings.Configurations)
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events VerByteSocket
-	#tag Event
-		Sub Connected()
-		  
-		  Dim i As Integer = 0
-		  
-		  If Self.lstProduct.ListIndex <> -1 Then _
-		  i = MemClass.ReadDWORD(Self.lstProduct.Cell(Self.lstProduct.ListIndex, 0), 1, False)
-		  
-		  If i = 0 Then
-		    Me.Close()
-		    MsgBox("Error: You must select a product first to retrieve the version byte from it.")
-		    Return
-		  End If
-		  
-		  Self.VerByteSocketBuffer = ""
-		  Me.Write(Packets.CreateBNLS_REQUESTVERSIONBYTE(Globals.ProductConvert(i, True)))
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Error()
-		  
-		  If Me.LastErrorCode = Me.LostConnection Then
-		    MsgBox("BNLS: Disconnected.")
-		  Else
-		    MsgBox("BNLS: Socket error #" + Str(Me.LastErrorCode))
-		  End If
-		  If Me.IsConnected = True Then Me.Close()
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub DataAvailable()
-		  
-		  Self.VerByteSocketBuffer = Self.VerByteSocketBuffer + Me.ReadAll()
-		  
-		  Dim PktID As Byte, PktLen As UInt16, PktData As String
-		  While LenB(Self.VerByteSocketBuffer) >= 3
-		    
-		    PktLen = MemClass.ReadWORD(Self.VerByteSocketBuffer, 1, True)
-		    If LenB(Self.VerByteSocketBuffer) < PktLen Then Exit While
-		    PktID = AscB(MidB(Self.VerByteSocketBuffer, 3, 1))
-		    PktData = MidB(Self.VerByteSocketBuffer, 4, PktLen - 3)
-		    Self.VerByteSocketBuffer = MidB(Self.VerByteSocketBuffer, PktLen + 1)
-		    
-		    Select Case PktID
-		    Case Packets.BNLS_REQUESTVERSIONBYTE
-		      Dim Product As UInt32 = MemClass.ReadDWORD(PktData, 1, True)
-		      Dim VerByte As UInt32 = MemClass.ReadDWORD(PktData, 5, True)
-		      If Product <> &H00000000 Then
-		        If Self.VerByteSocketConfig <> Nil Then _
-		        Self.VerByteSocketConfig.VersionByte = VerByte
-		        fldVersionByte.Text = Str(VerByte)
-		        Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		        If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		        Dim Config As Configuration = Settings.Configurations(Index)
-		        Config.VersionByte = VerByte
-		      Else
-		        MsgBox("BNLS: Product wasn't recognized, no version byte could be found.")
-		      End If
-		      Me.Close()
-		      Exit While
-		    Case Packets.BNLS_IPBAN
-		      MsgBox("BNLS: " + MemClass.ReadCString(PktData, 1))
-		      Me.Close()
-		      Exit While
-		    End Select
-		    
-		  Wend
 		  
 		End Sub
 	#tag EndEvent
@@ -3000,8 +2816,6 @@ End
 		  fldBNLS.Text = Config.BNLSHost
 		  chkBNLS.Value = Config.BNLSEnabled
 		  chkBNLSVersionCheck.Value = Config.BNLSVersionCheck
-		  fldCBNET.Text = Config.CBNETHost
-		  chkCBNET.Value = Config.CBNETEnabled
 		  
 		  Dim i As Integer = 0
 		  While i < lstProduct.ListCount
@@ -3662,32 +3476,6 @@ End
 		  Dim Config As Configuration = Settings.Configurations(Index)
 		  
 		  Config.BNLSVersionCheck = Me.Value
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events fldCBNET
-	#tag Event
-		Sub TextChange()
-		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
-		  
-		  Config.CBNETHost = Me.Text
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events chkCBNET
-	#tag Event
-		Sub Action()
-		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
-		  
-		  Config.CBNETEnabled = Me.Value
 		  
 		End Sub
 	#tag EndEvent
@@ -4358,6 +4146,80 @@ End
 		  If X < 0 Or X > Me.Width Or Y < 0 Or Y > Me.Height Then Return
 		  
 		  chkUserUpdateMsgs.Value = Not chkUserUpdateMsgs.Value
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events VerByteSocket
+	#tag Event
+		Sub Connected()
+		  
+		  Dim i As Integer = 0
+		  
+		  If Self.lstProduct.ListIndex <> -1 Then _
+		  i = MemClass.ReadDWORD(Self.lstProduct.Cell(Self.lstProduct.ListIndex, 0), 1, False)
+		  
+		  If i = 0 Then
+		    Me.Close()
+		    MsgBox("Error: You must select a product first to retrieve the version byte from it.")
+		    Return
+		  End If
+		  
+		  Self.VerByteSocketBuffer = ""
+		  Me.Write(Packets.CreateBNLS_REQUESTVERSIONBYTE(Globals.ProductConvert(i, True)))
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Error()
+		  
+		  If Me.LastErrorCode = Me.LostConnection Then
+		    MsgBox("BNLS: Disconnected.")
+		  Else
+		    MsgBox("BNLS: Socket error #" + Str(Me.LastErrorCode))
+		  End If
+		  If Me.IsConnected = True Then Me.Close()
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DataAvailable()
+		  
+		  Self.VerByteSocketBuffer = Self.VerByteSocketBuffer + Me.ReadAll()
+		  
+		  Dim PktID As Byte, PktLen As UInt16, PktData As String
+		  While LenB(Self.VerByteSocketBuffer) >= 3
+		    
+		    PktLen = MemClass.ReadWORD(Self.VerByteSocketBuffer, 1, True)
+		    If LenB(Self.VerByteSocketBuffer) < PktLen Then Exit While
+		    PktID = AscB(MidB(Self.VerByteSocketBuffer, 3, 1))
+		    PktData = MidB(Self.VerByteSocketBuffer, 4, PktLen - 3)
+		    Self.VerByteSocketBuffer = MidB(Self.VerByteSocketBuffer, PktLen + 1)
+		    
+		    Select Case PktID
+		    Case Packets.BNLS_REQUESTVERSIONBYTE
+		      Dim Product As UInt32 = MemClass.ReadDWORD(PktData, 1, True)
+		      Dim VerByte As UInt32 = MemClass.ReadDWORD(PktData, 5, True)
+		      If Product <> &H00000000 Then
+		        If Self.VerByteSocketConfig <> Nil Then _
+		        Self.VerByteSocketConfig.VersionByte = VerByte
+		        fldVersionByte.Text = Str(VerByte)
+		        Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
+		        If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
+		        Dim Config As Configuration = Settings.Configurations(Index)
+		        Config.VersionByte = VerByte
+		      Else
+		        MsgBox("BNLS: Product wasn't recognized, no version byte could be found.")
+		      End If
+		      Me.Close()
+		      Exit While
+		    Case Packets.BNLS_IPBAN
+		      MsgBox("BNLS: " + MemClass.ReadCString(PktData, 1))
+		      Me.Close()
+		      Exit While
+		    End Select
+		    
+		  Wend
 		  
 		End Sub
 	#tag EndEvent

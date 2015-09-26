@@ -678,30 +678,6 @@ Protected Module Packets
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Function Parse(Sock As CBNETSocket, PktID As Byte, PktData As String) As Boolean
-		  
-		  If Sock = Nil Then Return False
-		  If Sock.IsConnected = False Then Return False
-		  If Sock.BNET = Nil Then Return False
-		  If Sock.BNET.Config = Nil Then Return False
-		  
-		  If Sock.BNET.Config.VerbosePackets = True Then _
-		  Sock.BNET.Config.AddChat(True, Colors.Yellow, "RECV CBNET_0x" + Right("00" + Hex(PktID), 2) + _
-		  " (Bytes: " + Str(4 + LenB(PktData)) + ")" + EndOfLine)
-		  
-		  Dim ret As Boolean = True
-		  
-		  Select Case PktID
-		  Case Else
-		    ret = False
-		    
-		  End Select
-		  Return ret
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
 		Protected Function ParseBNLS_CREATEACCOUNT(Sock As BNLSSocket, PktData As String) As Boolean
 		  
 		  If Sock = Nil Then Return False
@@ -2528,33 +2504,6 @@ Protected Module Packets
 		    If LenB(Sock.DataBuffer) < PktLen Then Exit While
 		    
 		    PktID = AscB(MidB(Sock.DataBuffer, 3, 1))
-		    PktData = MidB(Sock.DataBuffer, 4, PktLen - 3)
-		    Sock.DataBuffer = MidB(Sock.DataBuffer, PktLen + 1)
-		    
-		    If Packets.Parse(Sock, PktID, PktData) = False Then Exit While
-		    
-		  Wend
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Sub Receive(Sock As CBNETSocket)
-		  
-		  If Sock = Nil Then Return
-		  Sock.DataBuffer = Sock.DataBuffer + Sock.ReadAll()
-		  
-		  Dim PktID As Byte
-		  Dim PktLen As UInt16
-		  Dim PktData As String
-		  
-		  While LenB(Sock.DataBuffer) >= 3
-		    
-		    PktID = AscB(MidB(Sock.DataBuffer, 1, 1))
-		    PktLen = MemClass.ReadWORD(Sock.DataBuffer, 2, True)
-		    
-		    If LenB(Sock.DataBuffer) < PktLen Then Exit While
-		    
 		    PktData = MidB(Sock.DataBuffer, 4, PktLen - 3)
 		    Sock.DataBuffer = MidB(Sock.DataBuffer, PktLen + 1)
 		    

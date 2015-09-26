@@ -222,18 +222,6 @@ Inherits TCPSocket
 		  End If
 		  
 		  
-		  If Me.CBNET <> Nil Then Me.CBNET.DoDisconnect(False)
-		  If Me.Config.CBNETEnabled = True Then
-		    If Me.CBNET = Nil Then
-		      Me.CBNET = New CBNETSocket()
-		      Me.CBNET.BNET = Me
-		    End If
-		    Me.CBNET.DoConnect()
-		  Else
-		    Me.CBNET = Nil
-		  End If
-		  
-		  
 		  Me.ChannelFlags = 0
 		  Me.ChannelName = ""
 		  ReDim Me.Channels(-1)
@@ -423,10 +411,6 @@ Inherits TCPSocket
 
 	#tag Property, Flags = &h0
 		BNUDP As BNUDPSocket
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		CBNET As CBNETSocket
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

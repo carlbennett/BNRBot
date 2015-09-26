@@ -14,7 +14,6 @@ Class=AppTrayItem;Classes/AppTrayItem.rbbas;&h5EACDFFF;&h4952FFF;false
 Class=BNETSocket;Classes/BNETSocket.rbbas;&h6AD127FF;&h4952FFF;false
 Class=BNLSSocket;Classes/BNLSSocket.rbbas;&h3E5537FF;&h4952FFF;false
 Class=BNUDPSocket;Classes/BNUDPSocket.rbbas;&h13DB67FF;&h4952FFF;false
-Class=CBNETSocket;Classes/CBNETSocket.rbbas;&h7A416FFF;&h4952FFF;false
 Class=Configuration;Classes/Configuration.rbbas;&h20287FF;&h4952FFF;false
 Class=MemClass;Classes/MemClass.rbbas;&h4C370FFF;&h4952FFF;false
 Class=PingRange;Classes/PingRange.rbbas;&h5CA647FF;&h4952FFF;false

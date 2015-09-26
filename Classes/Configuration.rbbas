@@ -298,14 +298,6 @@ Protected Class Configuration
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		CBNETEnabled As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		CBNETHost As String
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
 		CDKey As String
 	#tag EndProperty
 
