@@ -91,7 +91,7 @@ Begin Window wMain
       GridLinesVertical=   0
       HasHeading      =   ""
       HeadingIndex    =   -1
-      Height          =   318
+      Height          =   314
       HelpTag         =   ""
       Hierarchical    =   ""
       Index           =   -2147483648
@@ -115,7 +115,7 @@ Begin Window wMain
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   41
+      Top             =   43
       Underline       =   ""
       UseFocusRing    =   False
       Visible         =   True
@@ -134,7 +134,7 @@ Begin Window wMain
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   345
+      Height          =   343
       HelpTag         =   ""
       HideSelection   =   True
       Index           =   -2147483648
@@ -170,40 +170,6 @@ Begin Window wMain
       Visible         =   True
       Width           =   400
    End
-   Begin Label txtChannel
-      AutoDeactivate  =   True
-      Bold            =   ""
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   15
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   576
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      Multiline       =   ""
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   5
-      TabPanelIndex   =   0
-      Text            =   "Offline"
-      TextAlign       =   1
-      TextColor       =   "#Colors.UI.ControlTextColor"
-      TextFont        =   "Arial"
-      TextSize        =   12
-      TextUnit        =   0
-      Top             =   14
-      Transparent     =   True
-      Underline       =   ""
-      Visible         =   True
-      Width           =   210
-   End
    Begin Timer lstUsersTimer
       Height          =   32
       Index           =   -2147483648
@@ -228,7 +194,7 @@ Begin Window wMain
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   15
+      Height          =   17
       HelpTag         =   ""
       HideSelection   =   False
       Index           =   -2147483648
@@ -258,11 +224,69 @@ Begin Window wMain
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   371
+      Top             =   369
       Underline       =   ""
       UseFocusRing    =   False
       Visible         =   True
       Width           =   622
+   End
+   Begin Rectangle rectChannel
+      AutoDeactivate  =   True
+      BorderWidth     =   1
+      BottomRightColor=   "#Colors.UI.ControlBorderColor"
+      Enabled         =   True
+      FillColor       =   "#Colors.Black"
+      Height          =   19
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   575
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   5
+      TabPanelIndex   =   0
+      Top             =   13
+      TopLeftColor    =   "#Colors.UI.ControlBorderColor"
+      Visible         =   True
+      Width           =   212
+   End
+   Begin Label txtChannel
+      AutoDeactivate  =   True
+      Bold            =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   17
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   576
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   ""
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   6
+      TabPanelIndex   =   0
+      Text            =   "Offline"
+      TextAlign       =   1
+      TextColor       =   "#Colors.UI.ControlTextColor"
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   14
+      Transparent     =   True
+      Underline       =   ""
+      Visible         =   True
+      Width           =   210
    End
 End
 #tag EndWindow
@@ -444,7 +468,7 @@ End
 		      W = RC.Width
 		      H = RC.Height
 		      
-		      If (RC IsA TextArea Or RC IsA TextField Or RC IsA ListBox Or RC = Me.txtChannel) And RC.Visible = True Then
+		      If (RC IsA TextArea Or RC IsA TextField Or RC IsA ListBox) And RC.Visible = True Then
 		        g.ForeColor = Colors.UI.ControlBorderColor
 		        
 		        g.DrawLine(X + W, Y - 1, X + W, Y + H) // Right
