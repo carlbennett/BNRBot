@@ -372,6 +372,7 @@ End
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  
 		  #pragma Unused g
+		  #pragma Unused areas
 		  
 		  Self.DrawBorders()
 		  

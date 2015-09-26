@@ -2635,6 +2635,7 @@ End
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  
 		  #pragma Unused g
+		  #pragma Unused areas
 		  
 		  Self.DrawBorders()
 		  
@@ -3080,6 +3081,9 @@ End
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  
+		  #pragma Unused X
+		  #pragma Unused Y
+		  
 		  Return True
 		  
 		End Function
@@ -3097,6 +3101,9 @@ End
 #tag Events txtAutoRejoin
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  
+		  #pragma Unused X
+		  #pragma Unused Y
 		  
 		  Return True
 		  
@@ -3702,6 +3709,9 @@ End
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  
+		  #pragma Unused X
+		  #pragma Unused Y
+		  
 		  Return True
 		  
 		End Function
@@ -3733,6 +3743,9 @@ End
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  
+		  #pragma Unused X
+		  #pragma Unused Y
+		  
 		  Return True
 		  
 		End Function
@@ -3760,6 +3773,9 @@ End
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  
+		  #pragma Unused X
+		  #pragma Unused Y
+		  
 		  Return True
 		  
 		End Function
@@ -3786,6 +3802,9 @@ End
 #tag Events txtMinimizeToTray
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  
+		  #pragma Unused X
+		  #pragma Unused Y
 		  
 		  Return True
 		  
@@ -4122,6 +4141,9 @@ End
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  
+		  #pragma Unused X
+		  #pragma Unused Y
+		  
 		  Return True
 		  
 		End Function
@@ -4152,6 +4174,9 @@ End
 #tag Events txtEnableUDP
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  
+		  #pragma Unused X
+		  #pragma Unused Y
 		  
 		  Return True
 		  
@@ -4184,6 +4209,9 @@ End
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  
+		  #pragma Unused X
+		  #pragma Unused Y
+		  
 		  Return True
 		  
 		End Function
@@ -4214,6 +4242,9 @@ End
 #tag Events txtIgnoreBanKickUnban
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  
+		  #pragma Unused X
+		  #pragma Unused Y
 		  
 		  Return True
 		  
@@ -4246,6 +4277,9 @@ End
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  
+		  #pragma Unused X
+		  #pragma Unused Y
+		  
 		  Return True
 		  
 		End Function
@@ -4277,6 +4311,9 @@ End
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  
+		  #pragma Unused X
+		  #pragma Unused Y
+		  
 		  Return True
 		  
 		End Function
@@ -4307,6 +4344,9 @@ End
 #tag Events txtUserUpdateMsgs
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  
+		  #pragma Unused X
+		  #pragma Unused Y
 		  
 		  Return True
 		  

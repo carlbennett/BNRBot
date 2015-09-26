@@ -336,6 +336,7 @@ End
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  
 		  #pragma Unused g
+		  #pragma Unused areas
 		  
 		  Self.DrawBorders()
 		  
@@ -383,6 +384,50 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function AutoCompleteInput(source As String) As String
+		  
+		  Dim Config As Configuration
+		  If Me.SelectedConfig >= 0 And Me.SelectedConfig <= UBound(Settings.Configurations) _
+		    Then Config = Settings.Configurations(Me.SelectedConfig) Else Config = Nil
+		    
+		    If Config = Nil Then Return ""
+		    If Me.lstUsers_Viewing_Channel() = False Then Return "" // AutoComplete only available for channel users at this time
+		    If Config.BNET.ChannelUsers = Nil Then Return ""
+		    
+		    Dim word As String
+		    
+		    If Left(source, 1) = "@" Then
+		      word = Mid(source, 2)
+		    Else
+		      word = source
+		    End If
+		    
+		    Dim wordLength As Integer = Len(word)
+		    Dim User As Dictionary = Nil
+		    Dim Username As String = ""
+		    Dim Match As String = ""
+		    Dim i As Integer = 0
+		    
+		    While i < Config.BNET.ChannelUsers.Count
+		      User = Config.BNET.ChannelUsers.Value(Config.BNET.ChannelUsers.Key(i))
+		      Username = User.Value("Username")
+		      
+		      If Left(Username, wordLength) = word Then
+		        Match = Username
+		        Exit While // Return first match, other possible matches are ignored for now
+		      End If
+		      
+		      i = i + 1
+		    Wend
+		    
+		    If Len(Match) > 0 And Left(source, 1) = "@" Then Match = "@" + Match
+		    
+		    Return Match // Couldn't find a suitable match
+		    
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub DrawBorders()
 		  
 		  Dim RC As RectControl
@@ -427,7 +472,7 @@ End
 		    Select Case Asc(Key)
 		    Case &H09 // Tab
 		      
-		      If Keyboard.ControlKey = True And Asc(Key) = 9 Then
+		      If Keyboard.ControlKey = True Then
 		        If Keyboard.ShiftKey = False Then
 		          If lstProfiles.ListIndex = lstProfiles.ListCount - 1 Then
 		            lstProfiles.ListIndex = 0
@@ -2059,13 +2104,38 @@ End
 	#tag Event
 		Function KeyDown(Key As String) As Boolean
 		  
-		  If (Key <> Chr(13) And Key <> Chr(3)) Then Return Self.HandleKeyDown(Key)
+		  Dim KeyAsc As Integer = Asc(Key)
+		  
+		  If (KeyAsc <> 13 And KeyAsc <> 3 And KeyAsc <> 9) Then Return Self.HandleKeyDown(Key)
 		  
 		  Dim Config As Configuration
 		  If Self.SelectedConfig >= 0 And Self.SelectedConfig <= UBound(Settings.Configurations) Then _
 		  Config = Settings.Configurations(Self.SelectedConfig)
 		  
 		  If Config = Nil Then Return False
+		  
+		  If KeyAsc = 9 Then // Try to auto-complete the username at this cursor
+		    If Keyboard.AsyncAltKey = True Then Return False // User is switching to another application
+		    If Keyboard.AsyncControlKey = True Then Return Self.HandleKeyDown(Key) // User is switching to another profile
+		    Dim textLength As Integer = Len(Me.Text)
+		    If Me.SelStart <> textLength Then
+		      Call MsgBox("Cannot autocomplete unless cursor is at end of input.", 48, "Application Limitation")
+		      Return True
+		    End If
+		    Dim word As String = NthField(Me.Text, " ", CountFields(Me.Text, " "))
+		    Dim wordComplete As String = Self.AutoCompleteInput(word)
+		    If wordComplete <> "" Then
+		      Dim leftCursor As Integer = textLength - Len(word)
+		      If leftCursor = 0 Then wordComplete = wordComplete + ": " _
+		    Else wordComplete = wordComplete + " "
+		      Me.SelStart = leftCursor
+		      Me.SelLength = textLength - leftCursor
+		      Me.SelText = wordComplete
+		    End If
+		    Return True
+		  End If
+		  
+		  // Process the text in the box
 		  
 		  Dim Lines(), Line As String
 		  Lines = Split(ReplaceLineEndings(Me.Text, EndOfLine), EndOfLine)
