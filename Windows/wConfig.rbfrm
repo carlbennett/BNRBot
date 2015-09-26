@@ -185,7 +185,7 @@ Begin Window wConfig
       TabIndex        =   1
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   2
+      Value           =   1
       Visible         =   True
       Width           =   392
       Begin Label txtJunk
