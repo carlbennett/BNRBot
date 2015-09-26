@@ -277,6 +277,7 @@ Protected Module Settings
 		  Dim Options As UInt32
 		  Dim Configs() As Configuration
 		  Dim PingRanges() As PingRange
+		  Dim MessageBlacklist() As Pair
 		  
 		  // Second, retrieve the version of the file and then try to parse the file:
 		  Dim Version As Byte = Buffer.ReadBYTE()
@@ -303,6 +304,9 @@ Protected Module Settings
 		          PingRanges(UBound(PingRanges)).LowestPing = Buffer.ReadDWORD()
 		          PingRanges(UBound(PingRanges)).HighestPing = Buffer.ReadDWORD()
 		        Wend
+		        
+		        ReDim MessageBlacklist(-1) // Clear out any previous data (Fail safe check)
+		        // Version 0 doesn't have a blacklist
 		        
 		      Case Settings.SectionConfiguration
 		        Configs.Append(New Configuration())
@@ -349,6 +353,78 @@ Protected Module Settings
 		      End Select
 		      
 		    Wend
+		  Case 1
+		    While Buffer.EOF() = False
+		      
+		      Section = Buffer.ReadDWORD()
+		      Select Case Section
+		      Case Settings.SectionGlobal
+		        Options = Buffer.ReadBYTE()
+		        Settings.PrefCheckForUpdates = (BitAnd(Options, &H01) > 0)
+		        Settings.PrefMinimizeToTray = (BitAnd(Options, &H02) > 0)
+		        Settings.PrefPingRangesFlushRight = (BitAnd(Options, &H04) > 0)
+		        
+		        // Ping Ranges
+		        ReDim PingRanges(-1) // Clear out any previous data (Fail safe check)
+		        Options = Buffer.ReadWORD() // Options is reused as a variable...
+		        While UBound(PingRanges) + 1 < Options
+		          PingRanges.Append(New PingRange())
+		          PingRanges(UBound(PingRanges)).BarCount = Buffer.ReadDWORD()
+		          PingRanges(UBound(PingRanges)).BarColor = Buffer.ReadDWORD()
+		          PingRanges(UBound(PingRanges)).LowestPing = Buffer.ReadDWORD()
+		          PingRanges(UBound(PingRanges)).HighestPing = Buffer.ReadDWORD()
+		        Wend
+		        
+		        // Message Blacklist
+		        ReDim MessageBlacklist(-1) // Clear out any previous data (Fail safe check)
+		        Options = Buffer.ReadWORD() // Options is reused as a variable...
+		        While UBound(MessageBlacklist) + 1 < Options
+		          MessageBlacklist.Append(New Pair(Buffer.ReadBYTE(), Buffer.ReadCString()))
+		        Wend
+		        
+		      Case Settings.SectionConfiguration
+		        Configs.Append(New Configuration())
+		        Configs(UBound(Configs)).Name = Buffer.ReadCString()
+		        Configs(UBound(Configs)).Username = Buffer.ReadCString()
+		        Configs(UBound(Configs)).Password = Buffer.ReadCString()
+		        Configs(UBound(Configs)).BNETHost = Buffer.ReadCString()
+		        Configs(UBound(Configs)).BNLSHost = Buffer.ReadCString()
+		        Configs(UBound(Configs)).Product = Buffer.ReadDWORD()
+		        Configs(UBound(Configs)).VersionByte = Buffer.ReadDWORD()
+		        Configs(UBound(Configs)).CDKey = Buffer.ReadCString()
+		        Configs(UBound(Configs)).CDKeyExpansion = Buffer.ReadCString()
+		        Configs(UBound(Configs)).CDKeyOwner = Buffer.ReadCString()
+		        Configs(UBound(Configs)).EmailAddress = Buffer.ReadCString()
+		        Configs(UBound(Configs)).HomeChannel = Buffer.ReadCString()
+		        Configs(UBound(Configs)).Timestamp = Buffer.ReadBYTE()
+		        Configs(UBound(Configs)).PingSpoof = Buffer.ReadDWORD()
+		        
+		        Options = Buffer.ReadDWORD()
+		        Configs(UBound(Configs)).BNLSEnabled = (BitAnd(Options, &H01) > 0)
+		        Configs(UBound(Configs)).CDKeySpawn = (BitAnd(Options, &H02) > 0)
+		        Configs(UBound(Configs)).AutoRejoinWhenKicked = (BitAnd(Options, &H04) > 0)
+		        Configs(UBound(Configs)).VerbosePackets = (BitAnd(Options, &H08) > 0)
+		        Configs(UBound(Configs)).EnableUDP = (BitAnd(Options, &H10) > 0)
+		        Configs(UBound(Configs)).BNLSVersionCheck = (BitAnd(Options, &H20) > 0)
+		        Configs(UBound(Configs)).ShowJoinLeaveMessages = (BitAnd(Options, &H40) > 0)
+		        Configs(UBound(Configs)).EnableUTF8 = (BitAnd(Options, &H80) > 0)
+		        Configs(UBound(Configs)).SpamPrevention = (BitAnd(Options, &H100) > 0)
+		        Configs(UBound(Configs)).IgnoreBanKickUnban = (BitAnd(Options, &H200) > 0)
+		        Configs(UBound(Configs)).ConfirmRemovingClanMembers = (BitAnd(Options, &H400) > 0)
+		        Configs(UBound(Configs)).CreateAccountsFirst = (BitAnd(Options, &H800) > 0)
+		        Configs(UBound(Configs)).ShowUserUpdateMessages = (BitAnd(Options, &H1000) > 0)
+		        
+		        Configs(UBound(Configs)).ProxyType = Buffer.ReadBYTE()
+		        Configs(UBound(Configs)).ProxyHost = Buffer.ReadCString()
+		        
+		      Case Else
+		        // The section is unrecognized to us.
+		        Settings.AppendLoadError("Could not parse the settings file because it contains at least one (1) bad section.")
+		        Exit While
+		        
+		      End Select
+		      
+		    Wend
 		  Case Else
 		    // The file version is unrecognized to us.
 		    Settings.AppendLoadError("Could not parse the settings file because it reports an unrecognized version.")
@@ -357,6 +433,7 @@ Protected Module Settings
 		  
 		  If UBound(Configs) >= 0 Then Settings.Configurations = Configs
 		  If UBound(PingRanges) >= 0 Then Settings.PrefPingRanges = PingRanges
+		  If UBound(MessageBlacklist) >= 0 Then Settings.PrefMessageBlacklist = MessageBlacklist
 		  
 		End Sub
 	#tag EndMethod
@@ -412,7 +489,7 @@ Protected Module Settings
 		  Buffer.WriteCString("EDIT THIS FILE WITH BNRBOT, DO NOT MODIFY THIS FILE YOURSELF.")
 		  
 		  // File version
-		  Buffer.WriteBYTE(&H00)
+		  Buffer.WriteBYTE(&H01)
 		  
 		  // Section Global:
 		  Buffer.WriteDWORD(Settings.SectionGlobal)
@@ -432,6 +509,17 @@ Protected Module Settings
 		      Buffer.WriteDWORD(Settings.PrefPingRanges(Options).BarColor)
 		      Buffer.WriteDWORD(Settings.PrefPingRanges(Options).LowestPing)
 		      Buffer.WriteDWORD(Settings.PrefPingRanges(Options).HighestPing)
+		      Options = Options + 1
+		    Wend
+		  End If
+		  
+		  // Message Blacklist
+		  Buffer.WriteWORD(UBound(Settings.PrefMessageBlacklist) + 1)
+		  If UBound(Settings.PrefMessageBlacklist) >= 0 Then
+		    Options = &H0000 // Reuse Options as our loop variable.
+		    While Options <= UBound(Settings.PrefMessageBlacklist) And Options < &HFFFF
+		      Buffer.WriteBYTE(Settings.PrefMessageBlacklist(Options).Left)
+		      Buffer.WriteCString(Settings.PrefMessageBlacklist(Options).Right)
 		      Options = Options + 1
 		    Wend
 		  End If
@@ -462,17 +550,15 @@ Protected Module Settings
 		    If Config.VerbosePackets = True Then Options = BitOr(Options, &H08)
 		    If Config.EnableUDP = True Then Options = BitOr(Options, &H10)
 		    If Config.BNLSVersionCheck = True Then Options = BitOr(Options, &H20)
-		    // Unused Bit 0x40, used to be CBNET
-		    If Config.ShowJoinLeaveMessages = True Then Options = BitOr(Options, &H80)
-		    If Config.EnableUTF8 = True Then Options = BitOr(Options, &H100)
-		    If Config.SpamPrevention = True Then Options = BitOr(Options, &H200)
-		    If Config.IgnoreBanKickUnban = True Then Options = BitOr(Options, &H400)
-		    If Config.ConfirmRemovingClanMembers = True Then Options = BitOr(Options, &H800)
-		    If Config.CreateAccountsFirst = True Then Options = BitOr(Options, &H1000)
-		    If Config.ShowUserUpdateMessages = True Then Options = BitOr(Options, &H2000)
+		    If Config.ShowJoinLeaveMessages = True Then Options = BitOr(Options, &H40)
+		    If Config.EnableUTF8 = True Then Options = BitOr(Options, &H80)
+		    If Config.SpamPrevention = True Then Options = BitOr(Options, &H100)
+		    If Config.IgnoreBanKickUnban = True Then Options = BitOr(Options, &H200)
+		    If Config.ConfirmRemovingClanMembers = True Then Options = BitOr(Options, &H400)
+		    If Config.CreateAccountsFirst = True Then Options = BitOr(Options, &H800)
+		    If Config.ShowUserUpdateMessages = True Then Options = BitOr(Options, &H1000)
 		    Buffer.WriteDWORD(Options)
 		    
-		    Buffer.WriteCString("") // Unused String, used to be CBNET
 		    Buffer.WriteBYTE(Config.ProxyType)
 		    Buffer.WriteCString(Config.ProxyHost)
 		    
@@ -534,6 +620,10 @@ Protected Module Settings
 
 	#tag Property, Flags = &h1
 		Protected PrefCheckForUpdates As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected PrefMessageBlacklist() As Pair
 	#tag EndProperty
 
 	#tag Property, Flags = &h1

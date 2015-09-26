@@ -1247,13 +1247,17 @@ Protected Module Packets
 		    // If bTmp = True then they are talking at most 0.4 seconds after entering.
 		    
 		    If dTmp <> Nil Then
-		      If Sock.Config.SpamPrevention = True And Text = dTmp.Value("LastMessage") Then bTmp = True
+		      If bTmp = False And Sock.Config.SpamPrevention = True And Text = dTmp.Value("LastMessage") Then bTmp = True
 		      dTmp.Value("LastMessageTime") = Microseconds()
 		      dTmp.Value("LastMessageType") = EventID
 		      dTmp.Value("LastMessage") = Text
 		    End If
 		    
 		    // If bTmp = True now then they may also be repeating their message.
+		    
+		    If bTmp = False And Globals.MessageBlacklistMatch(Text) = True Then bTmp = True
+		    
+		    // If bTmp = True now then the message may even also be on the blacklist
 		    
 		    If BitAnd(Flags, &H20) <= 0 And bTmp = False Then
 		      If BitAnd(Flags, &H09) > 0 Then
@@ -1378,13 +1382,17 @@ Protected Module Packets
 		    // If bTmp = True then they are talking at most 0.4 seconds after entering.
 		    
 		    If dTmp <> Nil Then
-		      If Sock.Config.SpamPrevention = True And Text = dTmp.Value("LastMessage") Then bTmp = True
+		      If bTmp = False And Sock.Config.SpamPrevention = True And Text = dTmp.Value("LastMessage") Then bTmp = True
 		      dTmp.Value("LastMessageTime") = Microseconds()
 		      dTmp.Value("LastMessageType") = EventID
 		      dTmp.Value("LastMessage") = Text
 		    End If
 		    
 		    // If bTmp = True now then they may also be repeating their message.
+		    
+		    If bTmp = False And Globals.MessageBlacklistMatch(Text) = True Then bTmp = True
+		    
+		    // If bTmp = True now then the message may even also be on the blacklist
 		    
 		    If BitAnd(Flags, &H20) <= 0 And bTmp = False Then
 		      If BitAnd(Flags, &H09) > 0 Then

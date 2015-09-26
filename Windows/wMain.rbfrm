@@ -2191,16 +2191,19 @@ End
 		    If Config.EnableUTF8 = False Then s = Line Else s = ConvertEncoding(Line, Encodings.UTF8)
 		    
 		    If dTmp <> Nil Then
-		      If Left(s, 3) = "/me" Or Left(s, 6) = "/emote" Then
-		        dTmp.Value("LastMessageType") = &H17
-		        dTmp.Value("LastMessage") = Mid(s, Len(NthField(s, " ", 1) + " ") + 1)
-		      ElseIf Left(s, 2) = "/w" Or Left(s, 4) = "/msg" Or Left(s, 8) = "/whisper" Then
-		        dTmp.Value("LastMessageType") = &H0A
-		        dTmp.Value("LastMessage") = Mid(s, Len(NthField(s, " ", 1) + " " + NthField(s, " ", 2) + " ") + 1)
-		      Else
+		      // Emotes and Whispers will be covered when they are sent back to us by Battle.net.
+		      //If Left(s, 3) = "/me" Or Left(s, 6) = "/emote" Then
+		      //dTmp.Value("LastMessageType") = &H17
+		      //dTmp.Value("LastMessage") = Mid(s, Len(NthField(s, " ", 1) + " ") + 1)
+		      //ElseIf Left(s, 2) = "/w" Or Left(s, 4) = "/msg" Or Left(s, 8) = "/whisper" Then
+		      //dTmp.Value("LastMessageType") = &H0A
+		      //dTmp.Value("LastMessage") = Mid(s, Len(NthField(s, " ", 1) + " " + NthField(s, " ", 2) + " ") + 1)
+		      //Else
+		      If Left(s, 1) <> "/" Then
 		        dTmp.Value("LastMessageType") = &H05
 		        dTmp.Value("LastMessage") = s
 		      End If
+		      //End If
 		    End If
 		    
 		    Config.BNET.Send(Packets.CreateSID_CHATCOMMAND(s))

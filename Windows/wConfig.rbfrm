@@ -1815,7 +1815,7 @@ Begin Window wConfig
          Visible         =   True
          Width           =   348
       End
-      Begin Label txtPingRangesNote
+      Begin Label txtJunk
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
@@ -1823,7 +1823,7 @@ Begin Window wConfig
          Enabled         =   True
          Height          =   14
          HelpTag         =   ""
-         Index           =   -2147483648
+         Index           =   2
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -1835,7 +1835,7 @@ Begin Window wConfig
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   9
+         TabIndex        =   11
          TabPanelIndex   =   2
          Text            =   "* Right-click the list for options (such as adding and removing)."
          TextAlign       =   0
@@ -1960,7 +1960,7 @@ Begin Window wConfig
          Width           =   356
          _ScrollWidth    =   -1
       End
-      Begin Label txtMinimizeToTray1
+      Begin Label txtJunk
          AutoDeactivate  =   True
          Bold            =   True
          DataField       =   ""
@@ -1968,7 +1968,7 @@ Begin Window wConfig
          Enabled         =   True
          Height          =   15
          HelpTag         =   ""
-         Index           =   -2147483648
+         Index           =   1
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -2014,7 +2014,7 @@ Begin Window wConfig
          LockTop         =   True
          Scope           =   0
          State           =   0
-         TabIndex        =   10
+         TabIndex        =   9
          TabPanelIndex   =   2
          TabStop         =   True
          TextFont        =   "Verdana"
@@ -2046,7 +2046,7 @@ Begin Window wConfig
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   11
+         TabIndex        =   10
          TabPanelIndex   =   2
          Text            =   "Flush bars to the right"
          TextAlign       =   0
@@ -2469,6 +2469,154 @@ Begin Window wConfig
          Top             =   378
          Width           =   32
       End
+      Begin Label txtJunk
+         AutoDeactivate  =   True
+         Bold            =   True
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   15
+         HelpTag         =   ""
+         Index           =   3
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   132
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   12
+         TabPanelIndex   =   2
+         Text            =   "Message Blacklist:"
+         TextAlign       =   0
+         TextColor       =   "#Colors.UI.ControlTextColor"
+         TextFont        =   "Verdana"
+         TextSize        =   11
+         TextUnit        =   0
+         Top             =   313
+         Transparent     =   False
+         Underline       =   ""
+         Visible         =   True
+         Width           =   348
+      End
+      Begin Listbox lstMessageBlacklist
+         AutoDeactivate  =   True
+         AutoHideScrollbars=   True
+         Bold            =   ""
+         Border          =   False
+         ColumnCount     =   2
+         ColumnsResizable=   False
+         ColumnWidths    =   60
+         DataField       =   ""
+         DataSource      =   ""
+         DefaultRowHeight=   15
+         Enabled         =   True
+         EnableDrag      =   True
+         EnableDragReorder=   True
+         GridLinesHorizontal=   0
+         GridLinesVertical=   0
+         HasHeading      =   True
+         HeadingIndex    =   -1
+         Height          =   147
+         HelpTag         =   "These messages will be globally blacklisted; they won't show up in\r\nchat anywhere."
+         Hierarchical    =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Pages"
+         InitialValue    =   "Type	Pattern"
+         Italic          =   ""
+         Left            =   136
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         RequiresSelection=   ""
+         Scope           =   0
+         ScrollbarHorizontal=   ""
+         ScrollBarVertical=   True
+         SelectionType   =   0
+         TabIndex        =   13
+         TabPanelIndex   =   2
+         TabStop         =   True
+         TextFont        =   "Verdana"
+         TextSize        =   11
+         TextUnit        =   0
+         Top             =   330
+         Underline       =   ""
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   356
+         _ScrollWidth    =   -1
+      End
+      Begin Label txtJunk
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   14
+         HelpTag         =   ""
+         Index           =   4
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   136
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   15
+         TabPanelIndex   =   2
+         Text            =   "* Right-click the list for options (such as adding and removing)."
+         TextAlign       =   0
+         TextColor       =   "#Colors.UI.ControlTextColor"
+         TextFont        =   "Verdana"
+         TextSize        =   11
+         TextUnit        =   0
+         Top             =   508
+         Transparent     =   False
+         Underline       =   ""
+         Visible         =   True
+         Width           =   364
+      End
+      Begin PushButton btnApplyMessageBlacklist
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "Apply Now"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   22
+         HelpTag         =   "Applies this message blacklist to memory. When the dialog closes,\r\nthey will be stored to disk."
+         Index           =   -2147483648
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   412
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   ""
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   14
+         TabPanelIndex   =   2
+         TabStop         =   True
+         TextFont        =   "Verdana"
+         TextSize        =   11
+         TextUnit        =   0
+         Top             =   482
+         Underline       =   ""
+         Visible         =   True
+         Width           =   80
+      End
    End
 End
 #tag EndWindow
@@ -2626,6 +2774,22 @@ End
 		    If Settings.PrefPingRanges(i).HighestPing = &H7FFFFFFF Then _
 		    lstPingRanges.Cell(lstPingRanges.LastIndex, 3) = "~" Else _
 		    lstPingRanges.Cell(lstPingRanges.LastIndex, 3) = Str(Settings.PrefPingRanges(i).HighestPing)
+		    
+		    i = i + 1
+		  Wend
+		  
+		  i = 0
+		  While i <= UBound(Settings.PrefMessageBlacklist)
+		    
+		    Select Case Settings.PrefMessageBlacklist(i).Left
+		    Case 0
+		      lstMessageBlacklist.AddRow("Exact")
+		    Case 1
+		      lstMessageBlacklist.AddRow("Regex")
+		    Case Else
+		      lstMessageBlacklist.AddRow(Str(Settings.PrefMessageBlacklist(i).Left))
+		    End Select
+		    lstMessageBlacklist.Cell(lstMessageBlacklist.LastIndex, 1) = Settings.PrefMessageBlacklist(i).Right
 		    
 		    i = i + 1
 		  Wend
@@ -3788,10 +3952,12 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Open()
+		  
 		  Me.ColumnType(0) = Me.TypeEditable
 		  Me.ColumnType(1) = Me.TypeDefault
 		  Me.ColumnType(2) = Me.TypeEditable
 		  Me.ColumnType(3) = Me.TypeEditable
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -4231,6 +4397,141 @@ End
 		    End Select
 		    
 		  Wend
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events lstMessageBlacklist
+	#tag Event
+		Sub Open()
+		  
+		  Me.ColumnType(0) = Me.TypeDefault
+		  Me.ColumnType(1) = Me.TypeEditableTextField
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
+		  
+		  If row = Me.ListIndex Then
+		    g.ForeColor = Colors.UI.ControlBackColor
+		  Else
+		    g.ForeColor = Colors.UI.ListSelectionColor
+		  End If
+		  
+		  If row >= 0 And row < Me.ListCount Then _
+		  g.DrawString(Me.Cell(row, column), x, y, g.Width - x * 2, True)
+		  
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
+		  
+		  #pragma Unused column
+		  
+		  If row = Me.ListIndex Then
+		    g.ForeColor = Colors.UI.ListSelectionColor
+		  Else
+		    g.ForeColor = Colors.UI.ControlBackColor
+		  End If
+		  
+		  g.FillRect(0, 0, g.Width, g.Height)
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
+		  
+		  #pragma Unused x
+		  #pragma Unused y
+		  
+		  If base = Nil Then Return False
+		  
+		  base.Insert(0, New MenuItem("Add New Pattern"))
+		  
+		  If Me.ListIndex > -1 Then
+		    base.Insert(1, New MenuItem("Insert New Pattern"))
+		    base.Insert(2, New MenuItem(base.TextSeparator))
+		    base.Insert(3, New MenuItem("Remove Selected Pattern"))
+		    base.Insert(4, New MenuItem(base.TextSeparator))
+		    base.Insert(5, New MenuItem("Type"))
+		    
+		    base.Item(5).Insert(0, New MenuItem("Exact Match"))
+		    base.Item(5).Item(0).Checked = (Me.Cell(Me.ListIndex, 0) = "Exact")
+		    
+		    base.Item(5).Insert(1, New MenuItem("Regex Pattern"))
+		    base.Item(5).Item(1).Checked = (Me.Cell(Me.ListIndex, 0) = "Regex")
+		  End If
+		  
+		  Return (base.Count > 0)
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
+		  
+		  If hitItem = Nil Then Return False
+		  
+		  Select Case hitItem.Text
+		  Case "Add New Pattern"
+		    
+		    Me.AddRow("Regex")
+		    Me.Cell(Me.LastIndex, 1) = "^ignore this$"
+		    Me.EditCell(Me.LastIndex, 1)
+		    
+		  Case "Insert New Pattern"
+		    
+		    If Me.ListIndex > -1 Then
+		      Me.InsertRow(Me.ListIndex, "Regex")
+		      Me.Cell(Me.LastIndex, 1) = "^ignore this$"
+		      Me.EditCell(Me.LastIndex, 1)
+		    End If
+		    
+		  Case "Remove Selected Pattern"
+		    
+		    If Me.ListIndex > -1 Then Me.RemoveRow(Me.ListIndex)
+		    
+		  Case "Exact Match"
+		    
+		    If Me.ListIndex > -1 Then Me.Cell(Me.ListIndex, 0) = "Exact"
+		    
+		  Case "Regex Pattern"
+		    
+		    If Me.ListIndex > -1 Then Me.Cell(Me.ListIndex, 0) = "Regex"
+		    
+		  Else
+		    #If TargetWin32 = False Then Beep()
+		    MsgBox("Error: Cannot identify the action you wished to take.")
+		    Return False
+		    
+		  End Select
+		  
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnApplyMessageBlacklist
+	#tag Event
+		Sub Action()
+		  
+		  Dim i As Integer = 0, MessageBlacklist() As Pair
+		  While i < lstMessageBlacklist.ListCount
+		    Select Case lstMessageBlacklist.Cell(i, 0)
+		    Case "Exact"
+		      MessageBlacklist.Append(New Pair(0, lstMessageBlacklist.Cell(i, 1)))
+		    Case "Regex"
+		      MessageBlacklist.Append(New Pair(1, lstMessageBlacklist.Cell(i, 1)))
+		    Case Else
+		      MessageBlacklist.Append(New Pair(lstMessageBlacklist.Cell(i, 0), lstMessageBlacklist.Cell(i, 1)))
+		    End Select
+		    i = i + 1
+		  Wend
+		  
+		  Settings.PrefMessageBlacklist = MessageBlacklist
 		  
 		End Sub
 	#tag EndEvent

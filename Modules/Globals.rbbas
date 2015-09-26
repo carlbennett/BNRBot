@@ -1859,6 +1859,34 @@ Protected Module Globals
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Function MessageBlacklistMatch(Pattern As String) As Boolean
+		  
+		  Dim regex As New RegEx()
+		  Dim match As RegExMatch
+		  Dim i As Integer = UBound(Settings.PrefMessageBlacklist)
+		  While i >= 0
+		    Select Case Settings.PrefMessageBlacklist(i).Left
+		    Case 0 // Exact
+		      If Settings.PrefMessageBlacklist(i).Right = Pattern Then Return True
+		    Case 1 // Regex
+		      Try
+		        regex.SearchPattern = Settings.PrefMessageBlacklist(i).Right
+		        match = regex.Search(Pattern)
+		        If match <> Nil Then Return True
+		      Catch err As RegExException
+		        Continue // Regex problem, skip this pattern
+		      End Try 
+		    Case Else // Unknown
+		    End Select
+		    i = i - 1
+		  Wend
+		  
+		  Return False // No Match
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function NeedsCDKey(Product As UInt32) As Boolean
 		  
