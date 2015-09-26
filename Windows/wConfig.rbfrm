@@ -2723,7 +2723,7 @@ End
 		  Config.Username = "JoeUser"
 		  Config.Password = Globals.GenerateString(12, "0123456789ABCDEFabcdef")
 		  Config.BNETHost = "useast.battle.net"
-		  Config.BNLSHost = "clan-warp.net"
+		  Config.BNLSHost = "bnls.bnetdocs.org"
 		  Config.BNLSEnabled = False
 		  Config.BNLSVersionCheck = True
 		  Config.Product = Packets.BNETProduct_STAR
