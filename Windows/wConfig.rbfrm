@@ -2520,6 +2520,9 @@ End
 		  Globals.wConfig_Open = True
 		  Self.Reload()
 		  
+		  If wMain.lstProfiles.ListIndex <> -1 Then _
+		  wConfig.SelectProfile(wMain.lstProfiles.CellTag(wMain.lstProfiles.ListIndex, 0))
+		  
 		End Sub
 	#tag EndEvent
 
@@ -2645,6 +2648,14 @@ End
 		  
 		  Settings.Save(Nil)
 		  If wMain.SelectedConfig = -1 Then wMain.SelectConfig(-1)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SelectProfile(id As Integer)
+		  
+		  Self.lstCategories.ListIndex = 1 + id
 		  
 		End Sub
 	#tag EndMethod
