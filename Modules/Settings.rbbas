@@ -491,7 +491,9 @@ Protected Module Settings
 		  
 		  If App.ExecutableFile <> Nil And SpecialFolder.Applications <> Nil And _
 		    InStr(App.ExecutableFile.AbsolutePath, SpecialFolder.Applications.AbsolutePath) > 0 Then
-		    Folder = SpecialFolder.ApplicationData.Child("BNRBot v2")
+		    If SpecialFolder.ApplicationData.Child("BNRBot v2").Exists = True Then _
+		    SpecialFolder.ApplicationData.Child("BNRBot v2").Name = "BNRBot"
+		    Folder = SpecialFolder.ApplicationData.Child("BNRBot")
 		  Else
 		    Folder = GetFolderItem("")
 		    #If DebugBuild = True Then Folder = Folder.Parent()
@@ -504,6 +506,9 @@ Protected Module Settings
 		    Dim Extension As String = NthField(App.ExecutableFile.Name, ".", CountFields(App.ExecutableFile.Name, "."))
 		    Filename = Left(Filename, Len(Filename) - Len(Extension)) + "dat"
 		  End If
+		  
+		  If Folder.Child("BNRBot v2.dat").Exists = True Then _
+		  Folder.Child("BNRBot v2.dat").Name = Filename
 		  
 		  Return Folder.Child(Filename)
 		  
