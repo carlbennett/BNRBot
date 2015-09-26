@@ -2118,6 +2118,7 @@ End
 		    If Keyboard.AsyncAltKey = True Then Return False // User is switching to another application
 		    If Keyboard.AsyncControlKey = True Then Return Self.HandleKeyDown(Key) // User is switching to another profile
 		    Dim textLength As Integer = Len(Me.Text)
+		    If textLength = 0 Then Return False
 		    If Me.SelStart <> textLength Then
 		      Call MsgBox("Cannot autocomplete unless cursor is at end of input.", 48, "Application Limitation")
 		      Return True
