@@ -1,72 +1,41 @@
 #tag Window
 Begin Window wUpdater
-   BackColor       =   48
+   BackColor       =   &hFFFFFF
    Backdrop        =   ""
    CloseButton     =   True
    Composite       =   False
-   Frame           =   0
+   Frame           =   1
    FullScreen      =   False
    HasBackColor    =   True
-   Height          =   204
+   Height          =   96
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
-   MaxHeight       =   32000
+   MaxHeight       =   100
    MaximizeButton  =   False
-   MaxWidth        =   32000
+   MaxWidth        =   400
    MenuBar         =   ""
    MenuBarVisible  =   True
-   MinHeight       =   204
-   MinimizeButton  =   False
-   MinWidth        =   304
-   Placement       =   1
+   MinHeight       =   100
+   MinimizeButton  =   True
+   MinWidth        =   400
+   Placement       =   3
    Resizeable      =   False
-   Title           =   "Updater - BNRBot"
+   Title           =   "BNRBot Update Check"
    Visible         =   True
-   Width           =   304
-   Begin PushButton btnClose
-      AutoDeactivate  =   True
-      Bold            =   ""
-      ButtonStyle     =   0
-      Cancel          =   True
-      Caption         =   "Close"
-      Default         =   True
-      Enabled         =   True
-      Height          =   22
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   118
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   ""
-      LockTop         =   ""
-      Scope           =   0
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "Verdana"
-      TextSize        =   11
-      TextUnit        =   0
-      Top             =   162
-      Underline       =   ""
-      Visible         =   True
-      Width           =   68
-   End
-   Begin Label txtStatus
+   Width           =   4.0e+2
+   Begin Label uiStatus
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   15
+      Height          =   18
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   20
+      Left            =   14
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -77,94 +46,103 @@ Begin Window wUpdater
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      Text            =   "Checking for updates..."
-      TextAlign       =   1
-      TextColor       =   "#Colors.White"
-      TextFont        =   "Verdana"
-      TextSize        =   11
+      Text            =   "%status%"
+      TextAlign       =   0
+      TextColor       =   &h000000
+      TextFont        =   "Arial"
+      TextSize        =   12
       TextUnit        =   0
       Top             =   14
       Transparent     =   True
       Underline       =   ""
       Visible         =   True
-      Width           =   264
+      Width           =   372
    End
-   Begin Label txtDetails
+   Begin ProgressBar uiProgress
       AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
       Enabled         =   True
-      Height          =   83
+      Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Italic          =   ""
-      Left            =   20
-      LockBottom      =   True
+      Left            =   14
+      LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      Multiline       =   True
+      Maximum         =   0
       Scope           =   0
-      Selectable      =   False
-      TabIndex        =   2
       TabPanelIndex   =   0
-      Text            =   "Connecting to update server..."
-      TextAlign       =   0
-      TextColor       =   "#Colors.White"
-      TextFont        =   "Verdana"
-      TextSize        =   11
-      TextUnit        =   0
-      Top             =   41
-      Transparent     =   True
-      Underline       =   ""
+      Top             =   38
+      Value           =   0
       Visible         =   True
-      Width           =   264
+      Width           =   372
    End
-   Begin PushButton btnUpdate
+   Begin PushButton uiCurrentAction
       AutoDeactivate  =   True
       Bold            =   ""
       ButtonStyle     =   0
       Cancel          =   False
-      Caption         =   "Update Now"
-      Default         =   False
+      Caption         =   "%action%"
+      Default         =   True
       Enabled         =   True
       Height          =   22
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   102
-      LockBottom      =   True
+      Left            =   306
+      LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   False
-      LockRight       =   ""
-      LockTop         =   ""
+      LockRight       =   True
+      LockTop         =   True
       Scope           =   0
-      TabIndex        =   3
+      TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "Verdana"
-      TextSize        =   11
+      TextFont        =   "Arial"
+      TextSize        =   12
       TextUnit        =   0
-      Top             =   138
+      Top             =   58
       Underline       =   ""
-      Visible         =   False
-      Width           =   100
+      Visible         =   True
+      Width           =   80
    End
-   Begin Timer GUITimer
-      Height          =   32
+   Begin Label uiSubstatus
+      AutoDeactivate  =   True
+      Bold            =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   22
+      HelpTag         =   ""
       Index           =   -2147483648
-      Left            =   0
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   14
+      LockBottom      =   ""
       LockedInPosition=   False
-      Mode            =   2
-      Period          =   500
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   ""
       Scope           =   0
+      Selectable      =   False
+      TabIndex        =   2
       TabPanelIndex   =   0
-      Top             =   0
-      Width           =   32
+      Text            =   "%substatus%"
+      TextAlign       =   0
+      TextColor       =   &h000000
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   58
+      Transparent     =   True
+      Underline       =   ""
+      Visible         =   True
+      Width           =   288
    End
    Begin HTTPSecureSocket HTTP
       CertificateFile =   ""
@@ -173,122 +151,69 @@ Begin Window wUpdater
       ConnectionType  =   2
       Height          =   32
       Index           =   -2147483648
-      Left            =   0
+      Left            =   368
       LockedInPosition=   False
       Scope           =   0
       Secure          =   True
       TabPanelIndex   =   0
-      Top             =   172
+      Top             =   0
       Width           =   32
+   End
+   Begin Timer TransitionTimer
+      Height          =   32
+      Index           =   -2147483648
+      Left            =   336
+      LockedInPosition=   False
+      Mode            =   0
+      Period          =   1000
+      Scope           =   0
+      TabPanelIndex   =   0
+      Top             =   0
+      Width           =   32
+   End
+   Begin PushButton uiCancelAction
+      AutoDeactivate  =   True
+      Bold            =   ""
+      ButtonStyle     =   0
+      Cancel          =   True
+      Caption         =   "Cancel"
+      Default         =   ""
+      Enabled         =   True
+      Height          =   22
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   306
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   32
+      Underline       =   ""
+      Visible         =   False
+      Width           =   80
    End
 End
 #tag EndWindow
 
 #tag WindowCode
 	#tag Event
-		Sub Maximize()
-		  
-		  Self.Refresh(True)
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
 		Sub Open()
-		  
-		  txtStatus.Text = ""
-		  txtDetails.Text = ""
-		  
-		  Self.CheckForUpdate()
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
-		  
-		  #pragma Unused g
-		  #pragma Unused areas
-		  
-		  Self.DrawBorders()
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Resized()
-		  
-		  Self.Refresh(True)
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Resizing()
-		  
-		  Self.Refresh(True)
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Restore()
-		  
-		  Self.Refresh(True)
-		  
-		End Sub
-	#tag EndEvent
-
-
-	#tag Method, Flags = &h0
-		Sub CheckForUpdate()
-		  
-		  Dim vars As New Dictionary()
-		  
-		  vars.Value("product") = "bnrbotv" + Format(App.MajorVersion, "#")
-		  vars.Value("build") = Format(App.NonReleaseVersion, "#0000")
 		  
 		  HTTP.Yield = True
 		  
-		  SetStatus("Checking for update.", "Connecting to clan-warp.net...")
-		  HTTP.requestHeaders.SetHeader("User-Agent", App.VersionString())
-		  HTTP.Get("http://clan-warp.net/Web/updater.php?" + HTTP.EncodeFormData(vars))
-		  
 		End Sub
-	#tag EndMethod
+	#tag EndEvent
 
-	#tag Method, Flags = &h0
-		Sub DrawBorders()
-		  
-		  Dim RC As RectControl
-		  Dim g As Graphics = Self.Graphics
-		  Dim X, Y, W, H As Integer
-		  
-		  Dim i As Integer = 0
-		  While i < Me.ControlCount
-		    If Me.Control(i) IsA RectControl Then
-		      
-		      RC = RectControl(Me.Control(i))
-		      X = RC.Left
-		      Y = RC.Top
-		      W = RC.Width
-		      H = RC.Height
-		      
-		      If (RC IsA TextArea Or RC IsA TextField Or RC IsA ListBox) And RC.Visible = True Then
-		        g.ForeColor = Colors.UI.ControlBorderColor
-		        
-		        g.DrawLine(X + W, Y - 1, X + W, Y + H) // Right
-		        g.DrawLine(X - 1, Y - 1, X - 1, Y + H) // Left
-		        g.DrawLine(X - 1, Y - 1, X + W, Y - 1) // Top
-		        g.DrawLine(X - 1, Y + H, X + W, Y + H) // Bottom
-		        
-		      End If
-		    End If
-		    i = i + 1
-		  Wend
-		  
-		End Sub
-	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function GetHeaderValue(headers As InternetHeaders, key As String) As String
@@ -307,188 +232,353 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub SetStatus(sDetail As String)
+		Sub InitiateRequest(newUrl As String = "")
 		  
-		  Dim details() As String = Split(ReplaceLineEndings(txtDetails.Text, EndOfLine), EndOfLine)
-		  Static lineCount As Integer = 6
-		  
-		  If UBound(details) + 1 >= lineCount  Then details.Remove(0)
-		  details.Append(sDetail)
-		  
-		  txtDetails.Text = Join(details, EndOfLine)
+		  Dim url As String = newUrl
+		  If Len(url) = 0 Then
+		    
+		    url = "https://api.carlbennett.me/software/update"
+		    
+		    Dim vars As New Dictionary()
+		    vars.Value("product") = "BNRBot"
+		    vars.Value("version") = _
+		    Str(App.MajorVersion) + "." + _
+		    Str(App.MinorVersion) + "." + _
+		    Str(App.BugVersion) + "." + _
+		    Str(App.NonReleaseVersion)
+		    
+		    HTTP.requestHeaders.SetHeader("User-Agent", App.VersionString())
+		    HTTP.Get(url + "?" + HTTP.EncodeFormData(vars))
+		    
+		  Else
+		    
+		    HTTP.requestHeaders.SetHeader("User-Agent", App.VersionString())
+		    HTTP.requestHeaders.SetHeader("Referer", Self.lastUrl)
+		    HTTP.Get(url)
+		    
+		  End If
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub SetStatus(sProgressStep As String, sDetail As String)
+		Sub ParseResponse(content As String)
 		  
-		  txtStatus.Text = sProgressStep
-		  SetStatus(sDetail)
+		  Const UPDATE_STATUS_BAD_REQUEST = 0
+		  Const UPDATE_STATUS_PRODUCT_UNKNOWN = 1
+		  Const UPDATE_STATUS_PRODUCT_DEPRECATED = 2
+		  Const UPDATE_STATUS_VERSION_UNKNOWN = 3
+		  Const UPDATE_STATUS_VERSION_OLD = 4
+		  Const UPDATE_STATUS_VERSION_CURRENT = 5
+		  
+		  Try
+		    Dim json As JSONItem = New JSONItem(content)
+		    Dim result As JSONItem = json.Lookup("result", Nil)
+		    Dim status As JSONItem = result.Lookup("status", Nil)
+		    Dim update As JSONItem = result.Lookup("update", Nil)
+		    
+		    Dim status_code As Integer = status.Lookup("code", -1)
+		    // Unused: Dim status_message As String = status.Lookup("message", "")
+		    
+		    Select Case status_code
+		    Case UPDATE_STATUS_BAD_REQUEST
+		      Self.StepTransition(Self.STEP_UPDATE_FAILURE, "The update server cannot handle our request.")
+		    Case UPDATE_STATUS_PRODUCT_UNKNOWN
+		      Self.StepTransition(Self.STEP_UPDATE_FAILURE, "The update server does not recognize our application id.")
+		    Case UPDATE_STATUS_PRODUCT_DEPRECATED
+		      Self.StepTransition(Self.STEP_UPDATE_FAILURE, "Our version has been deprecated and " _
+		      + "it is recommended to discontinue use.")
+		    Case UPDATE_STATUS_VERSION_UNKNOWN
+		      Self.StepTransition(Self.STEP_UPDATE_FAILURE, "The update server does not recognize our version.")
+		    Case UPDATE_STATUS_VERSION_OLD
+		      Self.updateUrl = update.Lookup("url", "")
+		      Self.StepTransition(Self.STEP_UPDATE_AVAILABLE)
+		    Case UPDATE_STATUS_VERSION_CURRENT
+		      Self.StepTransition(Self.STEP_UPDATE_LATEST)
+		    Case Else
+		      Self.StepTransition(Self.STEP_UPDATE_FAILURE, "Unknown status code received from the update server.")
+		    End Select
+		    
+		  Catch err
+		    
+		    Self.StepTransition(Self.STEP_HTTP_FAILURE, "Invalid JSON content received from the update server.")
+		    
+		  End Try
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub StepTransition(stepId As Integer, errorDetail As String = "")
+		  
+		  Select Case stepId
+		  Case Self.STEP_CHECK
+		    
+		    uiStatus.Text = "Checking for updates..."
+		    uiSubstatus.Text = "(User initiated)"
+		    uiProgress.Maximum = 0
+		    uiProgress.Value = 0
+		    uiProgress.Visible = True
+		    uiCancelAction.Visible = False
+		    uiCurrentAction.Caption = "Cancel"
+		    Self.stateAuto = False
+		    
+		    TransitionTimer.Mode = TransitionTimer.ModeSingle
+		    TransitionTimer.Period = 250
+		    TransitionTimer.Enabled = True
+		    
+		  Case Self.STEP_CHECK_AUTO
+		    
+		    uiStatus.Text = "Checking for updates..."
+		    uiSubstatus.Text = "(Automatically initiated)"
+		    uiProgress.Maximum = 0
+		    uiProgress.Value = 0
+		    uiProgress.Visible = True
+		    uiCancelAction.Visible = False
+		    uiCurrentAction.Caption = "Cancel"
+		    Self.stateAuto = True
+		    
+		    TransitionTimer.Mode = TransitionTimer.ModeSingle
+		    TransitionTimer.Period = 250
+		    TransitionTimer.Enabled = True
+		    
+		  Case Self.STEP_HTTP_SENDING
+		    
+		    uiStatus.Text = "Checking for updates..."
+		    uiSubstatus.Text = "Sending request..."
+		    uiProgress.Maximum = 0
+		    uiProgress.Value = 0
+		    uiProgress.Visible = True
+		    uiCancelAction.Visible = False
+		    uiCurrentAction.Caption = "Cancel"
+		    
+		  Case Self.STEP_HTTP_RECEIVING
+		    
+		    uiStatus.Text = "Checking for updates..."
+		    uiSubstatus.Text = "Receiving response..."
+		    uiProgress.Maximum = 0
+		    uiProgress.Value = 0
+		    uiProgress.Visible = True
+		    uiCancelAction.Visible = False
+		    uiCurrentAction.Caption = "Cancel"
+		    
+		  Case Self.STEP_HTTP_FAILURE
+		    
+		    Dim err As String = errorDetail
+		    If Len(err) > 0 Then err = EndOfLine + EndOfLine + err
+		    
+		    Self.Hide()
+		    Call MsgBox("An error occurred while checking for updates." + err, 48, Self.Title)
+		    Self.Close()
+		    
+		  Case Self.STEP_UPDATE_FAILURE
+		    
+		    Dim err As String = errorDetail
+		    If Len(err) > 0 Then err = EndOfLine + EndOfLine + err
+		    
+		    Self.Hide()
+		    Call MsgBox("An error occurred while checking for updates." + err, 48, Self.Title)
+		    Self.Close()
+		    
+		  Case Self.STEP_UPDATE_AVAILABLE
+		    
+		    uiCurrentAction.Caption = "Continue"
+		    uiStatus.Text = "Update found!"
+		    uiSubstatus.Text = "Click " + uiCurrentAction.Caption + " to download in your web browser."
+		    uiProgress.Visible = False
+		    uiCancelAction.Visible = True
+		    
+		  Case Self.STEP_UPDATE_LATEST
+		    
+		    If Self.stateAuto = False Then
+		      Self.Hide()
+		      Call MsgBox("You are running the latest version of BNRBot.", 64, Self.Title)
+		    End If
+		    Self.Close()
+		    
+		  Case Else
+		    
+		    Dim err As New RuntimeException()
+		    err.Message = "Unknown step id given in update check"
+		    Raise err
+		    
+		  End Select
 		  
 		End Sub
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h0
-		UpdateURL As String
+	#tag Property, Flags = &h1
+		Protected lastUrl As String
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
-		WasAutomatic As Boolean = False
+	#tag Property, Flags = &h1
+		Protected stateAuto As Boolean
 	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected updateUrl As String
+	#tag EndProperty
+
+
+	#tag Constant, Name = STEP_CHECK, Type = Double, Dynamic = False, Default = \"0", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = STEP_CHECK_AUTO, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = STEP_HTTP_FAILURE, Type = Double, Dynamic = False, Default = \"4", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = STEP_HTTP_RECEIVING, Type = Double, Dynamic = False, Default = \"3", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = STEP_HTTP_SENDING, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = STEP_UPDATE_AVAILABLE, Type = Double, Dynamic = False, Default = \"6", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = STEP_UPDATE_FAILURE, Type = Double, Dynamic = False, Default = \"5", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = STEP_UPDATE_LATEST, Type = Double, Dynamic = False, Default = \"7", Scope = Public
+	#tag EndConstant
 
 
 #tag EndWindowCode
 
-#tag Events btnClose
+#tag Events uiCurrentAction
 	#tag Event
 		Sub Action()
 		  
-		  Self.Close()
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events btnUpdate
-	#tag Event
-		Sub Action()
-		  
-		  ShowURL(Self.UpdateURL)
-		  Self.Close()
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events GUITimer
-	#tag Event
-		Sub Action()
-		  
-		  If Right(txtStatus.Text, 3) = "..." Then
+		  Select Case Replace(Me.Caption, "&", "")
+		  Case "Cancel"
 		    
-		    txtStatus.Text = Left(txtStatus.Text, Len(txtStatus.Text) - 2)
+		    Self.Close()
 		    
-		  ElseIf Right(txtStatus.Text, 2) = ".." Then
+		  Case "Continue"
 		    
-		    txtStatus.Text = txtStatus.Text + "."
+		    ShowURL(Self.updateUrl)
+		    Self.Close()
 		    
-		  ElseIf Right(txtStatus.Text, 1) = "." Then
+		  Case Else
 		    
-		    txtStatus.Text = txtStatus.Text + "."
+		    Dim err As New RuntimeException()
+		    err.Message = "Unknown action in update check"
+		    Raise err
 		    
-		  End If
+		  End Select
 		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events HTTP
 	#tag Event
-		Sub Connected()
+		Function SendProgress(BytesSent As Integer, BytesLeft As Integer) As Boolean
 		  
-		  SetStatus("Connected to " + Me.RemoteAddress + ".")
+		  #pragma Unused BytesSent
+		  #pragma Unused BytesLeft
+		  
+		  Self.StepTransition(Self.STEP_HTTP_SENDING)
+		  
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub ReceiveProgress(bytesReceived as integer, totalBytes as integer, newData as string)
+		  
+		  #pragma Unused bytesReceived
+		  #pragma Unused totalBytes
+		  #pragma Unused newData
+		  
+		  Self.StepTransition(Self.STEP_HTTP_RECEIVING)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Error(code as integer)
+		  
+		  #pragma Unused code
+		  
+		  Self.StepTransition(Self.STEP_HTTP_FAILURE)
 		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Function AuthenticationRequired(Realm As String, Headers As InternetHeaders, ByRef Name As String, ByRef Password As String) As Boolean
 		  
+		  #pragma Unused Realm
 		  #pragma Unused Headers
+		  #pragma Unused Name
+		  #pragma Unused Password
 		  
-		  SetStatus("Authentication required!")
+		  // HTTP authentication shouldn't be required to update
 		  
-		  Dim w As New wHTTPAuthentication()
-		  w.Title = "Server Authentication Required"
-		  w.fldRealm.Text = Realm
-		  w.ShowModalWithin(Self)
+		  Self.StepTransition(Self.STEP_HTTP_FAILURE, "HTTP authentication was requested but is unsupported.")
 		  
-		  If w.Result = w.btnProceed Then
-		    
-		    Name = w.fldUsername.Text
-		    Password = w.fldPassword.Text
-		    w.Close()
-		    Return True
-		    
-		  Else
-		    
-		    Return False
-		    
-		  End If
+		  Return False
 		  
 		End Function
 	#tag EndEvent
 	#tag Event
-		Sub Error(code as integer)
-		  
-		  SetStatus("Error! Code: " + Format(code, "#"))
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
 		Function ProxyAuthenticationRequired(Realm As String, Headers As InternetHeaders, ByRef Name As String, ByRef Password As String) As Boolean
 		  
+		  #pragma Unused Realm
 		  #pragma Unused Headers
+		  #pragma Unused Name
+		  #pragma Unused Password
 		  
-		  SetStatus("Proxy authentication required!")
+		  // HTTP authentication shouldn't be required to update
 		  
-		  Dim w As New wHTTPAuthentication()
-		  w.Title = "Proxy Authentication Required"
-		  w.fldRealm.Text = Realm
-		  w.ShowModalWithin(Self)
+		  Self.StepTransition(Self.STEP_HTTP_FAILURE, "HTTP authentication was requested but is unsupported.")
 		  
-		  If w.Result = w.btnProceed Then
-		    
-		    Name = w.fldUsername.Text
-		    Password = w.fldPassword.Text
-		    w.Close()
-		    Return True
-		    
-		  Else
-		    
-		    Return False
-		    
-		  End If
+		  Return False
 		  
 		End Function
 	#tag EndEvent
 	#tag Event
 		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
 		  
-		  #pragma Unused url
-		  #pragma Unused content
-		  
 		  Select Case httpStatus
-		  Case 301, 302, 307 // Redirect
+		  Case 200 // OK
 		    
-		    SetStatus("Redirecting to another URL...")
-		    HTTP.requestHeaders.SetHeader("User-Agent", App.VersionString())
-		    Me.Get(Self.GetHeaderValue(headers, "Location"))
+		    If InStr(Self.GetHeaderValue(headers, "Content-Type"), "json") = 0 Then
+		      Self.StepTransition(Self.STEP_HTTP_FAILURE)
+		      Return
+		    End If
 		    
-		  Case 303 // See Other
+		    Self.ParseResponse(content)
 		    
-		    SetStatus("An update is available!", "Found an update, click " + btnUpdate.Caption + " to download.")
-		    Self.UpdateURL = Self.GetHeaderValue(headers, "Location")
-		    btnClose.Default = False
-		    btnUpdate.Default = True
-		    btnUpdate.Visible = True
+		  Case 301, 302, 303, 307 // Redirect
 		    
-		  Case 304 // Not Modified
-		    
-		    SetStatus("No update available!", "You're running the latest revision.")
-		    If Self.WasAutomatic = True Then Self.Close()
-		    
-		  Case 401 // Not authorized
-		    
-		    SetStatus("Authentication cancelled!", "Authentication was cancelled by user.")
-		    
-		  Case 404 // Not Found
-		    
-		    SetStatus("Unknown or invalid product!", "We're running an unknown or invalid application.")
+		    Self.lastUrl = url
+		    Self.InitiateRequest(Self.GetHeaderValue(headers, "Location"))
 		    
 		  Case Else
 		    
-		    SetStatus("Unknown result received!", "HTTP status code " + Format(httpStatus, "#") + " went unhandled!")
+		    Self.StepTransition(Self.STEP_HTTP_FAILURE)
 		    
 		  End Select
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TransitionTimer
+	#tag Event
+		Sub Action()
+		  
+		  Self.InitiateRequest()
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events uiCancelAction
+	#tag Event
+		Sub Action()
+		  
+		  Self.Close()
 		  
 		End Sub
 	#tag EndEvent

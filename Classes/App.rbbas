@@ -31,13 +31,14 @@ Inherits Application
 		  Globals.ProfileCookies = New Dictionary()
 		  Settings.CheckFiles()
 		  Settings.Load(Nil)
-		  wMain.Show()
 		  
-		  If Settings.PrefCheckForUpdates = True Then
+		  If Settings.PrefCheckForUpdates = True Or DebugBuild = True Then
 		    Dim w As New wUpdater()
-		    w.WasAutomatic = True
-		    w.Show()
+		    w.StepTransition(wUpdater.STEP_CHECK_AUTO)
+		    w.ShowModal()
 		  End If
+		  
+		  wMain.Show()
 		  
 		End Sub
 	#tag EndEvent

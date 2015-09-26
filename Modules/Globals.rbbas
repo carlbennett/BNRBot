@@ -1652,8 +1652,8 @@ Protected Module Globals
 		  Case "Update", "UpdateCheck"
 		    
 		    Dim w As New wUpdater()
-		    w.WasAutomatic = False
-		    w.Show()
+		    w.StepTransition(wUpdater.STEP_CHECK)
+		    w.ShowModalWithin(wMain)
 		    
 		  Case "Uptime"
 		    

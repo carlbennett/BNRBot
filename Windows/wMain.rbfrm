@@ -21,7 +21,7 @@ Begin Window wMain
    MinWidth        =   800
    Placement       =   2
    Resizeable      =   True
-   Title           =   "BNRBot v2"
+   Title           =   "BNRBot"
    Visible         =   True
    Width           =   800
    Begin Listbox lstProfiles
@@ -1547,8 +1547,8 @@ End
 		  Case "Check for Updates"
 		    
 		    Dim w As New wUpdater()
-		    w.WasAutomatic = False
-		    w.Show()
+		    w.StepTransition(wUpdater.STEP_CHECK)
+		    w.ShowModalWithin(Self)
 		    
 		  Case "Exit", "Quit"
 		    Quit(0)
