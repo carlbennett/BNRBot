@@ -2107,7 +2107,7 @@ End
 		    
 		    Config.BNET.ViewProfile(Me.Cell(Me.ListIndex, 1), MemClass.ReadDWORD(Me.CellTag(Me.ListIndex, 0), 1, True))
 		    
-		  ElseIf Self.lstUsers_Viewing_ChannelList() = True THen
+		  ElseIf Self.lstUsers_Viewing_ChannelList() = True Then
 		    
 		    If Config.BNET <> Nil And Config.BNET.IsConnected = True Then
 		      If Config.Product = Packets.BNETProduct_CHAT And Config.VersionByte = &H00 Then
