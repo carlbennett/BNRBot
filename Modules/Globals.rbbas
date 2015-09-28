@@ -107,7 +107,17 @@ Protected Module Globals
 		  Catch OOBE As OutOfBoundsException
 		  End Try
 		  
-		  w.btnUpdate.Visible = (Config.BNET <> Nil And Username = Config.BNET.AccountName)
+		  Dim bUpdate As Boolean = False
+		  If Config.BNET <> Nil Then
+		    If Config.BNET.Product = Packets.BNETProduct_D2DV _
+		      Or Config.BNET.Product = Packets.BNETProduct_D2XP Then
+		      bUpdate = (Config.BNET.AccountName = Mid(Username, Len(NthField(Username, "*", 1)) + 2))
+		    Else
+		      bUpdate = (Config.BNET.AccountName = Username)
+		    End If
+		  End If
+		  
+		  w.btnUpdate.Visible = bUpdate
 		  w.btnUpdate.Default = w.btnUpdate.Visible
 		  w.btnClose.Default = Not w.btnUpdate.Default
 		  w.fldAge.ReadOnly = Not w.btnUpdate.Visible
