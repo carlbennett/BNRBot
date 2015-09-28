@@ -2097,17 +2097,26 @@ End
 		  Dim row As Integer = Me.RowFromXY(x, y)
 		  If row < 0 Or row >= Me.ListCount Then Return
 		  
+		  Dim Config As Configuration
+		  If Self.SelectedConfig >= 0 And Self.SelectedConfig <= UBound(Settings.Configurations) Then _
+		  Config = Settings.Configurations(Self.SelectedConfig) Else Config = Nil
+		  
 		  If Self.lstUsers_Viewing_Channel() = True Or _
 		    Self.lstUsers_Viewing_Friends() = True Or _
 		    Self.lstUsers_Viewing_Clan() = True Then
 		    
-		    fldInput.SelText = Me.Cell(row, 1)
-		    fldInput.SetFocus()
+		    Config.BNET.ViewProfile(Me.Cell(Me.ListIndex, 1), MemClass.ReadDWORD(Me.CellTag(Me.ListIndex, 0), 1, True))
 		    
 		  ElseIf Self.lstUsers_Viewing_ChannelList() = True THen
 		    
-		    fldInput.SelText = Me.Cell(row, 0)
-		    fldInput.SetFocus()
+		    If Config.BNET <> Nil And Config.BNET.IsConnected = True Then
+		      If Config.Product = Packets.BNETProduct_CHAT And Config.VersionByte = &H00 Then
+		        Config.BNET.Send("/join " + Me.Cell(row, 0) + Chr(13))
+		      Else
+		        Config.BNET.Send(Packets.CreateSID_JOINCHANNEL(&H0, Me.Cell(row, 0)))
+		      End If
+		      Self.lstUsers_View = Config.CachelstUsers_LastView
+		    End If
 		    
 		  End If
 		  
