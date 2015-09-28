@@ -1419,6 +1419,7 @@ Protected Module Globals
 		    Config.AddChat(True, Colors.SkyBlue, "  //pvpgn [text]  --  Sends //[text] to Battle.net." + EndOfLine)
 		    Config.AddChat(True, Colors.SkyBlue, "  //reconnect  --  Reconnects this profile to Battle.net. (Hotkey: F1)" + EndOfLine)
 		    Config.AddChat(True, Colors.SkyBlue, "  //rejoin  --  Forces you out of then back into the current channel." + EndOfLine)
+		    Config.AddChat(True, Colors.SkyBlue, "  //shrug [message]  --  Types [message] ¯\_(ツ)_/¯ to the chat." + EndOfLine)
 		    Config.AddChat(True, Colors.SkyBlue, "  //time  --  Announces your system's time to the channel." + EndOfLine)
 		    Config.AddChat(True, Colors.SkyBlue, "  //update  --  Checks to see if there are updates to the bot." + EndOfLine)
 		    Config.AddChat(True, Colors.SkyBlue, "  //uptime  --  Announces the uptime of your system, bot, and connection." + EndOfLine)
@@ -1641,6 +1642,11 @@ Protected Module Globals
 		    Else
 		      BNETText = " "
 		    End If
+		    
+		  Case "Shrug"
+		    
+		    BNETText = "¯\_(ツ)_/¯"
+		    If Len(Rest) > 0 Then BNETText = Rest + " " + BNETText
 		    
 		  Case "Time", "Today", "Date"
 		    
@@ -1876,7 +1882,7 @@ Protected Module Globals
 		        If match <> Nil Then Return True
 		      Catch err As RegExException
 		        Continue // Regex problem, skip this pattern
-		      End Try 
+		      End Try
 		    Case Else // Unknown
 		    End Select
 		    i = i - 1
