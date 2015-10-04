@@ -7,16 +7,16 @@ Begin Window wConfig
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   True
-   Height          =   585
+   Height          =   604
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
-   MaxHeight       =   585
+   MaxHeight       =   604
    MaximizeButton  =   False
    MaxWidth        =   32000
    MenuBar         =   ""
    MenuBarVisible  =   True
-   MinHeight       =   585
+   MinHeight       =   604
    MinimizeButton  =   True
    MinWidth        =   512
    Placement       =   2
@@ -42,7 +42,7 @@ Begin Window wConfig
       GridLinesVertical=   0
       HasHeading      =   False
       HeadingIndex    =   -1
-      Height          =   585
+      Height          =   604
       HelpTag         =   ""
       Hierarchical    =   ""
       Index           =   -2147483648
@@ -63,8 +63,8 @@ Begin Window wConfig
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "Verdana"
-      TextSize        =   11
+      TextFont        =   "Arial"
+      TextSize        =   12
       TextUnit        =   0
       Top             =   0
       Underline       =   ""
@@ -96,10 +96,10 @@ Begin Window wConfig
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "Verdana"
-      TextSize        =   11
+      TextFont        =   "Arial"
+      TextSize        =   12
       TextUnit        =   0
-      Top             =   549
+      Top             =   568
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -127,10 +127,10 @@ Begin Window wConfig
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "Verdana"
-      TextSize        =   11
+      TextFont        =   "Arial"
+      TextSize        =   12
       TextUnit        =   0
-      Top             =   549
+      Top             =   568
       Underline       =   ""
       Visible         =   True
       Width           =   120
@@ -158,10 +158,10 @@ Begin Window wConfig
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "Verdana"
-      TextSize        =   11
+      TextFont        =   "Arial"
+      TextSize        =   12
       TextUnit        =   0
-      Top             =   549
+      Top             =   568
       Underline       =   ""
       Visible         =   False
       Width           =   120
@@ -169,7 +169,7 @@ Begin Window wConfig
    Begin PagePanel Pages
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   535
+      Height          =   554
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -194,7 +194,7 @@ Begin Window wConfig
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         Height          =   511
+         Height          =   530
          HelpTag         =   ""
          Index           =   0
          InitialParent   =   "Pages"
@@ -213,8 +213,8 @@ Begin Window wConfig
          Text            =   "Welcome to BNRBot's configuration!\r\n--\r\n\r\nPlease use the list on the far left to switch between each respective page. I've tried to create the bot to be as easy to use as possible without much understanding of how and why.\r\n\r\nIf you have an issue with something or don't know what something is, it's usually best to leave it alone until you find out what it does specifically. In most cases, someone else will be able to tell you what it probably does.\r\n\r\nTo create new profiles, click the respective button below all of this text.\r\n\r\nWhen a profile is changed, some specific data (such as your username) will not take affect until the Battle.net connection is reconnected. However, most data will take affect immediately (such as join/leave messages).\r\n\r\nWARNING: All changes are final and get saved immediately to memory. However, they will not be saved to disk until this window closes.\r\n"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   12
          Transparent     =   False
@@ -222,7 +222,7 @@ Begin Window wConfig
          Visible         =   True
          Width           =   368
       End
-      Begin Label txtProfileName
+      Begin Label txtJunk
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
@@ -230,7 +230,7 @@ Begin Window wConfig
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the name of this profile here."
-         Index           =   -2147483648
+         Index           =   5
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -247,8 +247,8 @@ Begin Window wConfig
          Text            =   "Profile Name:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   12
          Transparent     =   False
@@ -256,7 +256,7 @@ Begin Window wConfig
          Visible         =   True
          Width           =   100
       End
-      Begin Label txtUsername
+      Begin Label txtJunk
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
@@ -264,7 +264,7 @@ Begin Window wConfig
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the account name you wish to login with.\r\nIf the account does not exist, it will be created."
-         Index           =   -2147483648
+         Index           =   6
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -281,8 +281,8 @@ Begin Window wConfig
          Text            =   "Username:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   31
          Transparent     =   False
@@ -290,7 +290,7 @@ Begin Window wConfig
          Visible         =   True
          Width           =   100
       End
-      Begin Label txtPassword
+      Begin Label txtJunk
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
@@ -298,7 +298,7 @@ Begin Window wConfig
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the password to the account."
-         Index           =   -2147483648
+         Index           =   7
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -315,8 +315,8 @@ Begin Window wConfig
          Text            =   "Password:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   50
          Transparent     =   False
@@ -324,7 +324,7 @@ Begin Window wConfig
          Visible         =   True
          Width           =   100
       End
-      Begin Label txtServer
+      Begin Label txtJunk
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
@@ -332,7 +332,7 @@ Begin Window wConfig
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the host address of the Battle.net server.\r\nYou may optionally include a port.  Format:  address:port"
-         Index           =   -2147483648
+         Index           =   8
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -349,8 +349,8 @@ Begin Window wConfig
          Text            =   "Server:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   69
          Transparent     =   False
@@ -358,7 +358,7 @@ Begin Window wConfig
          Visible         =   True
          Width           =   100
       End
-      Begin Label txtBNLS
+      Begin Label txtJunk
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
@@ -366,7 +366,7 @@ Begin Window wConfig
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the host of the BNLS here."
-         Index           =   -2147483648
+         Index           =   11
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -383,10 +383,10 @@ Begin Window wConfig
          Text            =   "BNLS:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   88
+         Top             =   107
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -415,16 +415,16 @@ Begin Window wConfig
          TabIndex        =   10
          TabPanelIndex   =   3
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   88
+         Top             =   107
          Underline       =   ""
          Value           =   False
          Visible         =   True
          Width           =   15
       End
-      Begin Label txtProduct
+      Begin Label txtJunk
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
@@ -432,7 +432,7 @@ Begin Window wConfig
          Enabled         =   True
          Height          =   22
          HelpTag         =   "Select the product/game you wish to connect with.\r\nYour CD-Key(s) must match the product you choose."
-         Index           =   -2147483648
+         Index           =   12
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -449,16 +449,16 @@ Begin Window wConfig
          Text            =   "Product:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   107
+         Top             =   126
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
          Width           =   100
       End
-      Begin Label txtVersionByte
+      Begin Label txtJunk
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
@@ -466,7 +466,7 @@ Begin Window wConfig
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the version byte in decimal format (base 10).\r\n\r\nIf you enter it in hex, you must prefix with 0x or &H.\r\nIf we detect any letters A-F, it'll assume hex and auto-convert it for you."
-         Index           =   -2147483648
+         Index           =   13
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -483,10 +483,10 @@ Begin Window wConfig
          Text            =   "Version Byte:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   171
+         Top             =   190
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -515,10 +515,10 @@ Begin Window wConfig
          TabIndex        =   52
          TabPanelIndex   =   3
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   509
+         Top             =   528
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -547,16 +547,16 @@ Begin Window wConfig
          TabIndex        =   42
          TabPanelIndex   =   3
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   414
+         Top             =   433
          Underline       =   ""
          Value           =   False
          Visible         =   True
          Width           =   15
       End
-      Begin Label txtTimestamp
+      Begin Label txtJunk
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
@@ -564,7 +564,7 @@ Begin Window wConfig
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Using the 6 checkboxes, select what timestamp data you wish to have.\r\nIf you want to change the formatting of the timestamp itself, do that with\r\nyour system's internationalization control panel.You may select up to 1 date format.\r\nYou may select up to 1 time format.Military time is optional for all time formats.You may optionally select none, which effectively disables the timestamp."
-         Index           =   -2147483648
+         Index           =   19
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -581,16 +581,16 @@ Begin Window wConfig
          Text            =   "Timestamp:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   285
+         Top             =   304
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
          Width           =   100
       End
-      Begin Label txtHomeChannel
+      Begin Label txtJunk
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
@@ -598,7 +598,7 @@ Begin Window wConfig
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the home channel you wish for the profile to join upon logon.\r\nOmit this field to let Battle.net choose the channel for you."
-         Index           =   -2147483648
+         Index           =   18
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -615,16 +615,16 @@ Begin Window wConfig
          Text            =   "Home Channel:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   266
+         Top             =   285
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
          Width           =   100
       End
-      Begin Label txtEmailAddress
+      Begin Label txtJunk
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
@@ -632,7 +632,7 @@ Begin Window wConfig
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the e-mail address that will be used when Battle.net requests one."
-         Index           =   -2147483648
+         Index           =   17
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -649,16 +649,16 @@ Begin Window wConfig
          Text            =   "E-mail Address:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   247
+         Top             =   266
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
          Width           =   100
       End
-      Begin Label txtCDKeyOwner
+      Begin Label txtJunk
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
@@ -666,7 +666,7 @@ Begin Window wConfig
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the name you wish to have show up when someone else attempts\r\nto use one of your CD-Keys. In most cases, this is either your real name\r\nor a nickname; some even set it to the username they login with.\r\n\r\nThe official Blizzard clients set this to the name you supplied duration\r\ninstallation of the game that required a CD-Key. For those clients\r\nwithout CD-Key support, this is left blank."
-         Index           =   -2147483648
+         Index           =   16
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -683,16 +683,16 @@ Begin Window wConfig
          Text            =   "CD-Key Owner:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   228
+         Top             =   247
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
          Width           =   100
       End
-      Begin Label txtCDKeyExpansion
+      Begin Label txtJunk
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
@@ -700,7 +700,7 @@ Begin Window wConfig
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter your second (expansion-set) CD-Key for the product you chose.\r\nOmit this field if you do not have one."
-         Index           =   -2147483648
+         Index           =   15
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -717,16 +717,16 @@ Begin Window wConfig
          Text            =   "CD-Key Exp.:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   209
+         Top             =   228
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
          Width           =   100
       End
-      Begin Label txtCDKey
+      Begin Label txtJunk
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
@@ -734,7 +734,7 @@ Begin Window wConfig
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter your first (original) CD-Key for the product you chose."
-         Index           =   -2147483648
+         Index           =   14
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -751,10 +751,10 @@ Begin Window wConfig
          Text            =   "CD-Key:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   190
+         Top             =   209
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -785,10 +785,10 @@ Begin Window wConfig
          Text            =   "(Debug: Verbose all packets sent/received.)"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   509
+         Top             =   528
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -819,10 +819,10 @@ Begin Window wConfig
          Text            =   "Automatically rejoin channels you get kicked from."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   414
+         Top             =   433
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -867,10 +867,10 @@ Begin Window wConfig
          TabIndex        =   33
          TabPanelIndex   =   3
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   285
+         Top             =   304
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -911,10 +911,10 @@ Begin Window wConfig
          TabStop         =   True
          Text            =   ""
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   266
+         Top             =   285
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -954,10 +954,10 @@ Begin Window wConfig
          TabStop         =   True
          Text            =   ""
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   247
+         Top             =   266
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -997,10 +997,10 @@ Begin Window wConfig
          TabStop         =   True
          Text            =   ""
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   228
+         Top             =   247
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -1040,10 +1040,10 @@ Begin Window wConfig
          TabStop         =   True
          Text            =   ""
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   209
+         Top             =   228
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -1083,10 +1083,10 @@ Begin Window wConfig
          TabStop         =   True
          Text            =   ""
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   190
+         Top             =   209
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -1127,10 +1127,10 @@ Begin Window wConfig
          TabPanelIndex   =   3
          TabStop         =   True
          TextColor       =   0
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   ""
-         Top             =   171
+         Top             =   190
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -1170,10 +1170,10 @@ Begin Window wConfig
          TabStop         =   True
          Text            =   ""
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   171
+         Top             =   190
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -1218,10 +1218,10 @@ Begin Window wConfig
          TabIndex        =   17
          TabPanelIndex   =   3
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   107
+         Top             =   126
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -1262,10 +1262,10 @@ Begin Window wConfig
          TabStop         =   True
          Text            =   ""
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   88
+         Top             =   107
          Underline       =   ""
          UseFocusRing    =   False
          Visible         =   True
@@ -1305,8 +1305,8 @@ Begin Window wConfig
          TabStop         =   True
          Text            =   ""
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   69
          Underline       =   ""
@@ -1348,8 +1348,8 @@ Begin Window wConfig
          TabStop         =   True
          Text            =   ""
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   50
          Underline       =   ""
@@ -1391,8 +1391,8 @@ Begin Window wConfig
          TabStop         =   True
          Text            =   ""
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   31
          Underline       =   ""
@@ -1434,8 +1434,8 @@ Begin Window wConfig
          TabStop         =   True
          Text            =   ""
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   12
          Underline       =   ""
@@ -1466,10 +1466,10 @@ Begin Window wConfig
          TabIndex        =   22
          TabPanelIndex   =   3
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   190
+         Top             =   209
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -1510,8 +1510,8 @@ Begin Window wConfig
          TabPanelIndex   =   3
          TabStop         =   True
          TextColor       =   0
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   ""
          Top             =   69
          Underline       =   False
@@ -1542,10 +1542,10 @@ Begin Window wConfig
          TabIndex        =   12
          TabPanelIndex   =   3
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   88
+         Top             =   107
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -1574,10 +1574,10 @@ Begin Window wConfig
          TabIndex        =   34
          TabPanelIndex   =   3
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   338
+         Top             =   357
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -1608,10 +1608,10 @@ Begin Window wConfig
          Text            =   "Show join and leave messages for users in chat."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   338
+         Top             =   357
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -1640,10 +1640,10 @@ Begin Window wConfig
          TabIndex        =   48
          TabPanelIndex   =   3
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   471
+         Top             =   490
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -1674,10 +1674,10 @@ Begin Window wConfig
          Text            =   "Enable UTF-8 encoding on chat messages."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   471
+         Top             =   490
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -1706,8 +1706,8 @@ Begin Window wConfig
          TabIndex        =   0
          TabPanelIndex   =   2
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   14
          Underline       =   ""
@@ -1740,8 +1740,8 @@ Begin Window wConfig
          Text            =   "Check for updates at startup."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   14
          Transparent     =   False
@@ -1772,8 +1772,8 @@ Begin Window wConfig
          TabIndex        =   2
          TabPanelIndex   =   2
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   33
          Underline       =   ""
@@ -1806,8 +1806,8 @@ Begin Window wConfig
          Text            =   "Minimize main window to tray."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   33
          Transparent     =   False
@@ -1840,8 +1840,8 @@ Begin Window wConfig
          Text            =   "* Right-click the list for options (such as adding and removing)."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   294
          Transparent     =   False
@@ -1872,8 +1872,8 @@ Begin Window wConfig
          TabIndex        =   8
          TabPanelIndex   =   2
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   268
          Underline       =   ""
@@ -1903,8 +1903,8 @@ Begin Window wConfig
          TabIndex        =   6
          TabPanelIndex   =   2
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   268
          Underline       =   ""
@@ -1950,8 +1950,8 @@ Begin Window wConfig
          TabIndex        =   5
          TabPanelIndex   =   2
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   69
          Underline       =   ""
@@ -1985,8 +1985,8 @@ Begin Window wConfig
          Text            =   "Ping Ranges:  (for displaying user pings)"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   52
          Transparent     =   False
@@ -2017,8 +2017,8 @@ Begin Window wConfig
          TabIndex        =   9
          TabPanelIndex   =   2
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   271
          Underline       =   ""
@@ -2051,8 +2051,8 @@ Begin Window wConfig
          Text            =   "Flush bars to the right"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   271
          Transparent     =   False
@@ -2083,10 +2083,10 @@ Begin Window wConfig
          TabIndex        =   50
          TabPanelIndex   =   3
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   490
+         Top             =   509
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -2117,10 +2117,10 @@ Begin Window wConfig
          Text            =   "Enable UDP packet support."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   490
+         Top             =   509
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -2149,10 +2149,10 @@ Begin Window wConfig
          TabIndex        =   38
          TabPanelIndex   =   3
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   376
+         Top             =   395
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -2183,10 +2183,10 @@ Begin Window wConfig
          Text            =   "Enable spam prevention."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   376
+         Top             =   395
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -2215,10 +2215,10 @@ Begin Window wConfig
          TabIndex        =   40
          TabPanelIndex   =   3
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   395
+         Top             =   414
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -2249,10 +2249,10 @@ Begin Window wConfig
          Text            =   "Ignore ban/kick/unban information from Battle.net."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   395
+         Top             =   414
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -2281,10 +2281,10 @@ Begin Window wConfig
          TabIndex        =   44
          TabPanelIndex   =   3
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   433
+         Top             =   452
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -2315,10 +2315,10 @@ Begin Window wConfig
          Text            =   "Ask for confirmation when removing clan members."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   433
+         Top             =   452
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -2347,10 +2347,10 @@ Begin Window wConfig
          TabIndex        =   46
          TabPanelIndex   =   3
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   452
+         Top             =   471
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -2381,10 +2381,10 @@ Begin Window wConfig
          Text            =   "Attempt to create the account before any logon attempt."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   452
+         Top             =   471
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -2413,10 +2413,10 @@ Begin Window wConfig
          TabIndex        =   36
          TabPanelIndex   =   3
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   357
+         Top             =   376
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -2447,10 +2447,10 @@ Begin Window wConfig
          Text            =   "Show user flag changes in chat."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
-         Top             =   357
+         Top             =   376
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -2466,7 +2466,7 @@ Begin Window wConfig
          Port            =   9367
          Scope           =   0
          TabPanelIndex   =   3
-         Top             =   378
+         Top             =   397
          Width           =   32
       End
       Begin Label txtJunk
@@ -2494,8 +2494,8 @@ Begin Window wConfig
          Text            =   "Message Blacklist:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   313
          Transparent     =   False
@@ -2542,8 +2542,8 @@ Begin Window wConfig
          TabIndex        =   13
          TabPanelIndex   =   2
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   330
          Underline       =   ""
@@ -2577,8 +2577,8 @@ Begin Window wConfig
          Text            =   "* Right-click the list for options (such as adding and removing)."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   508
          Transparent     =   False
@@ -2609,13 +2609,124 @@ Begin Window wConfig
          TabIndex        =   14
          TabPanelIndex   =   2
          TabStop         =   True
-         TextFont        =   "Verdana"
-         TextSize        =   11
+         TextFont        =   "Arial"
+         TextSize        =   12
          TextUnit        =   0
          Top             =   482
          Underline       =   ""
          Visible         =   True
          Width           =   80
+      End
+      Begin TextField fldReconnectAfter
+         AcceptTabs      =   ""
+         Alignment       =   0
+         AutoDeactivate  =   True
+         AutomaticallyCheckSpelling=   False
+         BackColor       =   "#Colors.UI.ControlBackColor"
+         Bold            =   ""
+         Border          =   False
+         CueText         =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Format          =   ""
+         Height          =   15
+         HelpTag         =   "Enter how soon after a disconnect you'd like to reconnect.\r\nDefault: 300000 milliseconds (5 minutes)\r\nMinimum: 5000 milliseconds (5 seconds)\r\n\r\nIf you enter it in hex, you must prefix with 0x or &H.\r\nIf we detect any letters A-F, it'll assume hex and auto-convert it for you."
+         Index           =   -2147483648
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   244
+         LimitText       =   0
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Mask            =   ""
+         Password        =   ""
+         ReadOnly        =   ""
+         Scope           =   0
+         TabIndex        =   54
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Text            =   ""
+         TextColor       =   "#Colors.UI.ControlTextColor"
+         TextFont        =   "Arial"
+         TextSize        =   12
+         TextUnit        =   0
+         Top             =   88
+         Underline       =   ""
+         UseFocusRing    =   False
+         Visible         =   True
+         Width           =   178
+      End
+      Begin Label txtJunk
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   15
+         HelpTag         =   "Enter how soon after a disconnect you'd like to reconnect.\r\nDefault: 300000 milliseconds (5 minutes)\r\nMinimum: 5000 milliseconds (5 seconds)\r\n\r\nIf you enter it in hex, you must prefix with 0x or &H.\r\nIf we detect any letters A-F, it'll assume hex and auto-convert it for you."
+         Index           =   9
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   132
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   55
+         TabPanelIndex   =   3
+         Text            =   "Reconnect After:"
+         TextAlign       =   0
+         TextColor       =   "#Colors.UI.ControlTextColor"
+         TextFont        =   "Arial"
+         TextSize        =   12
+         TextUnit        =   0
+         Top             =   88
+         Transparent     =   False
+         Underline       =   ""
+         Visible         =   True
+         Width           =   100
+      End
+      Begin Label txtJunk
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   15
+         HelpTag         =   "Enter how soon after a disconnect you'd like to reconnect.\r\nDefault: 300000 milliseconds (5 minutes)\r\nMinimum: 5000 milliseconds (5 seconds)\r\n\r\nIf you enter it in hex, you must prefix with 0x or &H.\r\nIf we detect any letters A-F, it'll assume hex and auto-convert it for you."
+         Index           =   10
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   428
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   56
+         TabPanelIndex   =   3
+         Text            =   "milliseconds"
+         TextAlign       =   0
+         TextColor       =   "#Colors.UI.ControlTextColor"
+         TextFont        =   "Arial"
+         TextSize        =   12
+         TextUnit        =   0
+         Top             =   88
+         Transparent     =   False
+         Underline       =   ""
+         Visible         =   True
+         Width           =   72
       End
    End
 End
@@ -2896,8 +3007,9 @@ End
 		  Config.Name = "Untitled #" + Str(UBound(Settings.Configurations) + 1)
 		  Config.Timestamp = Config.TimestampLongTime
 		  Config.Username = "JoeUser"
-		  Config.Password = Globals.GenerateString(12, "0123456789ABCDEFabcdef")
+		  Config.Password = Globals.GenerateString(12, "0123456789abcdef")
 		  Config.BNETHost = "useast.battle.net"
+		  Config.ReconnectInterval = 300000
 		  Config.BNLSHost = "bnls.bnetdocs.org"
 		  Config.BNLSEnabled = False
 		  Config.BNLSVersionCheck = True
@@ -2988,6 +3100,7 @@ End
 		  fldUsername.Text = Config.Username
 		  fldPassword.Text = Config.Password
 		  fldBNET.Text = Config.BNETHost
+		  fldReconnectAfter.Text = Str(Config.ReconnectInterval)
 		  fldBNLS.Text = Config.BNLSHost
 		  chkBNLS.Value = Config.BNLSEnabled
 		  chkBNLSVersionCheck.Value = Config.BNLSVersionCheck
@@ -4532,6 +4645,35 @@ End
 		  Wend
 		  
 		  Settings.PrefMessageBlacklist = MessageBlacklist
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events fldReconnectAfter
+	#tag Event
+		Sub LostFocus()
+		  
+		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
+		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
+		  Dim Config As Configuration = Settings.Configurations(Index)
+		  
+		  Dim Buffer As String = Me.Text
+		  
+		  Select Case Left(Buffer, 2)
+		  Case "0x"
+		    Buffer = Str(Val("&H" + Mid(Buffer, 3)))
+		  Case Else
+		    If ChrSearch(Buffer, "0123456789ABCDEFabcdef", False) = True And _
+		      ChrSearch(Buffer, "0123456789", False) = False Then _
+		      Buffer = Str(Val("&H" + Buffer)) Else Buffer = Str(Val(Buffer))
+		  End Select
+		  
+		  If Val(Buffer) < 5000 Then Buffer = Str(5000)
+		  
+		  Me.Text = Buffer
+		  Config.ReconnectInterval = Val(Buffer)
+		  If Config.BNET <> Nil And Config.BNET.ReconnectTimer <> Nil Then _
+		  Config.BNET.ReconnectTimer.Period = Config.ReconnectInterval
 		  
 		End Sub
 	#tag EndEvent

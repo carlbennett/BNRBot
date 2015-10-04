@@ -249,7 +249,7 @@ Inherits TCPSocket
 		  Me.Platform = Packets.BNETPlatform
 		  Me.Product = Me.Config.Product
 		  Me.ProxyWait = 0
-		  If Me.ReconnectTimer = Nil Then Me.ReconnectTimer = New SocketTimer(Me, 300000, SocketTimer.ModeMultiple, False)
+		  If Me.ReconnectTimer = Nil Then Me.ReconnectTimer = New SocketTimer(Me, Me.Config.ReconnectInterval, SocketTimer.ModeMultiple, False)
 		  Me.RequiredWorkMPQ = ""
 		  If Me.SendNullTimer = Nil Then Me.SendNullTimer = New SocketTimer(Me, 120000, SocketTimer.ModeMultiple, True) Else Me.SendNullTimer.Enabled = True
 		  Me.ServerSignature = ""

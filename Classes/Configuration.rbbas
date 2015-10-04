@@ -366,6 +366,10 @@ Protected Class Configuration
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		ReconnectInterval As UInt32
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		RTFData As StyledText
 	#tag EndProperty
 
@@ -497,18 +501,6 @@ Protected Class Configuration
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="CBNETEnabled"
-			Group="Behavior"
-			InitialValue="0"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="CBNETHost"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CDKey"

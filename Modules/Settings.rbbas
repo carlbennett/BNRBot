@@ -314,6 +314,7 @@ Protected Module Settings
 		        Configs(UBound(Configs)).Username = Buffer.ReadCString()
 		        Configs(UBound(Configs)).Password = Buffer.ReadCString()
 		        Configs(UBound(Configs)).BNETHost = Buffer.ReadCString()
+		        Configs(UBound(Configs)).ReconnectInterval = 300000 // Version 0 didn't have this setting
 		        Configs(UBound(Configs)).BNLSHost = Buffer.ReadCString()
 		        Configs(UBound(Configs)).Product = Buffer.ReadDWORD()
 		        Configs(UBound(Configs)).VersionByte = Buffer.ReadDWORD()
@@ -388,6 +389,81 @@ Protected Module Settings
 		        Configs(UBound(Configs)).Username = Buffer.ReadCString()
 		        Configs(UBound(Configs)).Password = Buffer.ReadCString()
 		        Configs(UBound(Configs)).BNETHost = Buffer.ReadCString()
+		        Configs(UBound(Configs)).ReconnectInterval = 300000 // Version 1 didn't have this setting
+		        Configs(UBound(Configs)).BNLSHost = Buffer.ReadCString()
+		        Configs(UBound(Configs)).Product = Buffer.ReadDWORD()
+		        Configs(UBound(Configs)).VersionByte = Buffer.ReadDWORD()
+		        Configs(UBound(Configs)).CDKey = Buffer.ReadCString()
+		        Configs(UBound(Configs)).CDKeyExpansion = Buffer.ReadCString()
+		        Configs(UBound(Configs)).CDKeyOwner = Buffer.ReadCString()
+		        Configs(UBound(Configs)).EmailAddress = Buffer.ReadCString()
+		        Configs(UBound(Configs)).HomeChannel = Buffer.ReadCString()
+		        Configs(UBound(Configs)).Timestamp = Buffer.ReadBYTE()
+		        Configs(UBound(Configs)).PingSpoof = Buffer.ReadDWORD()
+		        
+		        Options = Buffer.ReadDWORD()
+		        Configs(UBound(Configs)).BNLSEnabled = (BitAnd(Options, &H01) > 0)
+		        Configs(UBound(Configs)).CDKeySpawn = (BitAnd(Options, &H02) > 0)
+		        Configs(UBound(Configs)).AutoRejoinWhenKicked = (BitAnd(Options, &H04) > 0)
+		        Configs(UBound(Configs)).VerbosePackets = (BitAnd(Options, &H08) > 0)
+		        Configs(UBound(Configs)).EnableUDP = (BitAnd(Options, &H10) > 0)
+		        Configs(UBound(Configs)).BNLSVersionCheck = (BitAnd(Options, &H20) > 0)
+		        Configs(UBound(Configs)).ShowJoinLeaveMessages = (BitAnd(Options, &H40) > 0)
+		        Configs(UBound(Configs)).EnableUTF8 = (BitAnd(Options, &H80) > 0)
+		        Configs(UBound(Configs)).SpamPrevention = (BitAnd(Options, &H100) > 0)
+		        Configs(UBound(Configs)).IgnoreBanKickUnban = (BitAnd(Options, &H200) > 0)
+		        Configs(UBound(Configs)).ConfirmRemovingClanMembers = (BitAnd(Options, &H400) > 0)
+		        Configs(UBound(Configs)).CreateAccountsFirst = (BitAnd(Options, &H800) > 0)
+		        Configs(UBound(Configs)).ShowUserUpdateMessages = (BitAnd(Options, &H1000) > 0)
+		        
+		        Configs(UBound(Configs)).ProxyType = Buffer.ReadBYTE()
+		        Configs(UBound(Configs)).ProxyHost = Buffer.ReadCString()
+		        
+		      Case Else
+		        // The section is unrecognized to us.
+		        Settings.AppendLoadError("Could not parse the settings file because it contains at least one (1) bad section.")
+		        Exit While
+		        
+		      End Select
+		      
+		    Wend
+		    
+		  Case 2
+		    While Buffer.EOF() = False
+		      
+		      Section = Buffer.ReadDWORD()
+		      Select Case Section
+		      Case Settings.SectionGlobal
+		        Options = Buffer.ReadBYTE()
+		        Settings.PrefCheckForUpdates = (BitAnd(Options, &H01) > 0)
+		        Settings.PrefMinimizeToTray = (BitAnd(Options, &H02) > 0)
+		        Settings.PrefPingRangesFlushRight = (BitAnd(Options, &H04) > 0)
+		        
+		        // Ping Ranges
+		        ReDim PingRanges(-1) // Clear out any previous data (Fail safe check)
+		        Options = Buffer.ReadWORD() // Options is reused as a variable...
+		        While UBound(PingRanges) + 1 < Options
+		          PingRanges.Append(New PingRange())
+		          PingRanges(UBound(PingRanges)).BarCount = Buffer.ReadDWORD()
+		          PingRanges(UBound(PingRanges)).BarColor = Buffer.ReadDWORD()
+		          PingRanges(UBound(PingRanges)).LowestPing = Buffer.ReadDWORD()
+		          PingRanges(UBound(PingRanges)).HighestPing = Buffer.ReadDWORD()
+		        Wend
+		        
+		        // Message Blacklist
+		        ReDim MessageBlacklist(-1) // Clear out any previous data (Fail safe check)
+		        Options = Buffer.ReadWORD() // Options is reused as a variable...
+		        While UBound(MessageBlacklist) + 1 < Options
+		          MessageBlacklist.Append(New Pair(Buffer.ReadBYTE(), Buffer.ReadCString()))
+		        Wend
+		        
+		      Case Settings.SectionConfiguration
+		        Configs.Append(New Configuration())
+		        Configs(UBound(Configs)).Name = Buffer.ReadCString()
+		        Configs(UBound(Configs)).Username = Buffer.ReadCString()
+		        Configs(UBound(Configs)).Password = Buffer.ReadCString()
+		        Configs(UBound(Configs)).BNETHost = Buffer.ReadCString()
+		        Configs(UBound(Configs)).ReconnectInterval = Buffer.ReadDWORD()
 		        Configs(UBound(Configs)).BNLSHost = Buffer.ReadCString()
 		        Configs(UBound(Configs)).Product = Buffer.ReadDWORD()
 		        Configs(UBound(Configs)).VersionByte = Buffer.ReadDWORD()
@@ -489,7 +565,7 @@ Protected Module Settings
 		  Buffer.WriteCString("EDIT THIS FILE WITH BNRBOT, DO NOT MODIFY THIS FILE YOURSELF.")
 		  
 		  // File version
-		  Buffer.WriteBYTE(&H01)
+		  Buffer.WriteBYTE(&H02)
 		  
 		  // Section Global:
 		  Buffer.WriteDWORD(Settings.SectionGlobal)
@@ -532,6 +608,7 @@ Protected Module Settings
 		    Buffer.WriteCString(Config.Username)
 		    Buffer.WriteCString(Config.Password)
 		    Buffer.WriteCString(Config.BNETHost)
+		    Buffer.WriteDWORD(Config.ReconnectInterval)
 		    Buffer.WriteCString(Config.BNLSHost)
 		    Buffer.WriteDWORD(Config.Product)
 		    Buffer.WriteDWORD(Config.VersionByte)
