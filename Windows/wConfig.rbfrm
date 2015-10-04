@@ -34,7 +34,7 @@ Begin Window wConfig
       ColumnWidths    =   ""
       DataField       =   ""
       DataSource      =   ""
-      DefaultRowHeight=   15
+      DefaultRowHeight=   20
       Enabled         =   True
       EnableDrag      =   ""
       EnableDragReorder=   ""
