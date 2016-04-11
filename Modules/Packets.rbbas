@@ -2029,6 +2029,23 @@ Protected Module Packets
 		  Sock.Send(Packets.CreateSID_GETCHANNELLIST(Sock.Product))
 		  Sock.Send(Packets.CreateSID_FRIENDSLIST())
 		  
+		  Dim Cookie As UInt32
+		  Dim Game As String = MemClass.WriteDWORD(Sock.Product, False)
+		  Dim ProfileKeys() As String
+		  
+		  Cookie = Globals.GenerateDWORD()
+		  Globals.ProfileCookies.Value(Cookie) = MemClass.WriteDWORD(0) _
+		  + MemClass.WriteDWORD(Sock.Product) _
+		  + MemClass.WriteCString(Sock.AccountName)
+		  
+		  // Extended Account Info
+		  ProfileKeys.Append("System\Account Created")
+		  ProfileKeys.Append("System\Last Logoff")
+		  ProfileKeys.Append("System\Last Logon")
+		  ProfileKeys.Append("System\Time Logged")
+		  
+		  Sock.Send(Packets.CreateSID_READUSERDATA(Cookie, Array(Sock.AccountName), ProfileKeys))
+		  
 		  Return True
 		  
 		End Function
@@ -2404,8 +2421,7 @@ Protected Module Packets
 		  Dim KeyCount As UInt32 = Buffer.ReadDWORD()
 		  Dim Cookie As UInt32 = Buffer.ReadDWORD()
 		  
-		  Dim Game As String
-		  Dim Account, Keys(), Values(), CookieData As String
+		  Dim Id As UInt32, Game, Account, CookieData As String
 		  
 		  CookieData = Globals.ProfileCookies.Lookup(Cookie, "")
 		  If LenB(CookieData) < 1 Then
@@ -2415,38 +2431,77 @@ Protected Module Packets
 		    Globals.ProfileCookies.Remove(Cookie)
 		  End If
 		  
-		  Game = MemClass.WriteDWORD(MemClass.ReadDWORD(CookieData, 1, True), False)
-		  Account = MemClass.ReadCString(CookieData, 5)
+		  Id = MemClass.ReadDWORD(CookieData, 1)
+		  Game = MemClass.WriteDWORD(MemClass.ReadDWORD(CookieData, 5, True), False)
+		  Account = MemClass.ReadCString(CookieData, 9)
 		  
-		  // Profile
-		  Keys.Append("profile\age")
-		  Keys.Append("profile\sex")
-		  Keys.Append("profile\location")
-		  Keys.Append("profile\description")
+		  Select Case Id
+		  Case Packets.PROFILEDATA_EXTENDED_ACCOUNT
+		    Dim sAccountCreated As String = Buffer.ReadCString()
+		    Dim sLastLogoff As String = Buffer.ReadCString()
+		    Dim sLastLogon As String = Buffer.ReadCString()
+		    Dim sTimeLogged As String = Buffer.ReadCString()
+		    
+		    Dim oDate As New Date()
+		    Dim oAccountCreated As Date = Globals.QWORDToDate(_
+		    Val(NthField(sAccountCreated, " ", 2)), Val(NthField(sAccountCreated, " ", 1)))
+		    Dim oLastLogoff As Date = Globals.QWORDToDate(_
+		    Val(NthField(sLastLogoff, " ", 2)), Val(NthField(sLastLogoff, " ", 1)))
+		    Dim oLastLogon As Date = Globals.QWORDToDate(_
+		    Val(NthField(sLastLogon, " ", 2)), Val(NthField(sLastLogon, " ", 1)))
+		    sTimeLogged = Globals.TimeString(Val(sTimeLogged), False, True)
+		    
+		    // Correct the timezones
+		    oAccountCreated.GMTOffset = oAccountCreated.GMTOffset + oDate.GMTOffset
+		    oLastLogoff.GMTOffset = oLastLogoff.GMTOffset + oDate.GMTOffset
+		    oLastLogon.GMTOffset = oLastLogon.GMTOffset + oDate.GMTOffset
+		    
+		    Sock.Config.AddChat(True, Colors.Gray, "Account Created: " + _
+		    oAccountCreated.ShortDate + " " + oAccountCreated.LongTime + EndOfLine)
+		    Sock.Config.AddChat(True, Colors.Gray, "Last Logoff: " + _
+		    oLastLogoff.ShortDate + " " + oLastLogoff.LongTime + EndOfLine)
+		    Sock.Config.AddChat(True, Colors.Gray, "Last Logon: " + _
+		    oLastLogon.ShortDate + " " + oLastLogon.LongTime + EndOfLine)
+		    Sock.Config.AddChat(True, Colors.Gray, "Time Logged: " + sTimeLogged + EndOfLine)
+		    
+		  Case Packets.PROFILEDATA_VIEW_PROFILE
+		    Dim Keys(), Values() As String
+		    
+		    // Profile
+		    Keys.Append("profile\age")
+		    Keys.Append("profile\sex")
+		    Keys.Append("profile\location")
+		    Keys.Append("profile\description")
+		    
+		    // Normal Games
+		    Keys.Append("record\" + Game + "\0\wins")
+		    Keys.Append("record\" + Game + "\0\losses")
+		    Keys.Append("record\" + Game + "\0\disconnects")
+		    Keys.Append("record\" + Game + "\0\last game result")
+		    Keys.Append("record\" + Game + "\0\last game")
+		    
+		    // Ladder Games
+		    Keys.Append("record\" + Game + "\1\wins")
+		    Keys.Append("record\" + Game + "\1\losses")
+		    Keys.Append("record\" + Game + "\1\disconnects")
+		    Keys.Append("record\" + Game + "\1\last game result")
+		    Keys.Append("record\" + Game + "\1\last game")
+		    Keys.Append("record\" + Game + "\1\rating")
+		    Keys.Append("record\" + Game + "\1\high rating")
+		    Keys.Append("DynKey\" + Game + "\1\rank")
+		    Keys.Append("record\" + Game + "\1\high rank")
+		    
+		    While UBound(Values) + 1 < AccountCount * KeyCount
+		      Values.Append(Buffer.ReadCString())
+		    Wend
+		    
+		    Globals.AddProfileDialog(Sock.Config, Account, Keys, Values, Game)
+		    
+		  Case Else
+		    Sock.Config.AddChat(True, Colors.Red, "BNET: Received unknown user data response." + EndOfLine)
+		    
+		  End Select
 		  
-		  // Normal Games
-		  Keys.Append("record\" + Game + "\0\wins")
-		  Keys.Append("record\" + Game + "\0\losses")
-		  Keys.Append("record\" + Game + "\0\disconnects")
-		  Keys.Append("record\" + Game + "\0\last game result")
-		  Keys.Append("record\" + Game + "\0\last game")
-		  
-		  // Ladder Games
-		  Keys.Append("record\" + Game + "\1\wins")
-		  Keys.Append("record\" + Game + "\1\losses")
-		  Keys.Append("record\" + Game + "\1\disconnects")
-		  Keys.Append("record\" + Game + "\1\last game result")
-		  Keys.Append("record\" + Game + "\1\last game")
-		  Keys.Append("record\" + Game + "\1\rating")
-		  Keys.Append("record\" + Game + "\1\high rating")
-		  Keys.Append("DynKey\" + Game + "\1\rank")
-		  Keys.Append("record\" + Game + "\1\high rank")
-		  
-		  While UBound(Values) + 1 < AccountCount * KeyCount
-		    Values.Append(Buffer.ReadCString())
-		  Wend
-		  
-		  Globals.AddProfileDialog(Sock.Config, Account, Keys, Values, Game)
 		  Return True
 		  
 		End Function
@@ -2844,6 +2899,12 @@ Protected Module Packets
 	#tag EndConstant
 
 	#tag Constant, Name = PKT_SERVERPING, Type = Double, Dynamic = False, Default = \"&H05", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = PROFILEDATA_EXTENDED_ACCOUNT, Type = Double, Dynamic = False, Default = \"0", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = PROFILEDATA_VIEW_PROFILE, Type = Double, Dynamic = False, Default = \"1", Scope = Protected
 	#tag EndConstant
 
 	#tag Constant, Name = SID_AUTH_ACCOUNTCREATE, Type = Double, Dynamic = False, Default = \"&H52", Scope = Protected

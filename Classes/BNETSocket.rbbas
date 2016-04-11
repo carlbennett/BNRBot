@@ -361,7 +361,9 @@ Inherits TCPSocket
 		  Dim ProfileKeys() As String
 		  
 		  Cookie = Globals.GenerateDWORD()
-		  Globals.ProfileCookies.Value(Cookie) = MemClass.WriteDWORD(Product, True) + MemClass.WriteCString(Username)
+		  Globals.ProfileCookies.Value(Cookie) = MemClass.WriteDWORD(Packets.PROFILEDATA_VIEW_PROFILE) _
+		  + MemClass.WriteDWORD(Product, True) _
+		  + MemClass.WriteCString(Username)
 		  
 		  // Profile
 		  ProfileKeys.Append("profile\age")
