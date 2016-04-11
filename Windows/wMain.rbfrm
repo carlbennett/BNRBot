@@ -502,19 +502,19 @@ End
 		    Select Case Asc(Key)
 		    Case &H09 // Tab
 		      
-		      If Keyboard.ControlKey = True Then
-		        If Keyboard.ShiftKey = False Then
-		          If lstProfiles.ListIndex = lstProfiles.ListCount - 1 Then
-		            lstProfiles.ListIndex = 0
-		          Else
-		            lstProfiles.ListIndex = lstProfiles.ListIndex + 1
-		          End If
+		      If Keyboard.ControlKey = False Then Return False
+		      
+		      If Keyboard.ShiftKey = False Then
+		        If lstProfiles.ListIndex = lstProfiles.ListCount - 1 Then
+		          lstProfiles.ListIndex = 0
 		        Else
-		          If lstProfiles.ListIndex = 0 Then
-		            lstProfiles.ListIndex = lstProfiles.ListCount - 1
-		          Else
-		            lstProfiles.ListIndex = lstProfiles.ListIndex - 1
-		          End If
+		          lstProfiles.ListIndex = lstProfiles.ListIndex + 1
+		        End If
+		      Else
+		        If lstProfiles.ListIndex = 0 Then
+		          lstProfiles.ListIndex = lstProfiles.ListCount - 1
+		        Else
+		          lstProfiles.ListIndex = lstProfiles.ListIndex - 1
 		        End If
 		      End If
 		      
