@@ -1675,18 +1675,21 @@ Protected Module Globals
 		    
 		    If Config.BNET <> Nil And Config.BNET.IsConnected = True And LenB(Config.BNET.UniqueName) > 0 Then
 		      
-		      BNETText = "System [" + Globals.TimeString(Microseconds() / 1000000) + "] "
-		      BNETText = BNETText + "Bot [" + Globals.TimeString((Microseconds() - Globals.TimeStarted) / 1000000) + "] "
-		      BNETText = BNETText + "Connection [" + Globals.TimeString((Microseconds() - Config.BNET.ConnectionTime) / 1000000) + "]"
+		      BNETText = "System [" + _
+		      Globals.TimeString(Microseconds() / 1000000, False, True) + "] "
+		      BNETText = BNETText + "Bot [" + _
+		      Globals.TimeString((Microseconds() - Globals.TimeStarted) / 1000000, False, True) + "] "
+		      BNETText = BNETText + "Connection [" + _
+		      Globals.TimeString((Microseconds() - Config.BNET.ConnectionTime) / 1000000, False, True) + "]"
 		      
 		    Else
 		      
 		      Config.AddChat(True, Colors.SkyBlue, "System [" + _
-		      Globals.TimeString(Microseconds() / 1000000) + "]" + EndOfLine)
+		      Globals.TimeString(Microseconds() / 1000000, False, True) + "]" + EndOfLine)
 		      Config.AddChat(True, Colors.SkyBlue, "Bot [" + _
-		      Globals.TimeString((Microseconds() - Globals.TimeStarted) / 1000000) + "]" + EndOfLine)
+		      Globals.TimeString((Microseconds() - Globals.TimeStarted) / 1000000, False, True) + "]" + EndOfLine)
 		      Config.AddChat(True, Colors.SkyBlue, "Connection [" + _
-		      Globals.TimeString((Microseconds() - Config.BNET.ConnectionTime) / 1000000) + "]" + EndOfLine)
+		      Globals.TimeString((Microseconds() - Config.BNET.ConnectionTime) / 1000000, False, True) + "]" + EndOfLine)
 		      
 		    End If
 		    
