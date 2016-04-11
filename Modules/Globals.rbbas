@@ -1891,6 +1891,7 @@ Protected Module Globals
 		        match = regex.Search(Pattern)
 		        If match <> Nil Then Return True
 		      Catch err As RegExException
+		        i = i - 1
 		        Continue // Regex problem, skip this pattern
 		      End Try
 		    Case Else // Unknown
