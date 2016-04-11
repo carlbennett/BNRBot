@@ -2321,7 +2321,7 @@ Protected Module Globals
 	#tag Method, Flags = &h0
 		Function TimeString(Period As UInt64, Fullstring As Boolean = False, ShortLegend As Boolean = False) As String
 		  
-		  Dim Buffer As String
+		  Dim Buffer As String = ""
 		  Dim Years, Days, Hours, Minutes, Seconds As UInt64
 		  Dim LYear, LDay, LHour, LMinute, LSecond As String
 		  
@@ -2376,8 +2376,8 @@ Protected Module Globals
 		      Buffer = Buffer + ", " + Str(Seconds) + " " + LSecond
 		      If Seconds <> 1 Then Buffer = Buffer + "s"
 		    Else
-		      Buffer = Buffer + Str(Years) + LYear + Str(Days) + LDay _
-		      + Str(Hours) + LHour + Str(Minutes) + LMinute _
+		      Buffer = Buffer + Str(Years) + LYear + " " + Str(Days) + LDay + " " _
+		      + Str(Hours) + LHour + " " + Str(Minutes) + LMinute + " " _
 		      + Str(Seconds) + LSecond
 		    End If
 		    Return Buffer
@@ -2390,7 +2390,7 @@ Protected Module Globals
 		      Buffer = Buffer + ", " + Str(Years) + " " + LYear
 		      If Years <> 1 Then Buffer = Buffer + "s"
 		    Else
-		      Buffer = Buffer + Str(Years) + LYear
+		      Buffer = Buffer + Str(Years) + LYear + " "
 		    End If
 		  End If
 		  
@@ -2399,7 +2399,7 @@ Protected Module Globals
 		      Buffer = Buffer + ", " + Str(Days) + " " + LDay
 		      If Days <> 1 Then Buffer = Buffer + "s"
 		    Else
-		      Buffer = Buffer + Str(Days) + LDay
+		      Buffer = Buffer + Str(Days) + LDay + " "
 		    End If
 		  End If
 		  
@@ -2408,7 +2408,7 @@ Protected Module Globals
 		      Buffer = Buffer + ", " + Str(Hours) + " " + LHour
 		      If Hours <> 1 Then Buffer = Buffer + "s"
 		    Else
-		      Buffer = Buffer + Str(Hours) + LHour
+		      Buffer = Buffer + Str(Hours) + LHour + " "
 		    End If
 		  End If
 		  
@@ -2417,7 +2417,7 @@ Protected Module Globals
 		      Buffer = Buffer + ", " + Str(Minutes) + " " + LMinute
 		      If Minutes <> 1 Then Buffer = Buffer + "s"
 		    Else
-		      Buffer = Buffer + Str(Minutes) + LMinute
+		      Buffer = Buffer + Str(Minutes) + LMinute + " "
 		    End If
 		  End If
 		  
@@ -2426,7 +2426,7 @@ Protected Module Globals
 		      Buffer = Buffer + ", " + Str(Seconds) + " " + LSecond
 		      If Seconds <> 1 Then Buffer = Buffer + "s"
 		    Else
-		      Buffer = Buffer + Str(Seconds) + LSecond
+		      Buffer = Buffer + Str(Seconds) + LSecond + " "
 		    End If
 		  End If
 		  
@@ -2438,7 +2438,13 @@ Protected Module Globals
 		    End If
 		  End If
 		  
-		  If Left(Buffer, 2) = ", " Then Return Mid(Buffer, 3) Else Return Buffer
+		  If Left(Buffer, 2) = ", " Then
+		    Return Mid(Buffer, 3)
+		  ElseIf Right(Buffer, 1) = " " Then
+		    Return Mid(Buffer, 1, Len(Buffer) - 1)
+		  Else
+		    Return Buffer
+		  End If
 		  
 		End Function
 	#tag EndMethod
