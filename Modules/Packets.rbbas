@@ -2443,26 +2443,44 @@ Protected Module Packets
 		    Dim sTimeLogged As String = Buffer.ReadCString()
 		    
 		    Dim oDate As New Date()
-		    Dim oAccountCreated As Date = Globals.QWORDToDate(_
-		    Val(NthField(sAccountCreated, " ", 2)), Val(NthField(sAccountCreated, " ", 1)))
-		    Dim oLastLogoff As Date = Globals.QWORDToDate(_
-		    Val(NthField(sLastLogoff, " ", 2)), Val(NthField(sLastLogoff, " ", 1)))
-		    Dim oLastLogon As Date = Globals.QWORDToDate(_
-		    Val(NthField(sLastLogon, " ", 2)), Val(NthField(sLastLogon, " ", 1)))
-		    sTimeLogged = Globals.TimeString(Val(sTimeLogged), False, True)
+		    Dim oAccountCreated As Date
+		    Dim oLastLogoff As Date
+		    Dim oLastLogon As Date
 		    
-		    // Correct the timezones
-		    oAccountCreated.GMTOffset = oAccountCreated.GMTOffset + oDate.GMTOffset
-		    oLastLogoff.GMTOffset = oLastLogoff.GMTOffset + oDate.GMTOffset
-		    oLastLogon.GMTOffset = oLastLogon.GMTOffset + oDate.GMTOffset
+		    If Len(sAccountCreated) > 0 Then
+		      oAccountCreated = Globals.QWORDToDate(_
+		      Val(NthField(sAccountCreated, " ", 2)), Val(NthField(sAccountCreated, " ", 1)))
+		    End If
+		    If Len(sLastLogoff) > 0 Then
+		      oLastLogoff = Globals.QWORDToDate(_
+		      Val(NthField(sLastLogoff, " ", 2)), Val(NthField(sLastLogoff, " ", 1)))
+		    End If
+		    If Len(sLastLogon) > 0 Then
+		      oLastLogon = Globals.QWORDToDate(_
+		      Val(NthField(sLastLogon, " ", 2)), Val(NthField(sLastLogon, " ", 1)))
+		    End If
+		    If Len(sTimeLogged) > 0 Then
+		      sTimeLogged = Globals.TimeString(Val(sTimeLogged), False, True)
+		    End If
 		    
-		    Sock.Config.AddChat(True, Colors.Gray, "Account Created: " + _
-		    oAccountCreated.ShortDate + " " + oAccountCreated.LongTime + EndOfLine)
-		    Sock.Config.AddChat(True, Colors.Gray, "Last Logoff: " + _
-		    oLastLogoff.ShortDate + " " + oLastLogoff.LongTime + EndOfLine)
-		    Sock.Config.AddChat(True, Colors.Gray, "Last Logon: " + _
-		    oLastLogon.ShortDate + " " + oLastLogon.LongTime + EndOfLine)
-		    Sock.Config.AddChat(True, Colors.Gray, "Time Logged: " + sTimeLogged + EndOfLine)
+		    If oAccountCreated <> Nil Then
+		      oAccountCreated.GMTOffset = oAccountCreated.GMTOffset + oDate.GMTOffset
+		      Sock.Config.AddChat(True, Colors.Gray, "Account Created: " + _
+		      oAccountCreated.ShortDate + " " + oAccountCreated.LongTime + EndOfLine)
+		    End If
+		    If oLastLogoff <> Nil Then
+		      oLastLogoff.GMTOffset = oLastLogoff.GMTOffset + oDate.GMTOffset
+		      Sock.Config.AddChat(True, Colors.Gray, "Last Logoff: " + _
+		      oLastLogoff.ShortDate + " " + oLastLogoff.LongTime + EndOfLine)
+		    End If
+		    If oLastLogon <> Nil Then
+		      oLastLogon.GMTOffset = oLastLogon.GMTOffset + oDate.GMTOffset
+		      Sock.Config.AddChat(True, Colors.Gray, "Last Logon: " + _
+		      oLastLogon.ShortDate + " " + oLastLogon.LongTime + EndOfLine)
+		    End If
+		    If Len(sTimeLogged) > 0 Then
+		      Sock.Config.AddChat(True, Colors.Gray, "Time Logged: " + sTimeLogged + EndOfLine)
+		    End If
 		    
 		  Case Packets.PROFILEDATA_VIEW_PROFILE
 		    Dim Keys(), Values() As String
