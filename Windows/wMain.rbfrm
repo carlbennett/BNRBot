@@ -171,7 +171,6 @@ Begin Window wMain
       Width           =   400
    End
    Begin Timer lstUsersTimer
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   -32
@@ -179,11 +178,8 @@ Begin Window wMain
       Mode            =   0
       Period          =   75
       Scope           =   0
-      TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
-      Visible         =   True
       Width           =   32
    End
    Begin TextArea fldInput
@@ -253,7 +249,6 @@ Begin Window wMain
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   13
       TopLeftColor    =   "#Colors.UI.ControlBorderColor"
       Visible         =   True
@@ -281,7 +276,6 @@ Begin Window wMain
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Offline"
       TextAlign       =   1
       TextColor       =   "#Colors.UI.ControlTextColor"
@@ -761,6 +755,8 @@ End
 			    Return
 			  End If
 			  
+			  Dim scrollPosX As Integer = lstUsers.ScrollPositionX
+			  Dim scrollPosY As Integer = lstUsers.ScrollPosition
 			  lstUsers.DeleteAllRows()
 			  Dim sChannelText As String
 			  
@@ -1314,6 +1310,9 @@ End
 			    Next
 			    
 			  End Select
+			  
+			  lstUsers.ScrollPositionX = scrollPosX
+			  lstUsers.ScrollPosition = scrollPosY
 			  
 			  txtChannel.Text = sChannelText
 			  
@@ -2127,14 +2126,16 @@ End
 	#tag Event
 		Sub Action()
 		  
+		  // The purpose of this timer is to delay refreshing the UI until a set
+		  // of incoming events subsides. If we were to refresh for every event
+		  // that came in instead of waiting, the bot will slow to a halt in the
+		  // event of a flood.
+		  
+		  // The following property will refresh the right-side list:
 		  Self.lstUsers_View = Self.lstUsers_View
 		  
-		  // Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
-		  // not actually touch the ListBox (RectControl) so that it will redraw, so
-		  // I'm using the little cheat:
-		  Dim i As Integer = Self.lstProfiles.DefaultRowHeight
-		  Self.lstProfiles.DefaultRowHeight = 0
-		  Self.lstProfiles.DefaultRowHeight = i
+		  // The following will redraw the left-side list:
+		  Globals.ForceRedraw(Self.lstProfiles)
 		  
 		End Sub
 	#tag EndEvent

@@ -831,6 +831,21 @@ Protected Module Globals
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Sub ForceRedraw(list As ListBox)
+		  
+		  // REALbasic is retarded as hell and both .Refresh and .Invalidate will
+		  // not actually touch the ListBox (RectControl) so that it will redraw, so
+		  // I'm using my little cheat:
+		  Dim i As Integer = list.DefaultRowHeight
+		  Dim j As Integer = list.ScrollPosition
+		  list.DefaultRowHeight = 0
+		  list.DefaultRowHeight = i
+		  list.ScrollPosition = j
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function GenerateBYTE() As Byte
 		  
