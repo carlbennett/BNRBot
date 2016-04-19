@@ -171,6 +171,7 @@ Begin Window wMain
       Width           =   400
    End
    Begin Timer lstUsersTimer
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   -32
@@ -178,8 +179,11 @@ Begin Window wMain
       Mode            =   0
       Period          =   75
       Scope           =   0
+      TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
+      Visible         =   True
       Width           =   32
    End
    Begin TextArea fldInput
@@ -249,6 +253,7 @@ Begin Window wMain
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   13
       TopLeftColor    =   "#Colors.UI.ControlBorderColor"
       Visible         =   True
@@ -276,6 +281,7 @@ Begin Window wMain
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Offline"
       TextAlign       =   1
       TextColor       =   "#Colors.UI.ControlTextColor"
@@ -448,6 +454,127 @@ End
 		    
 		    Return Match // Couldn't find a suitable match
 		    
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ConstructUserChannelDetailsMenu(Username As String, Product As UInt32, Flags As UInt32, Ping As UInt32, Statstring As String) As MenuItem
+		  
+		  Dim detailsMenu As New MenuItem()
+		  
+		  detailsMenu.Append(New MenuItem(Username))
+		  detailsMenu.Append(New MenuItem(Globals.ProductName(Product)))
+		  detailsMenu.Append(New MenuItem(Format(Ping, "-#0") + "ms"))
+		  
+		  If Globals.IsWarcraftIII(Product) = True And CountFields(Statstring, " ") >= 4 Then
+		    
+		    detailsMenu.Append(New MenuItem("Clan " + _
+		    Globals.SClanTag(MemClass.ReadDWORD(NthField(Statstring, " ", 4), 1, True))))
+		    
+		  ElseIf Globals.IsStarcraft(Product) = True Or Globals.IsWarcraftII(Product) = True Then
+		    
+		    detailsMenu.Append(New MenuItem("Normal Game Wins: " + _
+		    Format(Val(NthField(Statstring, " ", 4)), "-#0")))
+		    
+		  End If
+		  
+		  If BitAnd(Flags, &H7F) > 0 Then detailsMenu.Append(New MenuItem(detailsMenu.TextSeparator))
+		  If BitAnd(Flags, &H01) > 0 Then detailsMenu.Append(New MenuItem("Blizzard Employee"))
+		  If BitAnd(Flags, &H08) > 0 Then detailsMenu.Append(New MenuItem("Battle.net Admin"))
+		  If BitAnd(Flags, &H02) > 0 Then detailsMenu.Append(New MenuItem("Channel Operator"))
+		  If BitAnd(Flags, &H04) > 0 Then detailsMenu.Append(New MenuItem("Channel Speaker"))
+		  If BitAnd(Flags, &H20) > 0 Then detailsMenu.Append(New MenuItem("Squelched"))
+		  If BitAnd(Flags, &H40) > 0 Then detailsMenu.Append(New MenuItem("Guest"))
+		  If BitAnd(Flags, &H10) > 0 Then detailsMenu.Append(New MenuItem("No UDP"))
+		  
+		  Return detailsMenu
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ConstructUserClanDetailsMenu(Username As String, Rank As Byte, LocationType As Byte, Location As String) As MenuItem
+		  
+		  Dim detailsMenu As New MenuItem()
+		  
+		  detailsMenu.Append(New MenuItem(Username))
+		  detailsMenu.Append(New MenuItem(Globals.ClanRankName(Rank)))
+		  
+		  Const LOCATION_OFFLINE            = &H00
+		  Const LOCATION_ONLINE             = &H01
+		  Const LOCATION_INCHAT             = &H02
+		  Const LOCATION_PUBLICGAME         = &H03
+		  Const LOCATION_PRIVATEGAME        = &H04
+		  Const LOCATION_PRIVATEGAME_FRIEND = &H05
+		  
+		  Select Case LocationType
+		  Case LOCATION_OFFLINE
+		    detailsMenu.Append(New MenuItem("Offline"))
+		    
+		  Case LOCATION_ONLINE, LOCATION_INCHAT
+		    detailsMenu.Append(New MenuItem("Online"))
+		    If Len(Location) > 0 Then detailsMenu.Append(New MenuItem(Location))
+		    
+		  Case LOCATION_PUBLICGAME
+		    detailsMenu.Append(New MenuItem("In a public game"))
+		    If Len(Location) > 0 Then detailsMenu.Append(New MenuItem(Location))
+		    
+		  Case LOCATION_PRIVATEGAME, LOCATION_PRIVATEGAME_FRIEND
+		    detailsMenu.Append(New MenuItem("In a private game"))
+		    If Len(Location) > 0 Then detailsMenu.Append(New MenuItem(Location))
+		    
+		  End Select
+		  
+		  Return detailsMenu
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ConstructUserFriendDetailsMenu(Username As String, Product As UInt32, Status As Byte, LocationType As Byte, Location As String) As MenuItem
+		  
+		  Dim detailsMenu As New MenuItem()
+		  
+		  detailsMenu.Append(New MenuItem(Username))
+		  If Product <> 0 Then _
+		  detailsMenu.Append(New MenuItem(Globals.ProductName(Product)))
+		  
+		  Const LOCATION_OFFLINE            = &H00
+		  Const LOCATION_ONLINE             = &H01
+		  Const LOCATION_INCHAT             = &H02
+		  Const LOCATION_PUBLICGAME         = &H03
+		  Const LOCATION_PRIVATEGAME        = &H04
+		  Const LOCATION_PRIVATEGAME_FRIEND = &H05
+		  
+		  Select Case LocationType
+		  Case LOCATION_OFFLINE
+		    detailsMenu.Append(New MenuItem("Offline"))
+		    
+		  Case LOCATION_ONLINE
+		    detailsMenu.Append(New MenuItem("Online, not in chat"))
+		    
+		  Case LOCATION_INCHAT
+		    detailsMenu.Append(New MenuItem("Online, in chat"))
+		    If Len(Location) > 0 Then detailsMenu.Append(New MenuItem(Location))
+		    
+		  Case LOCATION_PUBLICGAME
+		    detailsMenu.Append(New MenuItem("In a public game"))
+		    If Len(Location) > 0 Then detailsMenu.Append(New MenuItem(Location))
+		    
+		  Case LOCATION_PRIVATEGAME, LOCATION_PRIVATEGAME_FRIEND
+		    detailsMenu.Append(New MenuItem("In a private game"))
+		    If Len(Location) > 0 Then detailsMenu.Append(New MenuItem(Location))
+		    
+		  End Select
+		  
+		  If BitAnd(Status, &HFF) > 0 Then detailsMenu.Append(New MenuItem(detailsMenu.TextSeparator))
+		  If BitAnd(Status, &H01) > 0 Then detailsMenu.Append(New MenuItem("Mutual Friend"))
+		  If BitAnd(Status, &H02) > 0 Then detailsMenu.Append(New MenuItem("Do Not Disturb"))
+		  If BitAnd(Status, &H04) > 0 Then detailsMenu.Append(New MenuItem("Away"))
+		  If BitAnd(Status, &HF8) > 0 Then detailsMenu.Append(New MenuItem("Unknown (0x" + Hex(Status) + ")"))
+		  
+		  Return detailsMenu
+		  
 		End Function
 	#tag EndMethod
 
@@ -854,9 +981,6 @@ End
 			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
 			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
 			      lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
-			      lstUsers.CellHelpTag(lstUsers.LastIndex, 1) = Globals.GetUserHelpTagForChannel(_
-			      User.Value("Username"), MemClass.ReadDWORD(User.Value("Statstring"), 1, True), _
-			      User.Value("Flags").IntegerValue, User.Value("Ping").IntegerValue, User.Value("Statstring"))
 			      
 			    Next
 			    
@@ -883,9 +1007,6 @@ End
 			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
 			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
 			      lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
-			      lstUsers.CellHelpTag(lstUsers.LastIndex, 1) = Globals.GetUserHelpTagForChannel(_
-			      User.Value("Username"), MemClass.ReadDWORD(User.Value("Statstring"), 1, True), _
-			      User.Value("Flags").IntegerValue, User.Value("Ping").IntegerValue, User.Value("Statstring"))
 			      
 			    Next
 			    
@@ -904,9 +1025,6 @@ End
 			          lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
 			          lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
 			          lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
-			          lstUsers.CellHelpTag(lstUsers.LastIndex, 1) = Globals.GetUserHelpTagForChannel(_
-			          User.Value("Username"), MemClass.ReadDWORD(User.Value("Statstring"), 1, True), _
-			          User.Value("Flags").IntegerValue, User.Value("Ping").IntegerValue, User.Value("Statstring"))
 			        End If
 			        
 			        i = i + 1
@@ -966,9 +1084,6 @@ End
 			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
 			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
 			      lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
-			      lstUsers.CellHelpTag(lstUsers.LastIndex, 1) = Globals.GetUserHelpTagForChannel(_
-			      User.Value("Username"), MemClass.ReadDWORD(User.Value("Statstring"), 1, True), _
-			      User.Value("Flags").IntegerValue, User.Value("Ping").IntegerValue, User.Value("Statstring"))
 			      
 			    Next
 			    
@@ -997,9 +1112,6 @@ End
 			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
 			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
 			      lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
-			      lstUsers.CellHelpTag(lstUsers.LastIndex, 1) = Globals.GetUserHelpTagForChannel(_
-			      User.Value("Username"), MemClass.ReadDWORD(User.Value("Statstring"), 1, True), _
-			      User.Value("Flags").IntegerValue, User.Value("Ping").IntegerValue, User.Value("Statstring"))
 			      
 			    Next
 			    
@@ -1026,9 +1138,6 @@ End
 			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
 			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
 			      lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
-			      lstUsers.CellHelpTag(lstUsers.LastIndex, 1) = Globals.GetUserHelpTagForChannel(_
-			      User.Value("Username"), MemClass.ReadDWORD(User.Value("Statstring"), 1, True), _
-			      User.Value("Flags").IntegerValue, User.Value("Ping").IntegerValue, User.Value("Statstring"))
 			      
 			    Next
 			    
@@ -1045,9 +1154,6 @@ End
 			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location Name")
 			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
 			      lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Location")
-			      lstUsers.CellHelpTag(lstUsers.LastIndex, 1) = Globals.GetUserHelpTagForFriends(_
-			      User.Value("Username"), User.Value("Product"), User.Value("Status"), _
-			      User.Value("Location"), User.Value("Location Name"))
 			      
 			      i = i + 1
 			    Wend
@@ -1073,9 +1179,6 @@ End
 			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location Name")
 			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
 			      lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Location")
-			      lstUsers.CellHelpTag(lstUsers.LastIndex, 1) = Globals.GetUserHelpTagForFriends(_
-			      User.Value("Username"), User.Value("Product"), User.Value("Status"), _
-			      User.Value("Location"), User.Value("Location Name"))
 			      
 			    Next
 			    
@@ -1092,9 +1195,6 @@ End
 			          lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location Name")
 			          lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
 			          lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Location")
-			          lstUsers.CellHelpTag(lstUsers.LastIndex, 1) = Globals.GetUserHelpTagForFriends(_
-			          User.Value("Username"), User.Value("Product"), User.Value("Status"), _
-			          User.Value("Location"), User.Value("Location Name"))
 			        End If
 			        
 			        i = i + 1
@@ -1122,9 +1222,6 @@ End
 			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location Name")
 			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
 			      lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Location")
-			      lstUsers.CellHelpTag(lstUsers.LastIndex, 1) = Globals.GetUserHelpTagForFriends(_
-			      User.Value("Username"), User.Value("Product"), User.Value("Status"), _
-			      User.Value("Location"), User.Value("Location Name"))
 			      
 			    Next
 			    
@@ -1151,9 +1248,6 @@ End
 			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location Name")
 			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
 			      lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Location")
-			      lstUsers.CellHelpTag(lstUsers.LastIndex, 1) = Globals.GetUserHelpTagForFriends(_
-			      User.Value("Username"), User.Value("Product"), User.Value("Status"), _
-			      User.Value("Location"), User.Value("Location Name"))
 			      
 			    Next
 			    
@@ -1167,8 +1261,6 @@ End
 			      lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
 			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location")
 			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
-			      lstUsers.CellHelpTag(lstUsers.LastIndex, 1) = Globals.GetUserHelpTagForClan(_
-			      User.Value("Username"), User.Value("Rank"), User.Value("Status"), User.Value("Location"))
 			      
 			      i = i + 1
 			    Wend
@@ -1193,8 +1285,6 @@ End
 			      lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
 			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location")
 			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
-			      lstUsers.CellHelpTag(lstUsers.LastIndex, 1) = Globals.GetUserHelpTagForClan(_
-			      User.Value("Username"), User.Value("Rank"), User.Value("Status"), User.Value("Location"))
 			      
 			    Next
 			    
@@ -1218,8 +1308,6 @@ End
 			      lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
 			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location")
 			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
-			      lstUsers.CellHelpTag(lstUsers.LastIndex, 1) = Globals.GetUserHelpTagForClan(_
-			      User.Value("Username"), User.Value("Rank"), User.Value("Status"), User.Value("Location"))
 			      
 			    Next
 			    
@@ -1280,8 +1368,6 @@ End
 			      lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
 			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location")
 			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
-			      lstUsers.CellHelpTag(lstUsers.LastIndex, 1) = Globals.GetUserHelpTagForClan(_
-			      User.Value("Username"), User.Value("Rank"), User.Value("Status"), User.Value("Location"))
 			      
 			    Next
 			    
@@ -1802,39 +1888,72 @@ End
 		      
 		      If BitAnd(Flags, &H0B) > 0 Then
 		        base.Append(New MenuItem("Designate"))
-		        base.Item(base.Count - 1).Tag = Me.Cell(Me.ListIndex, 1)
+		        base.Item(base.Count() - 1).Tag = Me.Cell(Me.ListIndex, 1)
 		        base.Append(New MenuItem(base.TextSeparator))
 		        base.Append(New MenuItem("Ban"))
-		        base.Item(base.Count - 1).Tag = Me.Cell(Me.ListIndex, 1)
+		        base.Item(base.Count() - 1).Tag = Me.Cell(Me.ListIndex, 1)
 		        base.Append(New MenuItem("Kick"))
-		        base.Item(base.Count - 1).Tag = Me.Cell(Me.ListIndex, 1)
+		        base.Item(base.Count() - 1).Tag = Me.Cell(Me.ListIndex, 1)
 		        base.Append(New MenuItem(base.TextSeparator))
 		      End If
 		      
 		      If Me.Cell(Me.ListIndex, 1) <> UniqueName Then
 		        If BitAnd(Me.CellTag(Me.ListIndex, 1), &H20) <= 0 Then _
 		        base.Append(New MenuItem("Squelch")) Else base.Append(New MenuItem("Unsquelch"))
-		        base.Item(base.Count - 1).Tag = Me.Cell(Me.ListIndex, 1)
+		        base.Item(base.Count() - 1).Tag = Me.Cell(Me.ListIndex, 1)
 		        base.Append(New MenuItem(base.TextSeparator))
 		      End If
 		      
 		      base.Append(New MenuItem("Whisper"))
-		      base.Item(base.Count - 1).Tag = Me.Cell(Me.ListIndex, 1)
+		      base.Item(base.Count() - 1).Tag = Me.Cell(Me.ListIndex, 1)
 		      
 		      base.Append(New MenuItem(base.TextSeparator))
+		      
+		      Dim detailsMenu As MenuItem = Nil
+		      
+		      If Self.lstUsers_Viewing_Channel() = True Then
+		        detailsMenu = Self.ConstructUserChannelDetailsMenu(_
+		        Me.Cell(Me.ListIndex, 1), _
+		        MemClass.ReadDWORD(Me.CellTag(Me.ListIndex, 0), 1, True), _
+		        Me.CellTag(Me.ListIndex, 1).IntegerValue, _
+		        Me.CellTag(Me.ListIndex, 2).IntegerValue, _
+		        Me.CellTag(Me.ListIndex, 0))
+		      ElseIf Self.lstUsers_Viewing_Friends() = True Then
+		        detailsMenu = Self.ConstructUserFriendDetailsMenu(_
+		        Me.Cell(Me.ListIndex, 1), _
+		        MemClass.ReadDWORD(Me.Cell(Me.ListIndex, 0), 1, True), _
+		        Me.CellTag(Me.ListIndex, 1).IntegerValue, _
+		        Me.CellTag(Me.ListIndex, 2).IntegerValue, _
+		        Me.CellTag(Me.ListIndex, 0))
+		      ElseIf Self.lstUsers_Viewing_Clan() = True Then
+		        detailsMenu = Self.ConstructUserClanDetailsMenu(_
+		        Me.Cell(Me.ListIndex, 1), _
+		        Val(Me.Cell(Me.ListIndex, 0)), _
+		        Me.CellTag(Me.ListIndex, 1).IntegerValue, _
+		        Me.CellTag(Me.ListIndex, 0))
+		      End If
+		      
+		      If detailsMenu <> Nil Then
+		        detailsMenu.Text = "View Details"
+		        For i As Integer = 0 To detailsMenu.Count() - 1
+		          detailsMenu.Item(i).Tag = "CLIPBOARD_COPY"
+		        Next
+		        base.Append(detailsMenu)
+		      End If
+		      
 		      base.Append(New MenuItem("View Profile"))
 		      If Me.Cell(Me.ListIndex, 1) <> UniqueName Then
-		        base.Item(base.Count - 1).Tag = MemClass.WriteDWORD(MemClass.ReadDWORD(Me.CellTag(Me.ListIndex, 0), 1, True), True) _
+		        base.Item(base.Count() - 1).Tag = MemClass.WriteDWORD(MemClass.ReadDWORD(Me.CellTag(Me.ListIndex, 0), 1, True), True) _
 		        + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
 		      Else
-		        base.Item(base.Count - 1).Tag = MemClass.WriteDWORD(Config.BNET.Product, True) _
+		        base.Item(base.Count() - 1).Tag = MemClass.WriteDWORD(Config.BNET.Product, True) _
 		        + MemClass.WriteCString(AccountName) // Do not use unique name here.
 		      End If
 		      
 		    Else
 		      
 		      base.Append(New MenuItem("View Profile"))
-		      base.Item(base.Count - 1).Tag = MemClass.WriteDWORD(Config.BNET.Product, True) _
+		      base.Item(base.Count() - 1).Tag = MemClass.WriteDWORD(Config.BNET.Product, True) _
 		      + MemClass.WriteCString(AccountName) // Do not use unique name here.
 		      
 		    End If
@@ -1843,8 +1962,8 @@ End
 		      
 		      base.Append(New MenuItem("View Clan Info"))
 		      If Me.ListIndex <> -1 And Me.Cell(Me.ListIndex, 1) <> UniqueName Then _
-		      base.Item(base.Count - 1).Tag = Me.Cell(Me.ListIndex, 1) + " " + Me.CellTag(Me.ListIndex, 0) Else _
-		      base.Item(base.Count - 1).Tag = AccountName + " " + Statstring
+		      base.Item(base.Count() - 1).Tag = Me.Cell(Me.ListIndex, 1) + " " + Me.CellTag(Me.ListIndex, 0) Else _
+		      base.Item(base.Count() - 1).Tag = AccountName + " " + Statstring
 		      
 		      If Config.BNET.ClanTag <> 0 Then
 		        
@@ -1861,7 +1980,7 @@ End
 		            Globals.IsWarcraftIII(MemClass.ReadDWORD(Me.CellTag(Me.ListIndex, 0), 1, True)) = True And _
 		            CountFields(Me.CellTag(Me.ListIndex, 0), " ") < 4 And Config.BNET.ClanRank >= 3 Then
 		            base.Append(New MenuItem("Send clan invitation"))
-		            base.Item(base.Count - 1).Tag = Me.Cell(Me.ListIndex, 1)
+		            base.Item(base.Count() - 1).Tag = Me.Cell(Me.ListIndex, 1)
 		          End If
 		          
 		          If (Self.lstUsers_Viewing_Clan() = True) Or _
@@ -1869,26 +1988,26 @@ End
 		            MemClass.ReadDWORD(NthField(Me.CellTag(Me.ListIndex, 0), " ", 4), 1, True) = Config.BNET.ClanTag) And _
 		            Config.BNET.ClanRank >= 3 Then
 		            base.Append(New MenuItem("Remove from clan"))
-		            base.Item(base.Count - 1).Tag = MemClass.WriteBYTE(Val(Me.Cell(Me.ListIndex, 0))) _
+		            base.Item(base.Count() - 1).Tag = MemClass.WriteBYTE(Val(Me.Cell(Me.ListIndex, 0))) _
 		            + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
 		            base.Append(New MenuItem(base.TextSeparator))
 		            base.Append(New MenuItem("Change member's rank"))
-		            base.Item(base.Count - 1).Insert(0, New MenuItem("Chieftain"))
-		            base.Item(base.Count - 1).Item(0).Tag = MemClass.WriteBYTE(&H04) + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
-		            base.Item(base.Count - 1).Insert(1, New MenuItem("Shaman"))
-		            base.Item(base.Count - 1).Item(1).Tag = MemClass.WriteBYTE(&H03) + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
-		            base.Item(base.Count - 1).Insert(2, New MenuItem("Grunt"))
-		            base.Item(base.Count - 1).Item(2).Tag = MemClass.WriteBYTE(&H02) + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
-		            base.Item(base.Count - 1).Insert(3, New MenuItem("Peon"))
-		            base.Item(base.Count - 1).Item(3).Tag = MemClass.WriteBYTE(&H01) + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
-		            base.Item(base.Count - 1).Insert(4, New MenuItem("Initiate"))
-		            base.Item(base.Count - 1).Item(4).Tag = MemClass.WriteBYTE(&H00) + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
+		            base.Item(base.Count() - 1).Insert(0, New MenuItem("Chieftain"))
+		            base.Item(base.Count() - 1).Item(0).Tag = MemClass.WriteBYTE(&H04) + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
+		            base.Item(base.Count() - 1).Insert(1, New MenuItem("Shaman"))
+		            base.Item(base.Count() - 1).Item(1).Tag = MemClass.WriteBYTE(&H03) + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
+		            base.Item(base.Count() - 1).Insert(2, New MenuItem("Grunt"))
+		            base.Item(base.Count() - 1).Item(2).Tag = MemClass.WriteBYTE(&H02) + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
+		            base.Item(base.Count() - 1).Insert(3, New MenuItem("Peon"))
+		            base.Item(base.Count() - 1).Item(3).Tag = MemClass.WriteBYTE(&H01) + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
+		            base.Item(base.Count() - 1).Insert(4, New MenuItem("Initiate"))
+		            base.Item(base.Count() - 1).Item(4).Tag = MemClass.WriteBYTE(&H00) + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
 		            If Self.lstUsers_Viewing_Clan() = True Then
-		              base.Item(base.Count - 1).Item(0).Checked = (Val(Me.Cell(Me.ListIndex, 0)) = &H04)
-		              base.Item(base.Count - 1).Item(1).Checked = (Val(Me.Cell(Me.ListIndex, 0)) = &H03)
-		              base.Item(base.Count - 1).Item(2).Checked = (Val(Me.Cell(Me.ListIndex, 0)) = &H02)
-		              base.Item(base.Count - 1).Item(3).Checked = (Val(Me.Cell(Me.ListIndex, 0)) = &H01)
-		              base.Item(base.Count - 1).Item(4).Checked = (Val(Me.Cell(Me.ListIndex, 0)) = &H00)
+		              base.Item(base.Count() - 1).Item(0).Checked = (Val(Me.Cell(Me.ListIndex, 0)) = &H04)
+		              base.Item(base.Count() - 1).Item(1).Checked = (Val(Me.Cell(Me.ListIndex, 0)) = &H03)
+		              base.Item(base.Count() - 1).Item(2).Checked = (Val(Me.Cell(Me.ListIndex, 0)) = &H02)
+		              base.Item(base.Count() - 1).Item(3).Checked = (Val(Me.Cell(Me.ListIndex, 0)) = &H01)
+		              base.Item(base.Count() - 1).Item(4).Checked = (Val(Me.Cell(Me.ListIndex, 0)) = &H00)
 		            End If
 		          End If
 		          
@@ -2078,6 +2197,12 @@ End
 		    End If
 		    
 		  Case Else
+		    If hitItem.Tag = "CLIPBOARD_COPY" Then
+		      Dim c As New Clipboard()
+		      c.SetText(hitItem.Text)
+		      c.Close()
+		      Return True
+		    End If
 		    Return False
 		    
 		  End Select
