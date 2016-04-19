@@ -458,7 +458,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ConstructUserChannelDetailsMenu(Username As String, Product As UInt32, Flags As UInt32, Ping As UInt32, Statstring As String) As MenuItem
+		Function ConstructUserChannelDetailsMenu(Username As String, Product As UInt32, Flags As UInt32, Ping As Int32, Statstring As String) As MenuItem
 		  
 		  Dim detailsMenu As New MenuItem()
 		  
