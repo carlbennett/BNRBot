@@ -1,6 +1,6 @@
 #tag Window
 Begin Window wUpdater
-   BackColor       =   &hFFFFFF
+   BackColor       =   "#Colors.White"
    Backdrop        =   ""
    CloseButton     =   True
    Composite       =   False
@@ -48,7 +48,7 @@ Begin Window wUpdater
       TabPanelIndex   =   0
       Text            =   "%status%"
       TextAlign       =   0
-      TextColor       =   &h000000
+      TextColor       =   "#Colors.Black"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
@@ -134,7 +134,7 @@ Begin Window wUpdater
       TabPanelIndex   =   0
       Text            =   "%substatus%"
       TextAlign       =   0
-      TextColor       =   &h000000
+      TextColor       =   "#Colors.Black"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0

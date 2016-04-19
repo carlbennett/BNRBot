@@ -1,6 +1,6 @@
 #tag Window
 Begin Window wProfile
-   BackColor       =   48
+   BackColor       =   "#Colors.UI.WindowBackColor"
    Backdrop        =   ""
    CloseButton     =   True
    Composite       =   False
@@ -29,7 +29,7 @@ Begin Window wProfile
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   "#Colors.Black"
+      BackColor       =   "#Colors.UI.ControlBackColor"
       Bold            =   ""
       Border          =   False
       DataField       =   ""
@@ -62,7 +62,7 @@ Begin Window wProfile
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "USER"
-      TextColor       =   "#Colors.White"
+      TextColor       =   "#Colors.UI.ControlTextColor"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
@@ -77,7 +77,7 @@ Begin Window wProfile
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   "#Colors.Black"
+      BackColor       =   "#Colors.UI.ControlBackColor"
       Bold            =   ""
       Border          =   False
       DataField       =   ""
@@ -110,7 +110,7 @@ Begin Window wProfile
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "profile\\age"
-      TextColor       =   "#Colors.White"
+      TextColor       =   "#Colors.UI.ControlTextColor"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
@@ -142,7 +142,6 @@ Begin Window wProfile
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Username:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -177,7 +176,6 @@ Begin Window wProfile
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Age:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -212,7 +210,6 @@ Begin Window wProfile
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Sex:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -230,7 +227,7 @@ Begin Window wProfile
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   "#Colors.Black"
+      BackColor       =   "#Colors.UI.ControlBackColor"
       Bold            =   ""
       Border          =   False
       DataField       =   ""
@@ -263,7 +260,7 @@ Begin Window wProfile
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "profile\\sex"
-      TextColor       =   "#Colors.White"
+      TextColor       =   "#Colors.UI.ControlTextColor"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
@@ -278,7 +275,7 @@ Begin Window wProfile
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
-      BackColor       =   "#Colors.Black"
+      BackColor       =   "#Colors.UI.ControlBackColor"
       Bold            =   ""
       Border          =   False
       DataField       =   ""
@@ -311,7 +308,7 @@ Begin Window wProfile
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "profile\\description"
-      TextColor       =   "#Colors.White"
+      TextColor       =   "#Colors.UI.ControlTextColor"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
@@ -343,7 +340,6 @@ Begin Window wProfile
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Description:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -378,7 +374,6 @@ Begin Window wProfile
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Location:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -396,7 +391,7 @@ Begin Window wProfile
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   "#Colors.Black"
+      BackColor       =   "#Colors.UI.ControlBackColor"
       Bold            =   ""
       Border          =   False
       DataField       =   ""
@@ -429,7 +424,7 @@ Begin Window wProfile
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "profile\\location"
-      TextColor       =   "#Colors.White"
+      TextColor       =   "#Colors.UI.ControlTextColor"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
@@ -519,9 +514,8 @@ Begin Window wProfile
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   33
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   250
       Begin Label txtJunk
@@ -546,7 +540,6 @@ Begin Window wProfile
          Selectable      =   False
          TabIndex        =   9
          TabPanelIndex   =   1
-         TabStop         =   True
          Text            =   "Play Time:"
          TextAlign       =   0
          TextColor       =   "#Colors.White"
@@ -564,7 +557,7 @@ Begin Window wProfile
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   "#Colors.Black"
+         BackColor       =   "#Colors.UI.ControlBackColor"
          Bold            =   ""
          Border          =   False
          DataField       =   ""
@@ -597,7 +590,7 @@ Begin Window wProfile
          TabPanelIndex   =   1
          TabStop         =   True
          Text            =   "record\\GAME\\0\\last game"
-         TextColor       =   "#Colors.White"
+         TextColor       =   "#Colors.UI.ControlTextColor"
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -612,7 +605,7 @@ Begin Window wProfile
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   "#Colors.Black"
+         BackColor       =   "#Colors.UI.ControlBackColor"
          Bold            =   ""
          Border          =   False
          DataField       =   ""
@@ -645,7 +638,7 @@ Begin Window wProfile
          TabPanelIndex   =   1
          TabStop         =   True
          Text            =   "record\\GAME\\0\\wins"
-         TextColor       =   "#Colors.White"
+         TextColor       =   "#Colors.UI.ControlTextColor"
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -660,7 +653,7 @@ Begin Window wProfile
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   "#Colors.Black"
+         BackColor       =   "#Colors.UI.ControlBackColor"
          Bold            =   ""
          Border          =   False
          DataField       =   ""
@@ -693,7 +686,7 @@ Begin Window wProfile
          TabPanelIndex   =   1
          TabStop         =   True
          Text            =   "record\\GAME\\0\\last game result"
-         TextColor       =   "#Colors.White"
+         TextColor       =   "#Colors.UI.ControlTextColor"
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -708,7 +701,7 @@ Begin Window wProfile
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   "#Colors.Black"
+         BackColor       =   "#Colors.UI.ControlBackColor"
          Bold            =   ""
          Border          =   False
          DataField       =   ""
@@ -741,7 +734,7 @@ Begin Window wProfile
          TabPanelIndex   =   1
          TabStop         =   True
          Text            =   "record\\GAME\\0\\disconnects"
-         TextColor       =   "#Colors.White"
+         TextColor       =   "#Colors.UI.ControlTextColor"
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -756,7 +749,7 @@ Begin Window wProfile
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   "#Colors.Black"
+         BackColor       =   "#Colors.UI.ControlBackColor"
          Bold            =   ""
          Border          =   False
          DataField       =   ""
@@ -789,7 +782,7 @@ Begin Window wProfile
          TabPanelIndex   =   1
          TabStop         =   True
          Text            =   "record\\GAME\\0\\losses"
-         TextColor       =   "#Colors.White"
+         TextColor       =   "#Colors.UI.ControlTextColor"
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -821,7 +814,6 @@ Begin Window wProfile
          Selectable      =   False
          TabIndex        =   7
          TabPanelIndex   =   1
-         TabStop         =   True
          Text            =   "Last Game:"
          TextAlign       =   0
          TextColor       =   "#Colors.White"
@@ -856,7 +848,6 @@ Begin Window wProfile
          Selectable      =   False
          TabIndex        =   5
          TabPanelIndex   =   1
-         TabStop         =   True
          Text            =   "Disconnects:"
          TextAlign       =   0
          TextColor       =   "#Colors.White"
@@ -891,7 +882,6 @@ Begin Window wProfile
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   1
-         TabStop         =   True
          Text            =   "Losses:"
          TextAlign       =   0
          TextColor       =   "#Colors.White"
@@ -926,7 +916,6 @@ Begin Window wProfile
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   1
-         TabStop         =   True
          Text            =   "Wins:"
          TextAlign       =   0
          TextColor       =   "#Colors.White"
@@ -961,7 +950,6 @@ Begin Window wProfile
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   1
-         TabStop         =   True
          Text            =   "Normal Games:"
          TextAlign       =   0
          TextColor       =   "#Colors.White"
@@ -996,7 +984,6 @@ Begin Window wProfile
          Selectable      =   False
          TabIndex        =   9
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Play Time:"
          TextAlign       =   0
          TextColor       =   "#Colors.White"
@@ -1031,7 +1018,6 @@ Begin Window wProfile
          Selectable      =   False
          TabIndex        =   7
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Last Game:"
          TextAlign       =   0
          TextColor       =   "#Colors.White"
@@ -1066,7 +1052,6 @@ Begin Window wProfile
          Selectable      =   False
          TabIndex        =   5
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Disconnects:"
          TextAlign       =   0
          TextColor       =   "#Colors.White"
@@ -1101,7 +1086,6 @@ Begin Window wProfile
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Losses:"
          TextAlign       =   0
          TextColor       =   "#Colors.White"
@@ -1136,7 +1120,6 @@ Begin Window wProfile
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Wins:"
          TextAlign       =   0
          TextColor       =   "#Colors.White"
@@ -1171,7 +1154,6 @@ Begin Window wProfile
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Ladder Games:"
          TextAlign       =   0
          TextColor       =   "#Colors.White"
@@ -1189,7 +1171,7 @@ Begin Window wProfile
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   "#Colors.Black"
+         BackColor       =   "#Colors.UI.ControlBackColor"
          Bold            =   ""
          Border          =   False
          DataField       =   ""
@@ -1222,7 +1204,7 @@ Begin Window wProfile
          TabPanelIndex   =   2
          TabStop         =   True
          Text            =   "record\\GAME\\1\\losses"
-         TextColor       =   "#Colors.White"
+         TextColor       =   "#Colors.UI.ControlTextColor"
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -1237,7 +1219,7 @@ Begin Window wProfile
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   "#Colors.Black"
+         BackColor       =   "#Colors.UI.ControlBackColor"
          Bold            =   ""
          Border          =   False
          DataField       =   ""
@@ -1270,7 +1252,7 @@ Begin Window wProfile
          TabPanelIndex   =   2
          TabStop         =   True
          Text            =   "record\\GAME\\1\\disconnects"
-         TextColor       =   "#Colors.White"
+         TextColor       =   "#Colors.UI.ControlTextColor"
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -1285,7 +1267,7 @@ Begin Window wProfile
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   "#Colors.Black"
+         BackColor       =   "#Colors.UI.ControlBackColor"
          Bold            =   ""
          Border          =   False
          DataField       =   ""
@@ -1318,7 +1300,7 @@ Begin Window wProfile
          TabPanelIndex   =   2
          TabStop         =   True
          Text            =   "record\\GAME\\1\\last game result"
-         TextColor       =   "#Colors.White"
+         TextColor       =   "#Colors.UI.ControlTextColor"
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -1333,7 +1315,7 @@ Begin Window wProfile
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   "#Colors.Black"
+         BackColor       =   "#Colors.UI.ControlBackColor"
          Bold            =   ""
          Border          =   False
          DataField       =   ""
@@ -1366,7 +1348,7 @@ Begin Window wProfile
          TabPanelIndex   =   2
          TabStop         =   True
          Text            =   "record\\GAME\\1\\last game"
-         TextColor       =   "#Colors.White"
+         TextColor       =   "#Colors.UI.ControlTextColor"
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -1381,7 +1363,7 @@ Begin Window wProfile
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   "#Colors.Black"
+         BackColor       =   "#Colors.UI.ControlBackColor"
          Bold            =   ""
          Border          =   False
          DataField       =   ""
@@ -1414,7 +1396,7 @@ Begin Window wProfile
          TabPanelIndex   =   2
          TabStop         =   True
          Text            =   "record\\GAME\\1\\wins"
-         TextColor       =   "#Colors.White"
+         TextColor       =   "#Colors.UI.ControlTextColor"
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -1446,7 +1428,6 @@ Begin Window wProfile
          Selectable      =   False
          TabIndex        =   11
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Rating:"
          TextAlign       =   0
          TextColor       =   "#Colors.White"
@@ -1464,7 +1445,7 @@ Begin Window wProfile
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   "#Colors.Black"
+         BackColor       =   "#Colors.UI.ControlBackColor"
          Bold            =   ""
          Border          =   False
          DataField       =   ""
@@ -1497,7 +1478,7 @@ Begin Window wProfile
          TabPanelIndex   =   2
          TabStop         =   True
          Text            =   "record\\GAME\\1\\rating"
-         TextColor       =   "#Colors.White"
+         TextColor       =   "#Colors.UI.ControlTextColor"
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -1529,7 +1510,6 @@ Begin Window wProfile
          Selectable      =   False
          TabIndex        =   13
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "High Rating:"
          TextAlign       =   0
          TextColor       =   "#Colors.White"
@@ -1547,7 +1527,7 @@ Begin Window wProfile
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   "#Colors.Black"
+         BackColor       =   "#Colors.UI.ControlBackColor"
          Bold            =   ""
          Border          =   False
          DataField       =   ""
@@ -1580,7 +1560,7 @@ Begin Window wProfile
          TabPanelIndex   =   2
          TabStop         =   True
          Text            =   "record\\GAME\\1\\high rating"
-         TextColor       =   "#Colors.White"
+         TextColor       =   "#Colors.UI.ControlTextColor"
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -1612,7 +1592,6 @@ Begin Window wProfile
          Selectable      =   False
          TabIndex        =   15
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Rank:"
          TextAlign       =   0
          TextColor       =   "#Colors.White"
@@ -1630,7 +1609,7 @@ Begin Window wProfile
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   "#Colors.Black"
+         BackColor       =   "#Colors.UI.ControlBackColor"
          Bold            =   ""
          Border          =   False
          DataField       =   ""
@@ -1663,7 +1642,7 @@ Begin Window wProfile
          TabPanelIndex   =   2
          TabStop         =   True
          Text            =   "DynKey\\GAME\\1\\rank"
-         TextColor       =   "#Colors.White"
+         TextColor       =   "#Colors.UI.ControlTextColor"
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -1695,7 +1674,6 @@ Begin Window wProfile
          Selectable      =   False
          TabIndex        =   17
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "High Rank:"
          TextAlign       =   0
          TextColor       =   "#Colors.White"
@@ -1713,7 +1691,7 @@ Begin Window wProfile
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   "#Colors.Black"
+         BackColor       =   "#Colors.UI.ControlBackColor"
          Bold            =   ""
          Border          =   False
          DataField       =   ""
@@ -1746,7 +1724,7 @@ Begin Window wProfile
          TabPanelIndex   =   2
          TabStop         =   True
          Text            =   "record\\GAME\\1\\high rank"
-         TextColor       =   "#Colors.White"
+         TextColor       =   "#Colors.UI.ControlTextColor"
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -1841,7 +1819,6 @@ Begin Window wProfile
       Selectable      =   False
       TabIndex        =   13
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Game:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -1859,7 +1836,7 @@ Begin Window wProfile
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   "#Colors.Black"
+      BackColor       =   "#Colors.UI.ControlBackColor"
       Bold            =   ""
       Border          =   False
       DataField       =   ""
@@ -1891,7 +1868,7 @@ Begin Window wProfile
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "GAME"
-      TextColor       =   "#Colors.White"
+      TextColor       =   "#Colors.UI.ControlTextColor"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0

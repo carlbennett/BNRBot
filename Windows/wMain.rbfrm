@@ -171,7 +171,6 @@ Begin Window wMain
       Width           =   400
    End
    Begin Timer lstUsersTimer
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   -32
@@ -179,11 +178,8 @@ Begin Window wMain
       Mode            =   0
       Period          =   75
       Scope           =   0
-      TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
-      Visible         =   True
       Width           =   32
    End
    Begin TextArea fldInput
@@ -239,7 +235,7 @@ Begin Window wMain
       BorderWidth     =   1
       BottomRightColor=   "#Colors.UI.ControlBorderColor"
       Enabled         =   True
-      FillColor       =   "#Colors.Black"
+      FillColor       =   "#Colors.UI.ControlBackColor"
       Height          =   19
       HelpTag         =   ""
       Index           =   -2147483648
@@ -253,7 +249,6 @@ Begin Window wMain
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   13
       TopLeftColor    =   "#Colors.UI.ControlBorderColor"
       Visible         =   True
@@ -281,7 +276,6 @@ Begin Window wMain
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Offline"
       TextAlign       =   1
       TextColor       =   "#Colors.UI.ControlTextColor"
@@ -312,7 +306,7 @@ End
 		  If i < 0 Then Return False
 		  
 		  i = MsgBox("There is at least one profile that is still connected to Battle.net." + EndOfLine + _
-		  EndOfLine + "Are you sure you wish to exit?", 305, "BNRBot v2 - Still Connected")
+		  EndOfLine + "Are you sure you wish to exit?", 305, "Still Connected - BNRBot")
 		  
 		  Return (i = 2 Or i = 3 Or i = 7)
 		  
@@ -1663,7 +1657,7 @@ End
 		  
 		  If column = 0 And Self.lstUsers_Viewing_ChannelList() = False Then
 		    
-		    g.ForeColor = Colors.Black
+		    g.ForeColor = Colors.UI.ControlBackColor
 		    
 		  ElseIf row = Me.ListIndex Then
 		    

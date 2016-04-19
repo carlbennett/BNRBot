@@ -21,7 +21,7 @@ Begin Window wConfig
    MinWidth        =   512
    Placement       =   2
    Resizeable      =   False
-   Title           =   "BNRBot v2 - Configuration"
+   Title           =   "Configuration - BNRBot"
    Visible         =   True
    Width           =   512
    Begin Listbox lstCategories

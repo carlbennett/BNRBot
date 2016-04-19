@@ -1,6 +1,6 @@
 #tag Window
 Begin Window wClanConfirmation
-   BackColor       =   48
+   BackColor       =   "#Colors.UI.WindowBackColor"
    Backdrop        =   ""
    CloseButton     =   True
    Composite       =   False
@@ -46,10 +46,9 @@ Begin Window wClanConfirmation
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "You requested to %ACTION% Clan %TAG%!"
       TextAlign       =   0
-      TextColor       =   "#Colors.White"
+      TextColor       =   "#Colors.UI.ControlTextColor"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
@@ -79,7 +78,7 @@ Begin Window wClanConfirmation
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   7
+      TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "Arial"
@@ -110,7 +109,7 @@ Begin Window wClanConfirmation
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   8
+      TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "Arial"
@@ -141,12 +140,11 @@ Begin Window wClanConfirmation
       Multiline       =   True
       Scope           =   0
       Selectable      =   False
-      TabIndex        =   9
+      TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "If you really want to do this, hit OK below.\r\n\r\nOtherwise, hit Cancel to not take any action."
       TextAlign       =   0
-      TextColor       =   "#Colors.White"
+      TextColor       =   "#Colors.UI.ControlTextColor"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0

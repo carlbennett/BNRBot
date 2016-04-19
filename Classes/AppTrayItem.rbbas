@@ -18,7 +18,7 @@ Inherits TrayItem
 		    
 		  Case Else
 		    #If TargetWin32 = False Then Beep()
-		    Call MsgBox("Error - unrecognized mouse button.", 64, "BNRBot v2")
+		    Call MsgBox("Error - unrecognized mouse button.", 64, "BNRBot")
 		    
 		  End Select
 		  
