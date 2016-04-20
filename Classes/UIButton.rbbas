@@ -134,7 +134,7 @@ Inherits Canvas
 		  g.Italic = Me.Italic
 		  g.Underline = Me.Underline
 		  
-		  g.DrawString(Me.Text, g.Width/2-g.StringWidth(Me.Text)/2, g.Height/2+g.TextAscent/2, g.Width-2, True)
+		  g.DrawString(Me.Text, g.Width/2-g.StringWidth(Me.Text)/2, g.Height/2+g.TextAscent/2-1, g.Width-2, True)
 		  
 		End Sub
 	#tag EndEvent
@@ -543,6 +543,11 @@ Inherits Canvas
 			Group="Behavior"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Focused"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Height"
