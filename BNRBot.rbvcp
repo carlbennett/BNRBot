@@ -34,6 +34,7 @@ Window=wClanConfirmation;Windows/wClanConfirmation.rbfrm;&h11C637FF;&h3DC777FF;f
 Window=wClanCreationInvitation;Windows/wClanCreationInvitation.rbfrm;&h7EAF3FFF;&h3DC777FF;false
 Window=wClanRemoveMember;Windows/wClanRemoveMember.rbfrm;&h4FB58FFF;&h3DC777FF;false
 Window=wUpdater;Windows/wUpdater.rbfrm;&h68F7E7FF;&h3DC777FF;false
+Class=UIButton;Classes/UIButton.rbbas;&h6E055FFF;&h4952FFF;false
 MajorVersion=2
 MinorVersion=4
 SubVersion=0

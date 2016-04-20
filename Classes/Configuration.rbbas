@@ -251,7 +251,12 @@ Protected Class Configuration
 		  Me.RTFData = New StyledText()
 		  
 		  Me.CacheChatUnread = False
-		  Me.CachelstUsers_View = 0
+		  
+		  Me.CachelstUsers_View_Channel     = wMain.lstUsers_View_Channel_Flags
+		  Me.CachelstUsers_View_Friends     = wMain.lstUsers_View_Friends_Entry
+		  Me.CachelstUsers_View_Clan        = wMain.lstUsers_View_Clan_Rank
+		  Me.CachelstUsers_View_ChannelList = wMain.lstUsers_View_ChannelList_Entry
+		  Me.CachelstUsers_View             = Me.CachelstUsers_View_Channel
 		  
 		End Sub
 	#tag EndMethod
@@ -295,6 +300,22 @@ Protected Class Configuration
 
 	#tag Property, Flags = &h0
 		CachelstUsers_View As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		CachelstUsers_View_Channel As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		CachelstUsers_View_ChannelList As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		CachelstUsers_View_Clan As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		CachelstUsers_View_Friends As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

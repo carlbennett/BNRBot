@@ -46,6 +46,7 @@ Begin Window wClanRemoveMember
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Are you sure you wish to remove this member?"
       TextAlign       =   0
       TextColor       =   "#Colors.UI.ControlTextColor"
@@ -80,6 +81,7 @@ Begin Window wClanRemoveMember
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Username:"
       TextAlign       =   0
       TextColor       =   "#Colors.UI.ControlTextColor"
@@ -208,6 +210,7 @@ Begin Window wClanRemoveMember
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Clan Rank:"
       TextAlign       =   0
       TextColor       =   "#Colors.UI.ControlTextColor"

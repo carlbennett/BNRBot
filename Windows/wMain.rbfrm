@@ -91,7 +91,7 @@ Begin Window wMain
       GridLinesVertical=   0
       HasHeading      =   ""
       HeadingIndex    =   -1
-      Height          =   314
+      Height          =   292
       HelpTag         =   ""
       Hierarchical    =   ""
       Index           =   -2147483648
@@ -115,7 +115,7 @@ Begin Window wMain
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   43
+      Top             =   65
       Underline       =   ""
       UseFocusRing    =   False
       Visible         =   True
@@ -156,7 +156,7 @@ Begin Window wMain
       ScrollbarHorizontal=   False
       ScrollbarVertical=   True
       Styled          =   True
-      TabIndex        =   4
+      TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
@@ -247,7 +247,7 @@ Begin Window wMain
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   5
+      TabIndex        =   7
       TabPanelIndex   =   0
       Top             =   13
       TopLeftColor    =   "#Colors.UI.ControlBorderColor"
@@ -274,7 +274,7 @@ Begin Window wMain
       Multiline       =   ""
       Scope           =   0
       Selectable      =   False
-      TabIndex        =   6
+      TabIndex        =   8
       TabPanelIndex   =   0
       Text            =   "Offline"
       TextAlign       =   1
@@ -287,6 +287,117 @@ Begin Window wMain
       Underline       =   ""
       Visible         =   True
       Width           =   210
+   End
+   Begin UIButton btnChannelView
+      AcceptFocus     =   True
+      AcceptTabs      =   True
+      ActiveColor     =   "#Colors.UI.ListSelectionColor"
+      AutoDeactivate  =   True
+      Backdrop        =   ""
+      BackgroundColor =   "#Colors.UI.ControlBackColor"
+      Bold            =   True
+      BorderColor     =   "#Colors.UI.ControlBorderColor"
+      DoubleBuffer    =   ""
+      Enabled         =   True
+      EraseBackground =   ""
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   575
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Channel"
+      TextColor       =   "#Colors.UI.ControlTextColor"
+      TextFont        =   "Arial"
+      TextSize        =   12
+      Top             =   43
+      Underline       =   ""
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   70
+   End
+   Begin UIButton btnFriendsView
+      AcceptFocus     =   True
+      AcceptTabs      =   True
+      ActiveColor     =   "#Colors.UI.ListSelectionColor"
+      AutoDeactivate  =   True
+      Backdrop        =   ""
+      BackgroundColor =   "#Colors.UI.ControlBackColor"
+      Bold            =   True
+      BorderColor     =   "#Colors.UI.ControlBorderColor"
+      DoubleBuffer    =   ""
+      Enabled         =   True
+      EraseBackground =   ""
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   646
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Friends"
+      TextColor       =   "#Colors.UI.ControlTextColor"
+      TextFont        =   "Arial"
+      TextSize        =   12
+      Top             =   43
+      Underline       =   ""
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   70
+   End
+   Begin UIButton btnClanView
+      AcceptFocus     =   True
+      AcceptTabs      =   True
+      ActiveColor     =   "#Colors.UI.ListSelectionColor"
+      AutoDeactivate  =   True
+      Backdrop        =   ""
+      BackgroundColor =   "#Colors.UI.ControlBackColor"
+      Bold            =   True
+      BorderColor     =   "#Colors.UI.ControlBorderColor"
+      DoubleBuffer    =   ""
+      Enabled         =   True
+      EraseBackground =   ""
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   717
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   5
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Clan"
+      TextColor       =   "#Colors.UI.ControlTextColor"
+      TextFont        =   "Arial"
+      TextSize        =   12
+      Top             =   43
+      Underline       =   ""
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   70
    End
 End
 #tag EndWindow
@@ -590,7 +701,11 @@ End
 		      H = RC.Height
 		      
 		      If (RC IsA TextArea Or RC IsA TextField Or RC IsA ListBox) And RC.Visible = True Then
-		        g.ForeColor = Colors.UI.ControlBorderColor
+		        If Me.Focus = RC Then
+		          g.ForeColor = Colors.UI.ListSelectionColor
+		        Else
+		          g.ForeColor = Colors.UI.ControlBorderColor
+		        End If
 		        
 		        g.DrawLine(X + W, Y - 1, X + W, Y + H) // Right
 		        If RC <> Me.lstProfiles Then
@@ -955,6 +1070,7 @@ End
 			  
 			  Select Case value
 			  Case Me.lstUsers_View_Channel_Entry
+			    Config.CachelstUsers_View_Channel = value
 			    
 			    i = 0
 			    While i < Config.BNET.ChannelUsers.Count
@@ -981,6 +1097,7 @@ End
 			    sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
 			    
 			  Case Me.lstUsers_View_Channel_Name
+			    Config.CachelstUsers_View_Channel = value
 			    
 			    i = 0
 			    While i < Config.BNET.ChannelUsers.Count
@@ -1007,6 +1124,7 @@ End
 			    sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
 			    
 			  Case Me.lstUsers_View_Channel_Game
+			    Config.CachelstUsers_View_Channel = value
 			    
 			    For Each Product In Products()
 			      i = 0
@@ -1028,6 +1146,7 @@ End
 			    sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
 			    
 			  Case Me.lstUsers_View_Channel_Flags
+			    Config.CachelstUsers_View_Channel = value
 			    
 			    // 0x01      0x08          0x04        0x02
 			    Dim Admins(), Moderators(), Speakers(), Operators() As Dictionary
@@ -1084,6 +1203,7 @@ End
 			    sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
 			    
 			  Case Me.lstUsers_View_Channel_Ping
+			    Config.CachelstUsers_View_Channel = value
 			    
 			    Dim Pings() As UInt32
 			    
@@ -1112,6 +1232,7 @@ End
 			    sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
 			    
 			  Case Me.lstUsers_View_Channel_Activity
+			    Config.CachelstUsers_View_Channel = value
 			    
 			    i = 0
 			    While i < Config.BNET.ChannelUsers.Count
@@ -1138,6 +1259,7 @@ End
 			    sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
 			    
 			  Case Me.lstUsers_View_Friends_Entry
+			    Config.CachelstUsers_View_Friends = value
 			    
 			    i = 0
 			    While i < Config.BNET.FriendsList.Count
@@ -1153,6 +1275,7 @@ End
 			    Wend
 			    
 			  Case Me.lstUsers_View_Friends_Name
+			    Config.CachelstUsers_View_Friends = value
 			    
 			    i = 0
 			    While i < Config.BNET.FriendsList.Count
@@ -1177,6 +1300,7 @@ End
 			    Next
 			    
 			  Case Me.lstUsers_View_Friends_Game
+			    Config.CachelstUsers_View_Friends = value
 			    
 			    For Each Product In Products()
 			      i = 0
@@ -1196,6 +1320,7 @@ End
 			    Next
 			    
 			  Case Me.lstUsers_View_Friends_Status
+			    Config.CachelstUsers_View_Friends = value
 			    
 			    i = 0
 			    While i < Config.BNET.FriendsList.Count
@@ -1220,6 +1345,7 @@ End
 			    Next
 			    
 			  Case Me.lstUsers_View_Friends_Location
+			    Config.CachelstUsers_View_Friends = value
 			    
 			    // Statuses() is reused as the Locations() instead.
 			    
@@ -1246,6 +1372,7 @@ End
 			    Next
 			    
 			  Case Me.lstUsers_View_Clan_Entry
+			    Config.CachelstUsers_View_Clan = value
 			    
 			    i = 0
 			    While i < Config.BNET.ClanMembers.Count
@@ -1260,6 +1387,7 @@ End
 			    Wend
 			    
 			  Case Me.lstUsers_View_Clan_Name
+			    Config.CachelstUsers_View_Clan = value
 			    
 			    i = 0
 			    While i < Config.BNET.ClanMembers.Count
@@ -1283,6 +1411,7 @@ End
 			    Next
 			    
 			  Case Me.lstUsers_View_Clan_Status
+			    Config.CachelstUsers_View_Clan = value
 			    
 			    i = 0
 			    While i < Config.BNET.ClanMembers.Count
@@ -1306,6 +1435,7 @@ End
 			    Next
 			    
 			  Case Me.lstUsers_View_Clan_Rank
+			    Config.CachelstUsers_View_Clan = value
 			    
 			    Dim Others(), Chieftains(), Shamans(), Grunts(), Peons(), Initiates() As Dictionary
 			    
@@ -1366,6 +1496,7 @@ End
 			    Next
 			    
 			  Case Me.lstUsers_View_ChannelList_Entry
+			    Config.CachelstUsers_View_ChannelList = value
 			    
 			    For Each sTmp1 In Config.BNET.Channels
 			      
@@ -1374,6 +1505,7 @@ End
 			    Next
 			    
 			  Case Me.lstUsers_View_ChannelList_Name
+			    Config.CachelstUsers_View_ChannelList = value
 			    
 			    For Each sTmp1 In Config.BNET.Channels
 			      
@@ -1645,6 +1777,20 @@ End
 		  Return True
 		  
 		End Function
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.DrawBorders()
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.DrawBorders()
+		  
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events lstUsers
@@ -2240,6 +2386,36 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.DrawBorders()
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.DrawBorders()
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events fldData
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.DrawBorders()
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.DrawBorders()
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events lstUsersTimer
 	#tag Event
@@ -2356,6 +2532,20 @@ End
 		  
 		End Function
 	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.DrawBorders()
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.DrawBorders()
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events txtChannel
 	#tag Event
@@ -2402,5 +2592,44 @@ End
 		    Return True
 		    
 		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnChannelView
+	#tag Event
+		Sub Action()
+		  
+		  Dim Config As Configuration
+		  If Self.SelectedConfig >= 0 And Self.SelectedConfig <= UBound(Settings.Configurations) _
+		    Then Config = Settings.Configurations(Self.SelectedConfig) Else Config = Nil
+		    
+		    If Config <> Nil Then Self.lstUsers_View = Config.CachelstUsers_View_Channel
+		    
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnFriendsView
+	#tag Event
+		Sub Action()
+		  
+		  Dim Config As Configuration
+		  If Self.SelectedConfig >= 0 And Self.SelectedConfig <= UBound(Settings.Configurations) _
+		    Then Config = Settings.Configurations(Self.SelectedConfig) Else Config = Nil
+		    
+		    If Config <> Nil Then Self.lstUsers_View = Config.CachelstUsers_View_Friends
+		    
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnClanView
+	#tag Event
+		Sub Action()
+		  
+		  Dim Config As Configuration
+		  If Self.SelectedConfig >= 0 And Self.SelectedConfig <= UBound(Settings.Configurations) _
+		    Then Config = Settings.Configurations(Self.SelectedConfig) Else Config = Nil
+		    
+		    If Config <> Nil Then Self.lstUsers_View = Config.CachelstUsers_View_Clan
+		    
+		End Sub
 	#tag EndEvent
 #tag EndEvents
