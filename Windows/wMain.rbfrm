@@ -171,6 +171,7 @@ Begin Window wMain
       Width           =   400
    End
    Begin Timer lstUsersTimer
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   -32
@@ -178,8 +179,11 @@ Begin Window wMain
       Mode            =   0
       Period          =   75
       Scope           =   0
+      TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
+      Visible         =   True
       Width           =   32
    End
    Begin TextArea fldInput
@@ -249,6 +253,7 @@ Begin Window wMain
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   13
       TopLeftColor    =   "#Colors.UI.ControlBorderColor"
       Visible         =   True
@@ -276,6 +281,7 @@ Begin Window wMain
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Offline"
       TextAlign       =   1
       TextColor       =   "#Colors.UI.ControlTextColor"
@@ -914,6 +920,9 @@ End
 		  Me.fldData.SelStart = Len(Me.fldData.Text)
 		  Me.fldInput.Text = Config.CacheInputMessage
 		  If Me.fldInput.ReadOnly = True Then Me.fldInput.ReadOnly = False
+		  If Me.btnChannelView.Enabled = False Then Me.btnChannelView.Enabled = True
+		  If Me.btnFriendsView.Enabled = False Then Me.btnFriendsView.Enabled = True
+		  If Me.btnClanView.Enabled = False Then Me.btnClanView.Enabled = True
 		  Me.lstUsers_View = Config.CachelstUsers_View
 		  
 		  // Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
@@ -961,9 +970,12 @@ End
 		    Me.fldData.SelText = Settings.SaveErrors + EndOfLine + EndOfLine + ""
 		  End If
 		  Me.txtChannel.Text = "No Profile Selected"
+		  If Me.btnChannelView.Enabled = True Then Me.btnChannelView.Enabled = False
+		  If Me.btnFriendsView.Enabled = True Then Me.btnFriendsView.Enabled = False
+		  If Me.btnClanView.Enabled = True Then Me.btnClanView.Enabled = False
 		  Me.lstUsers.DeleteAllRows()
 		  Me.fldInput.Text = ""
-		  Me.fldInput.ReadOnly = True
+		  If Me.fldInput.ReadOnly = False Then Me.fldInput.ReadOnly = True
 		  
 		End Sub
 	#tag EndMethod
