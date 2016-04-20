@@ -14,7 +14,7 @@ Protected Class Configuration
 		    SRSize = Me.RTFField.TextSize
 		  End If
 		  
-		  If Me.RTFData.ParagraphCount() > 100 Then
+		  If CountFields(ReplaceLineEndings(Me.RTFData.Text(), EndOfLine), EndOfLine) > 100 Then
 		    Me.RTFData.RTFData = ""
 		    If Me.RTFField <> Nil Then Me.RTFField.Text = ""
 		  End If
