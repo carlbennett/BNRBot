@@ -10,6 +10,7 @@
 *.iso
 *.jar
 *.log
+*.patch
 *.rar
 *.swp
 *.tar
@@ -20,8 +21,8 @@
 .Spotlight-V100
 .Trashes
 ._*
-/BNRBot\ Libs/
 /BNRBot.dat
+/BNRBot\ Libs/
 /DebugBNRBot/
 /Hashes/
 Thumbs.db
