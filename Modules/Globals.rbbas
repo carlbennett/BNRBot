@@ -1562,7 +1562,7 @@ Protected Module Globals
 		    
 		    If Config.BNET <> Nil Then Config.BNET.DoReconnect()
 		    
-		  Case "Rejoin"
+		  Case "Rejoin", "Rj"
 		    
 		    If Config.BNET <> Nil And Config.BNET.IsConnected = True And LenB(Config.BNET.UniqueName) > 0 Then
 		      If LenB(Config.BNET.ChannelName) < 1 And LenB(Config.BNET.ReturnChannel) > 0 Then
