@@ -241,6 +241,7 @@ Inherits TCPSocket
 		  Me.LastNullReceive = 0
 		  If Me.LogonTimeoutTimer = Nil Then Me.LogonTimeoutTimer = New SocketTimer(Me, 2000, SocketTimer.ModeSingle, False)
 		  Me.LogonType = 0
+		  Me.NLS = Nil
 		  Me.MPQFilename = ""
 		  Me.MPQFiletime = 0
 		  Me.Password = Me.Config.Password
@@ -501,6 +502,10 @@ Inherits TCPSocket
 
 	#tag Property, Flags = &h0
 		MPQFiletime As UInt64
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		NLS As NLS
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

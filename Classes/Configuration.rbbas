@@ -524,6 +524,26 @@ Protected Class Configuration
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="CachelstUsers_View_Channel"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CachelstUsers_View_ChannelList"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CachelstUsers_View_Clan"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CachelstUsers_View_Friends"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="CDKey"
 			Group="Behavior"
 			Type="String"

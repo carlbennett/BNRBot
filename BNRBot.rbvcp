@@ -16,6 +16,7 @@ Class=BNLSSocket;Classes/BNLSSocket.rbbas;&h3E5537FF;&h4952FFF;false
 Class=BNUDPSocket;Classes/BNUDPSocket.rbbas;&h13DB67FF;&h4952FFF;false
 Class=Configuration;Classes/Configuration.rbbas;&h20287FF;&h4952FFF;false
 Class=MemClass;Classes/MemClass.rbbas;&h4C370FFF;&h4952FFF;false
+Class=NLS;Classes/NLS.rbbas;&h192027FF;&h4952FFF;false
 Class=PingRange;Classes/PingRange.rbbas;&h5CA647FF;&h4952FFF;false
 Class=SocketTimer;Classes/SocketTimer.rbbas;&h500A97FF;&h4952FFF;false
 Class=UIButton;Classes/UIButton.rbbas;&h6E055FFF;&h4952FFF;false

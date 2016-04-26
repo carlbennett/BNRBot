@@ -202,7 +202,7 @@ Protected Module Globals
 		  // "Broken" SHA-1 Hashing
 		  // U.S. Standard Hashing Algorithm Version 1
 		  
-		  Soft Declare Sub hashPassword Lib "BNCSutil.dll" (Password As Ptr, outBuffer As Ptr)
+		  Soft Declare Sub hashPassword Lib "BNCSUtil.dll" (Password As Ptr, outBuffer As Ptr)
 		  
 		  Dim kData As New MemoryBlock(LenB(Data) + 1)
 		  Dim Hash As New MemoryBlock(20)
@@ -222,7 +222,7 @@ Protected Module Globals
 		  GameFile2 As CString, GameFile3 As CString, ValueString As CString,     version As Ptr, Checksum As Ptr, _
 		  EXEinfo As Ptr, PathToDLL As CString, sUnused As CString, PathToVideoBin As CString) As Integer
 		  
-		  Soft Declare Function getExeInfo Lib "BNCSutil.dll" (Filename As Ptr, EXEInfo As Ptr, _
+		  Soft Declare Function getExeInfo Lib "BNCSUtil.dll" (Filename As Ptr, EXEInfo As Ptr, _
 		  EXEInfoSize As Integer, Version As Ptr, Platform As Integer) As Integer
 		  
 		  //Soft Declare Function CheckRevisionEx Lib "Files/CheckRevision.dll" (ByVal GameFile1 As String, _
@@ -702,7 +702,7 @@ Protected Module Globals
 		  // We must return 36 bytes exactly.
 		  // If we return 0 bytes, an error occurred.
 		  
-		  Soft Declare Function kd_quick Lib "BNCSutil.dll" (CDKey As Ptr, _
+		  Soft Declare Function kd_quick Lib "BNCSUtil.dll" (CDKey As Ptr, _
 		  Client_Token As Integer, Server_Token As Integer, Public_Value As Ptr, _
 		  Product_Value As Ptr, Hash_Buffer As Ptr, Buffer_Len As Integer) As Integer
 		  
@@ -787,7 +787,7 @@ Protected Module Globals
 		  
 		  // OLS Password Hashing
 		  
-		  Soft Declare Sub doubleHashPassword Lib "BNCSutil.dll" (Password As Ptr, _
+		  Soft Declare Sub doubleHashPassword Lib "BNCSUtil.dll" (Password As Ptr, _
 		  ClientToken As Integer, ServerToken As Integer, outBuffer As Ptr)
 		  
 		  Dim PW As New MemoryBlock(LenB(Password) + 1)

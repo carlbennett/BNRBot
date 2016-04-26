@@ -49,8 +49,8 @@ Protected Module Settings
 		  Next
 		  
 		  For Each Folder In FoldersToCheck
-		    If FoundBNCSUtil = False And Folder <> Nil And Folder.Child("BNCSutil.dll") <> Nil _
-		      And Folder.Child("BNCSutil.dll").Exists = True Then FoundBNCSUtil = True
+		    If FoundBNCSUtil = False And Folder <> Nil And Folder.Child("BNCSUtil.dll") <> Nil _
+		      And Folder.Child("BNCSUtil.dll").Exists = True Then FoundBNCSUtil = True
 		      If FoundCheckRevisionDLL = False And Folder <> Nil And Folder.Child("CheckRevision.dll") <> Nil _
 		        And Folder.Child("CheckRevision.dll").Exists = True Then FoundCheckRevisionDLL = True
 		        If Settings.HashFolder = Nil And Folder <> Nil And Folder.Child("Hashes") <> Nil _
@@ -92,7 +92,7 @@ Protected Module Settings
 		  // We're finally done checking every file, except for the true hash files (we only
 		  // checked for the Hashes folder, not each individual hash folder plus files).
 		  
-		  If FoundBNCSUtil = False Then Result = Result + "Cannot find BNCSutil.dll on your system." + EndOfLine
+		  If FoundBNCSUtil = False Then Result = Result + "Cannot find BNCSUtil.dll on your system." + EndOfLine
 		  If FoundCheckRevisionDLL = False Then Result = Result + "Cannot find CheckRevision.dll on your system." + EndOfLine
 		  If FoundLockdowns = False Then Result = Result + "One or more lockdown-IX86-##.dll files were not found on your system." + EndOfLine
 		  If FoundVerChecks = False Then Result = Result + "One or more ver-IX86-#.dll files were not found on your system." + EndOfLine

@@ -15,48 +15,6 @@ Protected Module Packets
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Function CreateBNLS_CHOOSENLSREVISION(Revision As UInt32) As String
-		  
-		  Return Packets.CreateBNLS(Packets.BNLS_CHOOSENLSREVISION, MemClass.WriteDWORD(Revision))
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Function CreateBNLS_CREATEACCOUNT(Username As String, Password As String) As String
-		  
-		  Dim Buffer As String
-		  
-		  MemClass.WriteCString(Buffer, Username)
-		  MemClass.WriteCString(Buffer, Password)
-		  
-		  Return Packets.CreateBNLS(Packets.BNLS_CREATEACCOUNT, Buffer)
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Function CreateBNLS_LOGONCHALLENGE(Username As String, Password As String) As String
-		  
-		  Dim Buffer As String
-		  
-		  MemClass.WriteCString(Buffer, Username)
-		  MemClass.WriteCString(Buffer, Password)
-		  
-		  Return Packets.CreateBNLS(Packets.BNLS_LOGONCHALLENGE, Buffer)
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Function CreateBNLS_LOGONPROOF(RawData As String) As String
-		  
-		  Return Packets.CreateBNLS(Packets.BNLS_LOGONPROOF, LeftB(RawData, 64))
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
 		Protected Function CreateBNLS_NULL() As String
 		  
 		  Return Packets.CreateBNLS(Packets.BNLS_NULL, "")
@@ -656,15 +614,6 @@ Protected Module Packets
 		  Case Packets.BNLS_NULL
 		    ret = Packets.ParseBNLS_NULL(Sock, PktData)
 		    
-		  Case Packets.BNLS_LOGONCHALLENGE
-		    ret = Packets.ParseBNLS_LOGONCHALLENGE(Sock, PktData)
-		    
-		  Case Packets.BNLS_LOGONPROOF
-		    ret = Packets.ParseBNLS_LOGONPROOF(Sock, PktData)
-		    
-		  Case Packets.BNLS_CREATEACCOUNT
-		    ret = Packets.ParseBNLS_CREATEACCOUNT(Sock, PktData)
-		    
 		  Case Packets.BNLS_VERSIONCHECKEX2
 		    ret = Packets.ParseBNLS_VERSIONCHECKEX2(Sock, PktData)
 		    
@@ -673,45 +622,6 @@ Protected Module Packets
 		    
 		  End Select
 		  Return ret
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Function ParseBNLS_CREATEACCOUNT(Sock As BNLSSocket, PktData As String) As Boolean
-		  
-		  If Sock = Nil Then Return False
-		  If Sock.IsConnected = False Then Return False
-		  If LenB(PktData) <> 64 Then Return False
-		  
-		  Sock.BNET.Send(Packets.CreateSID_AUTH_ACCOUNTCREATE(MidB(PktData, 1, 32), MidB(PktData, 33, 32), Sock.BNET.Username))
-		  Return True
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Function ParseBNLS_LOGONCHALLENGE(Sock As BNLSSocket, PktData As String) As Boolean
-		  
-		  If Sock = Nil Then Return False
-		  If Sock.IsConnected = False Then Return False
-		  If LenB(PktData) <> 32 Then Return False
-		  
-		  Sock.BNET.Send(Packets.CreateSID_AUTH_ACCOUNTLOGON(PktData, Sock.BNET.Username))
-		  Return True
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Function ParseBNLS_LOGONPROOF(Sock As BNLSSocket, PktData As String) As Boolean
-		  
-		  If Sock = Nil Then Return False
-		  If Sock.IsConnected = False Then Return False
-		  If LenB(PktData) <> 20 Then Return False
-		  
-		  Sock.BNET.Send(Packets.CreateSID_AUTH_ACCOUNTLOGONPROOF(PktData))
-		  Return True
 		  
 		End Function
 	#tag EndMethod
@@ -820,8 +730,7 @@ Protected Module Packets
 		  If Sock.Config <> Nil Then
 		    Select Case Status
 		    Case &H00 // Logon accepted, requires proof.
-		      If Sock.BNLS.IsConnected = False Then Sock.BNLS.DoConnect()
-		      Sock.BNLS.Send(Packets.CreateBNLS_LOGONPROOF(MidB(PktData, 5)))
+		      Sock.Send(Packets.CreateSID_AUTH_ACCOUNTLOGONPROOF(Sock.NLS.AccountLogonProof(MidB(PktData, 5, 32), MidB(PktData, 37, 32))))
 		    Case &H01 // Account doesn't exist.
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Account is non-existant; ")
 		      Sock.Config.AddChat(False, Colors.Yellow, "creating it..." + EndOfLine)
@@ -837,12 +746,7 @@ Protected Module Packets
 		    Return False
 		  ElseIf Status = &H01 Then
 		    // Try to create the account...
-		    If Sock.Config.BNLSEnabled = True Then
-		      If Sock.BNLS <> Nil And Sock.BNLS.IsConnected = False And Sock.BNLS.IsConnecting = False Then Sock.BNLS.DoConnect()
-		      Sock.BNLS.Send(Packets.CreateBNLS_CREATEACCOUNT(Sock.Config.Username, Sock.Config.Password))
-		    Else
-		      Sock.Config.AddChat(True, Colors.Red, "ERROR: Not yet implemented; please enable BNLS." + EndOfLine)
-		    End If
+		    Sock.Send(Packets.CreateSID(Packets.SID_AUTH_ACCOUNTCREATE, Sock.NLS.AccountCreate()))
 		  End If
 		  
 		  Return True
@@ -861,7 +765,11 @@ Protected Module Packets
 		  Dim ServerPasswordProof As String = MemClass.ReadRaw(PktData, 5, 20)
 		  Dim MoreInfo As String = MemClass.ReadCString(PktData, 25)
 		  
-		  #pragma Unused ServerPasswordProof
+		  If Sock.NLS.ServerPasswordProof(ServerPasswordProof) = False Then
+		    If Sock.Config <> Nil Then Sock.Config.AddChat(True, Colors.Red, "BNET: Server doesn't really know your password!" + EndOfLine)
+		    Sock.DoDisconnect(False)
+		    Return False
+		  End If
 		  
 		  If Sock.Config <> Nil Then
 		    Select Case Status
@@ -987,11 +895,6 @@ Protected Module Packets
 		    MemClass.HexPrefix(Sock.LogonType, "0x", 8) + EndOfLine)
 		    Sock.DoDisconnect(False)
 		    Return False
-		  End If
-		  
-		  If Sock.Config.BNLSEnabled = True And Sock.LogonType <> 0 Then
-		    If Sock.BNLS <> Nil And Sock.BNLS.IsConnected = False And Sock.BNLS.IsConnecting = False Then Sock.BNLS.DoConnect()
-		    Sock.BNLS.Send(Packets.CreateBNLS_CHOOSENLSREVISION(Sock.LogonType))
 		  End If
 		  
 		  If Sock.BNUDP <> Nil And Sock.BNUDP.IsConnected = True Then
@@ -2030,7 +1933,6 @@ Protected Module Packets
 		  Sock.Send(Packets.CreateSID_FRIENDSLIST())
 		  
 		  Dim Cookie As UInt32
-		  Dim Game As String = MemClass.WriteDWORD(Sock.Product, False)
 		  Dim ProfileKeys() As String
 		  
 		  Cookie = Globals.GenerateDWORD()
@@ -2725,18 +2627,11 @@ Protected Module Packets
 		    
 		  Case &H1, &H2 //NLS
 		    
-		    // TODO: Implement local NLS.
-		    If Sock.BNLS = Nil Then
-		      Sock.Config.AddChat(True, Colors.Red, "BNET: Cannot perform NLS logon." + EndOfLine)
+		    If Sock.NLS = Nil Then Sock.NLS = New NLS(Sock.Username, Sock.Password)
+		    If Sock.Config.CreateAccountsFirst = False Or SkipAccountCreate = True Then
+		      Sock.Send(Packets.CreateSID(Packets.SID_AUTH_ACCOUNTLOGON, Sock.NLS.AccountLogon()))
 		    Else
-		      If Sock.BNLS.IsConnected = False Then Sock.BNLS.DoConnect()
-		      
-		      If Sock.Config.CreateAccountsFirst = False Or SkipAccountCreate = True Then
-		        Sock.BNLS.Send(Packets.CreateBNLS_LOGONCHALLENGE(Sock.Username, Sock.Password))
-		        Sock.LogonTimeoutTimer.Enabled = True
-		      Else
-		        Sock.BNLS.Send(Packets.CreateBNLS_CREATEACCOUNT(Sock.Username, Sock.Password))
-		      End If
+		      Sock.Send(Packets.CreateSID(Packets.SID_AUTH_ACCOUNTCREATE, Sock.NLS.AccountCreate()))
 		    End If
 		    
 		  End Select
@@ -2795,8 +2690,8 @@ Protected Module Packets
 		    Sock.Product <> Packets.BNETProduct_DSHR And _ // Diablo I Shareware
 		    Sock.Product <> Packets.BNETProduct_SSHR Then  // Starcraft Shareware
 		    
-		    If InStr(Settings.FileCheckResults, "BNCSutil") > 0 Then
-		      Sock.Config.AddChat(True, Colors.Red, "BNET: Error - it appears BNCSutil.dll is missing." + EndOfLine)
+		    If InStr(Settings.FileCheckResults, "BNCSUtil") > 0 Then
+		      Sock.Config.AddChat(True, Colors.Red, "BNET: Error - it appears BNCSUtil.dll is missing." + EndOfLine)
 		      Sock.DoDisconnect()
 		      Return False
 		    End If
@@ -2893,19 +2788,7 @@ Protected Module Packets
 	#tag Constant, Name = BNETProduct_WAR3, Type = Double, Dynamic = False, Default = \"&H57415233", Scope = Protected
 	#tag EndConstant
 
-	#tag Constant, Name = BNLS_CHOOSENLSREVISION, Type = Double, Dynamic = False, Default = \"&H0D", Scope = Protected
-	#tag EndConstant
-
-	#tag Constant, Name = BNLS_CREATEACCOUNT, Type = Double, Dynamic = False, Default = \"&H04", Scope = Protected
-	#tag EndConstant
-
 	#tag Constant, Name = BNLS_IPBAN, Type = Double, Dynamic = False, Default = \"&HFF", Scope = Protected
-	#tag EndConstant
-
-	#tag Constant, Name = BNLS_LOGONCHALLENGE, Type = Double, Dynamic = False, Default = \"&H02", Scope = Protected
-	#tag EndConstant
-
-	#tag Constant, Name = BNLS_LOGONPROOF, Type = Double, Dynamic = False, Default = \"&H03", Scope = Protected
 	#tag EndConstant
 
 	#tag Constant, Name = BNLS_NULL, Type = Double, Dynamic = False, Default = \"&H00", Scope = Protected
