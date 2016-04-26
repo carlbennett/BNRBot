@@ -534,7 +534,9 @@ Protected Module Globals
 		  Icons.Append(New UserIcon(Packets.BNETProduct_D2XP, 0, 0, Img, 17, 0))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_WAR3, 0, 0, Img, 18, 0))
 		  Icons.Append(New UserIcon(Packets.BNETProduct_W3XP, 0, 0, Img, 19, 0))
-		  Icons.Append(New UserIcon(0, 0, MemClass.ReadDWORD("SPWN", 1, False), Img, 20, 0))
+		  Icons.Append(New UserIcon(0, 0, MemClass.ReadDWORD("SSPN", 1, False), Img, 20, 0))
+		  Icons.Append(New UserIcon(0, 0, MemClass.ReadDWORD("JSPN", 1, False), Img, 21, 0))
+		  Icons.Append(New UserIcon(0, 0, MemClass.ReadDWORD("W2SP", 1, False), Img, 22, 0))
 		  
 		  // Column 1: Warcraft III Characters
 		  Icons.Append(New UserIcon(Packets.BNETProduct_WAR3, 0, MemClass.ReadDWORD("W3H1", 1, False), Img, 0, 1))
@@ -1134,7 +1136,9 @@ Protected Module Globals
 		  
 		  #pragma Unused IronManRating
 		  
-		  Dim IconSPWN As UInt32 = MemClass.ReadDWORD("SPWN", 1, False)
+		  Dim IconJSPN As UInt32 = MemClass.ReadDWORD("JSPN", 1, False)
+		  Dim IconSSPN As UInt32 = MemClass.ReadDWORD("SSPN", 1, False)
+		  Dim IconW2SP As UInt32 = MemClass.ReadDWORD("W2SP", 1, False)
 		  
 		  g.TextFont = "Microsoft Sans Serif"
 		  g.TextSize = 9
@@ -1167,10 +1171,25 @@ Protected Module Globals
 		      g.DrawPicture(Icon.Bitmap, 0, 0)
 		    End If
 		    
-		    // Statstring: STAR, JSTR, W2BN (Spawn)
-		    If FoundStats = False And (Product = Packets.BNETProduct_STAR Or _
-		      Product = Packets.BNETProduct_JSTR Or Globals.IsWarcraftII(Product) = True) And _
-		      Icon.Product = 0 And Icon.Flags = 0 And Icon.ExtraData = IconSPWN And _
+		    // Statstring: JSTR (Spawn)
+		    If FoundStats = False And Product = Packets.BNETProduct_JSTR And _
+		      Icon.Product = 0 And Icon.Flags = 0 And Icon.ExtraData = IconJSPN And _
+		      Spawned = True Then
+		      FoundStats = True
+		      g.DrawPicture(Icon.Bitmap, 0, 0)
+		    End If
+		    
+		    // Statstring: STAR (Spawn)
+		    If FoundStats = False And Product = Packets.BNETProduct_STAR And _
+		      Icon.Product = 0 And Icon.Flags = 0 And Icon.ExtraData = IconSSPN And _
+		      Spawned = True Then
+		      FoundStats = True
+		      g.DrawPicture(Icon.Bitmap, 0, 0)
+		    End If
+		    
+		    // Statstring: W2BN (Spawn)
+		    If FoundStats = False And Product = Packets.BNETProduct_W2BN And _
+		      Icon.Product = 0 And Icon.Flags = 0 And Icon.ExtraData = IconW2SP And _
 		      Spawned = True Then
 		      FoundStats = True
 		      g.DrawPicture(Icon.Bitmap, 0, 0)
