@@ -46,6 +46,7 @@ Begin Window wUpdater
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "%status%"
       TextAlign       =   0
       TextColor       =   "#Colors.Black"
@@ -73,7 +74,9 @@ Begin Window wUpdater
       LockTop         =   True
       Maximum         =   0
       Scope           =   0
+      TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   38
       Value           =   0
       Visible         =   True
@@ -132,6 +135,7 @@ Begin Window wUpdater
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "%substatus%"
       TextAlign       =   0
       TextColor       =   "#Colors.Black"
@@ -149,17 +153,22 @@ Begin Window wUpdater
       CertificatePassword=   ""
       CertificateRejectionFile=   ""
       ConnectionType  =   3
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   368
       LockedInPosition=   False
       Scope           =   0
       Secure          =   True
+      TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
+      Visible         =   True
       Width           =   32
    End
    Begin Timer TransitionTimer
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   336
@@ -167,8 +176,11 @@ Begin Window wUpdater
       Mode            =   0
       Period          =   1000
       Scope           =   0
+      TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
+      Visible         =   True
       Width           =   32
    End
    Begin PushButton uiCancelAction
@@ -378,7 +390,6 @@ End
 		    If Len(err) > 0 Then err = EndOfLine + EndOfLine + err
 		    
 		    Self.Hide()
-		    #If DebugBuild = True Then Break
 		    Call MsgBox("An error occurred while checking for updates." + err, 48, Self.Title)
 		    Self.Close()
 		    
@@ -388,7 +399,6 @@ End
 		    If Len(err) > 0 Then err = EndOfLine + EndOfLine + err
 		    
 		    Self.Hide()
-		    #If DebugBuild = True Then Break
 		    Call MsgBox("An error occurred while checking for updates." + err, 48, Self.Title)
 		    Self.Close()
 		    

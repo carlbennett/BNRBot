@@ -2726,13 +2726,17 @@ Protected Module Packets
 		  Case &H1, &H2 //NLS
 		    
 		    // TODO: Implement local NLS.
-		    If Sock.BNLS.IsConnected = False Then Sock.BNLS.DoConnect()
-		    
-		    If Sock.Config.CreateAccountsFirst = False Or SkipAccountCreate = True Then
-		      Sock.BNLS.Send(Packets.CreateBNLS_LOGONCHALLENGE(Sock.Username, Sock.Password))
-		      Sock.LogonTimeoutTimer.Enabled = True
+		    If Sock.BNLS = Nil Then
+		      Sock.Config.AddChat(True, Colors.Red, "BNET: Cannot perform NLS logon." + EndOfLine)
 		    Else
-		      Sock.BNLS.Send(Packets.CreateBNLS_CREATEACCOUNT(Sock.Username, Sock.Password))
+		      If Sock.BNLS.IsConnected = False Then Sock.BNLS.DoConnect()
+		      
+		      If Sock.Config.CreateAccountsFirst = False Or SkipAccountCreate = True Then
+		        Sock.BNLS.Send(Packets.CreateBNLS_LOGONCHALLENGE(Sock.Username, Sock.Password))
+		        Sock.LogonTimeoutTimer.Enabled = True
+		      Else
+		        Sock.BNLS.Send(Packets.CreateBNLS_CREATEACCOUNT(Sock.Username, Sock.Password))
+		      End If
 		    End If
 		    
 		  End Select
