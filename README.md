@@ -1,8 +1,8 @@
 # BNRBot
 ## Preface
 **B**attle.**N**et **R**ealbasic **Bot** is a
-[Battle.net&trade;](http://battle.net) binary chat bot written by Carl Bennett
-(Jailout2000).
+[Battle.net&trade;](http://battle.net) binary chat bot written by
+[Carl Bennett](https://github.com/carlbennett) (Jailout2000).
 
 It was started in 2011 and went on hiatus in 2012. In late 2015, it was added
 to version control on GitHub, where some much needed updates were done to it.
@@ -27,10 +27,11 @@ Give it a try!
 6. Open BNRBot and read the information it gives you.
 
 ## Open-source
-The bot is officially open-source with it being on GitHub and releases being
-released on GitHub as well. If you find a bug, make sure you open a new issue
-here on GitHub, and feel free to try to fix it yourself. If not, your issue
-will be worked on by someone who can address it.
+With the use of GitHub, this bot is open-source to the general public. All bot
+releases are also made using GitHub too. If you find a bug, make sure you
+[open a new issue](https://github.com/carlbennett/BNRBot/issues/new), and feel
+free to try to fix it yourself. If not, your issue will be worked on by someone
+who can address it.
 
 Thanks for contributing!
 
