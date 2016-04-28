@@ -1,9 +1,5 @@
-BNRBot
-======
-
-Preface
--------
-
+# BNRBot
+## Preface
 **B**attle.**N**et **R**ealbasic **Bot** is a
 [Battle.net&trade;](http://battle.net) binary chat bot written by Carl Bennett
 (Jailout2000).
@@ -20,9 +16,7 @@ Some of its bragging rights include:
 
 Give it a try!
 
-Installation
-------------
-
+## Installation
 1. Go to the
    [latest release](https://github.com/carlbennett/BNRBot/releases/latest).
 2. Download BNCSUtil, BNRBot, CheckRevision, and Hashes. (You can skip some of
@@ -32,12 +26,17 @@ Installation
 5. Extract Hashes into BNRBot's directory under its own `Hashes` directory.
 6. Open BNRBot and read the information it gives you.
 
-Open-source
------------
-
+## Open-source
 The bot is officially open-source with it being on GitHub and releases being
 released on GitHub as well. If you find a bug, make sure you open a new issue
 here on GitHub, and feel free to try to fix it yourself. If not, your issue
 will be worked on by someone who can address it.
 
 Thanks for contributing!
+
+### Real Studio
+If you wish to contribute, you will need to run **Real Studio 2012r2.1**. All
+code changes are made within the IDE, which is why a lot of the commits and the
+code in general looks pretty awful; it's actually not too bad when viewing from
+the IDE. Real Studio does pre- and post-formatting when reading and writing
+files, so it's not really easy to beautify the code from a Git perspective.
