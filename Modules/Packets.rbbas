@@ -568,6 +568,9 @@ Protected Module Packets
 		  Case Packets.SID_CLANMEMBERANKCHANGE
 		    ret = Packets.ParseSID_CLANMEMBERRANKCHANGE(Sock, PktData)
 		    
+		  Case Packets.SID_CLANMEMBERINFORMATION
+		    ret = Packets.ParseSID_CLANMEMBERINFORMATION(Sock, PktData)
+		    
 		  Case Else
 		    Sock.BadPacketCount = Sock.BadPacketCount + 1
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Protocol error - unknown packet!" + EndOfLine)
@@ -1538,6 +1541,55 @@ Protected Module Packets
 		  End If
 		  
 		  If ret <> &H00 Then Sock.Send(Packets.CreateSID_CLANINVITATIONRESPONSE(Cookie, ClanTag, Inviter, ret))
+		  Return True
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function ParseSID_CLANMEMBERINFORMATION(Sock As BNETSocket, PktData As String) As Boolean
+		  
+		  If Sock = Nil Then Return False
+		  If Sock.IsConnected = False Then Return False
+		  If LenB(PktData) < 15 Then Return False
+		  
+		  Dim iCookie As UInt32 = MemClass.ReadDWORD(PktData, 1)
+		  Dim Status As Byte = MemClass.ReadBYTE(PktData, 5)
+		  Dim ClanName As String = MemClass.ReadCString(PktData, 6)
+		  Dim ClanRank As Byte = MemClass.ReadBYTE(PktData, 7 + LenB(ClanName))
+		  Dim DateJoined As Date = Globals.QWORDToDate(_
+		  MemClass.ReadDWORD(PktData, 8 + LenB(ClanName)), _
+		  MemClass.ReadDWORD(PktData, 12 + LenB(ClanName)))
+		  
+		  Dim oCookie As Cookie = Cookie.Lookup(iCookie, True)
+		  Dim Username As String
+		  Dim ClanTag As UInt32
+		  If oCookie <> Nil Then
+		    Username = oCookie.Value("Username", "").StringValue
+		    ClanTag = oCookie.Value("ClanTag", 0).UInt32Value
+		  End If
+		  
+		  Select Case Status
+		  Case &H00 // User membership valid
+		    
+		    Globals.ShowClanMemberInfo(Username, ClanTag, ClanName, ClanRank, DateJoined)
+		    
+		  Case &H0C // User is not a member of that clan
+		    
+		    Sock.Config.AddChat(True, Colors.Red, "BNET: ")
+		    Sock.Config.AddChat(False, Colors.Maroon, Username)
+		    Sock.Config.AddChat(False, Colors.Red, " is not a member of that clan." + EndOfLine)
+		    
+		  Case Else
+		    
+		    If Sock.Config <> Nil Then
+		      Sock.Config.AddChat(True, Colors.Red, "BNET: Unknown status ")
+		      Sock.Config.AddChat(False, Colors.Maroon, "0x" + Right("0000000" + Hex(Status), 8))
+		      Sock.Config.AddChat(False, Colors.Red, " received from clan member info." + EndOfLine)
+		    End If
+		    
+		  End Select
+		  
 		  Return True
 		  
 		End Function

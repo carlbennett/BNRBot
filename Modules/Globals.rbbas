@@ -2209,6 +2209,27 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub ShowClanMemberInfo(Username As String, ClanTag As UInt32, ClanName As String, ClanRank As Byte, DateJoined As Date)
+		  
+		  Dim w As New wClanMemberInfo()
+		  
+		  w.Title = Username + " - Clan Info"
+		  w.fldUsername.Text = Username
+		  w.fldClanTag.Text = Globals.SClanTag(ClanTag)
+		  w.fldClanName.Text = ClanName
+		  w.fldClanRank.Text = Globals.ClanRankName(ClanRank)
+		  If DateJoined = Nil Then
+		    w.fldClanDateJoined.Text = ""
+		  Else
+		    w.fldClanDateJoined.Text = DateJoined.ShortDate + " " + DateJoined.LongTime
+		  End If
+		  
+		  w.ShowModal()
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function StringToMemory(Source As String) As MemoryBlock
 		  
 		  // Used for API calls.
@@ -2423,6 +2444,14 @@ Protected Module Globals
 
 	#tag Property, Flags = &h1
 		Protected ClanCookies As Dictionary
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected ClanMemberInfoCookies As Dictionary
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected Cookies As Dictionary
 	#tag EndProperty
 
 	#tag Property, Flags = &h1

@@ -344,12 +344,11 @@ Inherits TCPSocket
 	#tag Method, Flags = &h0
 		Sub ViewClanInfo(ClanTag As UInt32, Username As String)
 		  
-		  Dim Cookie As UInt32
+		  Dim Cookie As New Cookie(Cookie.TypeClanMemberInfo)
+		  Cookie.Value("Username") = Username
+		  Cookie.Value("ClanTag") = ClanTag
 		  
-		  Cookie = Globals.GenerateDWORD()
-		  Globals.ClanCookies.Value(Cookie) = MemClass.WriteDWORD(ClanTag, True) + Username + ChrB(0)
-		  
-		  Self.Send(Packets.CreateSID_CLANMEMBERINFORMATION(Cookie, ClanTag, Username))
+		  Self.Send(Packets.CreateSID_CLANMEMBERINFORMATION(Cookie.Cookie, ClanTag, Username))
 		  
 		End Sub
 	#tag EndMethod
