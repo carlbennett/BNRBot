@@ -1781,7 +1781,7 @@ End
 		  
 		  #If DebugBuild = True Then
 		    Me.AddRow("")
-		    Me.Cell(Me.LastIndex, 1) = "The_Lynxy@Azeroth"
+		    Me.Cell(Me.LastIndex, 1) = "Jailout2000@Azeroth"
 		    Me.CellTag(Me.LastIndex, 0) = "3RAW 2R3W 0" // Statstring
 		    Me.CellTag(Me.LastIndex, 1) = 0 // Flags
 		    Me.CellTag(Me.LastIndex, 2) = 0 // Ping
@@ -2438,6 +2438,7 @@ End
 		Sub DocumentComplete(URL as String)
 		  
 		  If URL <> "about:blank" Then
+		    Call MsgBox("Something happened that caused us to lose control of the chat box.", 48, "Control Loss")
 		    Return
 		  End If
 		  
@@ -2455,13 +2456,27 @@ End
 		  source = source + "text-indent:-1em;"
 		  source = source + "padding-left:1em;"
 		  source = source + "word-wrap:break-word;"
-		  source = source + "}"
+		  source = source + "}a{color:#" + Globals.ColorToHex(Colors.UI.ListSelectionColor) + ";}"
 		  
-		  source = source + "</style></head><body></body></html>" + EndOfLine.UNIX
+		  source = source + "</style></head><body>"
+		  source = source + "<p><b>" + App.VersionString() + "</b> has some known problems out the door. " _
+		  + "See <a href=""https://github.com/carlbennett/BNRBot/releases/tag/2.7.0.45"" target=""_blank"">" _
+		  + "GitHub</a> for more info. I hope to have these fixed next release.</p>"
+		  source = source + "</body></html>" + EndOfLine.UNIX
 		  
 		  Me.ExecuteJavaScript("document.write(" + StringToJSON(source) + ");")
 		  
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function CancelLoad(URL as String) As Boolean
+		  
+		  If URL = "about:blank" Then Return False
+		  
+		  REALbasic.ShowURL(URL)
+		  Return True
+		  
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events lstUsersTimer

@@ -382,6 +382,14 @@ Protected Module Globals
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Function ColorToHex(c As Color) As String
+		  
+		  Return Right("0" + Hex(c.Red), 2) + Right("0" + Hex(c.Green), 2) + Right("0" + Hex(c.Blue), 2)
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub ConfirmClanAction(Config As Configuration, Action As Byte)
 		  
