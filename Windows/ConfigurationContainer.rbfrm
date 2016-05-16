@@ -22,7 +22,7 @@ Begin ContainerControl ConfigurationContainer
    Top             =   3.2e+1
    UseFocusRing    =   ""
    Visible         =   True
-   Width           =   650
+   Width           =   649
    Begin Listbox lstUsers
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
@@ -41,14 +41,14 @@ Begin ContainerControl ConfigurationContainer
       GridLinesVertical=   0
       HasHeading      =   ""
       HeadingIndex    =   -1
-      Height          =   292
+      Height          =   294
       HelpTag         =   ""
       Hierarchical    =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       InitialValue    =   ""
       Italic          =   ""
-      Left            =   424
+      Left            =   427
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   ""
@@ -89,7 +89,7 @@ Begin ContainerControl ConfigurationContainer
       HideSelection   =   False
       Index           =   -2147483648
       Italic          =   ""
-      Left            =   12
+      Left            =   11
       LimitText       =   0
       LineHeight      =   0
       LineSpacing     =   1
@@ -113,11 +113,11 @@ Begin ContainerControl ConfigurationContainer
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   368
+      Top             =   370
       Underline       =   ""
       UseFocusRing    =   False
       Visible         =   True
-      Width           =   622
+      Width           =   626
    End
    Begin Rectangle rectChannel
       AutoDeactivate  =   True
@@ -129,7 +129,7 @@ Begin ContainerControl ConfigurationContainer
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   423
+      Left            =   426
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -153,7 +153,7 @@ Begin ContainerControl ConfigurationContainer
          Index           =   -2147483648
          InitialParent   =   "rectChannel"
          Italic          =   ""
-         Left            =   424
+         Left            =   427
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   False
@@ -195,7 +195,7 @@ Begin ContainerControl ConfigurationContainer
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   423
+      Left            =   426
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   False
@@ -233,7 +233,7 @@ Begin ContainerControl ConfigurationContainer
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   494
+      Left            =   497
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   False
@@ -271,7 +271,7 @@ Begin ContainerControl ConfigurationContainer
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   565
+      Left            =   568
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   False
@@ -294,10 +294,10 @@ Begin ContainerControl ConfigurationContainer
    Begin HTMLViewer oChatOutput
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   343
+      Height          =   345
       HelpTag         =   ""
       Index           =   -2147483648
-      Left            =   12
+      Left            =   11
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -309,7 +309,7 @@ Begin ContainerControl ConfigurationContainer
       TabPanelIndex   =   0
       Top             =   13
       Visible         =   True
-      Width           =   400
+      Width           =   403
    End
    Begin Timer lstUsersTimer
       Height          =   32
@@ -2446,14 +2446,14 @@ End
 		  source = source + "<!DOCTYPE html>" + EndOfLine.UNIX
 		  source = source + "<html><head><style type=""text/css"">"
 		  
-		  source = source + "body{background:#000;color:#fff;margin:2px 4px;padding:0px;"
+		  source = source + "body{background:#000;color:#fff;margin:2px 4px 12px 4px;padding:0px;"
 		  source = source + "font-family:" + Self.oChatInput.TextFont + ";"
 		  source = source + "font-size:" + Format(Self.oChatInput.TextSize, "-#") + FontUnitCSS(Self.oChatInput.TextUnit) + ";"
 		  source = source + "font-weight:" + IIf(Self.oChatInput.Bold, "bold", "normal") + ";"
 		  source = source + "font-style:" + IIf(Self.oChatInput.Italic, "italic", "normal") + ";"
 		  source = source + "text-decoration:" + IIf(Self.oChatInput.Underline, "underline", "none") + ";"
-		  source = source + "text-indent:-2em;"
-		  source = source + "padding-left:2em;"
+		  source = source + "text-indent:-1em;"
+		  source = source + "padding-left:1em;"
 		  source = source + "word-wrap:break-word;"
 		  source = source + "}"
 		  

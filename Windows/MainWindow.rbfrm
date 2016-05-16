@@ -80,7 +80,7 @@ Begin BotWindow MainWindow
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   150
+      Left            =   151
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -94,7 +94,7 @@ Begin BotWindow MainWindow
       Top             =   0
       Value           =   0
       Visible         =   True
-      Width           =   650
+      Width           =   649
    End
 End
 #tag EndWindow
@@ -375,14 +375,14 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub GotFocus()
+		Sub LostFocus()
 		  
 		  Self.RefreshRect(Me.Left - 1, Me.Top - 1, Me.Width + 2, Me.Height + 2)
 		  
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub LostFocus()
+		Sub GotFocus()
 		  
 		  Self.RefreshRect(Me.Left - 1, Me.Top - 1, Me.Width + 2, Me.Height + 2)
 		  
