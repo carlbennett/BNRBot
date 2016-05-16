@@ -370,31 +370,14 @@ End
 		    i = i + 1
 		  Wend
 		  
-		  Me.oChatOutput.Refresh()
-		  
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Sub Resized()
 		  
-		  Me.oChatOutput.Refresh(False)
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Resizing()
-		  
-		  Me.oChatOutput.Refresh(False)
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Restore()
-		  
-		  Me.oChatOutput.Refresh(False)
+		  Me.oChatOutput.Visible = False
+		  Me.oChatOutput.Visible = True
 		  
 		End Sub
 	#tag EndEvent
