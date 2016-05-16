@@ -1,5 +1,5 @@
 #tag Window
-Begin Window wMain
+Begin Window MainWindow
    BackColor       =   "#Colors.UI.WindowBackColor"
    Backdrop        =   ""
    CloseButton     =   True
@@ -436,7 +436,7 @@ End
 	#tag Event
 		Sub Close()
 		  
-		  If Globals.wConfig_Open = True Then wConfig.Close()
+		  If Globals.ConfigWindow_Open = True Then ConfigWindow.Close()
 		  
 		End Sub
 	#tag EndEvent
@@ -479,10 +479,39 @@ End
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  
-		  #pragma Unused g
 		  #pragma Unused areas
 		  
-		  Self.DrawBorders()
+		  Dim RC As RectControl
+		  Dim X, Y, W, H As Integer
+		  
+		  Dim i As Integer = 0
+		  While i < Me.ControlCount
+		    If Me.Control(i) IsA RectControl Then
+		      
+		      RC = RectControl(Me.Control(i))
+		      X = RC.Left
+		      Y = RC.Top
+		      W = RC.Width
+		      H = RC.Height
+		      
+		      If (RC IsA TextArea Or RC IsA TextField Or RC IsA ListBox) And RC.Visible = True Then
+		        If Me.Focus = RC Then
+		          g.ForeColor = Colors.UI.ListSelectionColor
+		        Else
+		          g.ForeColor = Colors.UI.ControlBorderColor
+		        End If
+		        
+		        g.DrawLine(X + W, Y - 1, X + W, Y + H) // Right
+		        If RC <> Me.lstProfiles Then
+		          g.DrawLine(X - 1, Y - 1, X - 1, Y + H) // Left
+		          g.DrawLine(X - 1, Y - 1, X + W, Y - 1) // Top
+		          g.DrawLine(X - 1, Y + H, X + W, Y + H) // Bottom
+		        End If
+		        
+		      End If
+		    End If
+		    i = i + 1
+		  Wend
 		  
 		End Sub
 	#tag EndEvent
@@ -693,45 +722,6 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub DrawBorders()
-		  
-		  Dim RC As RectControl
-		  Dim g As Graphics = Self.Graphics
-		  Dim X, Y, W, H As Integer
-		  
-		  Dim i As Integer = 0
-		  While i < Me.ControlCount
-		    If Me.Control(i) IsA RectControl Then
-		      
-		      RC = RectControl(Me.Control(i))
-		      X = RC.Left
-		      Y = RC.Top
-		      W = RC.Width
-		      H = RC.Height
-		      
-		      If (RC IsA TextArea Or RC IsA TextField Or RC IsA ListBox) And RC.Visible = True Then
-		        If Me.Focus = RC Then
-		          g.ForeColor = Colors.UI.ListSelectionColor
-		        Else
-		          g.ForeColor = Colors.UI.ControlBorderColor
-		        End If
-		        
-		        g.DrawLine(X + W, Y - 1, X + W, Y + H) // Right
-		        If RC <> Me.lstProfiles Then
-		          g.DrawLine(X - 1, Y - 1, X - 1, Y + H) // Left
-		          g.DrawLine(X - 1, Y - 1, X + W, Y - 1) // Top
-		          g.DrawLine(X - 1, Y + H, X + W, Y + H) // Bottom
-		        End If
-		        
-		      End If
-		    End If
-		    i = i + 1
-		  Wend
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function HandleKeyDown(Key As String) As Boolean
 		  
 		  Dim Config As Configuration
@@ -767,7 +757,7 @@ End
 		      
 		    Case &HCA // F3
 		      
-		      wConfig.Show()
+		      ConfigWindow.Show()
 		      
 		    Case &HCB // F4
 		      
@@ -1769,7 +1759,7 @@ End
 		  
 		  Select Case hitItem.Text
 		  Case "Configure"
-		    wConfig.ShowWithin(Self)
+		    ConfigWindow.ShowWithin(Self)
 		    
 		  Case "Connect All"
 		    Globals.ConnectAll()
@@ -1800,8 +1790,8 @@ End
 		      
 		  Case "Check for Updates"
 		    
-		    Dim w As New wUpdater()
-		    w.StepTransition(wUpdater.STEP_CHECK)
+		    Dim w As New UpdateWindow()
+		    w.StepTransition(UpdateWindow.STEP_CHECK)
 		    w.ShowModalWithin(Self)
 		    
 		  Case "Exit", "Quit"
@@ -1818,14 +1808,14 @@ End
 	#tag Event
 		Sub GotFocus()
 		  
-		  Self.DrawBorders()
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub LostFocus()
 		  
-		  Self.DrawBorders()
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
@@ -2426,14 +2416,14 @@ End
 	#tag Event
 		Sub GotFocus()
 		  
-		  Self.DrawBorders()
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub LostFocus()
 		  
-		  Self.DrawBorders()
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
@@ -2442,14 +2432,14 @@ End
 	#tag Event
 		Sub GotFocus()
 		  
-		  Self.DrawBorders()
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub LostFocus()
 		  
-		  Self.DrawBorders()
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
@@ -2572,14 +2562,14 @@ End
 	#tag Event
 		Sub GotFocus()
 		  
-		  Self.DrawBorders()
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub LostFocus()
 		  
-		  Self.DrawBorders()
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent

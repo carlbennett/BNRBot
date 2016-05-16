@@ -948,16 +948,16 @@ Protected Module Packets
 		  Dim colorA, colorB, colorC As Color
 		  Dim bTmp As Boolean
 		  
-		  // A timer on the wMain delays the users list redraw a tiny bit so that it doesn't lag so much.
+		  // A timer on the MainWindow delays the users list redraw a tiny bit so that it doesn't lag so much.
 		  // The lag is caused by the code updating the list N*N times, therefore causing a small (<50ms) pause.
 		  // Delaying it until "after everything is done" reverses this to just N*1 times.
-		  // How much time to wait is determined by the lstUsersTimer's Period on wMain.
+		  // How much time to wait is determined by the lstUsersTimer's Period on MainWindow.
 		  // A significant performance increase is seen when the Period is 100ms.
 		  
-		  If wMain.IsConfigSelected(Sock.Config) = False And EventID <> 9 Then
+		  If MainWindow.IsConfigSelected(Sock.Config) = False And EventID <> 9 Then
 		    
 		    Sock.Config.CacheChatUnread = True
-		    wMain.lstUsersTimer.Reset()
+		    MainWindow.lstUsersTimer.Reset()
 		    
 		  End If
 		  
@@ -1006,10 +1006,10 @@ Protected Module Packets
 		    
 		    Dim OldFlags As UInt32 = dTmp.Value("FlagsOld").Int32Value
 		    If Sock.Config.ShowUserUpdateMessages = True And Flags <> OldFlags Then
-		      If wMain.IsConfigSelected(Sock.Config) = False And EventID = 9 Then
+		      If MainWindow.IsConfigSelected(Sock.Config) = False And EventID = 9 Then
 		        
 		        Sock.Config.CacheChatUnread = True
-		        wMain.lstUsersTimer.Reset()
+		        MainWindow.lstUsersTimer.Reset()
 		        
 		      End If
 		      If BitAnd(OldFlags, &H01) = 0 And BitAnd(Flags, &H01) > 0 Then
@@ -1112,7 +1112,7 @@ Protected Module Packets
 		      End If
 		    End If
 		    
-		    If wMain.IsConfigSelected(Sock.Config) = True Then wMain.lstUsersTimer.Reset()
+		    If MainWindow.IsConfigSelected(Sock.Config) = True Then MainWindow.lstUsersTimer.Reset()
 		    
 		  Case &H03
 		    
@@ -1125,7 +1125,7 @@ Protected Module Packets
 		        Sock.Config.AddChat(False, Colors.Red, " left the channel." + EndOfLine)
 		      End If
 		      
-		      If wMain.IsConfigSelected(Sock.Config) = True Then wMain.lstUsersTimer.Reset()
+		      If MainWindow.IsConfigSelected(Sock.Config) = True Then MainWindow.lstUsersTimer.Reset()
 		      
 		    End If
 		    
@@ -1186,9 +1186,9 @@ Protected Module Packets
 		      Sock.Config.AddChat(False, colorC, Text + EndOfLine)
 		    End If
 		    
-		    If wMain.IsConfigSelected(Sock.Config) = True And _
-		      wMain.lstUsers_View = wMain.lstUsers_View_Channel_Activity Then _
-		      wMain.lstUsersTimer.Reset()
+		    If MainWindow.IsConfigSelected(Sock.Config) = True And _
+		      MainWindow.lstUsers_View = MainWindow.lstUsers_View_Channel_Activity Then _
+		      MainWindow.lstUsersTimer.Reset()
 		      
 		  Case &H06
 		    
@@ -1204,7 +1204,7 @@ Protected Module Packets
 		    Sock.ChannelName = Text
 		    Sock.ChannelUsers.Clear()
 		    
-		    If wMain.IsConfigSelected(Sock.Config) = True Then wMain.lstUsers_View = wMain.lstUsers_View
+		    If MainWindow.IsConfigSelected(Sock.Config) = True Then MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		    
 		    Sock.Config.AddChat(True, Colors.Cyan, "Joined Channel: ")
 		    Sock.Config.AddChat(False, Colors.Teal, Sock.ChannelName)
@@ -1326,9 +1326,9 @@ Protected Module Packets
 		      Sock.Config.AddChat(False, colorA, ">" + EndOfLine)
 		    End If
 		    
-		    If wMain.IsConfigSelected(Sock.Config) = True And _
-		      wMain.lstUsers_View = wMain.lstUsers_View_Channel_Activity Then _
-		      wMain.lstUsersTimer.Reset()
+		    If MainWindow.IsConfigSelected(Sock.Config) = True And _
+		      MainWindow.lstUsers_View = MainWindow.lstUsers_View_Channel_Activity Then _
+		      MainWindow.lstUsersTimer.Reset()
 		      
 		  Case Else
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Protocol error - unknown chat event." + EndOfLine)
@@ -1359,7 +1359,7 @@ Protected Module Packets
 		    i = i + 1 + LenB(Members(UBound(Members)))
 		  Wend
 		  
-		  Dim w As New wClanCreationInvitation()
+		  Dim w As New ClanCreationInvitationWindow()
 		  Dim ret As Byte = &H00
 		  
 		  w.fldClanName.Text = ClanName
@@ -1420,8 +1420,8 @@ Protected Module Packets
 		    Sock.ClanMembers.Clear()
 		    Sock.ClanRank = 0
 		    Sock.ClanTag = 0
-		    If wMain.IsConfigSelected(Sock.Config) = True And wMain.lstUsers_Viewing_Clan() = True Then _
-		    wMain.lstUsers_View = wMain.lstUsers_View
+		    If MainWindow.IsConfigSelected(Sock.Config) = True And MainWindow.lstUsers_Viewing_Clan() = True Then _
+		    MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		  End If
 		  
 		  Return True
@@ -1521,7 +1521,7 @@ Protected Module Packets
 		  Dim ClanName As String = MemClass.ReadCString(PktData, 9)
 		  Dim Inviter As String = MemClass.ReadCString(PktData, 10 + LenB(ClanName))
 		  
-		  Dim w As New wClanInvitation()
+		  Dim w As New ClanInvitationWindow()
 		  Dim ret As Byte = &H00
 		  
 		  w.fldClanName.Text = ClanName
@@ -1631,8 +1631,8 @@ Protected Module Packets
 		      Sock.ClanRank = User.Value("Rank")
 		    Wend
 		    
-		    If wMain.IsConfigSelected(Sock.Config) = True And wMain.lstUsers_Viewing_Clan() = True Then _
-		    wMain.lstUsers_View = wMain.lstUsers_View
+		    If MainWindow.IsConfigSelected(Sock.Config) = True And MainWindow.lstUsers_Viewing_Clan() = True Then _
+		    MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		    
 		    Return True
 		    
@@ -1667,8 +1667,8 @@ Protected Module Packets
 		  If Username = Sock.AccountName Or Username = Sock.UniqueName Then Sock.ClanRank = NewRank
 		  
 		  If Sock.Config <> Nil Then
-		    If wMain.IsConfigSelected(Sock.Config) = True And wMain.lstUsers_Viewing_Clan() = True Then _
-		    wMain.lstUsers_View = wMain.lstUsers_View
+		    If MainWindow.IsConfigSelected(Sock.Config) = True And MainWindow.lstUsers_Viewing_Clan() = True Then _
+		    MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		    Sock.Config.AddChat(True, Colors.Cyan, "BNET: Clan member ")
 		    Sock.Config.AddChat(False, Colors.Teal, Username)
 		    Sock.Config.AddChat(False, Colors.Cyan, " has been ")
@@ -1698,8 +1698,8 @@ Protected Module Packets
 		  If Sock.ClanMembers <> Nil And Sock.ClanMembers.HasKey(Username) = True Then Sock.ClanMembers.Remove(Username)
 		  
 		  If Sock.Config <> Nil Then
-		    If wMain.IsConfigSelected(Sock.Config) = True And wMain.lstUsers_Viewing_Clan() = True Then _
-		    wMain.lstUsers_View = wMain.lstUsers_View
+		    If MainWindow.IsConfigSelected(Sock.Config) = True And MainWindow.lstUsers_Viewing_Clan() = True Then _
+		    MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		    Sock.Config.AddChat(True, Colors.Cyan, "BNET: Clan member ")
 		    Sock.Config.AddChat(False, Colors.Teal, Username)
 		    Sock.Config.AddChat(False, Colors.Cyan, " was removed from the clan." + EndOfLine)
@@ -1740,8 +1740,8 @@ Protected Module Packets
 		    User.Value("OldRank") = User.Value("Rank")
 		    User.Value("Rank") = Rank
 		    If Sock.Config <> Nil Then
-		      If wMain.IsConfigSelected(Sock.Config) = True And wMain.lstUsers_Viewing_Clan() = True Then _
-		      wMain.lstUsers_View = wMain.lstUsers_View
+		      If MainWindow.IsConfigSelected(Sock.Config) = True And MainWindow.lstUsers_Viewing_Clan() = True Then _
+		      MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		      Sock.Config.AddChat(True, Colors.Cyan, "BNET: Clan member ")
 		      Sock.Config.AddChat(False, Colors.Teal, Username)
 		      Sock.Config.AddChat(False, Colors.Cyan, " has been ")
@@ -1777,8 +1777,8 @@ Protected Module Packets
 		    Sock.ClanTag = 0
 		    
 		    If Sock.Config <> Nil Then
-		      If wMain.IsConfigSelected(Sock.Config) = True And wMain.lstUsers_Viewing_Clan() = True Then _
-		      wMain.lstUsers_View = wMain.lstUsers_View
+		      If MainWindow.IsConfigSelected(Sock.Config) = True And MainWindow.lstUsers_Viewing_Clan() = True Then _
+		      MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		      Sock.Config.AddChat(True, Colors.Cyan, "BNET: You are no longer in a clan." + EndOfLine)
 		    End If
 		    
@@ -1975,7 +1975,7 @@ Protected Module Packets
 		  Sock.AccountName = MemClass.ReadCString(PktData, 3 + LenB(Sock.UniqueName + Sock.Statstring))
 		  
 		  If Sock.Config <> Nil Then
-		    If wMain.IsConfigSelected(Sock.Config) = True Then wMain.lstUsers_View = wMain.lstUsers_View
+		    If MainWindow.IsConfigSelected(Sock.Config) = True Then MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		    Sock.Config.AddChat(True, Colors.Cyan, "BNET: Logged on as ")
 		    Sock.Config.AddChat(False, Colors.Teal, Sock.UniqueName)
 		    Sock.Config.AddChat(False, Colors.Cyan, "!" + EndOfLine)
@@ -2053,8 +2053,8 @@ Protected Module Packets
 		  If Sock.FriendsList = Nil Then Sock.FriendsList = New Dictionary()
 		  Sock.FriendsList.Value(Sock.FriendsList.Count) = dTmp
 		  
-		  If wMain.IsConfigSelected(Sock.Config) = True Then _
-		  wMain.lstUsers_View = wMain.lstUsers_View
+		  If MainWindow.IsConfigSelected(Sock.Config) = True Then _
+		  MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		  
 		  Return True
 		  
@@ -2088,8 +2088,8 @@ Protected Module Packets
 		    
 		  Wend
 		  
-		  If wMain.IsConfigSelected(Sock.Config) = True Then _
-		  wMain.lstUsers_View = wMain.lstUsers_View
+		  If MainWindow.IsConfigSelected(Sock.Config) = True Then _
+		  MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		  
 		  Return True
 		  
@@ -2125,8 +2125,8 @@ Protected Module Packets
 		    End If
 		  End If
 		  
-		  If wMain.IsConfigSelected(Sock.Config) = True Then _
-		  wMain.lstUsers_View = wMain.lstUsers_View
+		  If MainWindow.IsConfigSelected(Sock.Config) = True Then _
+		  MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		  
 		  Return True
 		  
@@ -2150,8 +2150,8 @@ Protected Module Packets
 		    Sock.FriendsList.Remove(Index)
 		  End If
 		  
-		  If wMain.IsConfigSelected(Sock.Config) = True Then _
-		  wMain.lstUsers_View = wMain.lstUsers_View
+		  If MainWindow.IsConfigSelected(Sock.Config) = True Then _
+		  MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		  
 		  Return True
 		  
@@ -2240,8 +2240,8 @@ Protected Module Packets
 		  If LenB(Channels(UBound(Channels))) < 1 Then Channels.Remove(UBound(Channels))
 		  
 		  Sock.Channels = Channels
-		  If Sock.Config <> Nil And wMain.IsConfigSelected(Sock.Config) = True And _
-		    wMain.lstUsers_Viewing_ChannelList() = True Then wMain.lstUsers_View = wMain.lstUsers_View
+		  If Sock.Config <> Nil And MainWindow.IsConfigSelected(Sock.Config) = True And _
+		    MainWindow.lstUsers_Viewing_ChannelList() = True Then MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		    
 		    Return True
 		    

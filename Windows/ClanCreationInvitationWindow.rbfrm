@@ -1,5 +1,5 @@
 #tag Window
-Begin Window wClanInvitation
+Begin Window ClanCreationInvitationWindow
    BackColor       =   "#Colors.UI.WindowBackColor"
    Backdrop        =   ""
    CloseButton     =   True
@@ -7,7 +7,7 @@ Begin Window wClanInvitation
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   True
-   Height          =   149
+   Height          =   349
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -16,12 +16,12 @@ Begin Window wClanInvitation
    MaxWidth        =   32000
    MenuBar         =   ""
    MenuBarVisible  =   True
-   MinHeight       =   149
+   MinHeight       =   349
    MinimizeButton  =   True
    MinWidth        =   360
    Placement       =   2
    Resizeable      =   False
-   Title           =   "Clan Invitation Received"
+   Title           =   "Create Clan Invitation Received"
    Visible         =   True
    Width           =   360
    Begin Label txtJunk
@@ -47,7 +47,7 @@ Begin Window wClanInvitation
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "You have been invited to a clan!"
+      Text            =   "You have been invited to create a clan!"
       TextAlign       =   0
       TextColor       =   "#Colors.UI.ControlTextColor"
       TextFont        =   "Arial"
@@ -325,13 +325,13 @@ Begin Window wClanInvitation
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   7
+      TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   111
+      Top             =   311
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -356,13 +356,13 @@ Begin Window wClanInvitation
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   8
+      TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   111
+      Top             =   311
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -387,13 +387,97 @@ Begin Window wClanInvitation
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   9
+      TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   111
+      Top             =   311
+      Underline       =   ""
+      Visible         =   True
+      Width           =   80
+   End
+   Begin Listbox lstMembers
+      AutoDeactivate  =   True
+      AutoHideScrollbars=   True
+      Bold            =   ""
+      Border          =   False
+      ColumnCount     =   1
+      ColumnsResizable=   True
+      ColumnWidths    =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      DefaultRowHeight=   19
+      Enabled         =   True
+      EnableDrag      =   ""
+      EnableDragReorder=   ""
+      GridLinesHorizontal=   0
+      GridLinesVertical=   0
+      HasHeading      =   False
+      HeadingIndex    =   -1
+      Height          =   190
+      HelpTag         =   ""
+      Hierarchical    =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      InitialValue    =   ""
+      Italic          =   ""
+      Left            =   120
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      RequiresSelection=   ""
+      Scope           =   0
+      ScrollbarHorizontal=   ""
+      ScrollBarVertical=   True
+      SelectionType   =   0
+      TabIndex        =   8
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   107
+      Underline       =   ""
+      UseFocusRing    =   False
+      Visible         =   True
+      Width           =   220
+      _ScrollWidth    =   -1
+   End
+   Begin Label txtJunk
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   15
+      HelpTag         =   ""
+      Index           =   4
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   40
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   ""
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   7
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Members:"
+      TextAlign       =   0
+      TextColor       =   "#Colors.UI.ControlTextColor"
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   107
+      Transparent     =   True
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -515,5 +599,39 @@ End
 		  Self.Hide()
 		  
 		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events lstMembers
+	#tag Event
+		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
+		  
+		  #pragma Unused column
+		  
+		  If row = Me.ListIndex Then
+		    g.ForeColor = Colors.UI.ListSelectionColor
+		  Else
+		    g.ForeColor = Colors.UI.ControlBackColor
+		  End If
+		  
+		  g.FillRect(0, 0, g.Width, g.Height)
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
+		  
+		  If row = Me.ListIndex Then
+		    g.ForeColor = Colors.UI.ControlBackColor
+		  Else
+		    g.ForeColor = Colors.UI.ListSelectionColor
+		  End If
+		  
+		  If row >= 0 And row < Me.ListCount Then _
+		  g.DrawString(Me.Cell(row, column), x, y, g.Width - x * 2, True)
+		  
+		  Return True
+		  
+		End Function
 	#tag EndEvent
 #tag EndEvents

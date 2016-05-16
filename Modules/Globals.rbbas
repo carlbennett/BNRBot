@@ -3,7 +3,7 @@ Protected Module Globals
 	#tag Method, Flags = &h1
 		Protected Sub AddProfileDialog(Config As Configuration, Username As String, Keys() As String, Values() As String, Game As String)
 		  
-		  Dim w As New wProfile()
+		  Dim w As New ProfileWindow()
 		  
 		  w.Config = Config
 		  w.IsRemoving = False
@@ -127,7 +127,7 @@ Protected Module Globals
 		  
 		  If w.btnUpdate.Visible = False Then w.btnClose.SetFocus() Else w.btnUpdate.SetFocus()
 		  
-		  w.ShowWithin(wMain)
+		  w.ShowWithin(MainWindow)
 		  
 		End Sub
 	#tag EndMethod
@@ -389,7 +389,7 @@ Protected Module Globals
 		  If Config.BNET = Nil Then Return
 		  If Config.BNET.IsConnected = False Or Config.BNET.ClanTag = 0 Then Return
 		  
-		  Dim w As New wClanConfirmation()
+		  Dim w As New ClanConfirmationWindow()
 		  Dim ret As Boolean
 		  
 		  Select Case Action
@@ -439,7 +439,7 @@ Protected Module Globals
 		  Dim ret As Boolean
 		  
 		  If Config.ConfirmRemovingClanMembers = True Then
-		    Dim w As New wClanRemoveMember()
+		    Dim w As New ClanRemoveMemberWindow()
 		    
 		    w.fldUsername.Text = MemberName
 		    w.fldClanRank.Text = Globals.ClanRankName(MemberRank)
@@ -1364,7 +1364,7 @@ Protected Module Globals
 		    
 		  Case "Configuration", "Config"
 		    
-		    wConfig.Show()
+		    ConfigWindow.Show()
 		    
 		  Case "Disconnect", "Disc", "Dc"
 		    
@@ -1385,7 +1385,7 @@ Protected Module Globals
 		        Config.BNET.ChannelName = ""
 		        Config.BNET.ChannelFlags = 0
 		        Config.BNET.ChannelUsers.Clear()
-		        If wMain.IsConfigSelected(Config) = True Then wMain.lstUsers_View = wMain.lstUsers_View
+		        If MainWindow.IsConfigSelected(Config) = True Then MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		        Config.AddChat(True, Colors.SkyBlue, "Sent a fake joined game to Battle.net. Type /whoami for info." + EndOfLine)
 		      Else
 		        Config.AddChat(True, Colors.SkyBlue, "Error - that command requires its game name parameter." + EndOfLine)
@@ -1425,7 +1425,7 @@ Protected Module Globals
 		      Config.BNET.ChannelName = ""
 		      Config.BNET.ChannelFlags = 0
 		      Config.BNET.ChannelUsers.Clear()
-		      If wMain.IsConfigSelected(Config) = True Then wMain.lstUsers_View = wMain.lstUsers_View
+		      If MainWindow.IsConfigSelected(Config) = True Then MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		      Config.AddChat(True, Colors.SkyBlue, "You are no longer in a channel. " _
 		      + "Type //rejoin to re-enter your last channel." + EndOfLine)
 		    Else
@@ -1588,9 +1588,9 @@ Protected Module Globals
 		    
 		  Case "Update", "UpdateCheck"
 		    
-		    Dim w As New wUpdater()
-		    w.StepTransition(wUpdater.STEP_CHECK)
-		    w.ShowModalWithin(wMain)
+		    Dim w As New UpdateWindow()
+		    w.StepTransition(UpdateWindow.STEP_CHECK)
+		    w.ShowModalWithin(MainWindow)
 		    
 		  Case "Uptime"
 		    
@@ -2091,7 +2091,7 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Sub RemoveProfileDialog(Dialog As wProfile)
+		Protected Sub RemoveProfileDialog(Dialog As ProfileWindow)
 		  
 		  Dim i As Integer = UBound(Globals.ProfileDialogs)
 		  While i >= 0
@@ -2211,7 +2211,7 @@ Protected Module Globals
 	#tag Method, Flags = &h0
 		Sub ShowClanMemberInfo(Username As String, ClanTag As UInt32, ClanName As String, ClanRank As Byte, DateJoined As Date)
 		  
-		  Dim w As New wClanMemberInfo()
+		  Dim w As New ClanMemberInfoWindow()
 		  
 		  w.Title = Username + " - Clan Info"
 		  w.fldUsername.Text = Username
@@ -2451,6 +2451,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
+		Protected ConfigWindow_Open As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
 		Protected Cookies As Dictionary
 	#tag EndProperty
 
@@ -2475,7 +2479,7 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
-		Protected ProfileDialogs() As wProfile
+		Protected ProfileDialogs() As ProfileWindow
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -2484,10 +2488,6 @@ Protected Module Globals
 
 	#tag Property, Flags = &h1
 		Protected UserIcons() As UserIcon
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected wConfig_Open As Boolean
 	#tag EndProperty
 
 

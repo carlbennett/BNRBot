@@ -6,11 +6,11 @@ Inherits TrayItem
 		  
 		  Select Case cause
 		  Case Me.LeftMouseButton
-		    wMain.Hide()
+		    MainWindow.Hide()
 		    
 		  Case Me.DoubleClick
-		    wMain.Show()
-		    wMain.Activate()
+		    MainWindow.Show()
+		    MainWindow.Activate()
 		    
 		  Case Me.RightMouseButton
 		    Dim base As MenuItem = New MenuItem("")
@@ -33,8 +33,8 @@ Inherits TrayItem
 		  
 		  base.Insert(0, New MenuItem("Main Window"))
 		  
-		  base.Item(0).Insert(0, New MenuItem("Show", wMain))
-		  If wMain.Visible = True Then base.Item(0).Item(0).Text = "Hide"
+		  base.Item(0).Insert(0, New MenuItem("Show", MainWindow))
+		  If MainWindow.Visible = True Then base.Item(0).Item(0).Text = "Hide"
 		  
 		  base.Insert(1, New MenuItem(base.TextSeparator))
 		  
@@ -107,18 +107,18 @@ Inherits TrayItem
 		  
 		  If hitItem = Nil Then Return
 		  
-		  If hitItem.Tag IsA wMain And hitItem.Text = "Show" Then
-		    wMain(hitItem.Tag).Show()
-		    wMain(hitItem.Tag).Activate()
+		  If hitItem.Tag IsA MainWindow And hitItem.Text = "Show" Then
+		    MainWindow(hitItem.Tag).Show()
+		    MainWindow(hitItem.Tag).Activate()
 		    
-		  ElseIf hitItem.Tag IsA wMain And hitItem.Text = "Hide" Then
-		    wMain(hitItem.Tag).Hide()
+		  ElseIf hitItem.Tag IsA MainWindow And hitItem.Text = "Hide" Then
+		    MainWindow(hitItem.Tag).Hide()
 		    
 		  Else
 		    
 		    Select Case hitItem.Text
 		    Case "Configure"
-		      wConfig.Show()
+		      ConfigWindow.Show()
 		      
 		    Case "Connect All"
 		      Globals.ConnectAll()

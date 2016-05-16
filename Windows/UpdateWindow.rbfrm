@@ -1,5 +1,5 @@
 #tag Window
-Begin Window wUpdater
+Begin Window UpdateWindow
    BackColor       =   "#Colors.White"
    Backdrop        =   ""
    CloseButton     =   True

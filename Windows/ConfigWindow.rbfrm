@@ -1,5 +1,5 @@
 #tag Window
-Begin Window wConfig
+Begin Window ConfigWindow
    BackColor       =   "#Colors.UI.WindowBackColor"
    Backdrop        =   ""
    CloseButton     =   True
@@ -2775,7 +2775,7 @@ End
 		Sub Close()
 		  
 		  Self.Resave()
-		  Globals.wConfig_Open = False
+		  Globals.ConfigWindow_Open = False
 		  
 		End Sub
 	#tag EndEvent
@@ -2814,11 +2814,11 @@ End
 	#tag Event
 		Sub Open()
 		  
-		  Globals.wConfig_Open = True
+		  Globals.ConfigWindow_Open = True
 		  Self.Reload()
 		  
-		  If wMain.lstProfiles.ListIndex <> -1 Then _
-		  wConfig.SelectProfile(wMain.lstProfiles.CellTag(wMain.lstProfiles.ListIndex, 0))
+		  If MainWindow.lstProfiles.ListIndex <> -1 Then _
+		  ConfigWindow.SelectProfile(MainWindow.lstProfiles.CellTag(MainWindow.lstProfiles.ListIndex, 0))
 		  
 		End Sub
 	#tag EndEvent
@@ -2960,7 +2960,7 @@ End
 		Sub Resave()
 		  
 		  Settings.Save(Nil)
-		  If wMain.SelectedConfig = -1 Then wMain.SelectConfig(-1)
+		  If MainWindow.SelectedConfig = -1 Then MainWindow.SelectConfig(-1)
 		  
 		End Sub
 	#tag EndMethod
@@ -3075,8 +3075,8 @@ End
 		  lstCategories.Cell(lstCategories.LastIndex, 1) = "2"
 		  lstCategories.ListIndex = lstCategories.LastIndex
 		  
-		  wMain.lstProfiles.AddRow(Settings.Configurations(UBound(Settings.Configurations)).Name)
-		  wMain.lstProfiles.CellTag(wMain.lstProfiles.LastIndex, 0) = UBound(Settings.Configurations)
+		  MainWindow.lstProfiles.AddRow(Settings.Configurations(UBound(Settings.Configurations)).Name)
+		  MainWindow.lstProfiles.CellTag(MainWindow.lstProfiles.LastIndex, 0) = UBound(Settings.Configurations)
 		  
 		End Sub
 	#tag EndEvent
@@ -3109,12 +3109,12 @@ End
 		  Wend
 		  
 		  i = 0
-		  While i < wMain.lstProfiles.ListCount
-		    If wMain.lstProfiles.CellTag(i, 0) = Index Then
-		      wMain.lstProfiles.RemoveRow(i)
+		  While i < MainWindow.lstProfiles.ListCount
+		    If MainWindow.lstProfiles.CellTag(i, 0) = Index Then
+		      MainWindow.lstProfiles.RemoveRow(i)
 		    Else
-		      If wMain.lstProfiles.CellTag(i, 0) > Index Then _
-		      wMain.lstProfiles.CellTag(i, 0) = wMain.lstProfiles.CellTag(i, 0) - 1
+		      If MainWindow.lstProfiles.CellTag(i, 0) > Index Then _
+		      MainWindow.lstProfiles.CellTag(i, 0) = MainWindow.lstProfiles.CellTag(i, 0) - 1
 		      i = i + 1
 		    End If
 		  Wend
@@ -3551,9 +3551,9 @@ End
 		    Config.Product = 0
 		  End If
 		  
-		  Index = wMain.lstProfiles.DefaultRowHeight
-		  wMain.lstProfiles.DefaultRowHeight = 0
-		  wMain.lstProfiles.DefaultRowHeight = Index
+		  Index = MainWindow.lstProfiles.DefaultRowHeight
+		  MainWindow.lstProfiles.DefaultRowHeight = 0
+		  MainWindow.lstProfiles.DefaultRowHeight = Index
 		  
 		End Sub
 	#tag EndEvent
@@ -3664,11 +3664,11 @@ End
 		  lstCategories.Cell(lstCategories.ListIndex, 0) = Me.Text
 		  
 		  Dim i As Integer = 0
-		  While i < wMain.lstProfiles.ListCount
-		    If wMain.lstProfiles.CellTag(i, 0) = Index Then Exit While
+		  While i < MainWindow.lstProfiles.ListCount
+		    If MainWindow.lstProfiles.CellTag(i, 0) = Index Then Exit While
 		    i = i + 1
 		  Wend
-		  If i < wMain.lstProfiles.ListCount Then wMain.lstProfiles.Cell(i, 0) = Me.Text
+		  If i < MainWindow.lstProfiles.ListCount Then MainWindow.lstProfiles.Cell(i, 0) = Me.Text
 		  
 		  Config.Name = Me.Text
 		  
@@ -3958,13 +3958,13 @@ End
 		  
 		  Settings.PrefPingRanges = Ranges
 		  
-		  If wMain.lstUsers_Viewing_Channel() = True Then
+		  If MainWindow.lstUsers_Viewing_Channel() = True Then
 		    // Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
 		    // not actually touch the ListBox (RectControl) so that it will redraw, so
 		    // I'm using the little cheat:
-		    i = wMain.lstUsers.DefaultRowHeight
-		    wMain.lstUsers.DefaultRowHeight = 0
-		    wMain.lstUsers.DefaultRowHeight = i
+		    i = MainWindow.lstUsers.DefaultRowHeight
+		    MainWindow.lstUsers.DefaultRowHeight = 0
+		    MainWindow.lstUsers.DefaultRowHeight = i
 		  End If
 		  
 		End Sub

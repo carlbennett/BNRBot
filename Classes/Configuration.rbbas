@@ -252,10 +252,10 @@ Protected Class Configuration
 		  
 		  Me.CacheChatUnread = False
 		  
-		  Me.CachelstUsers_View_Channel     = wMain.lstUsers_View_Channel_Flags
-		  Me.CachelstUsers_View_Friends     = wMain.lstUsers_View_Friends_Entry
-		  Me.CachelstUsers_View_Clan        = wMain.lstUsers_View_Clan_Rank
-		  Me.CachelstUsers_View_ChannelList = wMain.lstUsers_View_ChannelList_Entry
+		  Me.CachelstUsers_View_Channel     = MainWindow.lstUsers_View_Channel_Flags
+		  Me.CachelstUsers_View_Friends     = MainWindow.lstUsers_View_Friends_Entry
+		  Me.CachelstUsers_View_Clan        = MainWindow.lstUsers_View_Clan_Rank
+		  Me.CachelstUsers_View_ChannelList = MainWindow.lstUsers_View_ChannelList_Entry
 		  Me.CachelstUsers_View             = Me.CachelstUsers_View_Channel
 		  
 		End Sub

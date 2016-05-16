@@ -1,5 +1,5 @@
 #tag Window
-Begin Window wProfile
+Begin Window ProfileWindow
    BackColor       =   "#Colors.UI.WindowBackColor"
    Backdrop        =   ""
    CloseButton     =   True

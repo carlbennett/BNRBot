@@ -8,11 +8,11 @@ Inherits TCPSocket
 		    // Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
 		    // not actually touch the ListBox (RectControl) so that it will redraw, so
 		    // I'm using the little cheat:
-		    Dim i As Integer = wMain.lstProfiles.DefaultRowHeight
-		    wMain.lstProfiles.DefaultRowHeight = 0
-		    wMain.lstProfiles.DefaultRowHeight = i
+		    Dim i As Integer = MainWindow.lstProfiles.DefaultRowHeight
+		    MainWindow.lstProfiles.DefaultRowHeight = 0
+		    MainWindow.lstProfiles.DefaultRowHeight = i
 		    
-		    If wMain.IsConfigSelected(Me.Config) = True Then wMain.lstUsers_View = wMain.lstUsers_View
+		    If MainWindow.IsConfigSelected(Me.Config) = True Then MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		    Me.Config.AddChat(True, Colors.Lime, "BNET: Connected to " + Me.RemoteAddress + "." + EndOfLine)
 		  End If
 		  
@@ -106,9 +106,9 @@ Inherits TCPSocket
 		  // Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
 		  // not actually touch the ListBox (RectControl) so that it will redraw, so
 		  // I'm using the little cheat:
-		  Dim i As Integer = wMain.lstProfiles.DefaultRowHeight
-		  wMain.lstProfiles.DefaultRowHeight = 0
-		  wMain.lstProfiles.DefaultRowHeight = i
+		  Dim i As Integer = MainWindow.lstProfiles.DefaultRowHeight
+		  MainWindow.lstProfiles.DefaultRowHeight = 0
+		  MainWindow.lstProfiles.DefaultRowHeight = i
 		  
 		  If Me.LastErrorCode = Me.LostConnection Then _
 		  Me.Config.AddChat(True, Colors.Red, "BNET: Disconnected." + EndOfLine) Else _
@@ -144,7 +144,7 @@ Inherits TCPSocket
 		    
 		  End If
 		  
-		  If Me.Config <> Nil And wMain.IsConfigSelected(Me.Config) Then wMain.lstUsers_View = wMain.lstUsers_View
+		  If Me.Config <> Nil And MainWindow.IsConfigSelected(Me.Config) Then MainWindow.lstUsers_View = MainWindow.lstUsers_View
 		  If Me.BNLS <> Nil Then Me.BNLS.Close()
 		  If Me.LogonTimeoutTimer <> Nil Then Me.LogonTimeoutTimer.Enabled = False
 		  

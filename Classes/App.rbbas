@@ -34,12 +34,12 @@ Inherits Application
 		  Settings.Load(Nil)
 		  
 		  If Settings.PrefCheckForUpdates = True Or DebugBuild = True Then
-		    Dim w As New wUpdater()
-		    w.StepTransition(wUpdater.STEP_CHECK_AUTO)
+		    Dim w As New UpdateWindow()
+		    w.StepTransition(UpdateWindow.STEP_CHECK_AUTO)
 		    w.ShowModal()
 		  End If
 		  
-		  wMain.Show()
+		  MainWindow.Show()
 		  
 		End Sub
 	#tag EndEvent

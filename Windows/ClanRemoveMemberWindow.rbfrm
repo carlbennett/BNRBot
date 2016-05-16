@@ -1,27 +1,27 @@
 #tag Window
-Begin Window wHTTPAuthentication
-   BackColor       =   48
+Begin Window ClanRemoveMemberWindow
+   BackColor       =   "#Colors.UI.WindowBackColor"
    Backdrop        =   ""
    CloseButton     =   True
    Composite       =   False
-   Frame           =   1
+   Frame           =   0
    FullScreen      =   False
    HasBackColor    =   True
-   Height          =   149
+   Height          =   126
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
-   MaxHeight       =   149
+   MaxHeight       =   126
    MaximizeButton  =   False
    MaxWidth        =   32000
    MenuBar         =   ""
    MenuBarVisible  =   True
-   MinHeight       =   149
+   MinHeight       =   126
    MinimizeButton  =   True
    MinWidth        =   360
-   Placement       =   1
+   Placement       =   2
    Resizeable      =   False
-   Title           =   "HTTP Authentication Required"
+   Title           =   "Really remove clan member?"
    Visible         =   True
    Width           =   360
    Begin Label txtJunk
@@ -47,11 +47,11 @@ Begin Window wHTTPAuthentication
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Authentication is required in order to proceed"
+      Text            =   "Are you sure you wish to remove this member?"
       TextAlign       =   0
-      TextColor       =   "#Colors.White"
-      TextFont        =   "Verdana"
-      TextSize        =   11
+      TextColor       =   "#Colors.UI.ControlTextColor"
+      TextFont        =   "Arial"
+      TextSize        =   12
       TextUnit        =   0
       Top             =   14
       Transparent     =   True
@@ -82,11 +82,11 @@ Begin Window wHTTPAuthentication
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Realm:"
+      Text            =   "Username:"
       TextAlign       =   0
-      TextColor       =   "#Colors.White"
-      TextFont        =   "Verdana"
-      TextSize        =   11
+      TextColor       =   "#Colors.UI.ControlTextColor"
+      TextFont        =   "Arial"
+      TextSize        =   12
       TextUnit        =   0
       Top             =   34
       Transparent     =   True
@@ -94,7 +94,7 @@ Begin Window wHTTPAuthentication
       Visible         =   True
       Width           =   80
    End
-   Begin TextField fldUsername
+   Begin TextArea fldUsername
       AcceptTabs      =   ""
       Alignment       =   0
       AutoDeactivate  =   True
@@ -102,31 +102,83 @@ Begin Window wHTTPAuthentication
       BackColor       =   "#Colors.Black"
       Bold            =   ""
       Border          =   False
-      CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
       Height          =   15
       HelpTag         =   ""
+      HideSelection   =   True
       Index           =   -2147483648
       Italic          =   ""
       Left            =   120
       LimitText       =   0
+      LineHeight      =   0
+      LineSpacing     =   1
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
       Mask            =   ""
-      Password        =   ""
-      ReadOnly        =   False
+      Multiline       =   False
+      ReadOnly        =   True
       Scope           =   0
+      ScrollbarHorizontal=   ""
+      ScrollbarVertical=   False
+      Styled          =   False
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "USERNAME"
+      TextColor       =   "#Colors.UI.ControlTextColor"
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   34
+      Underline       =   ""
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   220
+   End
+   Begin TextArea fldClanRank
+      AcceptTabs      =   ""
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   "#Colors.Black"
+      Bold            =   ""
+      Border          =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   15
+      HelpTag         =   ""
+      HideSelection   =   True
+      Index           =   -2147483648
+      Italic          =   ""
+      Left            =   120
+      LimitText       =   0
+      LineHeight      =   0
+      LineSpacing     =   1
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Mask            =   ""
+      Multiline       =   False
+      ReadOnly        =   True
+      Scope           =   0
+      ScrollbarHorizontal=   ""
+      ScrollbarVertical=   False
+      Styled          =   False
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextColor       =   "#Colors.White"
+      Text            =   "CLAN.RANK"
+      TextColor       =   "#Colors.UI.ControlTextColor"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
@@ -159,11 +211,11 @@ Begin Window wHTTPAuthentication
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Username:"
+      Text            =   "Clan Rank:"
       TextAlign       =   0
-      TextColor       =   "#Colors.White"
-      TextFont        =   "Verdana"
-      TextSize        =   11
+      TextColor       =   "#Colors.UI.ControlTextColor"
+      TextFont        =   "Arial"
+      TextSize        =   12
       TextUnit        =   0
       Top             =   57
       Transparent     =   True
@@ -171,90 +223,12 @@ Begin Window wHTTPAuthentication
       Visible         =   True
       Width           =   80
    End
-   Begin TextField fldPassword
-      AcceptTabs      =   ""
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   "#Colors.Black"
-      Bold            =   ""
-      Border          =   False
-      CueText         =   ""
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Format          =   ""
-      Height          =   15
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   120
-      LimitText       =   0
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Mask            =   ""
-      Password        =   True
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   6
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextColor       =   "#Colors.White"
-      TextFont        =   "Arial"
-      TextSize        =   12
-      TextUnit        =   0
-      Top             =   80
-      Underline       =   ""
-      UseFocusRing    =   True
-      Visible         =   True
-      Width           =   220
-   End
-   Begin Label txtJunk
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   15
-      HelpTag         =   ""
-      Index           =   3
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   40
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   ""
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   5
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Password:"
-      TextAlign       =   0
-      TextColor       =   "#Colors.White"
-      TextFont        =   "Verdana"
-      TextSize        =   11
-      TextUnit        =   0
-      Top             =   80
-      Transparent     =   True
-      Underline       =   ""
-      Visible         =   True
-      Width           =   80
-   End
-   Begin PushButton btnProceed
+   Begin PushButton btnRemove
       AutoDeactivate  =   True
       Bold            =   ""
       ButtonStyle     =   0
       Cancel          =   ""
-      Caption         =   "&Proceed"
+      Caption         =   "&Remove"
       Default         =   True
       Enabled         =   True
       Height          =   22
@@ -269,13 +243,13 @@ Begin Window wHTTPAuthentication
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   7
+      TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "Verdana"
+      TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   111
+      Top             =   88
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -300,61 +274,16 @@ Begin Window wHTTPAuthentication
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   8
+      TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "Verdana"
-      TextSize        =   12
-      TextUnit        =   0
-      Top             =   111
-      Underline       =   ""
-      Visible         =   True
-      Width           =   80
-   End
-   Begin TextArea fldRealm
-      AcceptTabs      =   ""
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   "#Colors.Black"
-      Bold            =   ""
-      Border          =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Format          =   ""
-      Height          =   15
-      HelpTag         =   ""
-      HideSelection   =   True
-      Index           =   -2147483648
-      Italic          =   ""
-      Left            =   120
-      LimitText       =   0
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Mask            =   ""
-      Multiline       =   False
-      ReadOnly        =   True
-      Scope           =   0
-      ScrollbarHorizontal=   ""
-      ScrollbarVertical=   False
-      Styled          =   False
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "REALM"
-      TextColor       =   "#Colors.White"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   34
+      Top             =   88
       Underline       =   ""
-      UseFocusRing    =   True
       Visible         =   True
-      Width           =   220
+      Width           =   80
    End
 End
 #tag EndWindow
@@ -445,7 +374,7 @@ End
 
 #tag EndWindowCode
 
-#tag Events btnProceed
+#tag Events btnRemove
 	#tag Event
 		Sub Action()
 		  

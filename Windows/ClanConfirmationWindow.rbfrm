@@ -1,5 +1,5 @@
 #tag Window
-Begin Window wClanConfirmation
+Begin Window ClanConfirmationWindow
    BackColor       =   "#Colors.UI.WindowBackColor"
    Backdrop        =   ""
    CloseButton     =   True

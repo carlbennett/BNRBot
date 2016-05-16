@@ -1,5 +1,5 @@
 #tag Window
-Begin Window wClanRemoveMember
+Begin Window ClanMemberInfoWindow
    BackColor       =   "#Colors.UI.WindowBackColor"
    Backdrop        =   ""
    CloseButton     =   True
@@ -7,26 +7,73 @@ Begin Window wClanRemoveMember
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   True
-   Height          =   126
+   Height          =   162
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
-   MaxHeight       =   126
+   MaxHeight       =   32000
    MaximizeButton  =   False
    MaxWidth        =   32000
    MenuBar         =   ""
    MenuBarVisible  =   True
-   MinHeight       =   126
+   MinHeight       =   162
    MinimizeButton  =   True
-   MinWidth        =   360
-   Placement       =   2
-   Resizeable      =   False
-   Title           =   "Really remove clan member?"
+   MinWidth        =   240
+   Placement       =   0
+   Resizeable      =   True
+   Title           =   "%username% - Clan Info"
    Visible         =   True
-   Width           =   360
+   Width           =   350
+   Begin TextArea fldUsername
+      AcceptTabs      =   ""
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   "#Colors.UI.ControlBackColor"
+      Bold            =   ""
+      Border          =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   15
+      HelpTag         =   ""
+      HideSelection   =   True
+      Index           =   -2147483648
+      Italic          =   ""
+      Left            =   90
+      LimitText       =   0
+      LineHeight      =   0
+      LineSpacing     =   1
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Mask            =   ""
+      Multiline       =   False
+      ReadOnly        =   True
+      Scope           =   0
+      ScrollbarHorizontal=   ""
+      ScrollbarVertical=   False
+      Styled          =   False
+      TabIndex        =   1
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "%username%"
+      TextColor       =   "#Colors.UI.ControlTextColor"
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   10
+      Underline       =   ""
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   250
+   End
    Begin Label txtJunk
       AutoDeactivate  =   True
-      Bold            =   True
+      Bold            =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -35,11 +82,11 @@ Begin Window wClanRemoveMember
       Index           =   0
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   20
+      Left            =   10
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   ""
       LockTop         =   True
       Multiline       =   ""
       Scope           =   0
@@ -47,21 +94,21 @@ Begin Window wClanRemoveMember
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Are you sure you wish to remove this member?"
+      Text            =   "Username:"
       TextAlign       =   0
-      TextColor       =   "#Colors.UI.ControlTextColor"
+      TextColor       =   "#Colors.White"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   14
+      Top             =   10
       Transparent     =   True
       Underline       =   ""
       Visible         =   True
-      Width           =   320
+      Width           =   80
    End
    Begin Label txtJunk
       AutoDeactivate  =   True
-      Bold            =   False
+      Bold            =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -70,36 +117,36 @@ Begin Window wClanRemoveMember
       Index           =   1
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   40
-      LockBottom      =   ""
+      Left            =   10
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   ""
       LockTop         =   True
       Multiline       =   ""
       Scope           =   0
       Selectable      =   False
-      TabIndex        =   1
+      TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Username:"
+      Text            =   "Clan Tag:"
       TextAlign       =   0
-      TextColor       =   "#Colors.UI.ControlTextColor"
+      TextColor       =   "#Colors.White"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   34
+      Top             =   33
       Transparent     =   True
       Underline       =   ""
       Visible         =   True
       Width           =   80
    End
-   Begin TextArea fldUsername
+   Begin TextArea fldClanTag
       AcceptTabs      =   ""
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   "#Colors.Black"
+      BackColor       =   "#Colors.UI.ControlBackColor"
       Bold            =   ""
       Border          =   False
       DataField       =   ""
@@ -111,7 +158,7 @@ Begin Window wClanRemoveMember
       HideSelection   =   True
       Index           =   -2147483648
       Italic          =   ""
-      Left            =   120
+      Left            =   90
       LimitText       =   0
       LineHeight      =   0
       LineSpacing     =   1
@@ -127,26 +174,26 @@ Begin Window wClanRemoveMember
       ScrollbarHorizontal=   ""
       ScrollbarVertical=   False
       Styled          =   False
-      TabIndex        =   2
+      TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "USERNAME"
+      Text            =   "%clan.tag%"
       TextColor       =   "#Colors.UI.ControlTextColor"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   34
+      Top             =   33
       Underline       =   ""
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   220
+      Width           =   250
    End
-   Begin TextArea fldClanRank
+   Begin TextArea fldClanName
       AcceptTabs      =   ""
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   "#Colors.Black"
+      BackColor       =   "#Colors.UI.ControlBackColor"
       Bold            =   ""
       Border          =   False
       DataField       =   ""
@@ -158,7 +205,7 @@ Begin Window wClanRemoveMember
       HideSelection   =   True
       Index           =   -2147483648
       Italic          =   ""
-      Left            =   120
+      Left            =   90
       LimitText       =   0
       LineHeight      =   0
       LineSpacing     =   1
@@ -174,10 +221,10 @@ Begin Window wClanRemoveMember
       ScrollbarHorizontal=   ""
       ScrollbarVertical=   False
       Styled          =   False
-      TabIndex        =   4
+      TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "CLAN.RANK"
+      Text            =   "%clan.name%"
       TextColor       =   "#Colors.UI.ControlTextColor"
       TextFont        =   "Arial"
       TextSize        =   12
@@ -186,11 +233,11 @@ Begin Window wClanRemoveMember
       Underline       =   ""
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   220
+      Width           =   250
    End
    Begin Label txtJunk
       AutoDeactivate  =   True
-      Bold            =   False
+      Bold            =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -199,21 +246,21 @@ Begin Window wClanRemoveMember
       Index           =   2
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   40
-      LockBottom      =   ""
+      Left            =   10
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   ""
       LockTop         =   True
       Multiline       =   ""
       Scope           =   0
       Selectable      =   False
-      TabIndex        =   3
+      TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Clan Rank:"
+      Text            =   "Clan Name:"
       TextAlign       =   0
-      TextColor       =   "#Colors.UI.ControlTextColor"
+      TextColor       =   "#Colors.White"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
@@ -223,12 +270,12 @@ Begin Window wClanRemoveMember
       Visible         =   True
       Width           =   80
    End
-   Begin PushButton btnRemove
+   Begin PushButton btnClose
       AutoDeactivate  =   True
       Bold            =   ""
       ButtonStyle     =   0
-      Cancel          =   ""
-      Caption         =   "&Remove"
+      Cancel          =   True
+      Caption         =   "Close"
       Default         =   True
       Enabled         =   True
       Height          =   22
@@ -236,51 +283,184 @@ Begin Window wClanRemoveMember
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   260
-      LockBottom      =   ""
+      Left            =   272
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   ""
       Scope           =   0
-      TabIndex        =   5
+      TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   88
+      Top             =   130
+      Underline       =   ""
+      Visible         =   True
+      Width           =   68
+   End
+   Begin TextArea fldClanRank
+      AcceptTabs      =   ""
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   "#Colors.UI.ControlBackColor"
+      Bold            =   ""
+      Border          =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   15
+      HelpTag         =   ""
+      HideSelection   =   True
+      Index           =   -2147483648
+      Italic          =   ""
+      Left            =   90
+      LimitText       =   0
+      LineHeight      =   0
+      LineSpacing     =   1
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Mask            =   ""
+      Multiline       =   False
+      ReadOnly        =   True
+      Scope           =   0
+      ScrollbarHorizontal=   ""
+      ScrollbarVertical=   False
+      Styled          =   False
+      TabIndex        =   7
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "%clan.rank%"
+      TextColor       =   "#Colors.UI.ControlTextColor"
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   81
+      Underline       =   ""
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   250
+   End
+   Begin Label txtJunk
+      AutoDeactivate  =   True
+      Bold            =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   15
+      HelpTag         =   ""
+      Index           =   3
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   10
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Multiline       =   ""
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   6
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Clan Rank:"
+      TextAlign       =   0
+      TextColor       =   "#Colors.White"
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   81
+      Transparent     =   True
       Underline       =   ""
       Visible         =   True
       Width           =   80
    End
-   Begin PushButton btnCancel
+   Begin TextArea fldClanDateJoined
+      AcceptTabs      =   ""
+      Alignment       =   0
       AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   "#Colors.UI.ControlBackColor"
       Bold            =   ""
-      ButtonStyle     =   0
-      Cancel          =   True
-      Caption         =   "&Cancel"
-      Default         =   ""
+      Border          =   False
+      DataField       =   ""
+      DataSource      =   ""
       Enabled         =   True
-      Height          =   22
+      Format          =   ""
+      Height          =   15
       HelpTag         =   ""
+      HideSelection   =   True
       Index           =   -2147483648
-      InitialParent   =   ""
       Italic          =   ""
-      Left            =   168
+      Left            =   90
+      LimitText       =   0
+      LineHeight      =   0
+      LineSpacing     =   1
       LockBottom      =   ""
       LockedInPosition=   False
-      LockLeft        =   False
+      LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
+      Mask            =   ""
+      Multiline       =   False
+      ReadOnly        =   True
       Scope           =   0
-      TabIndex        =   6
+      ScrollbarHorizontal=   ""
+      ScrollbarVertical=   False
+      Styled          =   False
+      TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "%clan.joindate%"
+      TextColor       =   "#Colors.UI.ControlTextColor"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   88
+      Top             =   105
+      Underline       =   ""
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   250
+   End
+   Begin Label txtJunk
+      AutoDeactivate  =   True
+      Bold            =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   15
+      HelpTag         =   ""
+      Index           =   4
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   10
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Multiline       =   ""
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   8
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Date Joined:"
+      TextAlign       =   0
+      TextColor       =   "#Colors.White"
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   105
+      Transparent     =   True
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -367,29 +547,13 @@ End
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h0
-		Result As PushButton
-	#tag EndProperty
-
-
 #tag EndWindowCode
 
-#tag Events btnRemove
+#tag Events btnClose
 	#tag Event
 		Sub Action()
 		  
-		  Self.Result = Me
-		  Self.Hide()
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events btnCancel
-	#tag Event
-		Sub Action()
-		  
-		  Self.Result = Me
-		  Self.Hide()
+		  Self.Close()
 		  
 		End Sub
 	#tag EndEvent
