@@ -2,15 +2,6 @@
 Protected Class BotWindow
 Inherits Window
 	#tag Event
-		Sub Maximize()
-		  
-		  Self.Refresh(True)
-		  Maximize()
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
 		Sub Open()
 		  
 		  Dim i As Integer = 0
@@ -67,52 +58,24 @@ Inherits Window
 		End Sub
 	#tag EndEvent
 
-	#tag Event
-		Sub Resized()
+
+	#tag Method, Flags = &h0
+		Sub Activate()
 		  
-		  Self.Refresh(True)
-		  Resized()
+		  #If TargetWin32 = False Then Return
+		  
+		  Soft Declare Function SetActiveWindow Lib "User32" (hWnd As Integer) As Integer
+		  Soft Declare Function SetForegroundWindow Lib "User32" (hWnd As Integer) As Integer
+		  
+		  Call SetActiveWindow(Me.Handle)
+		  Call SetForegroundWindow(Me.Handle)
 		  
 		End Sub
-	#tag EndEvent
+	#tag EndMethod
 
-	#tag Event
-		Sub Resizing()
-		  
-		  Self.Refresh(True)
-		  Resizing()
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Restore()
-		  
-		  Self.Refresh(True)
-		  Restore()
-		  
-		End Sub
-	#tag EndEvent
-
-
-	#tag Hook, Flags = &h0
-		Event Maximize()
-	#tag EndHook
 
 	#tag Hook, Flags = &h0
 		Event Open()
-	#tag EndHook
-
-	#tag Hook, Flags = &h0
-		Event Resized()
-	#tag EndHook
-
-	#tag Hook, Flags = &h0
-		Event Resizing()
-	#tag EndHook
-
-	#tag Hook, Flags = &h0
-		Event Restore()
 	#tag EndHook
 
 

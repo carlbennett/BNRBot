@@ -1,229 +1,44 @@
 #tag Class
 Protected Class Configuration
 	#tag Method, Flags = &h0
-		Sub AddChat(Timestamp As Boolean, ChatColor As Color, ChatText As String)
+		Sub AddChat(timestamp As Boolean, ParamArray values As Variant)
 		  
-		  If Me.RTFData = Nil Then Me.RTFData = New StyledText()
-		  Dim SR As StyleRun
-		  Dim SRFont As String = "Arial"
-		  Dim SRSize As Integer = 12
+		  Dim js As String = "", c As Color = Colors.UI.ControlTextColor
 		  
-		  If Me.RTFField <> Nil Then
-		    Me.RTFField.SelStart = Len(Me.RTFField.Text)
-		    SRFont = Me.RTFField.TextFont
-		    SRSize = Me.RTFField.TextSize
+		  js = js + "var scrollAfterInsert = (window.innerHeight + window.scrollY >= document.body.offsetHeight);"
+		  js = js + "var body = document.getElementsByTagName('body')[0];"
+		  js = js + "var line = document.createElement('div');"
+		  
+		  If timestamp = True Then
+		    // TODO: Use Me.Timestamp setting and constants
+		    Dim oTimestamp As New Date()
+		    js = js + "var chat = document.createElement('span');"
+		    js = js + "chat.style.color = 'rgb(" _
+		    + Format(Colors.Gray.Red, "-#") + "," _
+		    + Format(Colors.Gray.Green, "-#") + "," _
+		    + Format(Colors.Gray.Blue, "-#") + ")';"
+		    js = js + "chat.innerText = " + StringToJSON("[" + oTimestamp.LongTime + "] ") + ";"
+		    js = js + "line.appendChild(chat);"
 		  End If
 		  
-		  If CountFields(ReplaceLineEndings(Me.RTFData.Text(), EndOfLine), EndOfLine) > 100 Then
-		    Me.RTFData.RTFData = ""
-		    If Me.RTFField <> Nil Then Me.RTFField.Text = ""
-		  End If
-		  
-		  If Timestamp = True Then Me.AddChatTimestamp()
-		  
-		  SR = New StyleRun()
-		  SR.Font = SRFont
-		  SR.Size = SRSize
-		  SR.TextColor = ChatColor
-		  SR.Text = ChatText
-		  Me.RTFData.AppendStyleRun(SR)
-		  
-		  If Me.RTFField <> Nil Then
-		    Me.RTFField.SelStart = Len(Me.RTFField.Text)
-		    Me.RTFField.SelTextFont = SRFont
-		    Me.RTFField.SelTextSize = SRSize
-		    Me.RTFField.SelTextColor = ChatColor
-		    Me.RTFField.SelText = ChatText
-		  End If
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub AddChat(ChatColor As Color, ChatText As String)
-		  
-		  Me.AddChat(False, ChatColor, ChatText)
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub AddChatHexDump(Prefix As String, RawData As String, Width As Byte = 0)
-		  
-		  Dim rtfColors() As Color
-		  Me.AddChatHexDump(Prefix, RawData, Width, rtfColors)
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub AddChatHexDump(Prefix As String, RawData As String, Width As Byte = 0, rtfColors() As Color)
-		  
-		  If UBound(rtfColors) < 0 Then rtfColors.Insert(0, Colors.Yellow)
-		  If UBound(rtfColors) < 1 Then rtfColors.Insert(1, Colors.Gray)
-		  If Width < 1 Then Width = 16
-		  
-		  Dim i, j As Integer = 1
-		  Dim Line, sTmp1, sTmp2 As String = ""
-		  Dim SR As StyleRun
-		  Dim SRFont As String = "Courier New"
-		  Dim SRSize As Integer = 12
-		  
-		  While i <= LenB(RawData)
-		    Line = MidB(RawData, i, Width)
-		    
-		    sTmp1 = ""
-		    sTmp2 = ""
-		    j = 1
-		    While j <= LenB(Line)
-		      If Len(sTmp1) > 0 Then sTmp1 = sTmp1 + " "
-		      sTmp1 = sTmp1 + Right("00" + Hex(AscB(MidB(Line, j, 1))), 2)
-		      If AscB(MidB(Line, j, 1)) >= 32 And AscB(MidB(Line, j, 1)) <= 126 Then _
-		      sTmp2 = sTmp2 + MidB(Line, j, 1) Else sTmp2 = sTmp2 + "."
-		      j = j + 1
-		    Wend
-		    While Len(sTmp1) < (Width * 3) - 1
-		      sTmp1 = sTmp1 + " "
-		    Wend
-		    
-		    If Len(Prefix) > 0 Then
-		      SR = New StyleRun()
-		      SR.Font = SRFont
-		      SR.Size = SRSize
-		      SR.TextColor = rtfColors(0)
-		      SR.Text = "[" + Prefix + "] "
-		      Me.RTFData.AppendStyleRun(SR)
-		      If Me.RTFField <> Nil Then
-		        Me.RTFField.SelTextFont = SR.Font
-		        Me.RTFField.SelTextSize = SR.Size
-		        Me.RTFField.SelTextColor = SR.TextColor
-		        Me.RTFField.SelText = SR.Text
-		      End If
+		  For Each value As Variant In values
+		    If value.Type = Variant.TypeColor Then
+		      c = value.ColorValue
+		    ElseIf value.Type = Variant.TypeString Then
+		      js = js + "var chat = document.createElement('span');"
+		      js = js + "chat.style.color = 'rgb(" _
+		      + Format(c.Red, "-#") + "," _
+		      + Format(c.Green, "-#") + "," _
+		      + Format(c.Blue, "-#") + ")';"
+		      js = js + "chat.innerText = " + StringToJSON(value.StringValue) + ";"
+		      js = js + "line.appendChild(chat);"
 		    End If
-		    
-		    SR = New StyleRun()
-		    SR.Font = SRFont
-		    SR.Size = SRSize
-		    SR.TextColor = rtfColors(1)
-		    SR.Text = MemClass.HexPrefix(i - 1, "", Len(Hex(LenB(RawData))) _
-		    + (Len(Hex(LenB(RawData))) Mod 2)) + ": " + sTmp1 + " " + sTmp2 + EndOfLine
-		    Me.RTFData.AppendStyleRun(SR)
-		    If Me.RTFField <> Nil Then
-		      Me.RTFField.SelTextFont = SR.Font
-		      Me.RTFField.SelTextSize = SR.Size
-		      Me.RTFField.SelTextColor = SR.TextColor
-		      Me.RTFField.SelText = SR.Text
-		    End If
-		    
-		    i = i + Width
-		  Wend
+		  Next
 		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub AddChatTimestamp()
+		  js = js + "body.appendChild(line);"
+		  js = js + "if (scrollAfterInsert) chat.scrollIntoView({block:""end"",behavior:""auto""});"
 		  
-		  // First, check to see if we should run in the first place:
-		  //   Are we set to off, or are we set to military time without a short/long time?
-		  If Me.Timestamp = Me.TimestampOff Or Me.Timestamp = Me.TimestampMilitaryTime Then Return
-		  
-		  If Me.RTFData = Nil Then Me.RTFData = New StyledText()
-		  Dim objTimestamp As New Date(), intTimestamps As Integer = 0
-		  Dim SR As StyleRun
-		  Dim SRFont As String = "Arial"
-		  Dim SRSize As Integer = 12
-		  
-		  If Me.RTFField <> Nil Then
-		    Me.RTFField.SelStart = Len(Me.RTFField.Text)
-		    SRFont = Me.RTFField.TextFont
-		    SRSize = Me.RTFField.TextSize
-		  End If
-		  
-		  If Me.Timestamp <> Me.TimestampOff And Me.Timestamp <> Me.TimestampMilitaryTime Then
-		    SR = New StyleRun()
-		    SR.Font = SRFont
-		    SR.Size = SRSize
-		    SR.TextColor = Colors.White
-		    SR.Text = "["
-		    Me.RTFData.AppendStyleRun(SR)
-		    If Me.RTFField <> Nil Then
-		      Me.RTFField.SelTextFont = SR.Font
-		      Me.RTFField.SelTextSize = SR.Size
-		      Me.RTFField.SelTextColor = SR.TextColor
-		      Me.RTFField.SelText = SR.Text
-		    End If
-		    SR = New StyleRun()
-		    SR.Font = SRFont
-		    SR.Size = SRSize
-		    SR.TextColor = Colors.Gray
-		  End If
-		  
-		  If BitAnd(Me.Timestamp, Me.TimestampShortDate) > 0 Then
-		    intTimestamps = intTimestamps + 1
-		    SR.Text = SR.Text + objTimestamp.ShortDate
-		    If intTimestamps > 1 Then SR.Text = " " + SR.Text
-		  End If
-		  
-		  If BitAnd(Me.Timestamp, Me.TimestampAbbreviatedDate) > 0 Then
-		    intTimestamps = intTimestamps + 1
-		    SR.Text = SR.Text + objTimestamp.AbbreviatedDate
-		    If intTimestamps > 1 Then SR.Text = " " + SR.Text
-		  End If
-		  
-		  If BitAnd(Me.Timestamp, Me.TimestampLongDate) > 0 Then
-		    intTimestamps = intTimestamps + 1
-		    SR.Text = SR.Text + objTimestamp.LongDate
-		    If intTimestamps > 1 Then SR.Text = " " + SR.Text
-		  End If
-		  
-		  If BitAnd(Me.Timestamp, Me.TimestampShortTime) > 0 Then
-		    intTimestamps = intTimestamps + 1
-		    If BitAnd(Me.Timestamp, Me.TimestampMilitaryTime) <= 0 Then
-		      SR.Text = SR.Text + objTimestamp.ShortTime
-		    Else
-		      SR.Text = SR.Text + Right("00" + Str(objTimestamp.Hour), 2) + ":" + _
-		      Right("00" + Str(objTimestamp.Minute), 2)
-		    End If
-		    If intTimestamps > 1 Then SR.Text = " " + SR.Text
-		  End If
-		  
-		  If BitAnd(Me.Timestamp, Me.TimestampLongTime) > 0 Then
-		    intTimestamps = intTimestamps + 1
-		    If BitAnd(Me.Timestamp, Me.TimestampMilitaryTime) <= 0 Then
-		      SR.Text = SR.Text + objTimestamp.LongTime
-		    Else
-		      SR.Text = SR.Text + Right("00" + Str(objTimestamp.Hour), 2) + ":" + _
-		      Right("00" + Str(objTimestamp.Minute), 2) + ":" + _
-		      Right("00" + Str(objTimestamp.Second), 2)
-		    End If
-		    If intTimestamps > 1 Then SR.Text = " " + SR.Text
-		  End If
-		  
-		  If Me.Timestamp <> Me.TimestampOff And Me.Timestamp <> Me.TimestampMilitaryTime Then
-		    If LenB(SR.Text) > 0 Then
-		      If LeftB(SR.Text, 1) = ChrB(32) Then SR.Text = MidB(SR.Text, 2) // Skip first space.
-		      Me.RTFData.AppendStyleRun(SR)
-		      If Me.RTFField <> Nil Then
-		        Me.RTFField.SelTextFont = SR.Font
-		        Me.RTFField.SelTextSize = SR.Size
-		        Me.RTFField.SelTextColor = SR.TextColor
-		        Me.RTFField.SelText = SR.Text
-		      End If
-		    End If
-		    SR = New StyleRun()
-		    SR.Font = SRFont
-		    SR.Size = SRSize
-		    SR.TextColor = Colors.White
-		    SR.Text = "] "
-		    Me.RTFData.AppendStyleRun(SR)
-		    If Me.RTFField <> Nil Then
-		      Me.RTFField.SelTextFont = SR.Font
-		      Me.RTFField.SelTextSize = SR.Size
-		      Me.RTFField.SelTextColor = SR.TextColor
-		      Me.RTFField.SelText = SR.Text
-		    End If
-		  End If
+		  Me.Container.oChatOutput.ExecuteJavaScript(js)
 		  
 		End Sub
 	#tag EndMethod
@@ -231,14 +46,11 @@ Protected Class Configuration
 	#tag Method, Flags = &h0
 		Sub ClearChat(Silently As Boolean)
 		  
-		  If Me.RTFData = Nil Then Me.RTFData = New StyledText()
-		  Me.RTFData.Text = "" // Clears EVERYTHING including StyleRuns.
+		  Me.Container.oChatOutput.LoadURL("about:blank")
 		  
-		  If Silently = True Then Return
-		  
-		  Me.AddChat(True, Colors.SkyBlue, "Chat screen cleared." + EndOfLine)
-		  
-		  If Me.RTFField <> Nil Then Me.RTFField.StyledText = Me.RTFData
+		  If Silently = False Then
+		    Me.AddChat(True, Colors.SkyBlue, "Chat screen cleared.")
+		  End If
 		  
 		End Sub
 	#tag EndMethod
@@ -248,15 +60,27 @@ Protected Class Configuration
 		  
 		  Me.BNET = New BNETSocket()
 		  Me.BNET.Config = Me
-		  Me.RTFData = New StyledText()
+		  
+		  Me.Container = New ConfigurationContainer()
+		  Me.Container.Config = Me
 		  
 		  Me.CacheChatUnread = False
 		  
-		  Me.CachelstUsers_View_Channel     = MainWindow.lstUsers_View_Channel_Flags
-		  Me.CachelstUsers_View_Friends     = MainWindow.lstUsers_View_Friends_Entry
-		  Me.CachelstUsers_View_Clan        = MainWindow.lstUsers_View_Clan_Rank
-		  Me.CachelstUsers_View_ChannelList = MainWindow.lstUsers_View_ChannelList_Entry
+		  Me.CachelstUsers_View_Channel     = ConfigurationContainer.lstUsers_View_Channel_Flags
+		  Me.CachelstUsers_View_Friends     = ConfigurationContainer.lstUsers_View_Friends_Entry
+		  Me.CachelstUsers_View_Clan        = ConfigurationContainer.lstUsers_View_Clan_Rank
+		  Me.CachelstUsers_View_ChannelList = ConfigurationContainer.lstUsers_View_ChannelList_Entry
 		  Me.CachelstUsers_View             = Me.CachelstUsers_View_Channel
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Destructor()
+		  
+		  Me.BNET.Disconnect()
+		  Me.BNET = Nil
+		  Me.Container = Nil
 		  
 		End Sub
 	#tag EndMethod
@@ -339,6 +163,10 @@ Protected Class Configuration
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		Container As ConfigurationContainer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		CreateAccountsFirst As Boolean
 	#tag EndProperty
 
@@ -388,14 +216,6 @@ Protected Class Configuration
 
 	#tag Property, Flags = &h0
 		ReconnectInterval As UInt32
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		RTFData As StyledText
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		RTFField As TextArea
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
