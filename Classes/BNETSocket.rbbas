@@ -5,15 +5,9 @@ Inherits TCPSocket
 		Sub Connected()
 		  
 		  If Me.Config <> Nil Then
-		    // Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
-		    // not actually touch the ListBox (RectControl) so that it will redraw, so
-		    // I'm using the little cheat:
-		    Dim i As Integer = MainWindow.lstProfiles.DefaultRowHeight
-		    MainWindow.lstProfiles.DefaultRowHeight = 0
-		    MainWindow.lstProfiles.DefaultRowHeight = i
-		    
-		    If MainWindow.IsConfigSelected(Me.Config) = True Then MainWindow.lstUsers_View = MainWindow.lstUsers_View
-		    Me.Config.AddChat(True, Colors.Lime, "BNET: Connected to " + Me.RemoteAddress + "." + EndOfLine)
+		    Globals.ForceRedraw(MainWindow.lstProfiles)
+		    Me.Config.Container.lstUsers_View = Me.Config.Container.lstUsers_View
+		    Me.Config.AddChat(True, Colors.Lime, "BNET: Connected to " + Me.RemoteAddress + ".")
 		  End If
 		  
 		  Me.Initialize()
@@ -49,7 +43,7 @@ Inherits TCPSocket
 		      If Me.ProxyWait = 0 Then
 		        Dim sTmp As String = Left(NthField(Me.Read(1024), " ", 2), 1)
 		        If sTmp = "4" Then
-		          Me.Config.AddChat(True, Colors.Red, "PROXY: HTTP error #4" + Me.Read(2) + "!" + EndOfLine)
+		          Me.Config.AddChat(True, Colors.Red, "PROXY: HTTP error #4" + Me.Read(2) + "!")
 		          Me.Disconnect()
 		        ElseIf sTmp = "2" Then
 		          Me.ProxyWait = 1
@@ -68,20 +62,20 @@ Inherits TCPSocket
 		        #pragma Unused DstPort
 		        Select Case CN
 		        Case 90
-		          Me.Config.AddChat(True, Colors.Lime, "PROXY: Connected to " + DstIP + "." + EndOfLine)
+		          Me.Config.AddChat(True, Colors.Lime, "PROXY: Connected to " + DstIP + ".")
 		          Me.ProxyWait = 1
 		          Packets.SendFirstSIDs(Me)
 		          If Me.BytesAvailable > 0 Then Packets.Receive(Me)
 		        Case 91
-		          Me.Config.AddChat(True, Colors.Red, "PROXY: Request rejected or failed." + EndOfLine)
+		          Me.Config.AddChat(True, Colors.Red, "PROXY: Request rejected or failed.")
 		          Me.Disconnect()
 		        Case 92
 		          Me.Config.AddChat(True, Colors.Red, "PROXY: Request rejected because SOCKS server cannot " _
-		          + "connect to identd on the client." + EndOfLine)
+		          + "connect to identd on the client.")
 		          Me.Disconnect()
 		        Case 93
 		          Me.Config.AddChat(True, Colors.Red, "PROXY: request rejected because the client program " _
-		          + "and identd report different user-ids." + EndOfLine)
+		          + "and identd report different user-ids.")
 		          Me.Disconnect()
 		        End Select
 		      ElseIf Me.ProxyWait = 1 Then
@@ -111,8 +105,8 @@ Inherits TCPSocket
 		  MainWindow.lstProfiles.DefaultRowHeight = i
 		  
 		  If Me.LastErrorCode = Me.LostConnection Then _
-		  Me.Config.AddChat(True, Colors.Red, "BNET: Disconnected." + EndOfLine) Else _
-		  Me.Config.AddChat(True, Colors.Red, "BNET: Disconnected. Socket error #" + Str(Me.LastErrorCode) + "." + EndOfLine)
+		  Me.Config.AddChat(True, Colors.Red, "BNET: Disconnected.") Else _
+		  Me.Config.AddChat(True, Colors.Red, "BNET: Disconnected. Socket error #" + Str(Me.LastErrorCode) + ".")
 		  
 		  If Me.DisconnectAlreadyHandled = False Then Me.DoDisconnect(True)
 		  
@@ -134,7 +128,7 @@ Inherits TCPSocket
 		  
 		  If Me.IsConnected = True Then
 		    
-		    If Me.Config <> Nil Then Me.Config.AddChat(True, Colors.Cyan, "Disconnecting..." + EndOfLine)
+		    If Me.Config <> Nil Then Me.Config.AddChat(True, Colors.Cyan, "Disconnecting...")
 		    Me.DisconnectAlreadyHandled = True
 		    Me.Disconnect()
 		    
@@ -144,7 +138,7 @@ Inherits TCPSocket
 		    
 		  End If
 		  
-		  If Me.Config <> Nil And MainWindow.IsConfigSelected(Me.Config) Then MainWindow.lstUsers_View = MainWindow.lstUsers_View
+		  If Me.Config <> Nil Then Me.Config.Container.lstUsers_View = Me.Config.Container.lstUsers_View
 		  If Me.BNLS <> Nil Then Me.BNLS.Close()
 		  If Me.LogonTimeoutTimer <> Nil Then Me.LogonTimeoutTimer.Enabled = False
 		  
@@ -166,7 +160,7 @@ Inherits TCPSocket
 		  
 		  If Me.IsConnected = True Then
 		    
-		    If Me.Config <> Nil Then Me.Config.AddChat(True, Colors.Cyan, "Reconnecting..." + EndOfLine)
+		    If Me.Config <> Nil Then Me.Config.AddChat(True, Colors.Cyan, "Reconnecting...")
 		    Me.Disconnect()
 		    
 		  End If
@@ -174,10 +168,10 @@ Inherits TCPSocket
 		  If Me.Config <> Nil Then
 		    If Me.Config.ProxyType = Me.Config.ProxyOff Then
 		      Globals.AssignSocketDetails(Me, Me.Config.BNETHost, 6112)
-		      Me.Config.AddChat(True, Colors.Yellow, "BNET: Connecting to " + Me.Address + "..." + EndOfLine)
+		      Me.Config.AddChat(True, Colors.Yellow, "BNET: Connecting to " + Me.Address + "...")
 		    Else
 		      Globals.AssignSocketDetails(Me, Me.Config.ProxyHost, 1080)
-		      Me.Config.AddChat(True, Colors.Yellow, "PROXY: Connecting to " + Me.Address + ":" + Str(Me.Port) + "..." + EndOfLine)
+		      Me.Config.AddChat(True, Colors.Yellow, "PROXY: Connecting to " + Me.Address + ":" + Str(Me.Port) + "...")
 		    End If
 		  End If
 		  
@@ -289,23 +283,23 @@ Inherits TCPSocket
 		  
 		  Select Case Data
 		  Case ChrB(&H01)
-		    Me.Config.AddChat(True, Colors.Yellow, "SEND (PROTOCOL GAME)" + EndOfLine)
+		    Me.Config.AddChat(True, Colors.Yellow, "SEND (PROTOCOL GAME)")
 		  Case ChrB(&H02)
-		    Me.Config.AddChat(True, Colors.Yellow, "SEND (PROTOCOL BNFTP)" + EndOfLine)
+		    Me.Config.AddChat(True, Colors.Yellow, "SEND (PROTOCOL BNFTP)")
 		  Case ChrB(&H03)
-		    Me.Config.AddChat(True, Colors.Yellow, "SEND (PROTOCOL TELNET)" + EndOfLine)
+		    Me.Config.AddChat(True, Colors.Yellow, "SEND (PROTOCOL TELNET)")
 		  Case Else
 		    If Me.Product = Packets.BNETProduct_CHAT Then
 		      If Data = ChrB(&H04) Then
-		        Me.Config.AddChat(True, Colors.Yellow, "SEND (TELNET'S LOGIN BYTE)" + EndOfLine)
+		        Me.Config.AddChat(True, Colors.Yellow, "SEND (TELNET'S LOGIN BYTE)")
 		      Else
 		        For Each Line As String In Split(ReplaceLineEndings(Data, EndOfLine), EndOfLine)
-		          Me.Config.AddChat(True, Colors.Yellow, "SEND " + Line + EndOfLine)
+		          Me.Config.AddChat(True, Colors.Yellow, "SEND " + Line)
 		        Next
 		      End If
 		    ElseIf AscB(MidB(Data, 1, 1)) = &HFF Then
 		      Dim PktID As String = "0x" + Right("00" + Hex(AscB(MidB(Data, 2, 1))), 2)
-		      Me.Config.AddChat(True, Colors.Yellow, "SEND SID_" + PktID + " (Bytes: " + Str(LenB(Data)) + ")" + EndOfLine)
+		      Me.Config.AddChat(True, Colors.Yellow, "SEND SID_" + PktID + " (Bytes: " + Str(LenB(Data)) + ")")
 		    End If
 		  End Select
 		  
@@ -319,14 +313,14 @@ Inherits TCPSocket
 		  Case Nil
 		    
 		  Case Me.LogonTimeoutTimer
-		    Me.Config.AddChat(True, Colors.Orange, "BNET: It is taking longer than usual to logon to the account." + EndOfLine)
-		    Me.Config.AddChat(True, Colors.Orange, "BNET: You may wish to reconnect in 30 minutes." + EndOfLine)
+		    Me.Config.AddChat(True, Colors.Orange, "BNET: It is taking longer than usual to logon to the account.")
+		    Me.Config.AddChat(True, Colors.Orange, "BNET: You may wish to reconnect in 30 minutes.")
 		    
 		  Case Me.ReconnectTimer
 		    ST.Enabled = False
 		    
 		    If Me.IsConnected = False Then
-		      Me.Config.AddChat(True, Colors.Cyan, "Reconnecting..." + EndOfLine)
+		      Me.Config.AddChat(True, Colors.Cyan, "Reconnecting...")
 		      Me.DoConnect()
 		    End If
 		    

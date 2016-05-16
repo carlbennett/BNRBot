@@ -833,6 +833,31 @@ Protected Module Globals
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function FontUnitCSS(fontUnit As FontUnits) As String
+		  
+		  Select Case fontUnit
+		  Case FontUnits.Default
+		    #If TargetMacOS Then
+		      Return "pt"
+		    #ElseIf TargetWin32 Then
+		      Return "px"
+		    #EndIf
+		  Case FontUnits.Pixel
+		    Return "px"
+		  Case FontUnits.Point
+		    Return "pt"
+		  Case FontUnits.Inches
+		    Return "in"
+		  Case fontUnits.Millimeter
+		    Return "mm"
+		  End Select
+		  
+		  Return ""
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Protected Sub ForceRedraw(list As ListBox)
 		  
@@ -1297,6 +1322,14 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function IIf(condition As Boolean, trueValue As Variant, falseValue As Variant) As Variant
+		  
+		  If condition Then Return trueValue Else Return falseValue
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function imgUserIconUnrecognized() As Picture
 		  
 		  Dim Buffer As Picture = New Picture(28, 14, 24)
@@ -1313,352 +1346,6 @@ Protected Module Globals
 		  Return Buffer
 		  
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Sub InternalCommand(Config As Configuration, Text As String)
-		  
-		  If Config = Nil Then Return
-		  
-		  Dim Cmd As String = NthField(Text, " ", 1)
-		  Dim Rest As String = Mid(Text, Len(Cmd + " ") + 1)
-		  
-		  Dim BNETText As String = ""
-		  Dim d As Dictionary
-		  Dim sTmp As String
-		  
-		  Select Case Cmd
-		  Case ""
-		    
-		    Config.AddChat(True, Colors.SkyBlue, "Error - no internal command specified. Type //help for info." + EndOfLine)
-		    
-		  Case "?", "Help"
-		    
-		    Config.AddChat(True, Colors.SkyBlue, App.VersionString() + "'s Internal Commands:" + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //cls  --  Clears this profile's chat log. (Hotkey: F4)" + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //config  --  Opens the configuration dialog. (Hotkey: F3)" + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //disconnect  --  Disconnects this profile from Battle.net. (Hotkey: F2)" + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //exit  --  Disconnects all profiles and closes the bot. (Hotkey: Alt+F4)" + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //fakejoin <game>  --  Makes Battle.net think you entered a <game>." + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //force <channel>  --  Forces you into a <channel>." + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //home  --  Forces you into your home channel, otherwise requests a first-join from Battle.net." + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //leave  --  Forces you out of chat; only friends will be able to chat with you." + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //ping [username]  --  Pings [username] or yourself if [username] omitted." + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //pingme  --  Pings yourself." + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //profile [username] [GAME]  --  Opens a profile dialog for you or [username]." + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //proxy <server[:port]|on|off>  --  Sets the proxy host and/or toggles proxy use." + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //pvpgn [text]  --  Sends //[text] to Battle.net." + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //reconnect  --  Reconnects this profile to Battle.net. (Hotkey: F1)" + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //rejoin  --  Forces you out of then back into the current channel." + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //shrug [message]  --  Types [message] ¯\_(ツ)_/¯ to the chat." + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //time  --  Announces your system's time to the channel." + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //update  --  Checks to see if there are updates to the bot." + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //uptime  --  Announces the uptime of your system, bot, and connection." + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //utf8  --  Toggles UTF-8 encoding for this profile." + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "  //version  --  Announces the version of this bot to the channel." + EndOfLine)
-		    Config.AddChat(True, Colors.SkyBlue, "End of " + App.VersionString() + "'s internal commands." + EndOfLine)
-		    
-		  Case "Cls", "Clearscreen"
-		    
-		    Config.ClearChat(False)
-		    
-		  Case "Configuration", "Config"
-		    
-		    ConfigWindow.Show()
-		    
-		  Case "Disconnect", "Disc", "Dc"
-		    
-		    If Config.BNET <> Nil Then Config.BNET.DoDisconnect()
-		    
-		  Case "Exit", "Quit"
-		    
-		    Quit(0)
-		    
-		  Case "Fakejoin", "Fakegame"
-		    
-		    If Config.BNET <> Nil And Config.BNET.IsConnected = True And LenB(Config.BNET.UniqueName) > 0 Then
-		      If LenB(Rest) > 0 Then
-		        Config.BNET.Send(Packets.CreateSID_LEAVECHAT() + _
-		        Packets.CreateSID_NOTIFYJOIN(Config.BNET.Product, Config.BNET.VersionByte, _
-		        Rest, ""))
-		        Config.BNET.ReturnChannel = Config.BNET.ChannelName
-		        Config.BNET.ChannelName = ""
-		        Config.BNET.ChannelFlags = 0
-		        Config.BNET.ChannelUsers.Clear()
-		        If MainWindow.IsConfigSelected(Config) = True Then MainWindow.lstUsers_View = MainWindow.lstUsers_View
-		        Config.AddChat(True, Colors.SkyBlue, "Sent a fake joined game to Battle.net. Type /whoami for info." + EndOfLine)
-		      Else
-		        Config.AddChat(True, Colors.SkyBlue, "Error - that command requires its game name parameter." + EndOfLine)
-		      End If
-		    Else
-		      BNETText = " "
-		    End If
-		    
-		  Case "Force"
-		    
-		    If Config.BNET <> Nil And Config.BNET.IsConnected = True And LenB(Config.BNET.UniqueName) > 0 Then
-		      If LenB(Config.BNET.ChannelName) < 1 Then Config.BNET.ReturnChannel = ""
-		      Config.BNET.Send(Packets.CreateSID_JOINCHANNEL(&H2, Rest))
-		    Else
-		      BNETText = " "
-		    End If
-		    
-		  Case "Home", "HomeChannel"
-		    
-		    If Config.BNET <> Nil And Config.BNET.IsConnected = True Then
-		      If LenB(Config.HomeChannel) > 0 Then
-		        Config.BNET.Send(Packets.CreateSID_JOINCHANNEL(&H2, Config.HomeChannel))
-		      ElseIf IsDiabloII(Config.BNET.Product) = True Then
-		        Config.BNET.Send(Packets.CreateSID_JOINCHANNEL(&H5, ProductName(Config.BNET.Product, True)))
-		      Else
-		        Config.BNET.Send(Packets.CreateSID_JOINCHANNEL(&H1, ProductName(Config.BNET.Product, True)))
-		      End If
-		    Else
-		      BNETText = " "
-		    End If
-		    
-		  Case "Leave"
-		    
-		    If Config.BNET <> Nil And Config.BNET.IsConnected = True And LenB(Config.BNET.UniqueName) > 0 Then
-		      Config.BNET.Send(Packets.CreateSID_LEAVECHAT())
-		      Config.BNET.ReturnChannel = Config.BNET.ChannelName
-		      Config.BNET.ChannelName = ""
-		      Config.BNET.ChannelFlags = 0
-		      Config.BNET.ChannelUsers.Clear()
-		      If MainWindow.IsConfigSelected(Config) = True Then MainWindow.lstUsers_View = MainWindow.lstUsers_View
-		      Config.AddChat(True, Colors.SkyBlue, "You are no longer in a channel. " _
-		      + "Type //rejoin to re-enter your last channel." + EndOfLine)
-		    Else
-		      BNETText = " "
-		    End If
-		    
-		  Case "Ping"
-		    
-		    If Config.BNET <> Nil And Config.BNET.IsConnected = True And LenB(Config.BNET.UniqueName) > 0 Then
-		      BNETText = NthField(Rest, " ", 1)
-		      If Len(BNETText) < 1 Then BNETText = Config.BNET.UniqueName
-		      d = Config.BNET.ChannelUsers.Lookup(BNETText, Nil)
-		      If d = Nil Then
-		        If BNETText = Config.BNET.UniqueName Then
-		          Config.AddChat(True, Colors.SkyBlue, "I cannot find your name in the channel." + EndOfLine)
-		        Else
-		          Config.AddChat(True, Colors.SkyBlue, "I cannot find that name in the channel." + EndOfLine)
-		        End If
-		        BNETText = ""
-		      Else
-		        If d.Value("Username").StringValue = Config.BNET.UniqueName Then BNETText = "My" _
-		    Else BNETText = d.Value("Username").StringValue + "'s"
-		      BNETText = BNETText + " ping is " + Str(d.Value("Ping").IntegerValue) + "ms"
-		      If BitAnd(d.Value("Flags").IntegerValue, &H10) > 0 Then
-		        BNETText = BNETText + " and "
-		        If d.Value("Username").StringValue = Config.BNET.UniqueName Then BNETText = BNETText + "I" _
-		      Else BNETText = BNETText + "they"
-		        BNETText = BNETText + " have no UDP support"
-		      End If
-		      BNETText = BNETText + "."
-		    End If
-		  Else
-		    BNETText = " "
-		  End If
-		  
-		  Case "PingMe"
-		    
-		    If Config.BNET <> Nil And Config.BNET.IsConnected = True And LenB(Config.BNET.UniqueName) > 0 Then
-		      d = Config.BNET.ChannelUsers.Lookup(Config.BNET.UniqueName, Nil)
-		      If d = Nil Then
-		        Config.AddChat(True, Colors.SkyBlue, "I cannot find your name in the channel." + EndOfLine)
-		        BNETText = ""
-		      Else
-		        BNETText = "My ping is " + Str(d.Value("Ping").IntegerValue) + "ms"
-		        If BitAnd(d.Value("Flags").IntegerValue, &H10) > 0 Then BNETText = BNETText + " and I have no UDP support"
-		        BNETText = BNETText + "."
-		      End If
-		    Else
-		      BNETText = " "
-		    End If
-		    
-		  Case "Profile"
-		    
-		    // Reusing BNETText as a variable here, we will clear it at the end.
-		    
-		    BNETText = NthField(Rest, " ", 1)
-		    sTmp = NthField(Rest, " ", 2)
-		    If Len(BNETText) < 1 Then BNETText = Config.BNET.AccountName
-		    If Len(sTmp) < 1 Then sTmp = MemClass.WriteDWORD(Config.BNET.Product, False)
-		    Select Case sTmp
-		    Case "STAR", "SEXP", "JSTR", "SSHR", _
-		      "DRTL", "DSHR", "D2DV", "D2XP", _
-		      "W2BN", "WAR3", "W3DM", "W3XP", _
-		      "CHAT"
-		      sTmp = Uppercase(sTmp)
-		    Case "RATS", "PXES", "RTSJ", "RHSS", _
-		      "LTRD", "RHSD", "VD2D", "PX2D", _
-		      "NB2W", "3RAW", "MD3W", "PX3W", _
-		      "TAHC"
-		      sTmp = Uppercase(MemClass.WriteDWORD(MemClass.ReadDWORD(sTmp, 1, True), False))
-		    End Select
-		    Config.BNET.ViewProfile(BNETText, MemClass.ReadDWORD(sTmp, 1, False))
-		    
-		    If Config.BNET <> Nil And Config.BNET.IsConnected = True And LenB(Config.BNET.UniqueName) > 0 Then _
-		    BNETText = "" Else BNETText = " "
-		    
-		  Case "Proxy"
-		    
-		    For Each sTmp In Split(Rest, " ")
-		      If Globals.SBoolCheck(sTmp) = True And Globals.SBool(sTmp) = False Then
-		        Config.ProxyType = Configuration.ProxyOff
-		      Else
-		        Select Case sTmp
-		        Case "http", "web"
-		          Config.ProxyType = Configuration.ProxyHTTP
-		        Case "socks4", "socks"
-		          Config.ProxyType = Configuration.ProxySOCKS4
-		        Case "socks5"
-		          Config.ProxyType = Configuration.ProxySOCKS5
-		        Case Else
-		          Config.ProxyHost = sTmp
-		        End Select
-		      End If
-		    Next
-		    
-		    If Config.BNET <> Nil And Config.BNET.IsConnected = True And LenB(Config.BNET.UniqueName) > 0 Then
-		      
-		      BNETText = "Proxy support is now "
-		      Select Case Config.ProxyType
-		      Case Configuration.ProxyOff
-		        BNETText = BNETText + "disabled."
-		      Case Configuration.ProxyHTTP
-		        BNETText = BNETText + "enabled over http."
-		      Case Configuration.ProxySOCKS4
-		        BNETText = BNETText + "enabled over SOCKS v4."
-		      Case Configuration.ProxySOCKS5
-		        BNETText = BNETText + "enabled over SOCKS v5."
-		      End Select
-		      
-		    Else
-		      
-		      BNETText = "Proxy support is now "
-		      Select Case Config.ProxyType
-		      Case Configuration.ProxyOff
-		        BNETText = BNETText + "disabled."
-		      Case Configuration.ProxyHTTP
-		        BNETText = BNETText + "enabled over http. Host: " + Config.ProxyHost
-		      Case Configuration.ProxySOCKS4
-		        BNETText = BNETText + "enabled over SOCKS v4. Host: " + Config.ProxyHost
-		      Case Configuration.ProxySOCKS5
-		        BNETText = BNETText + "enabled over SOCKS v5. Host: " + Config.ProxyHost
-		      End Select
-		      
-		      Config.AddChat(True, Colors.SkyBlue, BNETText + EndOfLine)
-		      BNETText = ""
-		      
-		    End If
-		    
-		  Case "PvPGN"
-		    
-		    BNETText = "//" + Rest
-		    
-		  Case "Reconnect", "Rc"
-		    
-		    If Config.BNET <> Nil Then Config.BNET.DoReconnect()
-		    
-		  Case "Rejoin", "Rj"
-		    
-		    If Config.BNET <> Nil And Config.BNET.IsConnected = True And LenB(Config.BNET.UniqueName) > 0 Then
-		      If LenB(Config.BNET.ChannelName) < 1 And LenB(Config.BNET.ReturnChannel) > 0 Then
-		        Config.BNET.Send(Packets.CreateSID_JOINCHANNEL(&H2, Config.BNET.ReturnChannel))
-		      Else
-		        Config.BNET.Send(Packets.CreateSID_LEAVECHAT() + Packets.CreateSID_JOINCHANNEL(&H2, Config.BNET.ChannelName))
-		      End If
-		    Else
-		      BNETText = " "
-		    End If
-		    
-		  Case "Shrug"
-		    
-		    BNETText = "¯\_(ツ)_/¯"
-		    If Len(Rest) > 0 Then BNETText = Rest + " " + BNETText
-		    
-		  Case "Time", "Today", "Date"
-		    
-		    Dim Timestamp As New Date()
-		    BNETText = "It is currently " + Timestamp.LongTime() + " (GMT"
-		    If Timestamp.GMTOffset >= 0 Then BNETText = BNETText + "+"
-		    BNETText = BNETText + Str(Timestamp.GMTOffset) + ") on " + Timestamp.LongDate() + "."
-		    
-		  Case "Update", "UpdateCheck"
-		    
-		    Dim w As New UpdateWindow()
-		    w.StepTransition(UpdateWindow.STEP_CHECK)
-		    w.ShowModalWithin(MainWindow)
-		    
-		  Case "Uptime"
-		    
-		    If Config.BNET <> Nil And Config.BNET.IsConnected = True And LenB(Config.BNET.UniqueName) > 0 Then
-		      
-		      BNETText = "System [" + _
-		      Globals.TimeString(Microseconds() / 1000000, False, True) + "] "
-		      BNETText = BNETText + "Bot [" + _
-		      Globals.TimeString((Microseconds() - Globals.TimeStarted) / 1000000, False, True) + "] "
-		      BNETText = BNETText + "Connection [" + _
-		      Globals.TimeString((Microseconds() - Config.BNET.ConnectionTime) / 1000000, False, True) + "]"
-		      
-		    Else
-		      
-		      Config.AddChat(True, Colors.SkyBlue, "System [" + _
-		      Globals.TimeString(Microseconds() / 1000000, False, True) + "]" + EndOfLine)
-		      Config.AddChat(True, Colors.SkyBlue, "Bot [" + _
-		      Globals.TimeString((Microseconds() - Globals.TimeStarted) / 1000000, False, True) + "]" + EndOfLine)
-		      Config.AddChat(True, Colors.SkyBlue, "Connection [" + _
-		      Globals.TimeString((Microseconds() - Config.BNET.ConnectionTime) / 1000000, False, True) + "]" + EndOfLine)
-		      
-		    End If
-		    
-		  Case "UTF8", "UTF-8"
-		    
-		    Config.EnableUTF8 = Not Config.EnableUTF8
-		    
-		    If Config.EnableUTF8 = False Then _
-		    Config.AddChat(True, Colors.SkyBlue, "UTF-8 encoded chat is now disabled." + EndOfLine) Else _
-		    Config.AddChat(True, Colors.SkyBlue, "UTF-8 encoded chat is now enabled." + EndOfLine)
-		    
-		  Case "Version", "Ver", "About"
-		    
-		    If Config.BNET <> Nil And Config.BNET.IsConnected = True And LenB(Config.BNET.UniqueName) > 0 Then
-		      BNETText = "/me is using " + App.VersionString() + " by Jailout2000"
-		    Else
-		      Config.AddChat(True, Colors.SkyBlue, "You are using " + App.VersionString() + " by Jailout2000." + EndOfLine)
-		    End If
-		    
-		  Case Else
-		    Config.AddChat(True, Colors.SkyBlue, "Error - unrecognized internal command. Type //help for info." + EndOfLine)
-		    
-		  End Select
-		  
-		  // Reply to Battle.net:
-		  
-		  If LenB(BNETText) > 0 Then
-		    If Config.BNET <> Nil And Config.BNET.IsConnected = True And LenB(Config.BNET.UniqueName) > 0 Then
-		      
-		      If LeftB(BNETText, 1) <> "/" Then
-		        Config.AddChat(True, Colors.Cyan, "<" + Config.BNET.UniqueName + "> ")
-		        Config.AddChat(False, Colors.White, BNETText + EndOfLine)
-		      End If
-		      
-		      If Config.EnableUTF8 = False Then
-		        Config.BNET.Send(Packets.CreateSID_CHATCOMMAND(BNETText))
-		      Else
-		        Config.BNET.Send(Packets.CreateSID_CHATCOMMAND(ConvertEncoding(BNETText, Encodings.UTF8)))
-		      End If
-		      
-		    Else
-		      
-		      Config.AddChat(True, Colors.SkyBlue, "Error - not logged on to Battle.net to be able to send that." + EndOfLine)
-		      
-		    End If
-		  End If
-		  
-		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -2227,6 +1914,40 @@ Protected Module Globals
 		  w.ShowModal()
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StringToJSON(value As String) As String
+		  
+		  Dim i, a, valueLen As Integer, c, json As String
+		  
+		  i = 1
+		  valueLen = Len(value)
+		  
+		  While i <= valueLen
+		    c = Mid(value, i, 1)
+		    a = Asc(c)
+		    If a = 9 Then
+		      json = json + "\t"
+		    ElseIf a = 10 Then
+		      json = json + "\n"
+		    ElseIf a = 13 Then
+		      json = json + "\r"
+		    ElseIf a >= 0 And a <= 31 Then
+		      json = json + "\u" + Lowercase(Right("0000" + Hex(a), 4))
+		    ElseIf a = 34 Then
+		      json = json + "\"""
+		    ElseIf a = 92 Then
+		      json = json + "\\"
+		    Else
+		      json = json + c
+		    End If
+		    i = i + 1
+		  Wend
+		  
+		  Return """" + json + """"
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
