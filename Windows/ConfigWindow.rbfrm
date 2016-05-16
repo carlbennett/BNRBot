@@ -1,5 +1,5 @@
 #tag Window
-Begin Window ConfigWindow
+Begin BotWindow ConfigWindow
    BackColor       =   "#Colors.UI.WindowBackColor"
    Backdrop        =   ""
    CloseButton     =   True
@@ -184,7 +184,6 @@ Begin Window ConfigWindow
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Value           =   2
       Visible         =   True
@@ -211,7 +210,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   1
-         TabStop         =   True
          Text            =   "Welcome to BNRBot's configuration!\r\n--\r\n\r\nPlease use the list on the far left to switch between each respective page. I've tried to create the bot to be as easy to use as possible without much understanding of how and why.\r\n\r\nIf you have an issue with something or don't know what something is, it's usually best to leave it alone until you find out what it does specifically. In most cases, someone else will be able to tell you what it probably does.\r\n\r\nTo create new profiles, click the respective button below all of this text.\r\n\r\nWhen a profile is changed, some specific data (such as your username) will not take affect until the Battle.net connection is reconnected. However, most data will take affect immediately (such as join/leave messages).\r\n\r\nWARNING: All changes are final and get saved immediately to memory. However, they will not be saved to disk until this window closes.\r\n"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -246,7 +244,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Profile Name:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -281,7 +278,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Username:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -316,7 +312,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Password:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -351,7 +346,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   6
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Server:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -384,9 +378,8 @@ Begin Window ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   9
+         TabIndex        =   12
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "BNLS:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -419,7 +412,7 @@ Begin Window ConfigWindow
          LockTop         =   True
          Scope           =   0
          State           =   0
-         TabIndex        =   10
+         TabIndex        =   13
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "Arial"
@@ -453,7 +446,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   16
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Product:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -488,7 +480,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   18
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Version Byte:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -587,7 +578,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   32
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Timestamp:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -622,7 +612,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   30
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Home Channel:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -657,7 +646,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   28
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "E-mail Address:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -692,7 +680,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   26
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "CD-Key Owner:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -727,7 +714,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   24
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "CD-Key Exp.:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -762,7 +748,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   21
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "CD-Key:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -797,7 +782,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   53
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "(Debug: Verbose all packets sent/received.)"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -832,7 +816,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   43
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Automatically rejoin channels you get kicked from."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -1274,7 +1257,7 @@ Begin Window ConfigWindow
          Password        =   ""
          ReadOnly        =   ""
          Scope           =   0
-         TabIndex        =   11
+         TabIndex        =   14
          TabPanelIndex   =   3
          TabStop         =   True
          Text            =   ""
@@ -1556,7 +1539,7 @@ Begin Window ConfigWindow
          LockTop         =   True
          Scope           =   0
          State           =   0
-         TabIndex        =   12
+         TabIndex        =   15
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "Arial"
@@ -1622,7 +1605,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   35
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Show join and leave messages for users in chat."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -1689,7 +1671,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   49
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Enable UTF-8 encoding on chat messages."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -1756,7 +1737,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Check for updates at startup."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -1823,7 +1803,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Minimize main window to tray."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -1858,7 +1837,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   11
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "* Right-click the list for options (such as adding and removing)."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2004,7 +1982,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Ping Ranges:  (for displaying user pings)"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2071,7 +2048,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   10
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Flush bars to the right"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2138,7 +2114,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   51
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Enable UDP packet support."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2205,7 +2180,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   39
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Enable spam prevention."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2272,7 +2246,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   41
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Ignore ban/kick/unban information from Battle.net."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2339,7 +2312,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   45
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Ask for confirmation when removing clan members."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2406,7 +2378,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   47
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Attempt to create the account before any logon attempt."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2473,7 +2444,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   37
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Show user flag changes in chat."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2488,7 +2458,6 @@ Begin Window ConfigWindow
       End
       Begin TCPSocket VerByteSocket
          Address         =   ""
-         Enabled         =   True
          Height          =   32
          Index           =   -2147483648
          InitialParent   =   "Pages"
@@ -2496,11 +2465,8 @@ Begin Window ConfigWindow
          LockedInPosition=   False
          Port            =   9367
          Scope           =   0
-         TabIndex        =   63
          TabPanelIndex   =   3
-         TabStop         =   True
          Top             =   397
-         Visible         =   True
          Width           =   32
       End
       Begin Label txtJunk
@@ -2525,7 +2491,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   12
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Message Blacklist:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2609,7 +2574,6 @@ Begin Window ConfigWindow
          Selectable      =   False
          TabIndex        =   15
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "* Right-click the list for options (such as adding and removing)."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2682,7 +2646,7 @@ Begin Window ConfigWindow
          Password        =   ""
          ReadOnly        =   ""
          Scope           =   0
-         TabIndex        =   54
+         TabIndex        =   10
          TabPanelIndex   =   3
          TabStop         =   True
          Text            =   ""
@@ -2716,9 +2680,8 @@ Begin Window ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   55
+         TabIndex        =   9
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Reconnect After:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2751,9 +2714,8 @@ Begin Window ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   56
+         TabIndex        =   11
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "milliseconds"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2803,15 +2765,6 @@ End
 	#tag EndEvent
 
 	#tag Event
-		Sub Maximize()
-		  
-		  Self.Refresh(True)
-		  Self.DrawBorders()
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
 		Sub Open()
 		  
 		  Globals.ConfigWindow_Open = True
@@ -2823,79 +2776,6 @@ End
 		End Sub
 	#tag EndEvent
 
-	#tag Event
-		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
-		  
-		  #pragma Unused g
-		  #pragma Unused areas
-		  
-		  Self.DrawBorders()
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Resized()
-		  
-		  Self.Refresh(True)
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Resizing()
-		  
-		  Self.Refresh(True)
-		  Self.DrawBorders()
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Restore()
-		  
-		  Self.Refresh(True)
-		  Self.DrawBorders()
-		  
-		End Sub
-	#tag EndEvent
-
-
-	#tag Method, Flags = &h0
-		Sub DrawBorders()
-		  
-		  Dim RC As RectControl
-		  Dim g As Graphics = Self.Graphics
-		  Dim X, Y, W, H As Integer
-		  
-		  Dim i As Integer = 0
-		  While i < Me.ControlCount
-		    If Me.Control(i) IsA RectControl Then
-		      
-		      RC = RectControl(Me.Control(i))
-		      X = RC.Left
-		      Y = RC.Top
-		      W = RC.Width
-		      H = RC.Height
-		      
-		      If (RC IsA TextArea Or RC IsA TextField Or RC IsA ListBox) And RC.Visible = True And _
-		        (RC.PanelIndex = Pages.Value Or RC.PanelIndex = -1) Then
-		        g.ForeColor = Colors.UI.ControlBorderColor
-		        
-		        g.DrawLine(X + W, Y - 1, X + W, Y + H) // Right
-		        If RC <> Me.lstCategories Then
-		          g.DrawLine(X - 1, Y - 1, X - 1, Y + H) // Left
-		          g.DrawLine(X - 1, Y - 1, X + W, Y - 1) // Top
-		          g.DrawLine(X - 1, Y + H, X + W, Y + H) // Bottom
-		        End If
-		        
-		      End If
-		    End If
-		    i = i + 1
-		  Wend
-		  
-		End Sub
-	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub Reload()
@@ -3022,6 +2902,20 @@ End
 		Sub Change()
 		  
 		  If Me.ListIndex = -1 Then Pages.Value = 0 Else Pages.Value = Val(Me.Cell(Me.ListIndex, 1))
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
@@ -3376,6 +3270,20 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events fldHomeChannel
 	#tag Event
@@ -3386,6 +3294,20 @@ End
 		  Dim Config As Configuration = Settings.Configurations(Index)
 		  
 		  Config.HomeChannel = Me.Text
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
@@ -3402,6 +3324,20 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events fldCDKeyOwner
 	#tag Event
@@ -3412,6 +3348,20 @@ End
 		  Dim Config As Configuration = Settings.Configurations(Index)
 		  
 		  Config.CDKeyOwner = Me.Text
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
@@ -3428,6 +3378,20 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events fldCDKey
 	#tag Event
@@ -3438,6 +3402,20 @@ End
 		  Dim Config As Configuration = Settings.Configurations(Index)
 		  
 		  Config.CDKey = Me.Text
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
@@ -3457,6 +3435,8 @@ End
 	#tag Event
 		Sub LostFocus()
 		  
+		  Self.Refresh(False)
+		  
 		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
 		  Dim Config As Configuration = Settings.Configurations(Index)
@@ -3474,6 +3454,13 @@ End
 		  
 		  Me.Text = Buffer
 		  Config.VersionByte = Val(Buffer)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
@@ -3557,6 +3544,20 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events fldBNLS
 	#tag Event
@@ -3570,6 +3571,20 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events fldBNET
 	#tag Event
@@ -3580,6 +3595,20 @@ End
 		  Dim Config As Configuration = Settings.Configurations(Index)
 		  
 		  Config.BNETHost = Me.Text
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
@@ -3599,6 +3628,8 @@ End
 	#tag Event
 		Sub LostFocus()
 		  
+		  Self.Refresh(False)
+		  
 		  Dim Warnings As String = ""
 		  
 		  If LenB(Me.Text) < 1 Then _
@@ -3612,6 +3643,13 @@ End
 		  "a password of at least 1 character and no more than 32 characters." + EndOfLine + EndOfLine
 		  
 		  If Len(Warnings) > 0 Then MsgBox(Warnings + "You may continue at your own risk.")
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
@@ -3630,6 +3668,8 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub LostFocus()
+		  
+		  Self.Refresh(False)
 		  
 		  Dim Warnings As String = ""
 		  
@@ -3652,6 +3692,13 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events fldProfileName
 	#tag Event
@@ -3671,6 +3718,20 @@ End
 		  If i < MainWindow.lstProfiles.ListCount Then MainWindow.lstProfiles.Cell(i, 0) = Me.Text
 		  
 		  Config.Name = Me.Text
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
@@ -4237,6 +4298,20 @@ End
 		    
 		End Function
 	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events chkPingRangesFlushRight
 	#tag Event
@@ -4664,6 +4739,20 @@ End
 		  
 		End Function
 	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events btnApplyMessageBlacklist
 	#tag Event
@@ -4691,6 +4780,8 @@ End
 	#tag Event
 		Sub LostFocus()
 		  
+		  Self.Refresh(False)
+		  
 		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
 		  Dim Config As Configuration = Settings.Configurations(Index)
@@ -4712,6 +4803,13 @@ End
 		  Config.ReconnectInterval = Val(Buffer)
 		  If Config.BNET <> Nil And Config.BNET.ReconnectTimer <> Nil Then _
 		  Config.BNET.ReconnectTimer.Period = Config.ReconnectInterval
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent

@@ -23,7 +23,7 @@ Begin Window UpdateWindow
    Resizeable      =   False
    Title           =   "BNRBot Update Check"
    Visible         =   True
-   Width           =   4.0e+2
+   Width           =   400
    Begin Label uiStatus
       AutoDeactivate  =   True
       Bold            =   True
@@ -46,7 +46,6 @@ Begin Window UpdateWindow
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "%status%"
       TextAlign       =   0
       TextColor       =   "#Colors.Black"
@@ -74,9 +73,7 @@ Begin Window UpdateWindow
       LockTop         =   True
       Maximum         =   0
       Scope           =   0
-      TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   38
       Value           =   0
       Visible         =   True
@@ -135,7 +132,6 @@ Begin Window UpdateWindow
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "%substatus%"
       TextAlign       =   0
       TextColor       =   "#Colors.Black"
@@ -153,22 +149,17 @@ Begin Window UpdateWindow
       CertificatePassword=   ""
       CertificateRejectionFile=   ""
       ConnectionType  =   3
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   368
       LockedInPosition=   False
       Scope           =   0
       Secure          =   True
-      TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
-      Visible         =   True
       Width           =   32
    End
    Begin Timer TransitionTimer
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   336
@@ -176,11 +167,8 @@ Begin Window UpdateWindow
       Mode            =   0
       Period          =   1000
       Scope           =   0
-      TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
-      Visible         =   True
       Width           =   32
    End
    Begin PushButton uiCancelAction

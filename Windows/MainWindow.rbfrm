@@ -1,5 +1,5 @@
 #tag Window
-Begin Window MainWindow
+Begin BotWindow MainWindow
    BackColor       =   "#Colors.UI.WindowBackColor"
    Backdrop        =   ""
    CloseButton     =   True
@@ -171,7 +171,6 @@ Begin Window MainWindow
       Width           =   400
    End
    Begin Timer lstUsersTimer
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   -32
@@ -179,11 +178,8 @@ Begin Window MainWindow
       Mode            =   0
       Period          =   75
       Scope           =   0
-      TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
-      Visible         =   True
       Width           =   32
    End
    Begin TextArea fldInput
@@ -253,46 +249,10 @@ Begin Window MainWindow
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   13
       TopLeftColor    =   "#Colors.UI.ControlBorderColor"
       Visible         =   True
       Width           =   212
-   End
-   Begin Label txtChannel
-      AutoDeactivate  =   True
-      Bold            =   ""
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   17
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   576
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      Multiline       =   ""
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   8
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Offline"
-      TextAlign       =   1
-      TextColor       =   "#Colors.UI.ControlTextColor"
-      TextFont        =   "Arial"
-      TextSize        =   12
-      TextUnit        =   0
-      Top             =   14
-      Transparent     =   True
-      Underline       =   ""
-      Visible         =   True
-      Width           =   210
    End
    Begin UIButton btnChannelView
       AcceptFocus     =   True
@@ -408,6 +368,40 @@ Begin Window MainWindow
       Visible         =   True
       Width           =   70
    End
+   Begin Label txtChannel
+      AutoDeactivate  =   True
+      Bold            =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   17
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   576
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   ""
+      Scope           =   0
+      Selectable      =   True
+      TabIndex        =   8
+      TabPanelIndex   =   0
+      Text            =   "Offline"
+      TextAlign       =   1
+      TextColor       =   "#Colors.UI.ControlTextColor"
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   14
+      Transparent     =   True
+      Underline       =   ""
+      Visible         =   True
+      Width           =   210
+   End
 End
 #tag EndWindow
 
@@ -450,14 +444,6 @@ End
 	#tag EndEvent
 
 	#tag Event
-		Sub Maximize()
-		  
-		  Self.Refresh(True)
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
 		Sub Minimize()
 		  
 		  Self.mMinimized = True
@@ -477,66 +463,9 @@ End
 	#tag EndEvent
 
 	#tag Event
-		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
-		  
-		  #pragma Unused areas
-		  
-		  Dim RC As RectControl
-		  Dim X, Y, W, H As Integer
-		  
-		  Dim i As Integer = 0
-		  While i < Me.ControlCount
-		    If Me.Control(i) IsA RectControl Then
-		      
-		      RC = RectControl(Me.Control(i))
-		      X = RC.Left
-		      Y = RC.Top
-		      W = RC.Width
-		      H = RC.Height
-		      
-		      If (RC IsA TextArea Or RC IsA TextField Or RC IsA ListBox) And RC.Visible = True Then
-		        If Me.Focus = RC Then
-		          g.ForeColor = Colors.UI.ListSelectionColor
-		        Else
-		          g.ForeColor = Colors.UI.ControlBorderColor
-		        End If
-		        
-		        g.DrawLine(X + W, Y - 1, X + W, Y + H) // Right
-		        If RC <> Me.lstProfiles Then
-		          g.DrawLine(X - 1, Y - 1, X - 1, Y + H) // Left
-		          g.DrawLine(X - 1, Y - 1, X + W, Y - 1) // Top
-		          g.DrawLine(X - 1, Y + H, X + W, Y + H) // Bottom
-		        End If
-		        
-		      End If
-		    End If
-		    i = i + 1
-		  Wend
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Resized()
-		  
-		  Self.Refresh(True)
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Resizing()
-		  
-		  Self.Refresh(True)
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
 		Sub Restore()
 		  
 		  Self.mMinimized = False
-		  Self.Refresh(True)
 		  
 		End Sub
 	#tag EndEvent
@@ -2574,6 +2503,45 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events btnChannelView
+	#tag Event
+		Sub Action()
+		  
+		  Dim Config As Configuration
+		  If Self.SelectedConfig >= 0 And Self.SelectedConfig <= UBound(Settings.Configurations) _
+		    Then Config = Settings.Configurations(Self.SelectedConfig) Else Config = Nil
+		    
+		    If Config <> Nil Then Self.lstUsers_View = Config.CachelstUsers_View_Channel
+		    
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnFriendsView
+	#tag Event
+		Sub Action()
+		  
+		  Dim Config As Configuration
+		  If Self.SelectedConfig >= 0 And Self.SelectedConfig <= UBound(Settings.Configurations) _
+		    Then Config = Settings.Configurations(Self.SelectedConfig) Else Config = Nil
+		    
+		    If Config <> Nil Then Self.lstUsers_View = Config.CachelstUsers_View_Friends
+		    
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnClanView
+	#tag Event
+		Sub Action()
+		  
+		  Dim Config As Configuration
+		  If Self.SelectedConfig >= 0 And Self.SelectedConfig <= UBound(Settings.Configurations) _
+		    Then Config = Settings.Configurations(Self.SelectedConfig) Else Config = Nil
+		    
+		    If Config <> Nil Then Self.lstUsers_View = Config.CachelstUsers_View_Clan
+		    
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events txtChannel
 	#tag Event
 		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
@@ -2619,44 +2587,5 @@ End
 		    Return True
 		    
 		End Function
-	#tag EndEvent
-#tag EndEvents
-#tag Events btnChannelView
-	#tag Event
-		Sub Action()
-		  
-		  Dim Config As Configuration
-		  If Self.SelectedConfig >= 0 And Self.SelectedConfig <= UBound(Settings.Configurations) _
-		    Then Config = Settings.Configurations(Self.SelectedConfig) Else Config = Nil
-		    
-		    If Config <> Nil Then Self.lstUsers_View = Config.CachelstUsers_View_Channel
-		    
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events btnFriendsView
-	#tag Event
-		Sub Action()
-		  
-		  Dim Config As Configuration
-		  If Self.SelectedConfig >= 0 And Self.SelectedConfig <= UBound(Settings.Configurations) _
-		    Then Config = Settings.Configurations(Self.SelectedConfig) Else Config = Nil
-		    
-		    If Config <> Nil Then Self.lstUsers_View = Config.CachelstUsers_View_Friends
-		    
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events btnClanView
-	#tag Event
-		Sub Action()
-		  
-		  Dim Config As Configuration
-		  If Self.SelectedConfig >= 0 And Self.SelectedConfig <= UBound(Settings.Configurations) _
-		    Then Config = Settings.Configurations(Self.SelectedConfig) Else Config = Nil
-		    
-		    If Config <> Nil Then Self.lstUsers_View = Config.CachelstUsers_View_Clan
-		    
-		End Sub
 	#tag EndEvent
 #tag EndEvents

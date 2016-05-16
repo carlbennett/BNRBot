@@ -1,5 +1,5 @@
 #tag Window
-Begin Window ClanMemberInfoWindow
+Begin BotWindow ClanMemberInfoWindow
    BackColor       =   "#Colors.UI.WindowBackColor"
    Backdrop        =   ""
    CloseButton     =   True
@@ -93,7 +93,6 @@ Begin Window ClanMemberInfoWindow
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Username:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -128,7 +127,6 @@ Begin Window ClanMemberInfoWindow
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Clan Tag:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -257,7 +255,6 @@ Begin Window ClanMemberInfoWindow
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Clan Name:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -370,7 +367,6 @@ Begin Window ClanMemberInfoWindow
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Clan Rank:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -452,7 +448,6 @@ Begin Window ClanMemberInfoWindow
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Date Joined:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -469,91 +464,93 @@ End
 #tag EndWindow
 
 #tag WindowCode
-	#tag Event
-		Sub Maximize()
-		  
-		  Self.Refresh(True)
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
-		  
-		  #pragma Unused g
-		  #pragma Unused areas
-		  
-		  Self.DrawBorders()
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Resized()
-		  
-		  Self.Refresh(True)
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Resizing()
-		  
-		  Self.Refresh(True)
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Restore()
-		  
-		  Self.Refresh(True)
-		  
-		End Sub
-	#tag EndEvent
-
-
-	#tag Method, Flags = &h0
-		Sub DrawBorders()
-		  
-		  Dim RC As RectControl
-		  Dim g As Graphics = Self.Graphics
-		  Dim X, Y, W, H As Integer
-		  
-		  Dim i As Integer = 0
-		  While i < Me.ControlCount
-		    If Me.Control(i) IsA RectControl Then
-		      
-		      RC = RectControl(Me.Control(i))
-		      X = RC.Left
-		      Y = RC.Top
-		      W = RC.Width
-		      H = RC.Height
-		      
-		      If (RC IsA TextArea Or RC IsA TextField Or RC IsA ListBox) And RC.Visible = True Then
-		        g.ForeColor = Colors.UI.ControlBorderColor
-		        
-		        g.DrawLine(X + W, Y - 1, X + W, Y + H) // Right
-		        g.DrawLine(X - 1, Y - 1, X - 1, Y + H) // Left
-		        g.DrawLine(X - 1, Y - 1, X + W, Y - 1) // Top
-		        g.DrawLine(X - 1, Y + H, X + W, Y + H) // Bottom
-		        
-		      End If
-		    End If
-		    i = i + 1
-		  Wend
-		  
-		End Sub
-	#tag EndMethod
-
-
 #tag EndWindowCode
 
+#tag Events fldUsername
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events fldClanTag
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events fldClanName
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events btnClose
 	#tag Event
 		Sub Action()
 		  
 		  Self.Close()
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events fldClanRank
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events fldClanDateJoined
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
