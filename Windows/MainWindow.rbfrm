@@ -446,8 +446,6 @@ End
 	#tag Event
 		Sub Minimize()
 		  
-		  Self.mMinimized = True
-		  
 		  If Settings.PrefMinimizeToTray = True Then Self.Hide()
 		  
 		End Sub
@@ -458,14 +456,6 @@ End
 		  
 		  Me.Title = App.VersionString()
 		  Me.LoadProfileList()
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Restore()
-		  
-		  Self.mMinimized = False
 		  
 		End Sub
 	#tag EndEvent
@@ -1488,34 +1478,6 @@ End
 		#tag EndSetter
 		lstUsers_View As Integer
 	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  
-			  Return Me.mMinimized
-			  
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  
-			  Me.mMinimized = value
-			  
-			  If value = True Then
-			    Me.Minimize()
-			  Else
-			    Me.Restore()
-			  End If
-			  
-			End Set
-		#tag EndSetter
-		Minimized As Boolean
-	#tag EndComputedProperty
-
-	#tag Property, Flags = &h21
-		Private mMinimized As Boolean
-	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		SelectedConfig As Integer
