@@ -91,6 +91,7 @@ Begin BotWindow MainWindow
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -371,6 +372,12 @@ End
 		Sub Change()
 		  
 		  If Self.Pages.Value <> Me.ListIndex Then Self.Pages.Value = Me.ListIndex
+		  
+		  Dim Config As Configuration = Self.GetSelectedConfig()
+		  If Config <> Nil Then
+		    Config.CacheChatUnread = False
+		    Globals.ForceRedraw(Me)
+		  End If
 		  
 		End Sub
 	#tag EndEvent
