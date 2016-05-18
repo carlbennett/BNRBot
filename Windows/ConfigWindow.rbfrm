@@ -3016,19 +3016,23 @@ End
 	#tag Event
 		Sub Action()
 		  
+		  Dim i As Integer
+		  
 		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
 		  Dim Config As Configuration = Settings.Configurations(Index)
 		  
 		  If Config.BNET <> Nil And Config.BNET.IsConnected = True Then
-		    MsgBox("Error: This profile is currently connected to Battle.net." + EndOfLine + _
-		    EndOfLine + "First disconnect it, then remove it from here.")
-		    Return
+		    i = MsgBox("This profile is currently connected to Battle.net." + EndOfLine + EndOfLine + _
+		    "Do you want to disconnect it?", 4 + 48 + 256, "Profile Is Connected")
+		    If (i = 1 Or i = 6) Then
+		      Config.BNET.DoDisconnect(False)
+		    Else
+		      Return
+		    End If
 		  End If
 		  
 		  Settings.Configurations.Remove(Index)
-		  
-		  Dim i As Integer
 		  
 		  lstCategories.ListIndex = lstCategories.ListIndex - 1
 		  lstCategories.RemoveRow(lstCategories.ListIndex + 1)
