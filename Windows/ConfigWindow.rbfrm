@@ -2976,7 +2976,7 @@ End
 		  Config.Name = "Untitled #" + Str(UBound(Settings.Configurations) + 1)
 		  Config.Timestamp = Config.TimestampLongTime
 		  Config.Username = "JoeUser"
-		  Config.Password = Globals.GenerateString(12, "0123456789abcdef")
+		  Config.Password = Globals.GenerateString(10, "0123456789abcdef")
 		  Config.BNETHost = "useast.battle.net"
 		  Config.ReconnectInterval = 300000
 		  Config.BNLSHost = "bnls.bnetdocs.org"
