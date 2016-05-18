@@ -138,6 +138,7 @@ Begin ContainerControl ConfigurationContainer
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   12
       TopLeftColor    =   "#Colors.UI.ControlBorderColor"
       Visible         =   True
@@ -164,6 +165,7 @@ Begin ContainerControl ConfigurationContainer
          Selectable      =   True
          TabIndex        =   6
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Offline"
          TextAlign       =   1
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -307,11 +309,13 @@ Begin ContainerControl ConfigurationContainer
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   13
       Visible         =   True
       Width           =   403
    End
    Begin Timer lstUsersTimer
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   637
@@ -319,8 +323,11 @@ Begin ContainerControl ConfigurationContainer
       Mode            =   0
       Period          =   75
       Scope           =   0
+      TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   64
+      Visible         =   True
       Width           =   32
    End
 End
@@ -2316,6 +2323,7 @@ End
 		    
 		    If Left(Line, 1) <> "/" Then
 		      Config.AddChat(True, Colors.Cyan, "<" + Config.BNET.UniqueName + "> ", Colors.White, Line)
+		      Globals.ExpandChatContent(Self.Config, Line)
 		      
 		      'Else
 		      'Config.AddChat(True, Colors.SkyBlue, Line + EndOfLine)

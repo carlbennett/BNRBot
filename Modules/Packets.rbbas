@@ -1097,6 +1097,7 @@ Protected Module Packets
 		    
 		    If BitAnd(Flags, &H20) <= 0 Then
 		      Sock.Config.AddChat(True, Colors.Orange, "<", Colors.Yellow, "From: " + Username, Colors.Orange, "> ", Colors.Gray, Text)
+		      Globals.ExpandChatContent(Sock.Config, Text)
 		    End If
 		    
 		  Case &H05
@@ -1135,6 +1136,7 @@ Protected Module Packets
 		      End If
 		      
 		      Sock.Config.AddChat(True, colorA, "<", colorB, Username, colorA, "> ", colorC, Text)
+		      Globals.ExpandChatContent(Sock.Config, Text)
 		    End If
 		    
 		    If MainWindow.GetSelectedConfig() = Sock.Config And _
@@ -1172,6 +1174,7 @@ Protected Module Packets
 		    
 		    If BitAnd(Flags, &H20) <= 0 Then
 		      Sock.Config.AddChat(True, Colors.Cyan, "<To: " + Username + "> ", Colors.Gray, Text)
+		      Globals.ExpandChatContent(Sock.Config, Text)
 		    End If
 		    
 		  Case &H0D // full
@@ -1264,6 +1267,7 @@ Protected Module Packets
 		      End If
 		      
 		      Sock.Config.AddChat(True, colorA, "<", colorB, Username, colorA, " ", colorC, Text, colorA, ">")
+		      Globals.ExpandChatContent(Sock.Config, Text)
 		    End If
 		    
 		    If MainWindow.GetSelectedConfig() = Sock.Config And _

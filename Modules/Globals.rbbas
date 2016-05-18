@@ -811,6 +811,35 @@ Protected Module Globals
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Sub ExpandChatContent(Config As Configuration, Message As String)
+		  
+		  If Config = Nil Then
+		    Dim e As New NilObjectException()
+		    e.Message = "Configuration object is Nil."
+		    Raise e
+		  End If
+		  
+		  Dim i, j As Integer
+		  
+		  i = InStr(Message, "https://youtu.be/")
+		  If i > 0 Then
+		    j = InStr(i, Message, " ")
+		    Dim src As String
+		    If j = 0 Then
+		      src = Mid(Message, i + 17)
+		    Else
+		      src = Mid(Message, i + 17, j - i - 17)
+		    End If
+		    src = "https://www.youtube.com/embed/" + src + "?autoplay=0#bnrbot-iframe" // #bnrbot-iframe is used by us later
+		    Config.AddChat(False, Colors.SeaGreen, New Pair("HTML", "<div class=""expanded""><iframe " _
+		    + "type=""text/html"" width=""320"" height=""195"" src=""" _
+		    + src + """ frameborder=""0""/></div>"))
+		  End If
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function FillString(Length As UInt64, Pattern As String) As String
 		  

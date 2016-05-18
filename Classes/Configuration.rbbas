@@ -21,6 +21,7 @@ Protected Class Configuration
 		    js = js + "line.appendChild(chat);"
 		  End If
 		  
+		  Dim p As Pair
 		  For Each value As Variant In values
 		    If value.Type = Variant.TypeColor Then
 		      c = value.ColorValue
@@ -32,6 +33,22 @@ Protected Class Configuration
 		      + Format(c.Blue, "-#") + ")';"
 		      js = js + "chat.innerText = " + StringToJSON(value.StringValue) + ";"
 		      js = js + "line.appendChild(chat);"
+		    ElseIf value.Type = Variant.TypeObject And value.ObjectValue IsA Pair Then
+		      p = Pair(value.ObjectValue)
+		      Select Case p.Left
+		      Case "HTML"
+		        js = js + "var chat = document.createElement('span');"
+		        js = js + "chat.style.color = 'rgb(" _
+		        + Format(c.Red, "-#") + "," _
+		        + Format(c.Green, "-#") + "," _
+		        + Format(c.Blue, "-#") + ")';"
+		        js = js + "chat.innerHTML = " + StringToJSON(p.Right) + ";"
+		        js = js + "line.appendChild(chat);"
+		      Case Else
+		        Dim e As New RuntimeException()
+		        e.Message = "Unknown string pattern"
+		        Raise e
+		      End Select
 		    End If
 		  Next
 		  
