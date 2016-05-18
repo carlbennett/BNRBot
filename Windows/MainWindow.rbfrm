@@ -192,7 +192,7 @@ End
 		  Wend
 		  
 		  i = 0
-		  While i < UBound(Settings.Configurations)
+		  While i <= UBound(Settings.Configurations)
 		    If Settings.Configurations(i) = Nil Then
 		      
 		      Settings.Configurations.Remove(i)
