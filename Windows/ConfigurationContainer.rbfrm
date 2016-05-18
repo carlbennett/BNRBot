@@ -11,7 +11,7 @@ Begin ContainerControl ConfigurationContainer
    Height          =   400
    HelpTag         =   ""
    InitialParent   =   ""
-   Left            =   3.2e+1
+   Left            =   32
    LockBottom      =   True
    LockLeft        =   True
    LockRight       =   True
@@ -19,7 +19,7 @@ Begin ContainerControl ConfigurationContainer
    TabIndex        =   0
    TabPanelIndex   =   0
    TabStop         =   True
-   Top             =   3.2e+1
+   Top             =   32
    UseFocusRing    =   ""
    Visible         =   True
    Width           =   649
@@ -48,7 +48,7 @@ Begin ContainerControl ConfigurationContainer
       InitialParent   =   ""
       InitialValue    =   ""
       Italic          =   ""
-      Left            =   427
+      Left            =   428
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   ""
@@ -117,7 +117,7 @@ Begin ContainerControl ConfigurationContainer
       Underline       =   ""
       UseFocusRing    =   False
       Visible         =   True
-      Width           =   626
+      Width           =   627
    End
    Begin Rectangle rectChannel
       AutoDeactivate  =   True
@@ -129,7 +129,7 @@ Begin ContainerControl ConfigurationContainer
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   426
+      Left            =   427
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -153,7 +153,7 @@ Begin ContainerControl ConfigurationContainer
          Index           =   -2147483648
          InitialParent   =   "rectChannel"
          Italic          =   ""
-         Left            =   427
+         Left            =   428
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   False
@@ -195,7 +195,7 @@ Begin ContainerControl ConfigurationContainer
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   426
+      Left            =   427
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   False
@@ -233,7 +233,7 @@ Begin ContainerControl ConfigurationContainer
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   497
+      Left            =   498
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   False
@@ -271,7 +271,7 @@ Begin ContainerControl ConfigurationContainer
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   568
+      Left            =   569
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   False
@@ -291,7 +291,7 @@ Begin ContainerControl ConfigurationContainer
       Visible         =   True
       Width           =   70
    End
-   Begin HTMLViewer oChatOutput
+   Begin WebViewer oChatOutput
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   345
@@ -314,7 +314,7 @@ Begin ContainerControl ConfigurationContainer
    Begin Timer lstUsersTimer
       Height          =   32
       Index           =   -2147483648
-      Left            =   636
+      Left            =   637
       LockedInPosition=   False
       Mode            =   0
       Period          =   75
@@ -369,15 +369,6 @@ End
 		    End If
 		    i = i + 1
 		  Wend
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Resized()
-		  
-		  Me.oChatOutput.Visible = False
-		  Me.oChatOutput.Visible = True
 		  
 		End Sub
 	#tag EndEvent
@@ -2430,53 +2421,9 @@ End
 	#tag Event
 		Sub Open()
 		  
-		  Me.LoadURL("about:blank")
+		  Me.Config = Self.Config
 		  
 		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub DocumentComplete(URL as String)
-		  
-		  If URL <> "about:blank" Then
-		    Call MsgBox("Something happened that caused us to lose control of the chat box.", 48, "Control Loss")
-		    Return
-		  End If
-		  
-		  Dim source As String = ""
-		  
-		  source = source + "<!DOCTYPE html>" + EndOfLine.UNIX
-		  source = source + "<html><head><style type=""text/css"">"
-		  
-		  source = source + "body{background:#000;color:#fff;margin:2px 4px 12px 4px;padding:0px;"
-		  source = source + "font-family:" + Self.oChatInput.TextFont + ";"
-		  source = source + "font-size:" + Format(Self.oChatInput.TextSize, "-#") + FontUnitCSS(Self.oChatInput.TextUnit) + ";"
-		  source = source + "font-weight:" + IIf(Self.oChatInput.Bold, "bold", "normal") + ";"
-		  source = source + "font-style:" + IIf(Self.oChatInput.Italic, "italic", "normal") + ";"
-		  source = source + "text-decoration:" + IIf(Self.oChatInput.Underline, "underline", "none") + ";"
-		  source = source + "text-indent:-1em;"
-		  source = source + "padding-left:1em;"
-		  source = source + "word-wrap:break-word;"
-		  source = source + "}a{color:#" + Globals.ColorToHex(Colors.UI.ListSelectionColor) + ";}"
-		  
-		  source = source + "</style></head><body>"
-		  source = source + "<p><b>" + App.VersionString() + "</b> has some known problems out the door. " _
-		  + "See <a href=""https://github.com/carlbennett/BNRBot/releases/tag/2.7.0.45"" target=""_blank"">" _
-		  + "GitHub</a> for more info. I hope to have these fixed next release.</p>"
-		  source = source + "</body></html>" + EndOfLine.UNIX
-		  
-		  Me.ExecuteJavaScript("document.write(" + StringToJSON(source) + ");")
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Function CancelLoad(URL as String) As Boolean
-		  
-		  If URL = "about:blank" Then Return False
-		  
-		  REALbasic.ShowURL(URL)
-		  Return True
-		  
-		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events lstUsersTimer

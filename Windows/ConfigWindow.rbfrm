@@ -3006,6 +3006,9 @@ End
 		  lstCategories.Cell(lstCategories.LastIndex, 1) = "2"
 		  lstCategories.ListIndex = lstCategories.LastIndex
 		  
+		  MainWindow.Pages.Append()
+		  Settings.Configurations(UBound(Settings.Configurations)).Container.EmbedWithinPanel(_
+		  MainWindow.Pages, MainWindow.Pages.PanelCount - 1, 0, 0, MainWindow.Pages.Width, MainWindow.Pages.Height)
 		  MainWindow.lstProfiles.AddRow(Settings.Configurations(UBound(Settings.Configurations)).Name)
 		  MainWindow.lstProfiles.CellTag(MainWindow.lstProfiles.LastIndex, 0) = UBound(Settings.Configurations)
 		  
@@ -3047,6 +3050,7 @@ End
 		  While i < MainWindow.lstProfiles.ListCount
 		    If MainWindow.lstProfiles.CellTag(i, 0) = Index Then
 		      MainWindow.lstProfiles.RemoveRow(i)
+		      MainWindow.Pages.Remove(i)
 		    Else
 		      If MainWindow.lstProfiles.CellTag(i, 0) > Index Then _
 		      MainWindow.lstProfiles.CellTag(i, 0) = MainWindow.lstProfiles.CellTag(i, 0) - 1

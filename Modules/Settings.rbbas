@@ -92,12 +92,10 @@ Protected Module Settings
 		  // We're finally done checking every file, except for the true hash files (we only
 		  // checked for the Hashes folder, not each individual hash folder plus files).
 		  
-		  If FoundBNCSUtil = False Then Result = Result + "Cannot find BNCSUtil.dll on your system." + EndOfLine
-		  If FoundCheckRevisionDLL = False Then Result = Result + "Cannot find CheckRevision.dll on your system." + EndOfLine
-		  If FoundLockdowns = False Then Result = Result + "One or more lockdown-IX86-##.dll files were not found on your system." + EndOfLine
-		  If FoundVerChecks = False Then Result = Result + "One or more ver-IX86-#.dll files were not found on your system." + EndOfLine
-		  
-		  Settings.FileCheckResults = Result
+		  Settings.FileCheckBNCSUtilDLL = FoundBNCSUtil
+		  Settings.FileCheckCheckRevisionDLL = FoundCheckRevisionDLL
+		  Settings.FileCheckLockdownDLLs = FoundLockdowns
+		  Settings.FileCheckVerIX86DLLs = FoundVerChecks
 		  
 		End Sub
 	#tag EndMethod
@@ -684,7 +682,19 @@ Protected Module Settings
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
-		Protected FileCheckResults As String
+		Protected FileCheckBNCSUtilDLL As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected FileCheckCheckRevisionDLL As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected FileCheckLockdownDLLs As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected FileCheckVerIX86DLLs As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h1

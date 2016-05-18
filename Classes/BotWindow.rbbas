@@ -36,7 +36,7 @@ Inherits Window
 		      W = RC.Width
 		      H = RC.Height
 		      
-		      If (RC IsA TextArea Or RC IsA TextField Or RC IsA ListBox) And RC.Visible = True And _
+		      If (RC IsA TextArea Or RC IsA TextField Or RC IsA ListBox Or RC IsA HTMLViewer) And RC.Visible = True And _
 		        (Me.mPagePanel = Nil Or (Me.mPagePanel <> Nil And RC.PanelIndex = -1 Or _
 		        (RC.PanelIndex <> -1 And RC.PanelIndex = Me.mPagePanel.Value))) Then
 		        If Me.Focus = RC Then
@@ -58,6 +58,27 @@ Inherits Window
 		End Sub
 	#tag EndEvent
 
+	#tag Event
+		Sub Resized()
+		  
+		  Self.Refresh(True)
+		  Self.FixHTMLViewers()
+		  
+		  Resized()
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub Resizing()
+		  
+		  Self.Refresh(False)
+		  
+		  Resizing()
+		  
+		End Sub
+	#tag EndEvent
+
 
 	#tag Method, Flags = &h0
 		Sub Activate()
@@ -73,9 +94,36 @@ Inherits Window
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub FixHTMLViewers()
+		  
+		  Dim i, j As Integer, p As PagePanel
+		  i = 0
+		  While i < Me.ControlCount
+		    If Me.Control(i) IsA PagePanel Then
+		      p = PagePanel(Me.Control(i))
+		      If p.Visible = True Then
+		        p.Visible = False
+		        p.Visible = True
+		      End If
+		    End If
+		    i = i + 1
+		  Wend
+		  
+		End Sub
+	#tag EndMethod
+
 
 	#tag Hook, Flags = &h0
 		Event Open()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event Resized()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event Resizing()
 	#tag EndHook
 
 

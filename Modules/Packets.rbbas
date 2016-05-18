@@ -2581,7 +2581,7 @@ Protected Module Packets
 		  Dim CRevResult As UInt32
 		  
 		  If FromBNLS = False Then
-		    If InStr(Settings.FileCheckResults, "CheckRevision") > 0 Then
+		    If Settings.FileCheckCheckRevisionDLL = False Then
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Error - it appears CheckRevision.dll is missing." + EndOfLine)
 		      Sock.DoDisconnect()
 		      Return False
@@ -2612,7 +2612,7 @@ Protected Module Packets
 		    Sock.Product <> Packets.BNETProduct_DSHR And _ // Diablo I Shareware
 		    Sock.Product <> Packets.BNETProduct_SSHR Then  // Starcraft Shareware
 		    
-		    If InStr(Settings.FileCheckResults, "BNCSUtil") > 0 Then
+		    If Settings.FileCheckBNCSUtilDLL = False Then
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Error - it appears BNCSUtil.dll is missing." + EndOfLine)
 		      Sock.DoDisconnect()
 		      Return False

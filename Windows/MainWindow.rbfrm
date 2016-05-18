@@ -86,7 +86,7 @@ Begin BotWindow MainWindow
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      PanelCount      =   0
+      PanelCount      =   1
       Panels          =   ""
       Scope           =   0
       TabIndex        =   1
@@ -96,6 +96,28 @@ Begin BotWindow MainWindow
       Value           =   0
       Visible         =   True
       Width           =   649
+      Begin WebViewer oDefaultPage
+         AutoDeactivate  =   True
+         Enabled         =   True
+         Height          =   374
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Pages"
+         Left            =   162
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Renderer        =   1
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Top             =   13
+         Visible         =   True
+         Width           =   627
+      End
    End
 End
 #tag EndWindow
@@ -165,7 +187,7 @@ End
 		  
 		  Dim i As Integer = Me.lstProfiles.CellTag(Me.lstProfiles.ListIndex, 0)
 		  
-		  If i < 0 Or i >= UBound(Settings.Configurations) Then Return Nil
+		  If i < 0 Or i > UBound(Settings.Configurations) Then Return Nil
 		  
 		  Return Settings.Configurations(i)
 		  
@@ -175,7 +197,7 @@ End
 	#tag Method, Flags = &h0
 		Function IsConfigSelected(Config As Configuration) As Boolean
 		  
-		  Return (Me.GetSelectedConfig = Config)
+		  Return (Me.GetSelectedConfig() = Config)
 		  
 		End Function
 	#tag EndMethod
@@ -187,7 +209,7 @@ End
 		  
 		  Me.lstProfiles.DeleteAllRows()
 		  
-		  While Me.Pages.PanelCount > 0
+		  While Me.Pages.PanelCount > 1
 		    Me.Pages.Remove(0)
 		  Wend
 		  
@@ -202,7 +224,7 @@ End
 		      Me.Pages.Append()
 		      
 		      Settings.Configurations(i).Container.EmbedWithinPanel(_
-		      Me.Pages, Pages.PanelCount - 1, 0, 0, Me.Pages.Width, Me.Pages.Height)
+		      Me.Pages, Me.Pages.PanelCount - 1, 0, 0, Me.Pages.Width, Me.Pages.Height)
 		      
 		      Me.lstProfiles.AddRow(Settings.Configurations(i).Name)
 		      Me.lstProfiles.CellTag(Me.lstProfiles.LastIndex, 0) = i
@@ -371,7 +393,7 @@ End
 	#tag Event
 		Sub Change()
 		  
-		  If Self.Pages.Value <> Me.ListIndex Then Self.Pages.Value = Me.ListIndex
+		  If Self.Pages.Value <> Me.ListIndex + 1 Then Self.Pages.Value = Me.ListIndex + 1
 		  
 		  Dim Config As Configuration = Self.GetSelectedConfig()
 		  If Config <> Nil Then
@@ -400,7 +422,7 @@ End
 	#tag Event
 		Sub Change()
 		  
-		  If Self.lstProfiles.ListIndex <> Me.Value Then Self.lstProfiles.ListIndex = Me.Value
+		  If Self.lstProfiles.ListIndex <> Me.Value - 1 Then Self.lstProfiles.ListIndex = Me.Value - 1
 		  
 		End Sub
 	#tag EndEvent
