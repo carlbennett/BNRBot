@@ -1101,6 +1101,29 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GetLastSocketError() As Pair
+		  
+		  Soft Declare Function WSAGetLastError Lib "Ws2_32.dll" () As Integer
+		  Soft Declare Function FormatMessageA Lib "Kernel32.dll" (_
+		  dwFlags As Integer, lpSource As Ptr, dwMessageId As Integer, dwLanguageId As Integer, _
+		  lpBuffer As Ptr, nSize As Integer, Arguments As Ptr) As Integer
+		  
+		  Dim FORMAT_MESSAGE_IGNORE_INSERTS As Integer = &H00000200
+		  Dim FORMAT_MESSAGE_FROM_SYSTEM    As Integer = &H00001000
+		  
+		  Dim code As Integer = WSAGetLastError()
+		  
+		  Dim str As New MemoryBlock(64000)
+		  
+		  Dim x As Integer = FormatMessageA(BitOr(FORMAT_MESSAGE_IGNORE_INSERTS, _
+		  FORMAT_MESSAGE_FROM_SYSTEM), Nil, code, 0, str, str.Size, Nil)
+		  
+		  Return New Pair(code, str.CString(0))
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetProductIcon(Product As UInt32) As Picture
 		  
 		  Dim Icon As UserIcon

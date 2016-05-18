@@ -97,16 +97,14 @@ Inherits TCPSocket
 		  
 		  If Me.Config = Nil Then Return
 		  
-		  // Apparently REALbasic is gay as fuck and both .Refresh and .Invalidate will
-		  // not actually touch the ListBox (RectControl) so that it will redraw, so
-		  // I'm using the little cheat:
-		  Dim i As Integer = MainWindow.lstProfiles.DefaultRowHeight
-		  MainWindow.lstProfiles.DefaultRowHeight = 0
-		  MainWindow.lstProfiles.DefaultRowHeight = i
+		  Globals.ForceRedraw(MainWindow.lstProfiles)
 		  
-		  If Me.LastErrorCode = Me.LostConnection Then _
-		  Me.Config.AddChat(True, Colors.Red, "BNET: Disconnected.") Else _
-		  Me.Config.AddChat(True, Colors.Red, "BNET: Disconnected. Socket error #" + Str(Me.LastErrorCode) + ".")
+		  Dim err As Pair = Globals.GetLastSocketError()
+		  If err.Left.IntegerValue = 0 Then
+		    Me.Config.AddChat(True, Colors.Red, "BNET: Disconnected. #" + Format(Me.LastErrorCode, "-#"))
+		  Else
+		    Me.Config.AddChat(True, Colors.Red, "BNET: Disconnected. #" + Format(err.Left.IntegerValue, "-#") + ": " + err.Right.StringValue)
+		  End If
 		  
 		  If Me.DisconnectAlreadyHandled = False Then Me.DoDisconnect(True)
 		  
