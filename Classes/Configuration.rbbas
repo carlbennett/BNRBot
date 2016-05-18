@@ -9,15 +9,42 @@ Protected Class Configuration
 		  js = js + "var body = document.getElementsByTagName('body')[0];"
 		  js = js + "var line = document.createElement('div');"
 		  
-		  If timestamp = True Then
-		    // TODO: Use Me.Timestamp setting and constants
-		    Dim oTimestamp As New Date()
+		  If timestamp = True And Me.Timestamp <> Me.TimestampOff Then
+		    Dim oTimestamp As New Date(), sTimestamp As String = "["
+		    If BitAnd(Me.Timestamp, Me.TimestampShortDate) > 0 Then
+		      sTimestamp = sTimestamp + oTimestamp.ShortDate + " "
+		    End If
+		    If BitAnd(Me.Timestamp, Me.TimestampAbbreviatedDate) > 0 Then
+		      sTimestamp = sTimestamp + oTimestamp.AbbreviatedDate + " "
+		    End If
+		    If BitAnd(Me.Timestamp, Me.TimestampLongDate) > 0 Then
+		      sTimestamp = sTimestamp + oTimestamp.LongDate + " "
+		    End If
+		    If BitAnd(Me.Timestamp, Me.TimestampShortTime) > 0 Then
+		      If BitAnd(Me.Timestamp, Me.TimestampMilitaryTime) > 0 Then
+		        sTimestamp = sTimestamp + Right("0" + Format(oTimestamp.Hour, "-#"), 2) + ":" _
+		        + Right("0" + Format(oTimestamp.Minute, "-#"), 2) + " "
+		      Else
+		        sTimestamp = sTimestamp + oTimestamp.ShortTime + " "
+		      End If
+		    End If
+		    If BitAnd(Me.Timestamp, Me.TimestampLongTime) > 0 Then
+		      If BitAnd(Me.Timestamp, Me.TimestampMilitaryTime) > 0 Then
+		        sTimestamp = sTimestamp + Right("0" + Format(oTimestamp.Hour, "-#"), 2) + ":" _
+		        + Right("0" + Format(oTimestamp.Minute, "-#"), 2) + ":" _
+		        + Right("0" + Format(oTimestamp.Second, "-#"), 2) + " "
+		      Else
+		        sTimestamp = sTimestamp + oTimestamp.LongTime + " "
+		      End If
+		    End If
+		    If Right(sTimestamp, 1) = " " Then sTimestamp = Left(sTimestamp, Len(sTimestamp) - 1)
+		    sTimestamp = sTimestamp + "] "
 		    js = js + "var chat = document.createElement('span');"
 		    js = js + "chat.style.color = 'rgb(" _
 		    + Format(Colors.Gray.Red, "-#") + "," _
 		    + Format(Colors.Gray.Green, "-#") + "," _
 		    + Format(Colors.Gray.Blue, "-#") + ")';"
-		    js = js + "chat.innerText = " + StringToJSON("[" + oTimestamp.LongTime + "] ") + ";"
+		    js = js + "chat.innerText = " + StringToJSON(sTimestamp) + ";"
 		    js = js + "line.appendChild(chat);"
 		  End If
 		  
