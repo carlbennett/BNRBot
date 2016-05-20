@@ -138,7 +138,6 @@ Begin ContainerControl ConfigurationContainer
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   12
       TopLeftColor    =   "#Colors.UI.ControlBorderColor"
       Visible         =   True
@@ -165,7 +164,6 @@ Begin ContainerControl ConfigurationContainer
          Selectable      =   True
          TabIndex        =   6
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "Offline"
          TextAlign       =   1
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -309,13 +307,11 @@ Begin ContainerControl ConfigurationContainer
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   13
       Visible         =   True
       Width           =   403
    End
    Begin Timer lstUsersTimer
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   637
@@ -323,11 +319,8 @@ Begin ContainerControl ConfigurationContainer
       Mode            =   0
       Period          =   75
       Scope           =   0
-      TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   64
-      Visible         =   True
       Width           =   32
    End
 End
@@ -865,8 +858,7 @@ End
 		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
 		      
 		      If LeftB(BNETText, 1) <> "/" Then
-		        Self.Config.AddChat(True, Colors.Cyan, "<" + Self.Config.BNET.UniqueName + "> ")
-		        Self.Config.AddChat(False, Colors.White, BNETText + EndOfLine)
+		        Self.Config.AddChat(True, Colors.Cyan, "<" + Self.Config.BNET.UniqueName + "> ", Colors.White, BNETText)
 		      End If
 		      
 		      If Self.Config.EnableUTF8 = False Then
