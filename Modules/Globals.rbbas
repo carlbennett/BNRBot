@@ -9,7 +9,7 @@ Protected Module Globals
 		  w.IsRemoving = False
 		  w.Keys = Keys
 		  
-		  w.Title = Username + "'s Profile - BNRBot v" + Str(App.MajorVersion)
+		  w.Title = Username + "'s Profile - BNRBot"
 		  w.fldUsername.Text = Username
 		  w.fldGame.Text = Globals.ProductName(MemClass.ReadDWORD(Game, 1, False))
 		  
