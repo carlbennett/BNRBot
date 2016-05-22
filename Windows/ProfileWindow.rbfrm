@@ -19,7 +19,7 @@ Begin BotWindow ProfileWindow
    MinHeight       =   304
    MinimizeButton  =   True
    MinWidth        =   592
-   Placement       =   1
+   Placement       =   3
    Resizeable      =   True
    Title           =   "%USER's Profile - BNRBot"
    Visible         =   True

@@ -19,7 +19,7 @@ Begin BotWindow ConfigWindow
    MinHeight       =   604
    MinimizeButton  =   True
    MinWidth        =   512
-   Placement       =   2
+   Placement       =   3
    Resizeable      =   False
    Title           =   "Configuration - BNRBot"
    Visible         =   True

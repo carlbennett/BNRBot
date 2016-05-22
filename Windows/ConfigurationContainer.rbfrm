@@ -575,6 +575,12 @@ End
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //version  --  Announces the version of this bot to the channel.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "End of " + App.VersionString() + "'s internal commands.")
 		    
+		  Case "Debug"
+		    
+		    Dim e As New RuntimeException()
+		    e.Message = "Debug exception"
+		    Raise e
+		    
 		  Case "Cls", "Clearscreen"
 		    
 		    Self.Config.ClearChat(False)

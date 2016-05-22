@@ -19,8 +19,6 @@ Protected Module Settings
 	#tag Method, Flags = &h1
 		Protected Sub CheckFiles()
 		  
-		  Dim Result As String
-		  
 		  Dim FoundBNCSUtil As Boolean = False
 		  Dim FoundCheckRevisionDLL As Boolean = False
 		  Dim FoundLockdown(19) As Boolean

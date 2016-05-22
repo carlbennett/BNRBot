@@ -44,23 +44,52 @@ Inherits Application
 		End Sub
 	#tag EndEvent
 
+	#tag Event
+		Function UnhandledException(error As RuntimeException) As Boolean
+		  
+		  REALbasic.Beep()
+		  
+		  Dim w As New ExceptionWindow()
+		  w.oException = error
+		  w.Process()
+		  w.ShowModal()
+		  
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+
 
 	#tag Method, Flags = &h0
-		Function VersionString() As String
+		Function GetProjectName() As String
 		  
-		  Dim sTmp As String = "BNRBot v"
+		  Return "BNRBot"
 		  
-		  sTmp = sTmp + Str(Me.MajorVersion) + "."
-		  sTmp = sTmp + Str(Me.MinorVersion) + "."
-		  sTmp = sTmp + Str(Me.BugVersion) + "."
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function VersionString(httpUserAgent As Boolean = False) As String
+		  
+		  Dim s As String = Me.GetProjectName()
+		  
+		  If httpUserAgent = False Then
+		    s = s + " v"
+		  Else
+		    s = s + "/"
+		  End If
+		  
+		  s = s + Format(Me.MajorVersion, "-#") + "."
+		  s = s + Format(Me.MinorVersion, "-#") + "."
+		  s = s + Format(Me.BugVersion, "-#") + "."
 		  
 		  #If DebugBuild = True Then
-		    sTmp = sTmp + Str(Me.NonReleaseVersion + 1) + " (Debug)"
+		    s = s + Format(Me.NonReleaseVersion + 1, "-#") + " (Debug)"
 		  #Else
-		    sTmp = sTmp + Str(Me.NonReleaseVersion) + " (Release)"
+		    s = s + Format(Me.NonReleaseVersion, "-#") + " (Release)"
 		  #EndIf
 		  
-		  Return sTmp
+		  Return s
 		  
 		End Function
 	#tag EndMethod

@@ -46,6 +46,7 @@ Begin Window UpdateWindow
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "%status%"
       TextAlign       =   0
       TextColor       =   "#Colors.Black"
@@ -73,7 +74,9 @@ Begin Window UpdateWindow
       LockTop         =   True
       Maximum         =   0
       Scope           =   0
+      TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   38
       Value           =   0
       Visible         =   True
@@ -132,6 +135,7 @@ Begin Window UpdateWindow
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "%substatus%"
       TextAlign       =   0
       TextColor       =   "#Colors.Black"
@@ -149,17 +153,22 @@ Begin Window UpdateWindow
       CertificatePassword=   ""
       CertificateRejectionFile=   ""
       ConnectionType  =   3
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   368
       LockedInPosition=   False
       Scope           =   0
       Secure          =   True
+      TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
+      Visible         =   True
       Width           =   32
    End
    Begin Timer TransitionTimer
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   336
@@ -167,8 +176,11 @@ Begin Window UpdateWindow
       Mode            =   0
       Period          =   1000
       Scope           =   0
+      TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
+      Visible         =   True
       Width           =   32
    End
    Begin PushButton uiCancelAction
@@ -250,19 +262,19 @@ End
 		    url = "https://api.carlbennett.me/software/update"
 		    
 		    Dim vars As New Dictionary()
-		    vars.Value("product") = "BNRBot"
+		    vars.Value("product") = App.GetProjectName()
 		    vars.Value("version") = _
-		    Str(App.MajorVersion) + "." + _
-		    Str(App.MinorVersion) + "." + _
-		    Str(App.BugVersion) + "." + _
-		    Str(App.NonReleaseVersion)
+		    Format(App.MajorVersion, "-#") + "." + _
+		    Format(App.MinorVersion, "-#") + "." + _
+		    Format(App.BugVersion, "-#") + "." + _
+		    Format(App.NonReleaseVersion, "-#")
 		    
-		    HTTP.requestHeaders.SetHeader("User-Agent", App.VersionString())
+		    HTTP.requestHeaders.SetHeader("User-Agent", App.VersionString(True))
 		    HTTP.Get(url + "?" + HTTP.EncodeFormData(vars))
 		    
 		  Else
 		    
-		    HTTP.requestHeaders.SetHeader("User-Agent", App.VersionString())
+		    HTTP.requestHeaders.SetHeader("User-Agent", App.VersionString(True))
 		    HTTP.requestHeaders.SetHeader("Referer", Self.lastUrl)
 		    HTTP.Get(url)
 		    

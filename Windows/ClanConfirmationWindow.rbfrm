@@ -19,7 +19,7 @@ Begin BotWindow ClanConfirmationWindow
    MinHeight       =   129
    MinimizeButton  =   True
    MinWidth        =   360
-   Placement       =   2
+   Placement       =   3
    Resizeable      =   False
    Title           =   "%ACTION% clan?"
    Visible         =   True

@@ -19,7 +19,7 @@ Begin BotWindow ClanMemberInfoWindow
    MinHeight       =   162
    MinimizeButton  =   True
    MinWidth        =   240
-   Placement       =   0
+   Placement       =   3
    Resizeable      =   True
    Title           =   "%username% - Clan Info"
    Visible         =   True

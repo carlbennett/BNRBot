@@ -97,7 +97,7 @@ Inherits Window
 	#tag Method, Flags = &h21
 		Private Sub FixHTMLViewers()
 		  
-		  Dim i, j As Integer, p As PagePanel
+		  Dim i As Integer, p As PagePanel
 		  i = 0
 		  While i < Me.ControlCount
 		    If Me.Control(i) IsA PagePanel Then

@@ -17,6 +17,7 @@ Protected Class Cookie
 	#tag Method, Flags = &h0
 		Sub Destructor()
 		  
+		  If Globals.Cookies = Nil Then Return
 		  If Globals.Cookies.HasKey(Me.mCookie) = True Then
 		    Globals.Cookies.Remove(Me.mCookie)
 		  End If

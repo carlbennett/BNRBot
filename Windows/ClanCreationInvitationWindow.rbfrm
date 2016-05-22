@@ -19,7 +19,7 @@ Begin BotWindow ClanCreationInvitationWindow
    MinHeight       =   349
    MinimizeButton  =   True
    MinWidth        =   360
-   Placement       =   2
+   Placement       =   3
    Resizeable      =   False
    Title           =   "Create Clan Invitation Received"
    Visible         =   True
