@@ -3,7 +3,9 @@
 **B**attle.**N**et **R**ealbasic **Bot** is a
 [Battle.net&trade;](http://battle.net) classic Battle.net chat bot written by
 [@carlbennett](https://github.com/carlbennett)
-([Jailout2000](http://jailout2000.com)).
+([Jailout2000](http://jailout2000.com)) and licensed under the
+[Creative Commons BY-NC-ND 4.0
+International](https://creativecommons.org/licenses/by-nc-nd/4.0/) license.
 
 It was started in 2011 and went on hiatus in 2012. In late 2015, it was added
 to version control on GitHub and received lots of updates. It's been maintained
