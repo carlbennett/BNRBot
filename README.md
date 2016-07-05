@@ -1,7 +1,7 @@
 # BNRBot
 ## Preface
-**B**attle.**N**et **R**ealbasic **Bot** is a
-[Battle.net&trade;](http://battle.net) classic Battle.net chat bot written by
+**B**attle.**N**et **R**ealbasic **Bot** is a [Classic
+Battle.net&trade;](http://classic.battle.net) chat bot written by
 [@carlbennett](https://github.com/carlbennett)
 ([Jailout2000](http://jailout2000.com)) and licensed under the
 [Creative Commons BY-NC-ND 4.0
