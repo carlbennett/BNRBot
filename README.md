@@ -1,18 +1,21 @@
 # BNRBot
 ## Preface
 **B**attle.**N**et **R**ealbasic **Bot** is a
-[Battle.net&trade;](http://battle.net) binary chat bot written by
-[Carl Bennett](https://github.com/carlbennett) (Jailout2000).
+[Battle.net&trade;](http://battle.net) classic Battle.net chat bot written by
+[@carlbennett](https://github.com/carlbennett)
+([Jailout2000](http://jailout2000.com)).
 
 It was started in 2011 and went on hiatus in 2012. In late 2015, it was added
-to version control on GitHub, where some much needed updates were done to it.
+to version control on GitHub and received lots of updates. It's been maintained
+here ever since.
 
 Some of its bragging rights include:
-- Handling heavy loads and floods in Battle.net channels.
-- Compatible with official Battle.net, PvPGN, emNet, and other custom servers.
-- Binary-compatible with Windows XP up to Windows 10.
-- Multiple profiles.
-- Easy to use.
+- Handling heavy loads and floods in Battle.net chat channels.
+- Compatible with official Classic Battle.net, PvPGN, emNet, and other custom
+  servers.
+- Compatiblility with Windows XP up to Windows 10.
+- Multiple profiles and switching via tabbed (actually a list box) interface.
+- User interface is consistent throughout, allowing easy learning of the bot.
 
 Give it a try!
 
@@ -20,9 +23,10 @@ Give it a try!
 1. Go to the
    [latest release](https://github.com/carlbennett/BNRBot/releases/latest).
 2. Download BNCSUtil, BNRBot, CheckRevision, and Hashes. (You can skip some of
-   these if you already have used BNRBot.)
-3. Extract BNCSUtil and CheckRevision into your `C:\Windows` directory.
-4. Extract BNRBot into its own directory.
+   these if you already use BNRBot.)
+3. Extract BNRBot into its own directory, anywhere on your PC will do.
+4. Extract BNCSUtil and CheckRevision into your `C:\Windows` directory or into
+   BNRBot's directory.
 5. Extract Hashes into BNRBot's directory under its own `Hashes` directory.
 6. Open BNRBot and read the information it gives you.
 
@@ -39,5 +43,6 @@ Thanks for contributing!
 If you wish to contribute, you will need to run **Real Studio 2012r2.1**. All
 code changes are made within the IDE, which is why a lot of the commits and the
 code in general looks pretty awful; it's actually not too bad when viewing from
-the IDE. Real Studio does pre- and post-formatting when reading and writing
-files, so it's not really easy to beautify the code from a Git perspective.
+within the IDE. Real Studio does pre- and post-formatting when reading and
+writing files, so it's not really easy to beautify the code from a Git/GitHub
+perspective.
