@@ -37,7 +37,9 @@ Inherits HTMLViewer
 		  Dim source As String = ""
 		  
 		  source = source + "<!DOCTYPE html>" + EndOfLine.UNIX
-		  source = source + "<html><head><style type=""text/css"">"
+		  source = source + "<html><head>"
+		  source = source + "<meta http-equiv=""Content-Type"" content=""text/html;charset=utf-8""/>"
+		  source = source + "<style type=""text/css"">"
 		  source = source + Me.GetInternalCSS()
 		  source = source + "</style></head><body>"
 		  
