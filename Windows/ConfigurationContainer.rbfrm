@@ -138,6 +138,7 @@ Begin ContainerControl ConfigurationContainer
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   12
       TopLeftColor    =   "#Colors.UI.ControlBorderColor"
       Visible         =   True
@@ -164,6 +165,7 @@ Begin ContainerControl ConfigurationContainer
          Selectable      =   True
          TabIndex        =   6
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Offline"
          TextAlign       =   1
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -307,11 +309,13 @@ Begin ContainerControl ConfigurationContainer
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   13
       Visible         =   True
       Width           =   403
    End
    Begin Timer lstUsersTimer
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   637
@@ -319,8 +323,11 @@ Begin ContainerControl ConfigurationContainer
       Mode            =   0
       Period          =   75
       Scope           =   0
+      TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   64
+      Visible         =   True
       Width           =   32
    End
 End
@@ -560,6 +567,7 @@ End
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //force <channel>  --  Forces you into a <channel>.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //home  --  Forces you into your home channel, otherwise requests a first-join from Battle.net.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //leave  --  Forces you out of chat; only friends will be able to chat with you.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //lenny [message]  --  Types [message] ( ͡° ͜ʖ ͡°) to the chat.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //ping [username]  --  Pings [username] or yourself if [username] omitted.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //pingme  --  Pings yourself.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //profile [username] [GAME]  --  Opens a profile dialog for you or [username].")
@@ -648,6 +656,11 @@ End
 		    Else
 		      BNETText = " "
 		    End If
+		    
+		  Case "Lenny"
+		    
+		    BNETText = "( ͡° ͜ʖ ͡°)"
+		    If Len(Rest) > 0 Then BNETText = Rest + " " + BNETText
 		    
 		  Case "Ping"
 		    
