@@ -105,15 +105,15 @@ Protected Class Configuration
 		  Me.BNET = New BNETSocket()
 		  Me.BNET.Config = Me
 		  
-		  Me.Container = New ConfigurationContainer()
+		  Me.Container = New ChatContainer()
 		  Me.Container.Config = Me
 		  
 		  Me.CacheChatUnread = False
 		  
-		  Me.CachelstUsers_View_Channel     = ConfigurationContainer.lstUsers_View_Channel_Flags
-		  Me.CachelstUsers_View_Friends     = ConfigurationContainer.lstUsers_View_Friends_Entry
-		  Me.CachelstUsers_View_Clan        = ConfigurationContainer.lstUsers_View_Clan_Rank
-		  Me.CachelstUsers_View_ChannelList = ConfigurationContainer.lstUsers_View_ChannelList_Entry
+		  Me.CachelstUsers_View_Channel     = ChatContainer.lstUsers_View_Channel_Flags
+		  Me.CachelstUsers_View_Friends     = ChatContainer.lstUsers_View_Friends_Entry
+		  Me.CachelstUsers_View_Clan        = ChatContainer.lstUsers_View_Clan_Rank
+		  Me.CachelstUsers_View_ChannelList = ChatContainer.lstUsers_View_ChannelList_Entry
 		  Me.CachelstUsers_View             = Me.CachelstUsers_View_Channel
 		  
 		End Sub
@@ -207,7 +207,7 @@ Protected Class Configuration
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		Container As ConfigurationContainer
+		Container As ChatContainer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

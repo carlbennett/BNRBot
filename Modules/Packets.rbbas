@@ -1140,7 +1140,7 @@ Protected Module Packets
 		    End If
 		    
 		    If MainWindow.GetSelectedConfig() = Sock.Config And _
-		      Sock.Config.Container.lstUsers_View = ConfigurationContainer.lstUsers_View_Channel_Activity Then _
+		      Sock.Config.Container.lstUsers_View = ChatContainer.lstUsers_View_Channel_Activity Then _
 		      Sock.Config.Container.lstUsersTimer.Reset()
 		      
 		  Case &H06
@@ -1271,7 +1271,7 @@ Protected Module Packets
 		    End If
 		    
 		    If MainWindow.GetSelectedConfig() = Sock.Config And _
-		      Sock.Config.Container.lstUsers_View = ConfigurationContainer.lstUsers_View_Channel_Activity Then _
+		      Sock.Config.Container.lstUsers_View = ChatContainer.lstUsers_View_Channel_Activity Then _
 		      Sock.Config.Container.lstUsersTimer.Reset()
 		      
 		  Case Else
