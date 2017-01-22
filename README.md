@@ -4,8 +4,7 @@
 Battle.net&trade;](http://classic.battle.net) chat bot written by
 [@carlbennett](https://github.com/carlbennett)
 ([Jailout2000](http://jailout2000.com)) and licensed under the
-[Creative Commons BY-NC-ND 4.0
-International](https://creativecommons.org/licenses/by-nc-nd/4.0/) license.
+[GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html) license.
 
 It was started in 2011 and went on hiatus in 2012. In late 2015, it was added
 to version control on GitHub and received lots of updates. It's been maintained
