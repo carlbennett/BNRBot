@@ -138,6 +138,7 @@ Begin ContainerControl ChatContainer
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   12
       TopLeftColor    =   "#Colors.UI.ControlBorderColor"
       Visible         =   True
@@ -164,6 +165,7 @@ Begin ContainerControl ChatContainer
          Selectable      =   True
          TabIndex        =   6
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Offline"
          TextAlign       =   1
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -307,11 +309,13 @@ Begin ContainerControl ChatContainer
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   13
       Visible         =   True
       Width           =   403
    End
    Begin Timer lstUsersTimer
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   637
@@ -319,8 +323,11 @@ Begin ContainerControl ChatContainer
       Mode            =   0
       Period          =   75
       Scope           =   0
+      TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   64
+      Visible         =   True
       Width           =   32
    End
 End
@@ -863,14 +870,18 @@ End
 		  If LenB(BNETText) > 0 Then
 		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
 		      
-		      If LeftB(BNETText, 1) <> "/" Then
+		      If LeftB(BNETText, 1) <> "/" And Self.Config.BNET.Init6Protocol = False Then
 		        Self.Config.AddChat(True, Colors.Cyan, "<" + Self.Config.BNET.UniqueName + "> ", Colors.White, BNETText)
 		      End If
 		      
-		      If Self.Config.EnableUTF8 = False Then
-		        Self.Config.BNET.Send(Packets.CreateSID_CHATCOMMAND(BNETText))
+		      If Self.Config.EnableUTF8 = True Then
+		        BNETText = ConvertEncoding(BNETText, Encodings.UTF8)
+		      End If
+		      
+		      If Config.BNET.Product = Packets.BNETProduct_CHAT Then
+		        Self.Config.BNET.Send(BNETText + EndOfLine.Windows)
 		      Else
-		        Self.Config.BNET.Send(Packets.CreateSID_CHATCOMMAND(ConvertEncoding(BNETText, Encodings.UTF8)))
+		        Self.Config.BNET.Send(Packets.CreateSID_CHATCOMMAND(BNETText))
 		      End If
 		      
 		    Else
@@ -2295,32 +2306,38 @@ End
 		    If Config.BNET.IsConnected = False Then Continue For
 		    If LenB(Config.BNET.UniqueName) < 1 Then Continue For
 		    
-		    Dim dTmp As Dictionary = Config.BNET.ChannelUsers.Lookup(Config.BNET.UniqueName, Nil)
-		    If dTmp <> Nil Then dTmp.Value("LastMessageTime") = Microseconds()
-		    
 		    Dim s As String
 		    If Config.EnableUTF8 = False Then s = Line Else s = ConvertEncoding(Line, Encodings.UTF8)
 		    
-		    If dTmp <> Nil Then
-		      // Emotes and Whispers will be covered when they are sent back to us by Battle.net.
-		      //If Left(s, 3) = "/me" Or Left(s, 6) = "/emote" Then
-		      //dTmp.Value("LastMessageType") = &H17
-		      //dTmp.Value("LastMessage") = Mid(s, Len(NthField(s, " ", 1) + " ") + 1)
-		      //ElseIf Left(s, 2) = "/w" Or Left(s, 4) = "/msg" Or Left(s, 8) = "/whisper" Then
-		      //dTmp.Value("LastMessageType") = &H0A
-		      //dTmp.Value("LastMessage") = Mid(s, Len(NthField(s, " ", 1) + " " + NthField(s, " ", 2) + " ") + 1)
-		      //Else
-		      If Left(s, 1) <> "/" Then
-		        dTmp.Value("LastMessageType") = &H05
-		        dTmp.Value("LastMessage") = s
+		    If Config.BNET.Init6Protocol = False Then
+		      Dim dTmp As Dictionary = Config.BNET.ChannelUsers.Lookup(Config.BNET.UniqueName, Nil)
+		      If dTmp <> Nil Then dTmp.Value("LastMessageTime") = Microseconds()
+		      
+		      If dTmp <> Nil Then
+		        // Emotes and Whispers will be covered when they are sent back to us by Battle.net.
+		        //If Left(s, 3) = "/me" Or Left(s, 6) = "/emote" Then
+		        //dTmp.Value("LastMessageType") = &H17
+		        //dTmp.Value("LastMessage") = Mid(s, Len(NthField(s, " ", 1) + " ") + 1)
+		        //ElseIf Left(s, 2) = "/w" Or Left(s, 4) = "/msg" Or Left(s, 8) = "/whisper" Then
+		        //dTmp.Value("LastMessageType") = &H0A
+		        //dTmp.Value("LastMessage") = Mid(s, Len(NthField(s, " ", 1) + " " + NthField(s, " ", 2) + " ") + 1)
+		        //Else
+		        If Left(s, 1) <> "/" Then
+		          dTmp.Value("LastMessageType") = &H05
+		          dTmp.Value("LastMessage") = s
+		        End If
+		        //End If
 		      End If
-		      //End If
 		    End If
 		    
-		    Config.BNET.Send(Packets.CreateSID_CHATCOMMAND(s))
+		    If Config.BNET.Product = Packets.BNETProduct_CHAT Then
+		      Config.BNET.Send(s + EndOfLine.Windows)
+		    Else
+		      Config.BNET.Send(Packets.CreateSID_CHATCOMMAND(s))
+		    End If
 		    
-		    If Left(Line, 1) <> "/" Then
-		      Config.AddChat(True, Colors.Cyan, "<" + Config.BNET.UniqueName + "> ", Colors.White, Line)
+		    If Left(Line, 1) <> "/" And Config.BNET.Init6Protocol = False Then
+		      Config.AddChat(True, Colors.Teal, "<", Colors.Cyan, Config.BNET.UniqueName, Colors.Teal, "> ", Colors.White, Line)
 		      Globals.ExpandChatContent(Self.Config, Line)
 		      
 		      'Else

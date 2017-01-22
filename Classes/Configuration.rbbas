@@ -71,6 +71,15 @@ Protected Class Configuration
 		        + Format(c.Blue, "-#") + ")';"
 		        js = js + "chat.innerHTML = " + StringToJSON(p.Right) + ";"
 		        js = js + "line.appendChild(chat);"
+		      Case "Monospace"
+		        js = js + "var chat = document.createElement('span');"
+		        js = js + "chat.style.color = 'rgb(" _
+		        + Format(c.Red, "-#") + "," _
+		        + Format(c.Green, "-#") + "," _
+		        + Format(c.Blue, "-#") + ")';"
+		        js = js + "chat.innerText = " + StringToJSON(p.Right) + ";"
+		        js = js + "chat.style['font-family'] = 'monospace';"
+		        js = js + "line.appendChild(chat);"
 		      Case Else
 		        Dim e As New RuntimeException()
 		        e.Message = "Unknown string pattern"
@@ -232,6 +241,10 @@ Protected Class Configuration
 
 	#tag Property, Flags = &h0
 		IgnoreBanKickUnban As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Init6Protocol As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

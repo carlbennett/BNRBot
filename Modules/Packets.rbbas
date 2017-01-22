@@ -681,6 +681,495 @@ Protected Module Packets
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function ParseInit6(Sock As BNETSocket, Line As String) As Boolean
+		  
+		  If Sock = Nil Then Return False
+		  If Sock.IsConnected = False Then Return False
+		  If Sock.Config = Nil Then Return False
+		  
+		  If Sock.Config.VerbosePackets = True Then _
+		  Sock.Config.AddChat(True, Colors.Yellow, "RECV INIT6 " + Line)
+		  
+		  Select Case Sock.Init6TransactionId
+		  Case Sock.Init6TransactionLoggingIn
+		    
+		    Dim fields() As String = Split(Line, " ")
+		    Dim pktName As String = fields(0)
+		    fields.Remove(0)
+		    
+		    Select Case pktName
+		    Case "OK"
+		      
+		      // Init6 protocol does not support non-unique names online.
+		      Sock.AccountName = Sock.Username
+		      Sock.UniqueName = Sock.Username
+		      
+		      // We're logged on, all further packets go under a different parse route.
+		      Sock.Init6TransactionId = Sock.Init6TransactionChatting
+		      
+		      Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
+		      Sock.Config.AddChat(True, Colors.Cyan, "INIT6: Logged on as ", Colors.Teal, Sock.UniqueName, Colors.Cyan, "!")
+		      
+		    Case "FAIL"
+		      Sock.Config.AddChat(True, Colors.Red, "INIT6: Login failure: " + Line)
+		      Sock.DoDisconnect(False)
+		      Return False
+		      
+		    Case Else
+		      Sock.Config.AddChat(True, Colors.Red, "INIT6: Protocol error: unknown message received:")
+		      Sock.Config.AddChat(True, Colors.Salmon, Line)
+		      
+		    End Select
+		    
+		  Case Sock.Init6TransactionChatting
+		    
+		    Select Case NthField(Line, " ", 1)
+		    Case "PING"
+		      Sock.Send("/PONG " + Mid(Line, 6) + EndOfLine.Windows)
+		      
+		    Case "USER"
+		      Return Packets.ParseInit6User(Sock, Mid(Line, 6))
+		      
+		    Case "CHANNEL"
+		      Return Packets.ParseInit6Channel(Sock, Mid(Line, 9))
+		      
+		    Case "SERVER"
+		      Return Packets.ParseInit6Server(Sock, Mid(Line, 8))
+		      
+		    Case Else
+		      Sock.Config.AddChat(True, Colors.Red, "INIT6: Protocol error: unknown type of message received:")
+		      Sock.Config.AddChat(True, Colors.Salmon, Line)
+		      
+		    End Select
+		    
+		  Case Else
+		    
+		    Dim e As New RuntimeException()
+		    e.Message = "Unknown Init6 transaction id: " + Format(Sock.Init6TransactionId, "-#")
+		    Raise e
+		    
+		  End Select
+		  
+		  Return True
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function ParseInit6Channel(Sock As BNETSocket, Data As String) As Boolean
+		  
+		  If Sock = Nil Then Return False
+		  If Sock.IsConnected = False Then Return False
+		  If Sock.Config = Nil Then Return False
+		  
+		  If Sock.Config.VerbosePackets = True Then _
+		  Sock.Config.AddChat(True, Colors.Yellow, "RECV INIT6 CHANNEL " + Data)
+		  
+		  Dim fields() As String = Split(Data, " ")
+		  
+		  Dim msgName As String = fields(0)
+		  fields.Remove(0)
+		  
+		  Select Case msgName
+		  Case "JOIN"
+		    
+		    fields.Remove(0) // Padding
+		    fields.Remove(0) // Padding
+		    
+		    Dim Flags As UInt32 = Val(fields(0))
+		    fields.Remove(0)
+		    Dim Text As String = Join(fields, " ")
+		    
+		    Sock.ChannelFlags = Flags
+		    Sock.ChannelName = Text
+		    Sock.ChannelUsers.Clear()
+		    
+		    If MainWindow.GetSelectedConfig() = Sock.Config Then Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
+		    
+		    Sock.Config.AddChat(True, Colors.Cyan, "Joined Channel: ", Colors.Teal, Sock.ChannelName, _
+		    Colors.Gray, " (" + Globals.SChannelFlags(Sock.ChannelFlags) + ")")
+		    
+		  Case "TOPIC"
+		    
+		    Sock.Config.AddChat(True, Colors.Yellow, Join(fields, " "))
+		    
+		  Case Else
+		    
+		    Sock.Config.AddChat(True, Colors.Red, "INIT6: Protocol error: unknown channel message received:")
+		    Sock.Config.AddChat(True, Colors.Salmon, Data)
+		    
+		  End Select
+		  
+		  Return True
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function ParseInit6Server(Sock As BNETSocket, Data As String) As Boolean
+		  
+		  If Sock = Nil Then Return False
+		  If Sock.IsConnected = False Then Return False
+		  If Sock.Config = Nil Then Return False
+		  
+		  If Sock.Config.VerbosePackets = True Then _
+		  Sock.Config.AddChat(True, Colors.Yellow, "RECV INIT6 SERVER " + Data)
+		  
+		  Dim fields() As String = Split(Data, " ")
+		  
+		  Dim msgName As String = fields(0)
+		  fields.Remove(0)
+		  
+		  Select Case msgName
+		  Case "INFO", "TOPIC"
+		    
+		    fields.Remove(0) // Padding
+		    fields.Remove(0) // Padding
+		    fields.Remove(0) // Padding
+		    
+		    Dim Text As String = Join(fields, " ")
+		    
+		    Sock.Config.AddChat(True, Colors.Yellow, Text)
+		    
+		  Case "ERROR"
+		    
+		    fields.Remove(0) // Padding
+		    fields.Remove(0) // Padding
+		    fields.Remove(0) // Padding
+		    
+		    Dim Text As String = Join(fields, " ")
+		    
+		    Sock.Config.AddChat(True, Colors.Red, Text)
+		    
+		  Case "BROADCAST", "UPDATE"
+		    
+		    fields.Remove(0) // Padding
+		    fields.Remove(0) // Padding
+		    
+		    Dim Username As String = fields(0)
+		    fields.Remove(0)
+		    Dim Text As String = Join(fields, " ")
+		    
+		    If Len(Username) > 0 Then
+		      Sock.Config.AddChat(True, Colors.Cyan, "Server " + Titlecase(msgName) + " from ", Colors.Teal, Username, _
+		      Colors.Cyan, ": ", Colors.Silver, Text)
+		    Else
+		      Sock.Config.AddChat(True, Colors.Cyan, "Server " + Titlecase(msgName) + ": ", Colors.Silver, Text)
+		    End If
+		    
+		  Case Else
+		    
+		    Sock.Config.AddChat(True, Colors.Red, "INIT6: Protocol error: unknown server message received:")
+		    Sock.Config.AddChat(True, Colors.Salmon, Data)
+		    
+		  End Select
+		  
+		  Return True
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function ParseInit6User(Sock As BNETSocket, Data As String) As Boolean
+		  
+		  If Sock = Nil Then Return False
+		  If Sock.IsConnected = False Then Return False
+		  If Sock.Config = Nil Then Return False
+		  
+		  If Sock.Config.VerbosePackets = True Then _
+		  Sock.Config.AddChat(True, Colors.Yellow, "RECV INIT6 USER " + Data)
+		  
+		  Dim bTmp As Boolean
+		  Dim dTmp As Dictionary
+		  Dim fields() As String = Split(Data, " ")
+		  
+		  Dim colorA, colorB, colorC As Color
+		  
+		  Dim msgName As String = fields(0)
+		  fields.Remove(0)
+		  
+		  Select Case msgName
+		  Case "IN", "JOIN", "UPDATE"
+		    
+		    fields.Remove(0) // Padding
+		    fields.Remove(0) // Padding
+		    
+		    Dim Flags As UInt32 = Val(fields(0))
+		    fields.Remove(0)
+		    Dim Ping As Integer = Val(fields(0))
+		    fields.Remove(0)
+		    Dim Username As String = fields(0)
+		    fields.Remove(0)
+		    Dim Text As String = Join(fields, " ")
+		    
+		    If Username = Sock.UniqueName Then
+		      Sock.Flags = Flags
+		      Sock.Ping = Ping
+		      Sock.Statstring = Text
+		    End If
+		    
+		    If Sock.ChannelUsers.HasKey(Username) = True Then
+		      dTmp = Sock.ChannelUsers.Value(Username)
+		      dTmp.Value("Username") = Username
+		      dTmp.Value("FlagsOld") = dTmp.Value("Flags")
+		      dTmp.Value("Flags") = Flags
+		      dTmp.Value("Ping") = Ping
+		      If LenB(Text) > 0 Then dTmp.Value("Statstring") = Text
+		      dTmp.Value("LastMessageTime") = Microseconds()
+		      dTmp.Value("LastMessageType") = msgName
+		      dTmp.Value("LastMessage") = ""
+		      
+		    Else
+		      dTmp = New Dictionary()
+		      dTmp.Value("Username") = Username
+		      dTmp.Value("FlagsOld") = Flags
+		      dTmp.Value("Flags") = Flags
+		      dTmp.Value("Ping") = Ping
+		      dTmp.Value("Statstring") = Text
+		      dTmp.Value("LastMessageTime") = Microseconds()
+		      dTmp.Value("LastMessageType") = msgName
+		      dTmp.Value("LastMessage") = ""
+		      dTmp.Value("TimeEntered") = Microseconds()
+		      Sock.ChannelUsers.Value(Username) = dTmp
+		      
+		      If msgName = "JOIN" And Sock.Config.ShowJoinLeaveMessages = True Then
+		        Sock.Config.AddChat(True, Colors.Lime, "-- ", _
+		        Colors.LightSeaGreen, Username, _
+		        Colors.Lime, " joined the channel using ", _
+		        Colors.LightSeaGreen, Globals.ProductName(MemClass.ReadDWORD(Text, 1, True), False), _
+		        Colors.Lime, ".")
+		      End If
+		      
+		    End If
+		    
+		    Dim OldFlags As UInt32 = dTmp.Value("FlagsOld").Int32Value
+		    If Sock.Config.ShowUserUpdateMessages = True And Flags <> OldFlags Then
+		      If MainWindow.IsConfigSelected(Sock.Config) = False And msgName = "UPDATE" Then
+		        
+		        Sock.Config.CacheChatUnread = True
+		        Sock.Config.Container.lstUsersTimer.Reset()
+		        
+		      End If
+		      If BitAnd(OldFlags, &H01) = 0 And BitAnd(Flags, &H01) > 0 Then
+		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", _
+		        Colors.Teal, Username, _
+		        Colors.Cyan, " is now a ", _
+		        Colors.LightSkyBlue, "Blizzard representative", _
+		        Colors.Cyan, ".")
+		      End If
+		      If BitAnd(OldFlags, &H02) = 0 And BitAnd(Flags, &H02) > 0 Then
+		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Colors.Cyan, " is now a ", Colors.White, "channel operator", Colors.Cyan, ".")
+		      End If
+		      If BitAnd(OldFlags, &H04) = 0 And BitAnd(Flags, &H04) > 0 Then
+		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Colors.Cyan, " is now a ", Colors.Yellow, "channel speaker", Colors.Cyan, ".")
+		      End If
+		      If BitAnd(OldFlags, &H08) = 0 And BitAnd(Flags, &H08) > 0 Then
+		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Colors.Cyan, " is now a ", Colors.LightSeaGreen, "Battle.net administrator", Colors.Cyan, ".")
+		      End If
+		      If BitAnd(OldFlags, &H10) = 0 And BitAnd(Flags, &H10) > 0 Then
+		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Colors.Cyan, " no longer has ", Colors.Teal, "UDP support", Colors.Cyan, ".")
+		      End If
+		      If BitAnd(OldFlags, &H20) = 0 And BitAnd(Flags, &H20) > 0 Then
+		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Colors.Cyan, " is now ", Colors.Red, "squelched", Colors.Cyan, ".")
+		      End If
+		      If BitAnd(OldFlags, &H40) = 0 And BitAnd(Flags, &H40) > 0 Then
+		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Colors.Cyan, " is now a ", Colors.Pink, "guest", Colors.Cyan, ".")
+		      End If
+		      If BitAnd(OldFlags, &H01) > 0 And BitAnd(Flags, &H01) = 0 Then
+		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Colors.Cyan, " is no longer a ", Colors.LightSkyBlue, "Blizzard representative", Colors.Cyan, ".")
+		      End If
+		      If BitAnd(OldFlags, &H02) > 0 And BitAnd(Flags, &H02) = 0 Then
+		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Colors.Cyan, " is no longer a ", Colors.White, "channel operator", Colors.Cyan, ".")
+		      End If
+		      If BitAnd(OldFlags, &H04) > 0 And BitAnd(Flags, &H04) = 0 Then
+		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Colors.Cyan, " is no longer a ", Colors.Yellow, "channel speaker", Colors.Cyan, ".")
+		      End If
+		      If BitAnd(OldFlags, &H08) > 0 And BitAnd(Flags, &H08) = 0 Then
+		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Colors.Cyan, " is no longer a ", Colors.LightSeaGreen, "Battle.net administrator", Colors.Cyan, ".")
+		      End If
+		      If BitAnd(OldFlags, &H10) > 0 And BitAnd(Flags, &H10) = 0 Then
+		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Colors.Cyan, " now has ", Colors.Teal, "UDP support", Colors.Cyan, ".")
+		      End If
+		      If BitAnd(OldFlags, &H20) > 0 And BitAnd(Flags, &H20) = 0 Then
+		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Colors.Cyan, " is no longer ", Colors.Red, "squelched", Colors.Cyan, ".")
+		      End If
+		      If BitAnd(OldFlags, &H40) > 0 And BitAnd(Flags, &H40) = 0 Then
+		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Colors.Cyan, " is no longer a ", Colors.Pink, "guest", Colors.Cyan, ".")
+		      End If
+		    End If
+		    
+		    If MainWindow.GetSelectedConfig() = Sock.Config Then Sock.Config.Container.lstUsersTimer.Reset()
+		    
+		  Case "LEAVE"
+		    
+		    fields.Remove(0) // Padding
+		    fields.Remove(0) // Padding
+		    fields.Remove(0) // Padding
+		    fields.Remove(0) // Padding
+		    
+		    Dim Username As String = fields(0)
+		    fields.Remove(0)
+		    
+		    If Sock.ChannelUsers.HasKey(Username) = True Then
+		      Sock.ChannelUsers.Remove(Username)
+		      
+		      If Sock.Config.ShowJoinLeaveMessages = True Then
+		        Sock.Config.AddChat(True, Colors.Red, "-- ", Colors.Maroon, Username, Colors.Red, " left the channel.")
+		      End If
+		      
+		      If MainWindow.GetSelectedConfig() = Sock.Config Then Sock.Config.Container.lstUsersTimer.Reset()
+		      
+		    End If
+		    
+		  Case "WHISPER"
+		    
+		    Dim Direction As String = fields(0)
+		    fields.Remove(0)
+		    
+		    fields.Remove(0) // Padding
+		    fields.Remove(0) // Padding
+		    fields.Remove(0) // Padding
+		    
+		    Dim Username As String = fields(0)
+		    fields.Remove(0)
+		    Dim Text As String = Join(fields, " ")
+		    
+		    If Sock.Config.EnableUTF8 = True Then Text = DefineEncoding(Text, Encodings.UTF8)
+		    
+		    dTmp = Sock.ChannelUsers.Lookup(Username, Nil)
+		    If dTmp <> Nil Then
+		      dTmp.Value("LastMessageTime") = Microseconds()
+		      dTmp.Value("LastMessageType") = msgName
+		      dTmp.Value("LastMessage") = Text
+		    End If
+		    
+		    Dim Flags As UInt32 = 0
+		    If dTmp <> Nil Then Flags = dTmp.Value("Flags")
+		    
+		    If BitAnd(Flags, &H20) <= 0 Then
+		      If Direction = "TO" Then
+		        Sock.Config.AddChat(True, Colors.Cyan, "<To: " + Username + "> ", Colors.Gray, Text)
+		      ElseIf Direction = "FROM" Then
+		        Sock.Config.AddChat(True, Colors.Orange, "<", Colors.Yellow, "From: " + Username, Colors.Orange, "> ", Colors.Gray, Text)
+		      Else
+		        Sock.Config.AddChat(True, Colors.Gray, "<" + Direction + ": " + Username + "> " + Text)
+		      End If
+		      Globals.ExpandChatContent(Sock.Config, Text)
+		    End If
+		    
+		  Case "TALK", "EMOTE"
+		    
+		    Dim Direction As String = fields(0)
+		    fields.Remove(0)
+		    
+		    fields.Remove(0) // Padding
+		    fields.Remove(0) // Padding
+		    fields.Remove(0) // Padding
+		    
+		    Dim Username As String = fields(0)
+		    fields.Remove(0)
+		    Dim Text As String = Join(fields, " ")
+		    
+		    If Sock.Config.EnableUTF8 = True Then Text = DefineEncoding(Text, Encodings.UTF8)
+		    
+		    If Sock.Config.SpamPrevention = True Then dTmp = Sock.ChannelUsers.Lookup(Username, Nil)
+		    bTmp = (Sock.Config.SpamPrevention = True And dTmp <> Nil And dTmp.Value("TimeEntered").DoubleValue + 400000 > Microseconds())
+		    
+		    // If bTmp = True then they are talking at most 0.4 seconds after entering.
+		    
+		    If dTmp <> Nil Then
+		      If bTmp = False And Sock.Config.SpamPrevention = True And Text = dTmp.Value("LastMessage") Then bTmp = True
+		      dTmp.Value("LastMessageTime") = Microseconds()
+		      dTmp.Value("LastMessageType") = msgName
+		      dTmp.Value("LastMessage") = Text
+		    End If
+		    
+		    // If bTmp = True now then they may also be repeating their message.
+		    
+		    If bTmp = False And Globals.MessageBlacklistMatch(Text) = True Then bTmp = True
+		    
+		    // If bTmp = True now then the message may even also be on the blacklist
+		    
+		    Dim Flags As UInt32 = 0
+		    If dTmp <> Nil Then Flags = dTmp.Value("Flags")
+		    
+		    If BitAnd(Flags, &H20) <= 0 And bTmp = False Then
+		      If msgName = "TALK" Then
+		        If Direction = "TO" Then
+		          colorA = Colors.Teal
+		          colorB = Colors.Cyan
+		          colorC = Colors.White
+		        ElseIf BitAnd(Flags, &H09) > 0 Then
+		          colorA = Colors.Teal
+		          colorB = Colors.Cyan
+		          colorC = Colors.Cyan
+		        ElseIf BitAnd(Flags, &H02) > 0 Then
+		          colorA = Colors.Silver
+		          colorB = Colors.White
+		          colorC = Colors.White
+		        Else
+		          colorA = Colors.Orange
+		          colorB = Colors.Yellow
+		          If BitAnd(Flags, &H04) > 0 Then colorC = Colors.Yellow Else colorC = Colors.White
+		        End If
+		      ElseIf msgName = "EMOTE" Then
+		        If Username = Sock.UniqueName Then
+		          colorA = Colors.Teal
+		          colorB = Colors.Cyan
+		          colorC = Colors.Yellow
+		        ElseIf BitAnd(Flags, &H09) > 0 Then
+		          colorA = Colors.Teal
+		          colorB = Colors.Cyan
+		          colorC = Colors.Cyan
+		        ElseIf BitAnd(Flags, &H02) > 0 Then
+		          colorA = Colors.Silver
+		          colorB = Colors.White
+		          colorC = Colors.White
+		        Else
+		          colorA = Colors.Orange
+		          colorB = Colors.Yellow
+		          colorC = Colors.Yellow
+		        End If
+		      End If
+		      
+		      If msgName = "TALK" Then
+		        Sock.Config.AddChat(True, colorA, "<", colorB, Username, colorA, "> ", colorC, Text)
+		      ElseIf msgName = "EMOTE" Then
+		        Sock.Config.AddChat(True, colorA, "<", colorB, Username, colorA, " ", colorC, Text, colorA, ">")
+		      End If
+		      Globals.ExpandChatContent(Sock.Config, Text)
+		    End If
+		    
+		    If MainWindow.GetSelectedConfig() = Sock.Config And _
+		      Sock.Config.Container.lstUsers_View = ChatContainer.lstUsers_View_Channel_Activity Then _
+		      Sock.Config.Container.lstUsersTimer.Reset()
+		      
+		  Case Else
+		    
+		    Sock.Config.AddChat(True, Colors.Red, "INIT6: Protocol error: unknown user message received:")
+		    Sock.Config.AddChat(True, Colors.Salmon, Data)
+		    
+		  End Select
+		  
+		  Return True
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function ParseSID_AUTH_ACCOUNTCREATE(Sock As BNETSocket, PktData As String) As Boolean
 		  
 		  If Sock = Nil Then Return False
@@ -2393,7 +2882,9 @@ Protected Module Packets
 		  If Sock = Nil Then Return
 		  Sock.DataBuffer = Sock.DataBuffer + Sock.ReadAll()
 		  
-		  If Sock.Product = Packets.BNETProduct_CHAT Then
+		  If Sock.Product = Packets.BNETProduct_CHAT And Sock.Init6Protocol = True Then
+		    Packets.ReceiveInit6(Sock)
+		  ElseIf Sock.Product = Packets.BNETProduct_CHAT And Sock.Init6Protocol = False Then
 		    Packets.ReceiveCHAT(Sock)
 		  Else
 		    Packets.ReceiveSID(Sock)
@@ -2441,6 +2932,26 @@ Protected Module Packets
 		    Data = Mid(Data, Len(Line + EndOfLine) + 1)
 		    
 		    If Packets.Parse(Sock, Line) = False Then Exit While
+		    
+		  Wend
+		  
+		  Sock.DataBuffer = Data
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub ReceiveInit6(Sock As BNETSocket)
+		  
+		  If Sock = Nil Then Return
+		  Dim Data As String = ReplaceLineEndings(Sock.DataBuffer, EndOfLine)
+		  Dim Line As String
+		  
+		  While InStr(Data, EndOfLine) > 0
+		    Line = NthField(Data, EndOfLine, 1)
+		    Data = Mid(Data, Len(Line + EndOfLine) + 1)
+		    
+		    If Packets.ParseInit6(Sock, Line) = False Then Exit While
 		    
 		  Wend
 		  
@@ -2520,13 +3031,27 @@ Protected Module Packets
 		  
 		  If Sock = Nil Then Return
 		  
-		  If Sock.Product = Packets.BNETProduct_CHAT Then
+		  If Sock.Product = Packets.BNETProduct_CHAT And Sock.Init6Protocol = True Then
+		    
+		    Sock.Send("C1" + EndOfLine.Windows)
+		    Sock.Send("ACCT " + Sock.Username + EndOfLine.Windows)
+		    Sock.Send("PASS " + Sock.Password + EndOfLine.Windows)
+		    
+		    If Sock.Config <> Nil And Len(Sock.Config.HomeChannel) > 0 Then
+		      Sock.Send("HOME " + Sock.Config.HomeChannel + EndOfLine.Windows)
+		    End If
+		    
+		    Sock.Send("LOGIN" + EndOfLine.Windows)
+		    
+		  ElseIf Sock.Product = Packets.BNETProduct_CHAT And Sock.Init6Protocol = False Then
+		    
 		    Sock.Send(&H03)
 		    Sock.Send(&H04)
 		    Sock.Send(Sock.Username + ChrB(13))
 		    Sock.Send(Sock.Password + ChrB(13))
 		    
 		  Else
+		    
 		    Sock.Send(&H01)
 		    Sock.Send(Packets.CreateSID_AUTH_INFO(&H00000000, Sock.Platform, Sock.Product, Sock.VersionByte, _
 		    &H00000000, Globals.IPToDWORD(Sock.LocalAddress), Globals.TimezoneBias(), 1033, 1033, "USA", "United States"))

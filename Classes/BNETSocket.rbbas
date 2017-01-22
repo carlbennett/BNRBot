@@ -7,10 +7,8 @@ Inherits TCPSocket
 		  If Me.Config <> Nil Then
 		    Globals.ForceRedraw(MainWindow.lstProfiles)
 		    Me.Config.Container.lstUsers_View = Me.Config.Container.lstUsers_View
-		    Me.Config.AddChat(True, Colors.Lime, "BNET: Connected to " + Me.RemoteAddress + ".")
+		    Me.Config.AddChat(True, Colors.Lime, IIf(Me.Init6Protocol, "INIT6", "BNET") + ": Connected to " + Me.RemoteAddress + ".")
 		  End If
-		  
-		  Me.Initialize()
 		  
 		  If Me.Config <> Nil And Me.Config.ProxyType <> Configuration.ProxyOff Then
 		    Select Case Me.Config.ProxyType
@@ -101,9 +99,11 @@ Inherits TCPSocket
 		  
 		  Dim err As Pair = Globals.GetLastSocketError()
 		  If err.Left.IntegerValue = 0 Then
-		    Me.Config.AddChat(True, Colors.Red, "BNET: Disconnected. #" + Format(Me.LastErrorCode, "-#"))
+		    Me.Config.AddChat(True, Colors.Red, IIf(Me.Init6Protocol, "INIT6", "BNET") _
+		    + ": Disconnected. #" + Format(Me.LastErrorCode, "-#"))
 		  Else
-		    Me.Config.AddChat(True, Colors.Red, "BNET: Disconnected. #" + Format(err.Left.IntegerValue, "-#") + ": " + err.Right.StringValue)
+		    Me.Config.AddChat(True, Colors.Red, IIf(Me.Init6Protocol, "INIT6", "BNET") _
+		    + ": Disconnected. #" + Format(err.Left.IntegerValue, "-#") + ": " + err.Right.StringValue)
 		  End If
 		  
 		  If Me.DisconnectAlreadyHandled = False Then Me.DoDisconnect(True)
@@ -166,13 +166,14 @@ Inherits TCPSocket
 		  If Me.Config <> Nil Then
 		    If Me.Config.ProxyType = Me.Config.ProxyOff Then
 		      Globals.AssignSocketDetails(Me, Me.Config.BNETHost, 6112)
-		      Me.Config.AddChat(True, Colors.Yellow, "BNET: Connecting to " + Me.Address + "...")
+		      Me.Config.AddChat(True, Colors.Yellow, IIf(Me.Config.Init6Protocol, "INIT6", "BNET") + ": Connecting to " + Me.Address + "...")
 		    Else
 		      Globals.AssignSocketDetails(Me, Me.Config.ProxyHost, 1080)
 		      Me.Config.AddChat(True, Colors.Yellow, "PROXY: Connecting to " + Me.Address + ":" + Str(Me.Port) + "...")
 		    End If
 		  End If
 		  
+		  Me.Initialize()
 		  Me.Connect()
 		  
 		End Sub
@@ -230,6 +231,8 @@ Inherits TCPSocket
 		  Me.EXEVersion = 0
 		  Me.Flags = 0
 		  Me.FriendsList = Nil
+		  Me.Init6Protocol = Me.Config.Init6Protocol
+		  Me.Init6TransactionId = Me.Init6TransactionLoggingIn
 		  Me.LastNullReceive = 0
 		  If Me.LogonTimeoutTimer = Nil Then Me.LogonTimeoutTimer = New SocketTimer(Me, 2000, SocketTimer.ModeSingle, False)
 		  Me.LogonType = 0
@@ -286,12 +289,22 @@ Inherits TCPSocket
 		    Me.Config.AddChat(True, Colors.Yellow, "SEND (PROTOCOL BNFTP)")
 		  Case ChrB(&H03)
 		    Me.Config.AddChat(True, Colors.Yellow, "SEND (PROTOCOL TELNET)")
+		  Case "C1" + EndOfLine.Windows
+		    Me.Config.AddChat(True, Colors.Yellow, "SEND (PROTOCOL INIT6)")
 		  Case Else
-		    If Me.Product = Packets.BNETProduct_CHAT Then
+		    If Me.Product = Packets.BNETProduct_CHAT And Me.Init6Protocol = True Then
+		      Dim Lines() As String = Split(ReplaceLineEndings(Data, EndOfLine), EndOfLine)
+		      If Len(Lines(UBound(Lines))) = 0 Then Lines.Remove(UBound(Lines))
+		      For Each Line As String In Lines
+		        Me.Config.AddChat(True, Colors.Yellow, "SEND " + Line)
+		      Next
+		    ElseIf Me.Product = Packets.BNETProduct_CHAT And Me.Init6Protocol = False Then
 		      If Data = ChrB(&H04) Then
 		        Me.Config.AddChat(True, Colors.Yellow, "SEND (TELNET'S LOGIN BYTE)")
 		      Else
-		        For Each Line As String In Split(ReplaceLineEndings(Data, EndOfLine), EndOfLine)
+		        Dim Lines() As String = Split(ReplaceLineEndings(Data, EndOfLine), EndOfLine)
+		        If Len(Lines(UBound(Lines))) = 0 Then Lines.Remove(UBound(Lines))
+		        For Each Line As String In Lines
 		          Me.Config.AddChat(True, Colors.Yellow, "SEND " + Line)
 		        Next
 		      End If
@@ -323,7 +336,11 @@ Inherits TCPSocket
 		    End If
 		    
 		  Case Me.SendNullTimer
-		    Me.Send(Packets.CreateSID_NULL())
+		    If Me.Product = Packets.BNETProduct_CHAT And Me.Init6Protocol = True Then
+		      Me.Send("/NULL" + EndOfLine.Windows)
+		    ElseIf Me.Product <> Packets.BNETProduct_CHAT Then
+		      Me.Send(Packets.CreateSID_NULL())
+		    End If
 		    
 		  Case Else
 		    ST.Enabled = False
@@ -476,6 +493,14 @@ Inherits TCPSocket
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		Init6Protocol As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Init6TransactionId As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		LastNullReceive As Double
 	#tag EndProperty
 
@@ -582,6 +607,13 @@ Inherits TCPSocket
 	#tag Property, Flags = &h0
 		WaitingForUDP As Boolean
 	#tag EndProperty
+
+
+	#tag Constant, Name = Init6TransactionChatting, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = Init6TransactionLoggingIn, Type = Double, Dynamic = False, Default = \"0", Scope = Public
+	#tag EndConstant
 
 
 	#tag ViewBehavior

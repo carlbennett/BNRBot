@@ -478,7 +478,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   18
+         TabIndex        =   20
          TabPanelIndex   =   3
          Text            =   "Version Byte:"
          TextAlign       =   0
@@ -512,7 +512,7 @@ Begin BotWindow ConfigWindow
          LockTop         =   True
          Scope           =   0
          State           =   0
-         TabIndex        =   52
+         TabIndex        =   54
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "Arial"
@@ -544,7 +544,7 @@ Begin BotWindow ConfigWindow
          LockTop         =   True
          Scope           =   0
          State           =   0
-         TabIndex        =   42
+         TabIndex        =   44
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "Arial"
@@ -576,7 +576,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   32
+         TabIndex        =   34
          TabPanelIndex   =   3
          Text            =   "Timestamp:"
          TextAlign       =   0
@@ -610,7 +610,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   30
+         TabIndex        =   32
          TabPanelIndex   =   3
          Text            =   "Home Channel:"
          TextAlign       =   0
@@ -644,7 +644,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   28
+         TabIndex        =   30
          TabPanelIndex   =   3
          Text            =   "E-mail Address:"
          TextAlign       =   0
@@ -678,7 +678,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   26
+         TabIndex        =   28
          TabPanelIndex   =   3
          Text            =   "CD-Key Owner:"
          TextAlign       =   0
@@ -712,7 +712,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   24
+         TabIndex        =   26
          TabPanelIndex   =   3
          Text            =   "CD-Key Exp.:"
          TextAlign       =   0
@@ -746,7 +746,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   21
+         TabIndex        =   23
          TabPanelIndex   =   3
          Text            =   "CD-Key:"
          TextAlign       =   0
@@ -780,7 +780,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   53
+         TabIndex        =   55
          TabPanelIndex   =   3
          Text            =   "(Debug: Verbose all packets sent/received.)"
          TextAlign       =   0
@@ -814,7 +814,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   43
+         TabIndex        =   45
          TabPanelIndex   =   3
          Text            =   "Automatically rejoin channels you get kicked from."
          TextAlign       =   0
@@ -864,7 +864,7 @@ Begin BotWindow ConfigWindow
          ScrollbarHorizontal=   ""
          ScrollBarVertical=   True
          SelectionType   =   0
-         TabIndex        =   33
+         TabIndex        =   35
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "Arial"
@@ -906,7 +906,7 @@ Begin BotWindow ConfigWindow
          Password        =   ""
          ReadOnly        =   ""
          Scope           =   0
-         TabIndex        =   31
+         TabIndex        =   33
          TabPanelIndex   =   3
          TabStop         =   True
          Text            =   ""
@@ -949,7 +949,7 @@ Begin BotWindow ConfigWindow
          Password        =   ""
          ReadOnly        =   ""
          Scope           =   0
-         TabIndex        =   29
+         TabIndex        =   31
          TabPanelIndex   =   3
          TabStop         =   True
          Text            =   ""
@@ -992,7 +992,7 @@ Begin BotWindow ConfigWindow
          Password        =   ""
          ReadOnly        =   ""
          Scope           =   0
-         TabIndex        =   27
+         TabIndex        =   29
          TabPanelIndex   =   3
          TabStop         =   True
          Text            =   ""
@@ -1035,7 +1035,7 @@ Begin BotWindow ConfigWindow
          Password        =   ""
          ReadOnly        =   ""
          Scope           =   0
-         TabIndex        =   25
+         TabIndex        =   27
          TabPanelIndex   =   3
          TabStop         =   True
          Text            =   ""
@@ -1078,7 +1078,7 @@ Begin BotWindow ConfigWindow
          Password        =   ""
          ReadOnly        =   ""
          Scope           =   0
-         TabIndex        =   23
+         TabIndex        =   25
          TabPanelIndex   =   3
          TabStop         =   True
          Text            =   ""
@@ -1123,7 +1123,7 @@ Begin BotWindow ConfigWindow
          LockTop         =   True
          MenuValue       =   0
          Scope           =   0
-         TabIndex        =   20
+         TabIndex        =   22
          TabPanelIndex   =   3
          TabStop         =   True
          TextColor       =   0
@@ -1165,7 +1165,7 @@ Begin BotWindow ConfigWindow
          Password        =   ""
          ReadOnly        =   ""
          Scope           =   0
-         TabIndex        =   19
+         TabIndex        =   21
          TabPanelIndex   =   3
          TabStop         =   True
          Text            =   ""
@@ -1463,7 +1463,7 @@ Begin BotWindow ConfigWindow
          LockTop         =   True
          Scope           =   0
          State           =   0
-         TabIndex        =   22
+         TabIndex        =   24
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "Arial"
@@ -1571,7 +1571,7 @@ Begin BotWindow ConfigWindow
          LockTop         =   True
          Scope           =   0
          State           =   0
-         TabIndex        =   34
+         TabIndex        =   36
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "Arial"
@@ -1603,7 +1603,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   35
+         TabIndex        =   37
          TabPanelIndex   =   3
          Text            =   "Show join and leave messages for users in chat."
          TextAlign       =   0
@@ -1637,7 +1637,7 @@ Begin BotWindow ConfigWindow
          LockTop         =   True
          Scope           =   0
          State           =   0
-         TabIndex        =   48
+         TabIndex        =   50
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "Arial"
@@ -1669,7 +1669,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   49
+         TabIndex        =   51
          TabPanelIndex   =   3
          Text            =   "Enable UTF-8 encoding on chat messages."
          TextAlign       =   0
@@ -2080,7 +2080,7 @@ Begin BotWindow ConfigWindow
          LockTop         =   True
          Scope           =   0
          State           =   0
-         TabIndex        =   50
+         TabIndex        =   52
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "Arial"
@@ -2112,7 +2112,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   51
+         TabIndex        =   53
          TabPanelIndex   =   3
          Text            =   "Enable UDP packet support."
          TextAlign       =   0
@@ -2146,7 +2146,7 @@ Begin BotWindow ConfigWindow
          LockTop         =   True
          Scope           =   0
          State           =   0
-         TabIndex        =   38
+         TabIndex        =   40
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "Arial"
@@ -2178,7 +2178,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   39
+         TabIndex        =   41
          TabPanelIndex   =   3
          Text            =   "Enable spam prevention."
          TextAlign       =   0
@@ -2212,7 +2212,7 @@ Begin BotWindow ConfigWindow
          LockTop         =   True
          Scope           =   0
          State           =   0
-         TabIndex        =   40
+         TabIndex        =   42
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "Arial"
@@ -2244,7 +2244,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   41
+         TabIndex        =   43
          TabPanelIndex   =   3
          Text            =   "Ignore ban/kick/unban information from Battle.net."
          TextAlign       =   0
@@ -2278,7 +2278,7 @@ Begin BotWindow ConfigWindow
          LockTop         =   True
          Scope           =   0
          State           =   0
-         TabIndex        =   44
+         TabIndex        =   46
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "Arial"
@@ -2310,7 +2310,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   45
+         TabIndex        =   47
          TabPanelIndex   =   3
          Text            =   "Ask for confirmation when removing clan members."
          TextAlign       =   0
@@ -2344,7 +2344,7 @@ Begin BotWindow ConfigWindow
          LockTop         =   True
          Scope           =   0
          State           =   0
-         TabIndex        =   46
+         TabIndex        =   48
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "Arial"
@@ -2376,7 +2376,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   47
+         TabIndex        =   49
          TabPanelIndex   =   3
          Text            =   "Attempt to create the account before any logon attempt."
          TextAlign       =   0
@@ -2410,7 +2410,7 @@ Begin BotWindow ConfigWindow
          LockTop         =   True
          Scope           =   0
          State           =   0
-         TabIndex        =   36
+         TabIndex        =   38
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "Arial"
@@ -2442,7 +2442,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   37
+         TabIndex        =   39
          TabPanelIndex   =   3
          Text            =   "Show user flag changes in chat."
          TextAlign       =   0
@@ -2727,6 +2727,72 @@ Begin BotWindow ConfigWindow
          Underline       =   ""
          Visible         =   True
          Width           =   72
+      End
+      Begin CheckBox chkInit6Protocol
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   15
+         HelpTag         =   "Enable BNLS for this profile?"
+         Index           =   -2147483648
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   132
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   18
+         TabPanelIndex   =   3
+         TabStop         =   True
+         TextFont        =   "Arial"
+         TextSize        =   12
+         TextUnit        =   0
+         Top             =   149
+         Underline       =   ""
+         Value           =   False
+         Visible         =   False
+         Width           =   15
+      End
+      Begin Label txtInit6Protocol
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   15
+         HelpTag         =   "Select the product/game you wish to connect with.\r\nYour CD-Key(s) must match the product you choose."
+         Index           =   -2147483648
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   152
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   19
+         TabPanelIndex   =   3
+         Text            =   "Init 6 Protocol"
+         TextAlign       =   0
+         TextColor       =   "#Colors.UI.ControlTextColor"
+         TextFont        =   "Arial"
+         TextSize        =   12
+         TextUnit        =   0
+         Top             =   149
+         Transparent     =   False
+         Underline       =   ""
+         Visible         =   False
+         Width           =   90
       End
    End
 End
@@ -3051,6 +3117,7 @@ End
 		  Wend
 		  lstProduct.ListIndex = i
 		  
+		  chkInit6Protocol.Value = Config.Init6Protocol
 		  fldVersionByte.Text = Str(Config.VersionByte)
 		  fldCDKey.Text = Config.CDKey
 		  fldCDKeyExpansion.Text = Config.CDKeyExpansion
@@ -3543,6 +3610,14 @@ End
 		    Config.Product = MemClass.ReadDWORD(Me.Cell(Me.ListIndex, 0), 1, False)
 		  Else
 		    Config.Product = 0
+		  End If
+		  
+		  If Config.Product = Packets.BNETProduct_CHAT Then
+		    If chkInit6Protocol.Visible <> True Then chkInit6Protocol.Visible = True
+		    If txtInit6Protocol.Visible <> True Then txtInit6Protocol.Visible = True
+		  Else
+		    If chkInit6Protocol.Visible <> False Then chkInit6Protocol.Visible = False
+		    If txtInit6Protocol.Visible <> False Then txtInit6Protocol.Visible = False
 		  End If
 		  
 		  Index = MainWindow.lstProfiles.DefaultRowHeight
@@ -4817,6 +4892,40 @@ End
 		Sub GotFocus()
 		  
 		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events chkInit6Protocol
+	#tag Event
+		Sub Action()
+		  
+		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
+		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
+		  Dim Config As Configuration = Settings.Configurations(Index)
+		  
+		  Config.Init6Protocol = Me.Value
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events txtInit6Protocol
+	#tag Event
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  
+		  #pragma Unused X
+		  #pragma Unused Y
+		  
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub MouseUp(X As Integer, Y As Integer)
+		  
+		  If X < 0 Or X > Me.Width Or Y < 0 Or Y > Me.Height Then Return
+		  
+		  chkInit6Protocol.Value = Not chkInit6Protocol.Value
 		  
 		End Sub
 	#tag EndEvent

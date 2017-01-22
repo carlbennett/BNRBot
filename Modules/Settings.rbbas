@@ -337,6 +337,7 @@ Protected Module Settings
 		        Configs(UBound(Configs)).ConfirmRemovingClanMembers = (BitAnd(Options, &H800) > 0)
 		        Configs(UBound(Configs)).CreateAccountsFirst = (BitAnd(Options, &H1000) > 0)
 		        Configs(UBound(Configs)).ShowUserUpdateMessages = (BitAnd(Options, &H2000) > 0)
+		        Configs(UBound(Configs)).Init6Protocol = False
 		        
 		        Call Buffer.ReadCString() // Unused String, used to be CBNET
 		        Configs(UBound(Configs)).ProxyType = Buffer.ReadBYTE()
@@ -411,6 +412,7 @@ Protected Module Settings
 		        Configs(UBound(Configs)).ConfirmRemovingClanMembers = (BitAnd(Options, &H400) > 0)
 		        Configs(UBound(Configs)).CreateAccountsFirst = (BitAnd(Options, &H800) > 0)
 		        Configs(UBound(Configs)).ShowUserUpdateMessages = (BitAnd(Options, &H1000) > 0)
+		        Configs(UBound(Configs)).Init6Protocol = False
 		        
 		        Configs(UBound(Configs)).ProxyType = Buffer.ReadBYTE()
 		        Configs(UBound(Configs)).ProxyHost = Buffer.ReadCString()
@@ -485,6 +487,7 @@ Protected Module Settings
 		        Configs(UBound(Configs)).ConfirmRemovingClanMembers = (BitAnd(Options, &H400) > 0)
 		        Configs(UBound(Configs)).CreateAccountsFirst = (BitAnd(Options, &H800) > 0)
 		        Configs(UBound(Configs)).ShowUserUpdateMessages = (BitAnd(Options, &H1000) > 0)
+		        Configs(UBound(Configs)).Init6Protocol = (BitAnd(Options, &H2000) > 0)
 		        
 		        Configs(UBound(Configs)).ProxyType = Buffer.ReadBYTE()
 		        Configs(UBound(Configs)).ProxyHost = Buffer.ReadCString()
@@ -630,6 +633,7 @@ Protected Module Settings
 		    If Config.ConfirmRemovingClanMembers = True Then Options = BitOr(Options, &H400)
 		    If Config.CreateAccountsFirst = True Then Options = BitOr(Options, &H800)
 		    If Config.ShowUserUpdateMessages = True Then Options = BitOr(Options, &H1000)
+		    If Config.Init6Protocol = True Then Options = BitOr(Options, &H2000)
 		    Buffer.WriteDWORD(Options)
 		    
 		    Buffer.WriteBYTE(Config.ProxyType)
