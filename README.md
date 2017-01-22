@@ -12,8 +12,8 @@ here ever since.
 
 Some of its bragging rights include:
 - Handling heavy loads and floods in Battle.net chat channels.
-- Compatible with official Classic Battle.net, PvPGN, emNet, and other custom
-  servers.
+- Compatible with official Classic Battle.net, PvPGN, emNet,
+  [init 6](http://wserv.org/), and other custom servers.
 - Compatiblility with Windows XP up to Windows 10.
 - Multiple profiles and switching via tabbed (actually a list box) interface.
 - User interface is consistent throughout, allowing easy learning of the bot.
