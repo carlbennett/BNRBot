@@ -951,62 +951,62 @@ Protected Module Packets
 		        
 		      End If
 		      If BitAnd(OldFlags, &H01) = 0 And BitAnd(Flags, &H01) > 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", _
+		        Sock.Config.AddChat(True, Colors.Cyan, "INIT6: User ", _
 		        Colors.Teal, Username, _
 		        Colors.Cyan, " is now a ", _
 		        Colors.LightSkyBlue, "Blizzard representative", _
 		        Colors.Cyan, ".")
 		      End If
 		      If BitAnd(OldFlags, &H02) = 0 And BitAnd(Flags, &H02) > 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Sock.Config.AddChat(True, Colors.Cyan, "INIT6: User ", Colors.Teal, Username, _
 		        Colors.Cyan, " is now a ", Colors.White, "channel operator", Colors.Cyan, ".")
 		      End If
 		      If BitAnd(OldFlags, &H04) = 0 And BitAnd(Flags, &H04) > 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Sock.Config.AddChat(True, Colors.Cyan, "INIT6: User ", Colors.Teal, Username, _
 		        Colors.Cyan, " is now a ", Colors.Yellow, "channel speaker", Colors.Cyan, ".")
 		      End If
 		      If BitAnd(OldFlags, &H08) = 0 And BitAnd(Flags, &H08) > 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Sock.Config.AddChat(True, Colors.Cyan, "INIT6: User ", Colors.Teal, Username, _
 		        Colors.Cyan, " is now a ", Colors.LightSeaGreen, "Battle.net administrator", Colors.Cyan, ".")
 		      End If
 		      If BitAnd(OldFlags, &H10) = 0 And BitAnd(Flags, &H10) > 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Sock.Config.AddChat(True, Colors.Cyan, "INIT6: User ", Colors.Teal, Username, _
 		        Colors.Cyan, " no longer has ", Colors.Teal, "UDP support", Colors.Cyan, ".")
 		      End If
 		      If BitAnd(OldFlags, &H20) = 0 And BitAnd(Flags, &H20) > 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Sock.Config.AddChat(True, Colors.Cyan, "INIT6: User ", Colors.Teal, Username, _
 		        Colors.Cyan, " is now ", Colors.Red, "squelched", Colors.Cyan, ".")
 		      End If
 		      If BitAnd(OldFlags, &H40) = 0 And BitAnd(Flags, &H40) > 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Sock.Config.AddChat(True, Colors.Cyan, "INIT6: User ", Colors.Teal, Username, _
 		        Colors.Cyan, " is now a ", Colors.Pink, "guest", Colors.Cyan, ".")
 		      End If
 		      If BitAnd(OldFlags, &H01) > 0 And BitAnd(Flags, &H01) = 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Sock.Config.AddChat(True, Colors.Cyan, "INIT6: User ", Colors.Teal, Username, _
 		        Colors.Cyan, " is no longer a ", Colors.LightSkyBlue, "Blizzard representative", Colors.Cyan, ".")
 		      End If
 		      If BitAnd(OldFlags, &H02) > 0 And BitAnd(Flags, &H02) = 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Sock.Config.AddChat(True, Colors.Cyan, "INIT6: User ", Colors.Teal, Username, _
 		        Colors.Cyan, " is no longer a ", Colors.White, "channel operator", Colors.Cyan, ".")
 		      End If
 		      If BitAnd(OldFlags, &H04) > 0 And BitAnd(Flags, &H04) = 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Sock.Config.AddChat(True, Colors.Cyan, "INIT6: User ", Colors.Teal, Username, _
 		        Colors.Cyan, " is no longer a ", Colors.Yellow, "channel speaker", Colors.Cyan, ".")
 		      End If
 		      If BitAnd(OldFlags, &H08) > 0 And BitAnd(Flags, &H08) = 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Sock.Config.AddChat(True, Colors.Cyan, "INIT6: User ", Colors.Teal, Username, _
 		        Colors.Cyan, " is no longer a ", Colors.LightSeaGreen, "Battle.net administrator", Colors.Cyan, ".")
 		      End If
 		      If BitAnd(OldFlags, &H10) > 0 And BitAnd(Flags, &H10) = 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Sock.Config.AddChat(True, Colors.Cyan, "INIT6: User ", Colors.Teal, Username, _
 		        Colors.Cyan, " now has ", Colors.Teal, "UDP support", Colors.Cyan, ".")
 		      End If
 		      If BitAnd(OldFlags, &H20) > 0 And BitAnd(Flags, &H20) = 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Sock.Config.AddChat(True, Colors.Cyan, "INIT6: User ", Colors.Teal, Username, _
 		        Colors.Cyan, " is no longer ", Colors.Red, "squelched", Colors.Cyan, ".")
 		      End If
 		      If BitAnd(OldFlags, &H40) > 0 And BitAnd(Flags, &H40) = 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
+		        Sock.Config.AddChat(True, Colors.Cyan, "INIT6: User ", Colors.Teal, Username, _
 		        Colors.Cyan, " is no longer a ", Colors.Pink, "guest", Colors.Cyan, ".")
 		      End If
 		    End If
