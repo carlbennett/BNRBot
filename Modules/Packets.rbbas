@@ -711,7 +711,7 @@ Protected Module Packets
 		      Sock.Config.AddChat(True, Colors.Cyan, "INIT6: Logged on as ", Colors.Teal, Sock.UniqueName, Colors.Cyan, "!")
 		      
 		    Case "FAIL"
-		      Sock.Config.AddChat(True, Colors.Red, "INIT6: Login failure: " + Line)
+		      Sock.Config.AddChat(True, Colors.Red, "INIT6: Login failure: " + Join(fields, " "))
 		      Sock.DoDisconnect(False)
 		      Return False
 		      
