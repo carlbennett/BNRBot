@@ -2125,14 +2125,13 @@ End
 		    
 		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True Then
 		      sTmp = "/" + Lowercase(hitItem.Text) + " " + hitItem.Tag
-		      If Self.Config.Product = Packets.BNETProduct_CHAT And Self.Config.VersionByte = &H00 Then
+		      If Self.Config.EnableUTF8 = True Then sTmp = ConvertEncoding(sTmp, Encodings.UTF8)
+		      If Self.Config.BNET.Product = Packets.BNETProduct_CHAT And Self.Config.BNET.Init6Protocol = True Then
+		        Self.Config.BNET.Send(sTmp + EndOfLine.Windows)
+		      ElseIf Self.Config.BNET.Product = Packets.BNETProduct_CHAT And Self.Config.BNET.Init6Protocol = False Then
 		        Self.Config.BNET.Send(sTmp + Chr(13))
 		      Else
-		        If Self.Config.EnableUTF8 = False Then
-		          Self.Config.BNET.Send(Packets.CreateSID_CHATCOMMAND(sTmp))
-		        Else
-		          Self.Config.BNET.Send(Packets.CreateSID_CHATCOMMAND(ConvertEncoding(sTmp, Encodings.UTF8)))
-		        End If
+		        Self.Config.BNET.Send(Packets.CreateSID_CHATCOMMAND(sTmp))
 		      End If
 		    End If
 		    
