@@ -117,6 +117,7 @@ Protected Class Configuration
 		  Me.Container = New ChatContainer()
 		  Me.Container.Config = Me
 		  
+		  Me.CacheChatMention = False
 		  Me.CacheChatUnread = False
 		  
 		  Me.CachelstUsers_View_Channel     = ChatContainer.lstUsers_View_Channel_Flags
@@ -161,6 +162,10 @@ Protected Class Configuration
 
 	#tag Property, Flags = &h0
 		BNLSVersionCheck As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		CacheChatMention As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -487,6 +492,11 @@ Protected Class Configuration
 			Group="ID"
 			InitialValue="-2147483648"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Init6Protocol"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"

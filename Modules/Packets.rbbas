@@ -770,6 +770,19 @@ Protected Module Packets
 		  Dim msgName As String = fields(0)
 		  fields.Remove(0)
 		  
+		  // A timer on the MainWindow delays the users list redraw a tiny bit so that it doesn't lag so much.
+		  // The lag is caused by the code updating the list N*N times, therefore causing a small (<50ms) pause.
+		  // Delaying it until "after everything is done" reverses this to just N*1 times.
+		  // How much time to wait is determined by the lstUsersTimer's Period on MainWindow.
+		  // A significant performance increase is seen when the Period is 100ms.
+		  
+		  If MainWindow.IsConfigSelected(Sock.Config) = False Then
+		    
+		    Sock.Config.CacheChatUnread = True
+		    Sock.Config.Container.lstUsersTimer.Reset()
+		    
+		  End If
+		  
 		  Select Case msgName
 		  Case "JOIN"
 		    
@@ -819,6 +832,19 @@ Protected Module Packets
 		  
 		  Dim msgName As String = fields(0)
 		  fields.Remove(0)
+		  
+		  // A timer on the MainWindow delays the users list redraw a tiny bit so that it doesn't lag so much.
+		  // The lag is caused by the code updating the list N*N times, therefore causing a small (<50ms) pause.
+		  // Delaying it until "after everything is done" reverses this to just N*1 times.
+		  // How much time to wait is determined by the lstUsersTimer's Period on MainWindow.
+		  // A significant performance increase is seen when the Period is 100ms.
+		  
+		  If MainWindow.IsConfigSelected(Sock.Config) = False Then
+		    
+		    Sock.Config.CacheChatUnread = True
+		    Sock.Config.Container.lstUsersTimer.Reset()
+		    
+		  End If
 		  
 		  Select Case msgName
 		  Case "INFO", "TOPIC"
@@ -887,6 +913,19 @@ Protected Module Packets
 		  
 		  Dim msgName As String = fields(0)
 		  fields.Remove(0)
+		  
+		  // A timer on the MainWindow delays the users list redraw a tiny bit so that it doesn't lag so much.
+		  // The lag is caused by the code updating the list N*N times, therefore causing a small (<50ms) pause.
+		  // Delaying it until "after everything is done" reverses this to just N*1 times.
+		  // How much time to wait is determined by the lstUsersTimer's Period on MainWindow.
+		  // A significant performance increase is seen when the Period is 100ms.
+		  
+		  If MainWindow.IsConfigSelected(Sock.Config) = False And msgName <> "UPDATE" Then
+		    
+		    Sock.Config.CacheChatUnread = True
+		    Sock.Config.Container.lstUsersTimer.Reset()
+		    
+		  End If
 		  
 		  Select Case msgName
 		  Case "IN", "JOIN", "UPDATE"
@@ -1063,6 +1102,9 @@ Protected Module Packets
 		      If Direction = "TO" Then
 		        Sock.Config.AddChat(True, Colors.Cyan, "<To: " + Username + "> ", Colors.Gray, Text)
 		      ElseIf Direction = "FROM" Then
+		        MainWindow.FlashWindowEx(1)
+		        Sock.Config.CacheChatMention = True
+		        Sock.Config.Container.lstUsersTimer.Reset()
 		        Sock.Config.AddChat(True, Colors.Orange, "<", Colors.Yellow, "From: " + Username, Colors.Orange, "> ", Colors.Gray, Text)
 		      Else
 		        Sock.Config.AddChat(True, Colors.Gray, "<" + Direction + ": " + Username + "> " + Text)
@@ -1143,6 +1185,12 @@ Protected Module Packets
 		          colorB = Colors.Yellow
 		          colorC = Colors.Yellow
 		        End If
+		      End If
+		      
+		      If InStr(Text, Sock.UniqueName) > 0 Or InStr(Text, Sock.AccountName) > 0 Then
+		        MainWindow.FlashWindowEx(1)
+		        Sock.Config.CacheChatMention = True
+		        Sock.Config.Container.lstUsersTimer.Reset()
 		      End If
 		      
 		      If msgName = "TALK" Then
@@ -1585,6 +1633,9 @@ Protected Module Packets
 		    End If
 		    
 		    If BitAnd(Flags, &H20) <= 0 Then
+		      MainWindow.FlashWindowEx(1)
+		      Sock.Config.CacheChatMention = True
+		      Sock.Config.Container.lstUsersTimer.Reset()
 		      Sock.Config.AddChat(True, Colors.Orange, "<", Colors.Yellow, "From: " + Username, Colors.Orange, "> ", Colors.Gray, Text)
 		      Globals.ExpandChatContent(Sock.Config, Text)
 		    End If
@@ -1622,6 +1673,12 @@ Protected Module Packets
 		        colorA = Colors.Orange
 		        colorB = Colors.Yellow
 		        If BitAnd(Flags, &H04) > 0 Then colorC = Colors.Yellow Else colorC = Colors.White
+		      End If
+		      
+		      If InStr(Text, Sock.UniqueName) > 0 Or InStr(Text, Sock.AccountName) > 0 Then
+		        MainWindow.FlashWindowEx(1)
+		        Sock.Config.CacheChatMention = True
+		        Sock.Config.Container.lstUsersTimer.Reset()
 		      End If
 		      
 		      Sock.Config.AddChat(True, colorA, "<", colorB, Username, colorA, "> ", colorC, Text)

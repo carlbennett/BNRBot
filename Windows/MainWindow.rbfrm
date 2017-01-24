@@ -91,6 +91,7 @@ Begin BotWindow MainWindow
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -112,6 +113,7 @@ Begin BotWindow MainWindow
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   1
+         TabStop         =   True
          Top             =   13
          Visible         =   True
          Width           =   627
@@ -283,7 +285,11 @@ End
 		  End If
 		  
 		  If Config <> Nil And Config.BNET.IsConnected = True Then
-		    g.ForeColor = ColorMix(g.ForeColor, &c00FF00, -2)
+		    If Config.CacheChatMention = True Then
+		      g.ForeColor = ColorMix(g.ForeColor, &cFFFF00, 1)
+		    Else
+		      g.ForeColor = ColorMix(g.ForeColor, &c00FF00, -2)
+		    End If
 		  ElseIf Config <> Nil And Config.BNET.IsConnected = False Then
 		    g.ForeColor = ColorMix(g.ForeColor, &CFF0000, -2)
 		  End If
@@ -395,6 +401,7 @@ End
 		  
 		  Dim Config As Configuration = Self.GetSelectedConfig()
 		  If Config <> Nil Then
+		    Config.CacheChatMention = False
 		    Config.CacheChatUnread = False
 		    Globals.ForceRedraw(Me)
 		  End If

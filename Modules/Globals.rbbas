@@ -871,6 +871,44 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub FlashWindowEx(Extends win as window, x as integer)
+		  //Windows Functionality Suite 2.5
+		  #if TargetWin32
+		    //requires windows 98 or higher
+		    Const FLASHW_STOP = 0 'Stop flashing. The system restores the window to its original state.
+		    Const FLASHW_CAPTION = &H1 'Flash the window caption.
+		    Const FLASHW_TRAY = &H2 'Flash the taskbar button.
+		    'Const FLASHW_ALL = (FLASHW_CAPTION Or FLASHW_TRAY) 'Flash both the window caption and taskbar button. This is equivalent to setting the FLASHW_CAPTION Or FLASHW_TRAY flags.
+		    Const FLASHW_TIMER = &H4 'Flash continuously, until the FLASHW_STOP flag is set.
+		    Const FLASHW_TIMERNOFG = &HC 'Flash continuously until the window comes to the foreground.
+		    'Private Type FLASHWINFO
+		    'cbSize As Long '0
+		    'hwnd As Long '4
+		    'dwFlags As Long '8
+		    'uCount As Long '12
+		    'dwTimeout As Long '16
+		    'End Type
+		    Declare Function FlashWindowEx Lib "user32" (pfwi As ptr) As integer
+		    Dim FlashInfo As New MemoryBlock(20)
+		    'Specifies the size of the structure.
+		    flashinfo.Long(0) = 20
+		    'Specifies the flash status
+		    flashinfo.long(8) = FLASHW_CAPTION + FLASHW_TRAY
+		    'Specifies the rate, in milliseconds, at which the window will be flashed. If dwTimeout is zero, the function uses the default cursor blink rate.
+		    FlashInfo.long(16) = 0
+		    'Handle to the window to be flashed. The window can be either opened or minimized.
+		    FlashInfo.long(4) = win.Handle
+		    'Specifies the number of times to flash the window.
+		    FlashInfo.long(12) = x
+		    if FlashWindowEx(FlashInfo) =0 then
+		      ///succeeded
+		    end
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function FontUnitCSS(fontUnit As FontUnits) As String
 		  
 		  Select Case fontUnit
