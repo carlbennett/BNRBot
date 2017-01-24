@@ -3705,13 +3705,6 @@ End
 		  
 		  Config.Password = Me.Text
 		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub LostFocus()
-		  
-		  Self.Refresh(False)
-		  
 		  Dim Warnings As String = ""
 		  
 		  If LenB(Me.Text) < 1 Then _
@@ -3724,7 +3717,17 @@ End
 		  "The username you entered is more than 32 characters. Battle.net requires" + EndOfLine + _
 		  "a password of at least 1 character and no more than 32 characters." + EndOfLine + EndOfLine
 		  
-		  If Len(Warnings) > 0 Then MsgBox(Warnings + "You may continue at your own risk.")
+		  If Len(Warnings) > 0 Then Tooltip.Show(_
+		  Warnings + "You may continue at your own risk.", _
+		  Self.Left + Me.Left, Self.Top + Me.Top + Me.Height, True) _
+		  Else Tooltip.Hide()
+		    
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
@@ -3746,13 +3749,6 @@ End
 		  
 		  Config.Username = Me.Text
 		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub LostFocus()
-		  
-		  Self.Refresh(False)
-		  
 		  Dim Warnings As String = ""
 		  
 		  If ChrSearch(Me.Text, "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.-_[]()", False) = False Then _
@@ -3770,7 +3766,17 @@ End
 		  "The username you entered is more than 15 characters. Battle.net requires" + EndOfLine + _
 		  "a name of at least 3 characters and no more than 15 characters." + EndOfLine + EndOfLine
 		  
-		  If Len(Warnings) > 0 Then MsgBox(Warnings + "You may continue at your own risk.")
+		  If Len(Warnings) > 0 Then Tooltip.Show(_
+		  Warnings + "You may continue at your own risk.", _
+		  Self.Left + Me.Left, Self.Top + Me.Top + Me.Height, True) _
+		  Else Tooltip.Hide()
+		    
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
 		  
 		End Sub
 	#tag EndEvent
