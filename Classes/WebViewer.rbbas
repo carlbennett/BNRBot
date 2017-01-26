@@ -37,11 +37,24 @@ Inherits HTMLViewer
 		  Dim source As String = ""
 		  
 		  source = source + "<!DOCTYPE html>" + EndOfLine.UNIX
-		  source = source + "<html><head>"
-		  source = source + "<meta http-equiv=""Content-Type"" content=""text/html;charset=utf-8""/>"
+		  source = source + "<html><head>" + EndOfLine.UNIX
+		  source = source + "<meta http-equiv=""Content-Type"" content=""text/html;charset=utf-8""/>" + EndOfLine.UNIX
 		  source = source + "<style type=""text/css"">"
-		  source = source + Me.GetInternalCSS()
-		  source = source + "</style></head><body>"
+		  source = source + Me.GetInternalCSS() + EndOfLine.UNIX
+		  source = source + "</style>" + EndOfLine.UNIX
+		  
+		  source = source + "<script type=""text/javascript"">" + EndOfLine.UNIX
+		  source = source + "function urlify(text) {" + EndOfLine.UNIX
+		  source = source + "  var urlRegex = /(https?:\/\/[^\s]+)/g;" + EndOfLine.UNIX
+		  source = source + "  return text.replace(urlRegex, function(url) {" + EndOfLine.UNIX
+		  source = source + "    return '<a href=""' + url + '"">' + url + '</a>';" + EndOfLine.UNIX
+		  source = source + "  })" + EndOfLine.UNIX
+		  source = source + "  // or alternatively" + EndOfLine.UNIX
+		  source = source + "  // return text.replace(urlRegex, '<a href=""$1"">$1</a>')" + EndOfLine.UNIX
+		  source = source + "};" + EndOfLine.UNIX
+		  source = source + "</script>" + EndOfLine.UNIX
+		  
+		  source = source + "</head><body>" + EndOfLine.UNIX
 		  
 		  If Config = Nil Then
 		    
@@ -108,7 +121,8 @@ Inherits HTMLViewer
 		    source = source + "word-wrap:break-word;"
 		    source = source + "}"
 		    
-		    source = source + "a{color:#" + Globals.ColorToHex(Colors.UI.ListSelectionColor) + ",text-decoration:underline;}"
+		    source = source + "a{color:#" + Globals.ColorToHex(Colors.UI.ListSelectionColor) + ";text-decoration:none;}"
+		    source = source + "a:hover{text-decoration:underline;}"
 		    
 		    source = source + "div.expanded{padding:4px 1em 4px 1em;}"
 		    source = source + "div.expanded iframe{}"

@@ -59,6 +59,7 @@ Protected Class Configuration
 		      + Format(c.Green, "-#") + "," _
 		      + Format(c.Blue, "-#") + ")';"
 		      js = js + "chat.innerText = " + StringToJSON(value.StringValue) + ";"
+		      js = js + "chat.innerHTML = urlify(chat.innerHTML);"
 		      js = js + "line.appendChild(chat);"
 		    ElseIf value.Type = Variant.TypeObject And value.ObjectValue IsA Pair Then
 		      p = Pair(value.ObjectValue)
@@ -79,6 +80,7 @@ Protected Class Configuration
 		        + Format(c.Blue, "-#") + ")';"
 		        js = js + "chat.innerText = " + StringToJSON(p.Right) + ";"
 		        js = js + "chat.style['font-family'] = 'monospace';"
+		        js = js + "chat.innerHTML = urlify(chat.innerHTML);"
 		        js = js + "line.appendChild(chat);"
 		      Case Else
 		        Dim e As New RuntimeException()
@@ -381,6 +383,11 @@ Protected Class Configuration
 			Name="BNLSVersionCheck"
 			Group="Behavior"
 			InitialValue="0"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CacheChatMention"
+			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
