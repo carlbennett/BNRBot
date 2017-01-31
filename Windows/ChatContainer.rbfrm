@@ -1131,240 +1131,60 @@ End
 			    Else
 			      sChannelText = "0 friends"
 			    End If
-			    If Self.lstUsers_ViewIsFriends(Me.Config.CachelstUsers_LastView) = False Then _
-			    Me.Config.BNET.Send(Packets.CreateSID_FRIENDSLIST())
-			  ElseIf Self.lstUsers_Viewing_Clan() = True Then
-			    lstUsers.ColumnCount = 2
-			    lstUsers.ColumnWidths = "30"
-			    If Me.Config.BNET.ClanMembers <> Nil Then
-			      sChannelText = Str(Me.Config.BNET.ClanMembers.Count) + " clan member"
-			      If Me.Config.BNET.ClanMembers.Count <> 1 Then sChannelText = sChannelText + "s"
-			    Else
-			      sChannelText = "0 clan members"
-			      Return
+			    If Self.lstUsers_ViewIsFriends(Me.Config.CachelstUsers_LastView) = False And _
+			      Self.Config.BNET.Product <> Packets.BNETProduct_CHAT Then _
+			      Me.Config.BNET.Send(Packets.CreateSID_FRIENDSLIST())
+			    ElseIf Self.lstUsers_Viewing_Clan() = True Then
+			      lstUsers.ColumnCount = 2
+			      lstUsers.ColumnWidths = "30"
+			      If Me.Config.BNET.ClanMembers <> Nil Then
+			        sChannelText = Str(Me.Config.BNET.ClanMembers.Count) + " clan member"
+			        If Me.Config.BNET.ClanMembers.Count <> 1 Then sChannelText = sChannelText + "s"
+			      Else
+			        sChannelText = "0 clan members"
+			        Return
+			      End If
+			    ElseIf Self.lstUsers_Viewing_ChannelList() = True Then
+			      lstUsers.ColumnCount = 1
+			      lstUsers.ColumnWidths = "100%"
+			      sChannelText = Str(UBound(Me.Config.BNET.Channels) + 1) + " channel"
+			      If UBound(Me.Config.BNET.Channels) <> 0 Then sChannelText = sChannelText + "s"
 			    End If
-			  ElseIf Self.lstUsers_Viewing_ChannelList() = True Then
-			    lstUsers.ColumnCount = 1
-			    lstUsers.ColumnWidths = "100%"
-			    sChannelText = Str(UBound(Me.Config.BNET.Channels) + 1) + " channel"
-			    If UBound(Me.Config.BNET.Channels) <> 0 Then sChannelText = sChannelText + "s"
-			  End If
-			  
-			  Select Case value
-			  Case Me.lstUsers_View_Channel_Entry
-			    Me.Config.CachelstUsers_View_Channel = value
 			    
-			    i = 0
-			    While i < Me.Config.BNET.ChannelUsers.Count
-			      User = Me.Config.BNET.ChannelUsers.Value(Me.Config.BNET.ChannelUsers.Key(i))
+			    Select Case value
+			    Case Me.lstUsers_View_Channel_Entry
+			      Me.Config.CachelstUsers_View_Channel = value
 			      
-			      Times.Append(User.Value("TimeEntered"))
-			      Users.Append(User)
-			      
-			      i = i + 1
-			    Wend
-			    
-			    Times.SortWith(Users)
-			    
-			    For Each User In Users()
-			      
-			      lstUsers.AddRow("")
-			      lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
-			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
-			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
-			      lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
-			      
-			    Next
-			    
-			    sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
-			    
-			  Case Me.lstUsers_View_Channel_Name
-			    Me.Config.CachelstUsers_View_Channel = value
-			    
-			    i = 0
-			    While i < Me.Config.BNET.ChannelUsers.Count
-			      User = Me.Config.BNET.ChannelUsers.Value(Me.Config.BNET.ChannelUsers.Key(i))
-			      
-			      Names.Append(User.Value("Username"))
-			      Users.Append(User)
-			      
-			      i = i + 1
-			    Wend
-			    
-			    Names.SortWith(Users)
-			    
-			    For Each User In Users()
-			      
-			      lstUsers.AddRow("")
-			      lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
-			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
-			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
-			      lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
-			      
-			    Next
-			    
-			    sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
-			    
-			  Case Me.lstUsers_View_Channel_Game
-			    Me.Config.CachelstUsers_View_Channel = value
-			    
-			    For Each Product In Products()
 			      i = 0
 			      While i < Me.Config.BNET.ChannelUsers.Count
 			        User = Me.Config.BNET.ChannelUsers.Value(Me.Config.BNET.ChannelUsers.Key(i))
 			        
-			        If StrComp(Product, MidB(User.Value("Statstring"), 1, 4), 0) = 0 Then
-			          lstUsers.AddRow("")
-			          lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
-			          lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
-			          lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
-			          lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
-			        End If
-			        
-			        i = i + 1
-			      Wend
-			    Next
-			    
-			    sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
-			    
-			  Case Me.lstUsers_View_Channel_Flags
-			    Me.Config.CachelstUsers_View_Channel = value
-			    
-			    // 0x01      0x08          0x04        0x02
-			    Dim Admins(), Moderators(), Speakers(), Operators() As Dictionary
-			    
-			    i = 0
-			    While i < Me.Config.BNET.ChannelUsers.Count
-			      User = Me.Config.BNET.ChannelUsers.Value(Me.Config.BNET.ChannelUsers.Key(i))
-			      
-			      dwTmp1 = User.Value("Flags")
-			      
-			      If BitAnd(dwTmp1, &H01) > 0 Then
-			        Admins.Append(User)
-			        
-			      ElseIf BitAnd(dwTmp1, &H08) > 0 Then
-			        Moderators.Append(User)
-			        
-			      ElseIf BitAnd(dwTmp1, &H04) > 0 Then
-			        Speakers.Append(User)
-			        
-			      ElseIf BitAnd(dwTmp1, &H02) > 0 Then
-			        Operators.Append(User)
-			        
-			      Else
+			        Times.Append(User.Value("TimeEntered"))
 			        Users.Append(User)
 			        
-			      End If
-			      
-			      i = i + 1
-			    Wend
-			    
-			    For Each User In Speakers
-			      Users.Insert(0, User)
-			    Next
-			    For Each User In Operators
-			      Users.Insert(0, User)
-			    Next
-			    For Each User In Moderators
-			      Users.Insert(0, User)
-			    Next
-			    For Each User In Admins
-			      Users.Insert(0, User)
-			    Next
-			    
-			    For Each User In Users()
-			      
-			      lstUsers.AddRow("")
-			      lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
-			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
-			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
-			      lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
-			      
-			    Next
-			    
-			    sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
-			    
-			  Case Me.lstUsers_View_Channel_Ping
-			    Me.Config.CachelstUsers_View_Channel = value
-			    
-			    Dim Pings() As UInt32
-			    
-			    i = 0
-			    While i < Me.Config.BNET.ChannelUsers.Count
-			      User = Me.Config.BNET.ChannelUsers.Value(Me.Config.BNET.ChannelUsers.Key(i))
-			      
-			      Pings.Append(User.Value("Ping"))
-			      Users.Append(User)
-			      
-			      i = i + 1
-			    Wend
-			    
-			    Pings.SortWith(Users)
-			    
-			    For Each User In Users()
-			      
-			      lstUsers.AddRow("")
-			      lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
-			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
-			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
-			      lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
-			      
-			    Next
-			    
-			    sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
-			    
-			  Case Me.lstUsers_View_Channel_Activity
-			    Me.Config.CachelstUsers_View_Channel = value
-			    
-			    i = 0
-			    While i < Me.Config.BNET.ChannelUsers.Count
-			      User = Me.Config.BNET.ChannelUsers.Value(Me.Config.BNET.ChannelUsers.Key(i))
-			      
-			      Times.Append(User.Value("LastMessageTime"))
-			      Users.Append(User)
-			      
-			      i = i + 1
-			    Wend
-			    
-			    Times.SortWith(Users)
-			    
-			    For Each User In Users()
-			      
-			      lstUsers.AddRow("")
-			      lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
-			      lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
-			      lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
-			      lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
-			      
-			    Next
-			    
-			    sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
-			    
-			  Case Me.lstUsers_View_Friends_Entry
-			    Me.Config.CachelstUsers_View_Friends = value
-			    
-			    If Me.Config.BNET.FriendsList <> Nil Then
-			      i = 0
-			      While i < Me.Config.BNET.FriendsList.Count
-			        User = Me.Config.BNET.FriendsList.Value(Me.Config.BNET.FriendsList.Key(i))
-			        
-			        lstUsers.AddRow(MemClass.WriteDWORD(User.Value("Product"), True))
-			        lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
-			        lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location Name")
-			        lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
-			        lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Location")
-			        
 			        i = i + 1
 			      Wend
-			    End If
-			    
-			  Case Me.lstUsers_View_Friends_Name
-			    Me.Config.CachelstUsers_View_Friends = value
-			    
-			    If Me.Config.BNET.FriendsList <> Nil Then
+			      
+			      Times.SortWith(Users)
+			      
+			      For Each User In Users()
+			        
+			        lstUsers.AddRow("")
+			        lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
+			        lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
+			        lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
+			        lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
+			        
+			      Next
+			      
+			      sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
+			      
+			    Case Me.lstUsers_View_Channel_Name
+			      Me.Config.CachelstUsers_View_Channel = value
+			      
 			      i = 0
-			      While i < Me.Config.BNET.FriendsList.Count
-			        User = Me.Config.BNET.FriendsList.Value(Me.Config.BNET.FriendsList.Key(i))
+			      While i < Me.Config.BNET.ChannelUsers.Count
+			        User = Me.Config.BNET.ChannelUsers.Value(Me.Config.BNET.ChannelUsers.Key(i))
 			        
 			        Names.Append(User.Value("Username"))
 			        Users.Append(User)
@@ -1376,262 +1196,443 @@ End
 			      
 			      For Each User In Users()
 			        
-			        lstUsers.AddRow(MemClass.WriteDWORD(User.Value("Product"), True))
+			        lstUsers.AddRow("")
 			        lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
-			        lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location Name")
-			        lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
-			        lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Location")
+			        lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
+			        lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
+			        lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
 			        
 			      Next
-			    End If
-			    
-			  Case Me.lstUsers_View_Friends_Game
-			    Me.Config.CachelstUsers_View_Friends = value
-			    
-			    If Me.Config.BNET.FriendsList <> Nil Then
+			      
+			      sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
+			      
+			    Case Me.lstUsers_View_Channel_Game
+			      Me.Config.CachelstUsers_View_Channel = value
+			      
 			      For Each Product In Products()
 			        i = 0
-			        While i < Me.Config.BNET.FriendsList.Count
-			          User = Me.Config.BNET.FriendsList.Value(Me.Config.BNET.FriendsList.Key(i))
+			        While i < Me.Config.BNET.ChannelUsers.Count
+			          User = Me.Config.BNET.ChannelUsers.Value(Me.Config.BNET.ChannelUsers.Key(i))
 			          
-			          If StrComp(Product, MemClass.WriteDWORD(User.Value("Product"), True), 0) = 0 Then
-			            lstUsers.AddRow(MemClass.WriteDWORD(User.Value("Product"), True))
+			          If StrComp(Product, MidB(User.Value("Statstring"), 1, 4), 0) = 0 Then
+			            lstUsers.AddRow("")
 			            lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
-			            lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location Name")
-			            lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
-			            lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Location")
+			            lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
+			            lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
+			            lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
 			          End If
 			          
 			          i = i + 1
 			        Wend
 			      Next
-			    End If
-			    
-			  Case Me.lstUsers_View_Friends_Status
-			    Me.Config.CachelstUsers_View_Friends = value
-			    
-			    If Me.Config.BNET.FriendsList <> Nil Then
+			      
+			      sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
+			      
+			    Case Me.lstUsers_View_Channel_Flags
+			      Me.Config.CachelstUsers_View_Channel = value
+			      
+			      // 0x01      0x08          0x04        0x02
+			      Dim Admins(), Moderators(), Speakers(), Operators() As Dictionary
+			      
 			      i = 0
-			      While i < Me.Config.BNET.FriendsList.Count
-			        User = Me.Config.BNET.FriendsList.Value(Me.Config.BNET.FriendsList.Key(i))
+			      While i < Me.Config.BNET.ChannelUsers.Count
+			        User = Me.Config.BNET.ChannelUsers.Value(Me.Config.BNET.ChannelUsers.Key(i))
 			        
-			        Statuses.Append(User.Value("Status"))
-			        Users.Append(User)
+			        dwTmp1 = User.Value("Flags")
+			        
+			        If BitAnd(dwTmp1, &H01) > 0 Then
+			          Admins.Append(User)
+			          
+			        ElseIf BitAnd(dwTmp1, &H08) > 0 Then
+			          Moderators.Append(User)
+			          
+			        ElseIf BitAnd(dwTmp1, &H04) > 0 Then
+			          Speakers.Append(User)
+			          
+			        ElseIf BitAnd(dwTmp1, &H02) > 0 Then
+			          Operators.Append(User)
+			          
+			        Else
+			          Users.Append(User)
+			          
+			        End If
 			        
 			        i = i + 1
 			      Wend
 			      
-			      Statuses.SortWith(Users)
-			      
-			      For Each User In Users()
-			        
-			        lstUsers.AddRow(MemClass.WriteDWORD(User.Value("Product"), True))
-			        lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
-			        lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location Name")
-			        lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
-			        lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Location")
-			        
+			      For Each User In Speakers
+			        Users.Insert(0, User)
 			      Next
-			    End If
-			    
-			  Case Me.lstUsers_View_Friends_Location
-			    Me.Config.CachelstUsers_View_Friends = value
-			    
-			    // Statuses() is reused as the Locations() instead.
-			    
-			    If Me.Config.BNET.FriendsList <> Nil Then
-			      i = 0
-			      While i < Me.Config.BNET.FriendsList.Count
-			        User = Me.Config.BNET.FriendsList.Value(Me.Config.BNET.FriendsList.Key(i))
-			        
-			        Statuses.Append(User.Value("Location"))
-			        Users.Append(User)
-			        
-			        i = i + 1
-			      Wend
-			      
-			      Statuses.SortWith(Users)
-			      
-			      For Each User In Users()
-			        
-			        lstUsers.AddRow(MemClass.WriteDWORD(User.Value("Product"), True))
-			        lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
-			        lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location Name")
-			        lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
-			        lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Location")
-			        
+			      For Each User In Operators
+			        Users.Insert(0, User)
 			      Next
-			    End If
-			    
-			  Case Me.lstUsers_View_Clan_Entry
-			    Me.Config.CachelstUsers_View_Clan = value
-			    
-			    If Me.Config.BNET.ClanMembers <> Nil Then
-			      i = 0
-			      While i < Me.Config.BNET.ClanMembers.Count
-			        User = Me.Config.BNET.ClanMembers.Value(Me.Config.BNET.ClanMembers.Key(i))
-			        
-			        lstUsers.AddRow(Str(User.Value("Rank")))
-			        lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
-			        lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location")
-			        lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
-			        
-			        i = i + 1
-			      Wend
-			    End If
-			    
-			  Case Me.lstUsers_View_Clan_Name
-			    Me.Config.CachelstUsers_View_Clan = value
-			    
-			    If Me.Config.BNET.ClanMembers <> Nil Then
-			      i = 0
-			      While i < Me.Config.BNET.ClanMembers.Count
-			        User = Me.Config.BNET.ClanMembers.Value(Me.Config.BNET.ClanMembers.Key(i))
-			        
-			        Names.Append(User.Value("Username"))
-			        Users.Append(User)
-			        
-			        i = i + 1
-			      Wend
-			      
-			      Names.SortWith(Users)
-			      
-			      For Each User In Users()
-			        
-			        lstUsers.AddRow(Str(User.Value("Rank")))
-			        lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
-			        lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location")
-			        lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
-			        
+			      For Each User In Moderators
+			        Users.Insert(0, User)
 			      Next
-			    End If
-			    
-			  Case Me.lstUsers_View_Clan_Status
-			    Me.Config.CachelstUsers_View_Clan = value
-			    
-			    If Me.Config.BNET.ClanMembers <> Nil Then
-			      i = 0
-			      While i < Me.Config.BNET.ClanMembers.Count
-			        User = Me.Config.BNET.ClanMembers.Value(Me.Config.BNET.ClanMembers.Key(i))
-			        
-			        Statuses.Append(User.Value("Status"))
-			        Users.Append(User)
-			        
-			        i = i + 1
-			      Wend
-			      
-			      Statuses.SortWith(Users)
-			      
-			      For Each User In Users()
-			        
-			        lstUsers.AddRow(Str(User.Value("Rank")))
-			        lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
-			        lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location")
-			        lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
-			        
-			      Next
-			    End If
-			    
-			  Case Me.lstUsers_View_Clan_Rank
-			    Me.Config.CachelstUsers_View_Clan = value
-			    
-			    If Me.Config.BNET.ClanMembers <> Nil Then
-			      Dim Others(), Chieftains(), Shamans(), Grunts(), Peons(), Initiates() As Dictionary
-			      
-			      i = 0
-			      While i < Me.Config.BNET.ClanMembers.Count
-			        User = Me.Config.BNET.ClanMembers.Value(Me.Config.BNET.ClanMembers.Key(i))
-			        
-			        Select Case User.Value("Rank")
-			        Case &H00
-			          Initiates.Append(User)
-			          
-			        Case &H01
-			          Peons.Append(User)
-			          
-			        Case &H02
-			          Grunts.Append(User)
-			          
-			        Case &H03
-			          Shamans.Append(User)
-			          
-			        Case &H04
-			          Chieftains.Append(User)
-			          
-			        Case Else
-			          Others.Append(User)
-			          
-			        End Select
-			        
-			        i = i + 1
-			      Wend
-			      
-			      For Each User In Chieftains
-			        Users.Append(User)
-			      Next
-			      For Each User In Shamans
-			        Users.Append(User)
-			      Next
-			      For Each User In Grunts
-			        Users.Append(User)
-			      Next
-			      For Each User In Peons
-			        Users.Append(User)
-			      Next
-			      For Each User In Initiates
-			        Users.Append(User)
-			      Next
-			      For Each User In Others
-			        Users.Append(User)
+			      For Each User In Admins
+			        Users.Insert(0, User)
 			      Next
 			      
 			      For Each User In Users()
 			        
-			        lstUsers.AddRow(Str(User.Value("Rank")))
+			        lstUsers.AddRow("")
 			        lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
-			        lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location")
-			        lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
-			        
-			      Next
-			    End If
-			    
-			  Case Me.lstUsers_View_ChannelList_Entry
-			    Me.Config.CachelstUsers_View_ChannelList = value
-			    
-			    If Me.Config.BNET.Channels <> Nil Then
-			      For Each sTmp1 In Me.Config.BNET.Channels
-			        
-			        lstUsers.AddRow(sTmp1)
-			        
-			      Next
-			    End If
-			    
-			  Case Me.lstUsers_View_ChannelList_Name
-			    Me.Config.CachelstUsers_View_ChannelList = value
-			    
-			    If Me.Config.BNET.Channels <> Nil Then
-			      For Each sTmp1 In Me.Config.BNET.Channels
-			        
-			        Names.Append(sTmp1)
+			        lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
+			        lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
+			        lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
 			        
 			      Next
 			      
-			      Names.Sort()
+			      sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
 			      
-			      For Each sTmp1 In Names()
+			    Case Me.lstUsers_View_Channel_Ping
+			      Me.Config.CachelstUsers_View_Channel = value
+			      
+			      Dim Pings() As UInt32
+			      
+			      i = 0
+			      While i < Me.Config.BNET.ChannelUsers.Count
+			        User = Me.Config.BNET.ChannelUsers.Value(Me.Config.BNET.ChannelUsers.Key(i))
 			        
-			        lstUsers.AddRow(sTmp1)
+			        Pings.Append(User.Value("Ping"))
+			        Users.Append(User)
+			        
+			        i = i + 1
+			      Wend
+			      
+			      Pings.SortWith(Users)
+			      
+			      For Each User In Users()
+			        
+			        lstUsers.AddRow("")
+			        lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
+			        lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
+			        lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
+			        lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
 			        
 			      Next
-			    End If
+			      
+			      sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
+			      
+			    Case Me.lstUsers_View_Channel_Activity
+			      Me.Config.CachelstUsers_View_Channel = value
+			      
+			      i = 0
+			      While i < Me.Config.BNET.ChannelUsers.Count
+			        User = Me.Config.BNET.ChannelUsers.Value(Me.Config.BNET.ChannelUsers.Key(i))
+			        
+			        Times.Append(User.Value("LastMessageTime"))
+			        Users.Append(User)
+			        
+			        i = i + 1
+			      Wend
+			      
+			      Times.SortWith(Users)
+			      
+			      For Each User In Users()
+			        
+			        lstUsers.AddRow("")
+			        lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
+			        lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Statstring")
+			        lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Flags")
+			        lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Ping")
+			        
+			      Next
+			      
+			      sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
+			      
+			    Case Me.lstUsers_View_Friends_Entry
+			      Me.Config.CachelstUsers_View_Friends = value
+			      
+			      If Me.Config.BNET.FriendsList <> Nil Then
+			        i = 0
+			        While i < Me.Config.BNET.FriendsList.Count
+			          User = Me.Config.BNET.FriendsList.Value(Me.Config.BNET.FriendsList.Key(i))
+			          
+			          lstUsers.AddRow(MemClass.WriteDWORD(User.Value("Product"), True))
+			          lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
+			          lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location Name")
+			          lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
+			          lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Location")
+			          
+			          i = i + 1
+			        Wend
+			      End If
+			      
+			    Case Me.lstUsers_View_Friends_Name
+			      Me.Config.CachelstUsers_View_Friends = value
+			      
+			      If Me.Config.BNET.FriendsList <> Nil Then
+			        i = 0
+			        While i < Me.Config.BNET.FriendsList.Count
+			          User = Me.Config.BNET.FriendsList.Value(Me.Config.BNET.FriendsList.Key(i))
+			          
+			          Names.Append(User.Value("Username"))
+			          Users.Append(User)
+			          
+			          i = i + 1
+			        Wend
+			        
+			        Names.SortWith(Users)
+			        
+			        For Each User In Users()
+			          
+			          lstUsers.AddRow(MemClass.WriteDWORD(User.Value("Product"), True))
+			          lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
+			          lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location Name")
+			          lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
+			          lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Location")
+			          
+			        Next
+			      End If
+			      
+			    Case Me.lstUsers_View_Friends_Game
+			      Me.Config.CachelstUsers_View_Friends = value
+			      
+			      If Me.Config.BNET.FriendsList <> Nil Then
+			        For Each Product In Products()
+			          i = 0
+			          While i < Me.Config.BNET.FriendsList.Count
+			            User = Me.Config.BNET.FriendsList.Value(Me.Config.BNET.FriendsList.Key(i))
+			            
+			            If StrComp(Product, MemClass.WriteDWORD(User.Value("Product"), True), 0) = 0 Then
+			              lstUsers.AddRow(MemClass.WriteDWORD(User.Value("Product"), True))
+			              lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
+			              lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location Name")
+			              lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
+			              lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Location")
+			            End If
+			            
+			            i = i + 1
+			          Wend
+			        Next
+			      End If
+			      
+			    Case Me.lstUsers_View_Friends_Status
+			      Me.Config.CachelstUsers_View_Friends = value
+			      
+			      If Me.Config.BNET.FriendsList <> Nil Then
+			        i = 0
+			        While i < Me.Config.BNET.FriendsList.Count
+			          User = Me.Config.BNET.FriendsList.Value(Me.Config.BNET.FriendsList.Key(i))
+			          
+			          Statuses.Append(User.Value("Status"))
+			          Users.Append(User)
+			          
+			          i = i + 1
+			        Wend
+			        
+			        Statuses.SortWith(Users)
+			        
+			        For Each User In Users()
+			          
+			          lstUsers.AddRow(MemClass.WriteDWORD(User.Value("Product"), True))
+			          lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
+			          lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location Name")
+			          lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
+			          lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Location")
+			          
+			        Next
+			      End If
+			      
+			    Case Me.lstUsers_View_Friends_Location
+			      Me.Config.CachelstUsers_View_Friends = value
+			      
+			      // Statuses() is reused as the Locations() instead.
+			      
+			      If Me.Config.BNET.FriendsList <> Nil Then
+			        i = 0
+			        While i < Me.Config.BNET.FriendsList.Count
+			          User = Me.Config.BNET.FriendsList.Value(Me.Config.BNET.FriendsList.Key(i))
+			          
+			          Statuses.Append(User.Value("Location"))
+			          Users.Append(User)
+			          
+			          i = i + 1
+			        Wend
+			        
+			        Statuses.SortWith(Users)
+			        
+			        For Each User In Users()
+			          
+			          lstUsers.AddRow(MemClass.WriteDWORD(User.Value("Product"), True))
+			          lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
+			          lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location Name")
+			          lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
+			          lstUsers.CellTag(lstUsers.LastIndex, 2) = User.Value("Location")
+			          
+			        Next
+			      End If
+			      
+			    Case Me.lstUsers_View_Clan_Entry
+			      Me.Config.CachelstUsers_View_Clan = value
+			      
+			      If Me.Config.BNET.ClanMembers <> Nil Then
+			        i = 0
+			        While i < Me.Config.BNET.ClanMembers.Count
+			          User = Me.Config.BNET.ClanMembers.Value(Me.Config.BNET.ClanMembers.Key(i))
+			          
+			          lstUsers.AddRow(Str(User.Value("Rank")))
+			          lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
+			          lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location")
+			          lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
+			          
+			          i = i + 1
+			        Wend
+			      End If
+			      
+			    Case Me.lstUsers_View_Clan_Name
+			      Me.Config.CachelstUsers_View_Clan = value
+			      
+			      If Me.Config.BNET.ClanMembers <> Nil Then
+			        i = 0
+			        While i < Me.Config.BNET.ClanMembers.Count
+			          User = Me.Config.BNET.ClanMembers.Value(Me.Config.BNET.ClanMembers.Key(i))
+			          
+			          Names.Append(User.Value("Username"))
+			          Users.Append(User)
+			          
+			          i = i + 1
+			        Wend
+			        
+			        Names.SortWith(Users)
+			        
+			        For Each User In Users()
+			          
+			          lstUsers.AddRow(Str(User.Value("Rank")))
+			          lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
+			          lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location")
+			          lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
+			          
+			        Next
+			      End If
+			      
+			    Case Me.lstUsers_View_Clan_Status
+			      Me.Config.CachelstUsers_View_Clan = value
+			      
+			      If Me.Config.BNET.ClanMembers <> Nil Then
+			        i = 0
+			        While i < Me.Config.BNET.ClanMembers.Count
+			          User = Me.Config.BNET.ClanMembers.Value(Me.Config.BNET.ClanMembers.Key(i))
+			          
+			          Statuses.Append(User.Value("Status"))
+			          Users.Append(User)
+			          
+			          i = i + 1
+			        Wend
+			        
+			        Statuses.SortWith(Users)
+			        
+			        For Each User In Users()
+			          
+			          lstUsers.AddRow(Str(User.Value("Rank")))
+			          lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
+			          lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location")
+			          lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
+			          
+			        Next
+			      End If
+			      
+			    Case Me.lstUsers_View_Clan_Rank
+			      Me.Config.CachelstUsers_View_Clan = value
+			      
+			      If Me.Config.BNET.ClanMembers <> Nil Then
+			        Dim Others(), Chieftains(), Shamans(), Grunts(), Peons(), Initiates() As Dictionary
+			        
+			        i = 0
+			        While i < Me.Config.BNET.ClanMembers.Count
+			          User = Me.Config.BNET.ClanMembers.Value(Me.Config.BNET.ClanMembers.Key(i))
+			          
+			          Select Case User.Value("Rank")
+			          Case &H00
+			            Initiates.Append(User)
+			            
+			          Case &H01
+			            Peons.Append(User)
+			            
+			          Case &H02
+			            Grunts.Append(User)
+			            
+			          Case &H03
+			            Shamans.Append(User)
+			            
+			          Case &H04
+			            Chieftains.Append(User)
+			            
+			          Case Else
+			            Others.Append(User)
+			            
+			          End Select
+			          
+			          i = i + 1
+			        Wend
+			        
+			        For Each User In Chieftains
+			          Users.Append(User)
+			        Next
+			        For Each User In Shamans
+			          Users.Append(User)
+			        Next
+			        For Each User In Grunts
+			          Users.Append(User)
+			        Next
+			        For Each User In Peons
+			          Users.Append(User)
+			        Next
+			        For Each User In Initiates
+			          Users.Append(User)
+			        Next
+			        For Each User In Others
+			          Users.Append(User)
+			        Next
+			        
+			        For Each User In Users()
+			          
+			          lstUsers.AddRow(Str(User.Value("Rank")))
+			          lstUsers.Cell(lstUsers.LastIndex, 1) = User.Value("Username")
+			          lstUsers.CellTag(lstUsers.LastIndex, 0) = User.Value("Location")
+			          lstUsers.CellTag(lstUsers.LastIndex, 1) = User.Value("Status")
+			          
+			        Next
+			      End If
+			      
+			    Case Me.lstUsers_View_ChannelList_Entry
+			      Me.Config.CachelstUsers_View_ChannelList = value
+			      
+			      If Me.Config.BNET.Channels <> Nil Then
+			        For Each sTmp1 In Me.Config.BNET.Channels
+			          
+			          lstUsers.AddRow(sTmp1)
+			          
+			        Next
+			      End If
+			      
+			    Case Me.lstUsers_View_ChannelList_Name
+			      Me.Config.CachelstUsers_View_ChannelList = value
+			      
+			      If Me.Config.BNET.Channels <> Nil Then
+			        For Each sTmp1 In Me.Config.BNET.Channels
+			          
+			          Names.Append(sTmp1)
+			          
+			        Next
+			        
+			        Names.Sort()
+			        
+			        For Each sTmp1 In Names()
+			          
+			          lstUsers.AddRow(sTmp1)
+			          
+			        Next
+			      End If
+			      
+			    End Select
 			    
-			  End Select
-			  
-			  lstUsers.ScrollPositionX = scrollPosX
-			  lstUsers.ScrollPosition = scrollPosY
-			  
-			  txtChannel.Text = sChannelText
-			  
+			    lstUsers.ScrollPositionX = scrollPosX
+			    lstUsers.ScrollPosition = scrollPosY
+			    
+			    txtChannel.Text = sChannelText
+			    
 			End Set
 		#tag EndSetter
 		lstUsers_View As Integer
@@ -2131,7 +2132,9 @@ End
 		  Case "Join Channel"
 		    
 		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True Then
-		      If Self.Config.Product = Packets.BNETProduct_CHAT And Self.Config.VersionByte = &H00 Then
+		      If Self.Config.BNET.Product = Packets.BNETProduct_CHAT And Self.Config.BNET.Init6Protocol = True Then
+		        Self.Config.BNET.Send("/join " + hitItem.Tag + EndOfLine.Windows)
+		      ElseIf Self.Config.BNET.Product = Packets.BNETProduct_CHAT And Self.Config.BNET.Init6Protocol = False Then
 		        Self.Config.BNET.Send("/join " + hitItem.Tag + Chr(13))
 		      Else
 		        Self.Config.BNET.Send(Packets.CreateSID_JOINCHANNEL(&H0, hitItem.Tag))
@@ -2142,10 +2145,14 @@ End
 		  Case "Refresh"
 		    
 		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
-		      If Self.lstUsers_Viewing_Friends() = True Then
-		        Self.Config.BNET.Send(Packets.CreateSID_FRIENDSLIST())
-		      ElseIf Self.lstUsers_Viewing_Clan() = True Then
-		        Self.Config.BNET.Send(Packets.CreateSID_CLANMEMBERLIST(1))
+		      If Self.Config.BNET.Product <> Packets.BNETProduct_CHAT Then
+		        If Self.lstUsers_Viewing_Friends() = True Then
+		          Self.Config.BNET.Send(Packets.CreateSID_FRIENDSLIST())
+		        ElseIf Self.lstUsers_Viewing_Clan() = True Then
+		          Self.Config.BNET.Send(Packets.CreateSID_CLANMEMBERLIST(1))
+		        End If
+		      Else
+		        Self.Config.AddChat(True, Colors.SkyBlue, "Error - refreshing friends or clan member lists is only supported on BNET binary protocol.")
 		      End If
 		    End If
 		    
@@ -2172,17 +2179,30 @@ End
 		    
 		  Case "View Profile"
 		    
-		    sTmp = hitItem.Tag
-		    If Config <> Nil And Self.Config.BNET <> Nil Then _
-		    Self.Config.BNET.ViewProfile(MemClass.ReadCString(sTmp, 5), MemClass.ReadDWORD(sTmp, 1, True))
+		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
+		      If Self.Config.BNET.Product <> Packets.BNETProduct_CHAT Then
+		        sTmp = hitItem.Tag
+		        Self.Config.BNET.ViewProfile(MemClass.ReadCString(sTmp, 5), MemClass.ReadDWORD(sTmp, 1, True))
+		      Else
+		        Self.Config.AddChat(True, Colors.SkyBlue, "Error - viewing user profiles is only supported on BNET binary protocol.")
+		      End If
+		    End If
 		    
 		  Case "View Clan Info"
 		    
-		    Dim Name As String = NthField(hitItem.Tag, " ", 1)
-		    Dim Statstring As String = Mid(hitItem.Tag, Len(Name + " ") + 1)
-		    Dim iProduct As UInt32 = MemClass.ReadDWORD(NthField(Statstring, " ", 4), 1, True)
-		    
-		    If Config <> Nil And Self.Config.BNET <> Nil Then Self.Config.BNET.ViewClanInfo(iProduct, Name)
+		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
+		      If Self.Config.BNET.Product <> Packets.BNETProduct_CHAT Then
+		        
+		        Dim Name As String = NthField(hitItem.Tag, " ", 1)
+		        Dim Statstring As String = Mid(hitItem.Tag, Len(Name + " ") + 1)
+		        Dim iProduct As UInt32 = MemClass.ReadDWORD(NthField(Statstring, " ", 4), 1, True)
+		        
+		        Self.Config.BNET.ViewClanInfo(iProduct, Name)
+		        
+		      Else
+		        Self.Config.AddChat(True, Colors.SkyBlue, "Error - viewing clan info is only supported on BNET binary protocol.")
+		      End If
+		    End If
 		    
 		  Case "Leave clan"
 		    
@@ -2253,12 +2273,18 @@ End
 		    Self.lstUsers_Viewing_Friends() = True Or _
 		    Self.lstUsers_Viewing_Clan() = True Then
 		    
-		    Config.BNET.ViewProfile(Me.Cell(Me.ListIndex, 1), MemClass.ReadDWORD(Me.CellTag(Me.ListIndex, 0), 1, True))
+		    If Config.BNET.Product = Packets.BNETProduct_CHAT Then
+		      Config.AddChat(True, Colors.SkyBlue, "Error - viewing user profiles is only supported on BNET binary protocol.")
+		    Else
+		      Config.BNET.ViewProfile(Me.Cell(Me.ListIndex, 1), MemClass.ReadDWORD(Me.CellTag(Me.ListIndex, 0), 1, True))
+		    End If
 		    
 		  ElseIf Self.lstUsers_Viewing_ChannelList() = True Then
 		    
 		    If Config.BNET <> Nil And Config.BNET.IsConnected = True Then
-		      If Config.Product = Packets.BNETProduct_CHAT And Config.VersionByte = &H00 Then
+		      If Config.BNET.Product = Packets.BNETProduct_CHAT And Config.BNET.Init6Protocol = True Then
+		        Config.BNET.Send("/join " + Me.Cell(row, 0) + EndOfLine.Windows)
+		      ElseIf Config.BNET.Product = Packets.BNETProduct_CHAT And Config.BNET.Init6Protocol = False Then
 		        Config.BNET.Send("/join " + Me.Cell(row, 0) + Chr(13))
 		      Else
 		        Config.BNET.Send(Packets.CreateSID_JOINCHANNEL(&H0, Me.Cell(row, 0)))
