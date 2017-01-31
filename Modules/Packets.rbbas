@@ -1103,8 +1103,10 @@ Protected Module Packets
 		        Sock.Config.AddChat(True, Colors.Cyan, "<To: " + Username + "> ", Colors.Gray, Text)
 		      ElseIf Direction = "FROM" Then
 		        MainWindow.FlashWindowEx(1)
-		        Sock.Config.CacheChatMention = True
-		        Sock.Config.Container.lstUsersTimer.Reset()
+		        If MainWindow.IsConfigSelected(Sock.Config) = False Then
+		          Sock.Config.CacheChatMention = True
+		          Sock.Config.Container.lstUsersTimer.Reset()
+		        End If
 		        Sock.Config.AddChat(True, Colors.Orange, "<", Colors.Yellow, "From: " + Username, Colors.Orange, "> ", Colors.Gray, Text)
 		      Else
 		        Sock.Config.AddChat(True, Colors.Gray, "<" + Direction + ": " + Username + "> " + Text)
@@ -1189,8 +1191,10 @@ Protected Module Packets
 		      
 		      If InStr(Text, Sock.UniqueName) > 0 Or InStr(Text, Sock.AccountName) > 0 Then
 		        MainWindow.FlashWindowEx(1)
-		        Sock.Config.CacheChatMention = True
-		        Sock.Config.Container.lstUsersTimer.Reset()
+		        If MainWindow.IsConfigSelected(Sock.Config) = False Then
+		          Sock.Config.CacheChatMention = True
+		          Sock.Config.Container.lstUsersTimer.Reset()
+		        End If
 		      End If
 		      
 		      If msgName = "TALK" Then
@@ -1634,8 +1638,10 @@ Protected Module Packets
 		    
 		    If BitAnd(Flags, &H20) <= 0 Then
 		      MainWindow.FlashWindowEx(1)
-		      Sock.Config.CacheChatMention = True
-		      Sock.Config.Container.lstUsersTimer.Reset()
+		      If MainWindow.IsConfigSelected(Sock.Config) = False Then
+		        Sock.Config.CacheChatMention = True
+		        Sock.Config.Container.lstUsersTimer.Reset()
+		      End If
 		      Sock.Config.AddChat(True, Colors.Orange, "<", Colors.Yellow, "From: " + Username, Colors.Orange, "> ", Colors.Gray, Text)
 		      Globals.ExpandChatContent(Sock.Config, Text)
 		    End If
@@ -1677,8 +1683,10 @@ Protected Module Packets
 		      
 		      If InStr(Text, Sock.UniqueName) > 0 Or InStr(Text, Sock.AccountName) > 0 Then
 		        MainWindow.FlashWindowEx(1)
-		        Sock.Config.CacheChatMention = True
-		        Sock.Config.Container.lstUsersTimer.Reset()
+		        If MainWindow.IsConfigSelected(Sock.Config) = False Then
+		          Sock.Config.CacheChatMention = True
+		          Sock.Config.Container.lstUsersTimer.Reset()
+		        End If
 		      End If
 		      
 		      Sock.Config.AddChat(True, colorA, "<", colorB, Username, colorA, "> ", colorC, Text)
