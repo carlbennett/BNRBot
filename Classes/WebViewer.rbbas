@@ -121,6 +121,8 @@ Inherits HTMLViewer
 		    source = source + "word-wrap:break-word;"
 		    source = source + "}"
 		    
+		    source = source + "span{white-space:pre-wrap;}"
+		    
 		    source = source + "a{color:#" + Globals.ColorToHex(Colors.UI.ListSelectionColor) + ";text-decoration:none;}"
 		    source = source + "a:hover{text-decoration:underline;}"
 		    
