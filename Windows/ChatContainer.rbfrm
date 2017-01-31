@@ -602,18 +602,23 @@ End
 		  Case "Fakejoin", "Fakegame"
 		    
 		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
-		      If LenB(Rest) > 0 Then
-		        Self.Config.BNET.Send(Packets.CreateSID_LEAVECHAT() + _
-		        Packets.CreateSID_NOTIFYJOIN(Self.Config.BNET.Product, Self.Config.BNET.VersionByte, _
-		        Rest, ""))
-		        Self.Config.BNET.ReturnChannel = Self.Config.BNET.ChannelName
-		        Self.Config.BNET.ChannelName = ""
-		        Self.Config.BNET.ChannelFlags = 0
-		        Self.Config.BNET.ChannelUsers.Clear()
-		        Self.lstUsers_View = Self.lstUsers_View
-		        Self.Config.AddChat(True, Colors.SkyBlue, "Sent a fake joined game to Battle.net. Type /whoami for info.")
+		      If Self.Config.BNET.Product <> Packets.BNETProduct_CHAT Then
+		        If LenB(Rest) > 0 Then
+		          Self.Config.BNET.Send(Packets.CreateSID_LEAVECHAT() + _
+		          Packets.CreateSID_NOTIFYJOIN(Self.Config.BNET.Product, Self.Config.BNET.VersionByte, _
+		          Rest, ""))
+		          Self.Config.BNET.ReturnChannel = Self.Config.BNET.ChannelName
+		          Self.Config.BNET.ChannelName = ""
+		          Self.Config.BNET.ChannelFlags = 0
+		          Self.Config.BNET.ChannelUsers.Clear()
+		          Self.lstUsers_View = Self.lstUsers_View
+		          Self.Config.AddChat(True, Colors.SkyBlue, "Sent a fake joined game to Battle.net. Type /whoami for info.")
+		        Else
+		          Self.Config.AddChat(True, Colors.SkyBlue, "Error - that command requires its game name parameter.")
+		        End If
 		      Else
-		        Self.Config.AddChat(True, Colors.SkyBlue, "Error - that command requires its game name parameter.")
+		        Self.Config.AddChat(True, Colors.SkyBlue, "Error - //fakejoin is only supported on BNET binary protocol.")
+		        BNETText = ""
 		      End If
 		    Else
 		      BNETText = " "
@@ -622,8 +627,13 @@ End
 		  Case "Force"
 		    
 		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
-		      If LenB(Self.Config.BNET.ChannelName) < 1 Then Self.Config.BNET.ReturnChannel = ""
-		      Self.Config.BNET.Send(Packets.CreateSID_JOINCHANNEL(&H2, Rest))
+		      If Self.Config.BNET.Product <> Packets.BNETProduct_CHAT Then
+		        If LenB(Self.Config.BNET.ChannelName) < 1 Then Self.Config.BNET.ReturnChannel = ""
+		        Self.Config.BNET.Send(Packets.CreateSID_JOINCHANNEL(&H2, Rest))
+		      Else
+		        Self.Config.AddChat(True, Colors.SkyBlue, "Error - //force is only supported on BNET binary protocol.")
+		        BNETText = ""
+		      End If
 		    Else
 		      BNETText = " "
 		    End If
@@ -631,7 +641,9 @@ End
 		  Case "Home", "HomeChannel"
 		    
 		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True Then
-		      If LenB(Self.Config.HomeChannel) > 0 Then
+		      If Self.Config.BNET.Product = Packets.BNETProduct_CHAT Then
+		        BNETText = "/join " + Self.Config.HomeChannel
+		      ElseIf LenB(Self.Config.HomeChannel) > 0 Then
 		        Self.Config.BNET.Send(Packets.CreateSID_JOINCHANNEL(&H2, Self.Config.HomeChannel))
 		      ElseIf IsDiabloII(Self.Config.BNET.Product) = True Then
 		        Self.Config.BNET.Send(Packets.CreateSID_JOINCHANNEL(&H5, ProductName(Self.Config.BNET.Product, True)))
@@ -645,14 +657,19 @@ End
 		  Case "Leave"
 		    
 		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
-		      Self.Config.BNET.Send(Packets.CreateSID_LEAVECHAT())
-		      Self.Config.BNET.ReturnChannel = Self.Config.BNET.ChannelName
-		      Self.Config.BNET.ChannelName = ""
-		      Self.Config.BNET.ChannelFlags = 0
-		      Self.Config.BNET.ChannelUsers.Clear()
-		      Self.lstUsers_View = Self.lstUsers_View
-		      Self.Config.AddChat(True, Colors.SkyBlue, "You are no longer in a channel. " _
-		      + "Type //rejoin to re-enter your last channel.")
+		      If Self.Config.BNET.Product <> Packets.BNETProduct_CHAT Then
+		        Self.Config.BNET.Send(Packets.CreateSID_LEAVECHAT())
+		        Self.Config.BNET.ReturnChannel = Self.Config.BNET.ChannelName
+		        Self.Config.BNET.ChannelName = ""
+		        Self.Config.BNET.ChannelFlags = 0
+		        Self.Config.BNET.ChannelUsers.Clear()
+		        Self.lstUsers_View = Self.lstUsers_View
+		        Self.Config.AddChat(True, Colors.SkyBlue, "You are no longer in a channel. " _
+		        + "Type //rejoin to re-enter your last channel.")
+		      Else
+		        Self.Config.AddChat(True, Colors.SkyBlue, "Error - //leave is only supported on BNET binary protocol.")
+		        BNETText = ""
+		      End If
 		    Else
 		      BNETText = " "
 		    End If
@@ -709,28 +726,37 @@ End
 		    
 		  Case "Profile"
 		    
-		    // Reusing BNETText as a variable here, we will clear it at the end.
-		    
-		    BNETText = NthField(Rest, " ", 1)
-		    sTmp = NthField(Rest, " ", 2)
-		    If Len(BNETText) < 1 Then BNETText = Self.Config.BNET.AccountName
-		    If Len(sTmp) < 1 Then sTmp = MemClass.WriteDWORD(Self.Config.BNET.Product, False)
-		    Select Case sTmp
-		    Case "STAR", "SEXP", "JSTR", "SSHR", _
-		      "DRTL", "DSHR", "D2DV", "D2XP", _
-		      "W2BN", "WAR3", "W3DM", "W3XP", _
-		      "CHAT"
-		      sTmp = Uppercase(sTmp)
-		    Case "RATS", "PXES", "RTSJ", "RHSS", _
-		      "LTRD", "RHSD", "VD2D", "PX2D", _
-		      "NB2W", "3RAW", "MD3W", "PX3W", _
-		      "TAHC"
-		      sTmp = Uppercase(MemClass.WriteDWORD(MemClass.ReadDWORD(sTmp, 1, True), False))
-		    End Select
-		    Self.Config.BNET.ViewProfile(BNETText, MemClass.ReadDWORD(sTmp, 1, False))
-		    
-		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then _
-		    BNETText = "" Else BNETText = " "
+		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
+		      If Self.Config.BNET.Product <> Packets.BNETProduct_CHAT Then
+		        
+		        // Reusing BNETText as a variable here, we will clear it at the end.
+		        
+		        BNETText = NthField(Rest, " ", 1)
+		        sTmp = NthField(Rest, " ", 2)
+		        If Len(BNETText) < 1 Then BNETText = Self.Config.BNET.AccountName
+		        If Len(sTmp) < 1 Then sTmp = MemClass.WriteDWORD(Self.Config.BNET.Product, False)
+		        Select Case sTmp
+		        Case "STAR", "SEXP", "JSTR", "SSHR", _
+		          "DRTL", "DSHR", "D2DV", "D2XP", _
+		          "W2BN", "WAR3", "W3DM", "W3XP", _
+		          "CHAT"
+		          sTmp = Uppercase(sTmp)
+		        Case "RATS", "PXES", "RTSJ", "RHSS", _
+		          "LTRD", "RHSD", "VD2D", "PX2D", _
+		          "NB2W", "3RAW", "MD3W", "PX3W", _
+		          "TAHC"
+		          sTmp = Uppercase(MemClass.WriteDWORD(MemClass.ReadDWORD(sTmp, 1, True), False))
+		        End Select
+		        Self.Config.BNET.ViewProfile(BNETText, MemClass.ReadDWORD(sTmp, 1, False))
+		        BNETText = ""
+		        
+		      Else
+		        Self.Config.AddChat(True, Colors.SkyBlue, "Error - //profile is only supported on BNET binary protocol.")
+		        BNETText = ""
+		      End If
+		    Else
+		      BNETText = " "
+		    End If
 		    
 		  Case "Proxy"
 		    
@@ -795,7 +821,9 @@ End
 		  Case "Rejoin", "Rj"
 		    
 		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
-		      If LenB(Self.Config.BNET.ChannelName) < 1 And LenB(Self.Config.BNET.ReturnChannel) > 0 Then
+		      If Self.Config.BNET.Product = Packets.BNETProduct_CHAT Then
+		        BNETText = "/rejoin"
+		      ElseIf LenB(Self.Config.BNET.ChannelName) < 1 And LenB(Self.Config.BNET.ReturnChannel) > 0 Then
 		        Self.Config.BNET.Send(Packets.CreateSID_JOINCHANNEL(&H2, Self.Config.BNET.ReturnChannel))
 		      Else
 		        Self.Config.BNET.Send(Packets.CreateSID_LEAVECHAT() + Packets.CreateSID_JOINCHANNEL(&H2, Self.Config.BNET.ChannelName))
