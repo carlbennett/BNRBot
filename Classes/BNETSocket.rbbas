@@ -97,14 +97,8 @@ Inherits TCPSocket
 		  
 		  Globals.ForceRedraw(MainWindow.lstProfiles)
 		  
-		  Dim err As Pair = Globals.GetLastSocketError()
-		  If err.Left.IntegerValue = 0 Then
-		    Me.Config.AddChat(True, Colors.Red, IIf(Me.Init6Protocol, "INIT6", "BNET") _
-		    + ": Disconnected. #" + Format(Me.LastErrorCode, "-#"))
-		  Else
-		    Me.Config.AddChat(True, Colors.Red, IIf(Me.Init6Protocol, "INIT6", "BNET") _
-		    + ": Disconnected. #" + Format(err.Left.IntegerValue, "-#") + ": " + err.Right.StringValue)
-		  End If
+		  Me.Config.AddChat(True, Colors.Red, IIf(Me.Init6Protocol, "INIT6", "BNET") + ": " _
+		  + "Disconnected. #" + Format(Me.LastErrorCode, "-#") + ": " + Me.GetErrorMessage())
 		  
 		  If Me.DisconnectAlreadyHandled = False Then Me.DoDisconnect(True)
 		  
@@ -669,6 +663,16 @@ Inherits TCPSocket
 			Visible=true
 			Group="ID"
 			InheritedFrom="TCPSocket"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Init6Protocol"
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Init6TransactionId"
+			Group="Behavior"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LastNullReceive"

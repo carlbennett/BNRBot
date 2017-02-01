@@ -27,12 +27,8 @@ Inherits TCPSocket
 		  
 		  If Me.BNET <> Nil And Me.BNET.Config = Nil Then Return
 		  
-		  Dim err As Pair = Globals.GetLastSocketError()
-		  If err.Left.IntegerValue = 0 Then
-		    Me.BNET.Config.AddChat(True, Colors.Red, "BNET: Disconnected. #" + Format(Me.LastErrorCode, "-#"))
-		  Else
-		    Me.BNET.Config.AddChat(True, Colors.Red, "BNET: Disconnected. #" + Format(err.Left.IntegerValue, "-#") + ": " + err.Right.StringValue)
-		  End If
+		  Me.BNET.Config.AddChat(True, Colors.Red, "BNET: " _
+		  + "Disconnected. #" + Format(Me.LastErrorCode, "-#") + ": " + Me.GetErrorMessage())
 		  
 		  If Me.DisconnectAlreadyHandled = False Then Me.DoDisconnect(True)
 		  
