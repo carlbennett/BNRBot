@@ -2041,7 +2041,7 @@ Protected Module Packets
 		  Dim Status As Byte = MemClass.ReadBYTE(PktData, 5)
 		  Dim ClanName As String = MemClass.ReadCString(PktData, 6)
 		  Dim ClanRank As Byte = MemClass.ReadBYTE(PktData, 7 + LenB(ClanName))
-		  Dim DateJoined As Date = Globals.QWORDToDate(_
+		  Dim DateJoined As Date = Globals.WindowsFileTimeToDate(_
 		  MemClass.ReadDWORD(PktData, 8 + LenB(ClanName)), _
 		  MemClass.ReadDWORD(PktData, 12 + LenB(ClanName)))
 		  
@@ -2832,15 +2832,15 @@ Protected Module Packets
 		    Dim oLastLogon As Date
 		    
 		    If Len(sAccountCreated) > 0 Then
-		      oAccountCreated = Globals.QWORDToDate(_
+		      oAccountCreated = Globals.WindowsFileTimeToDate(_
 		      Val(NthField(sAccountCreated, " ", 2)), Val(NthField(sAccountCreated, " ", 1)))
 		    End If
 		    If Len(sLastLogoff) > 0 Then
-		      oLastLogoff = Globals.QWORDToDate(_
+		      oLastLogoff = Globals.WindowsFileTimeToDate(_
 		      Val(NthField(sLastLogoff, " ", 2)), Val(NthField(sLastLogoff, " ", 1)))
 		    End If
 		    If Len(sLastLogon) > 0 Then
-		      oLastLogon = Globals.QWORDToDate(_
+		      oLastLogon = Globals.WindowsFileTimeToDate(_
 		      Val(NthField(sLastLogon, " ", 2)), Val(NthField(sLastLogon, " ", 1)))
 		    End If
 		    If Len(sTimeLogged) > 0 Then

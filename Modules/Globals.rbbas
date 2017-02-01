@@ -53,7 +53,7 @@ Protected Module Globals
 		        ElseIf CountFields(Values(i), " ") = 2 And _
 		          IsNumeric(NthField(Values(i), " ", 1)) = True And _
 		          IsNumeric(NthField(Values(i), " ", 2)) = True Then
-		          FieldDate = Globals.QWORDToDate(Val(NthField(Values(i), " ", 2)), Val(NthField(Values(i), " ", 1)))
+		          FieldDate = Globals.WindowsFileTimeToDate(Val(NthField(Values(i), " ", 2)), Val(NthField(Values(i), " ", 1)))
 		          If FieldDate <> Nil Then Values(i) = FieldDate.ShortDate + " " + FieldDate.LongTime
 		        End If
 		        w.fldRecord0LastGame.Text = Values(i)
@@ -80,7 +80,7 @@ Protected Module Globals
 		        ElseIf CountFields(Values(i), " ") = 2 And _
 		          IsNumeric(NthField(Values(i), " ", 1)) = True And _
 		          IsNumeric(NthField(Values(i), " ", 2)) = True Then
-		          FieldDate = Globals.QWORDToDate(Val(NthField(Values(i), " ", 2)), Val(NthField(Values(i), " ", 1)))
+		          FieldDate = Globals.WindowsFileTimeToDate(Val(NthField(Values(i), " ", 2)), Val(NthField(Values(i), " ", 1)))
 		          If FieldDate <> Nil Then Values(i) = FieldDate.ShortDate + " " + FieldDate.LongTime
 		        End If
 		        w.fldRecord1LastGame.Text = Values(i)
@@ -678,32 +678,6 @@ Protected Module Globals
 		  Globals.UserIcons = Icons
 		  
 		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function DateToQWORD(Value As Date) As UInt64
-		  
-		  Soft Declare Function SystemTimeToFileTime Lib "Kernel32" (lpSystemTime As Ptr, lpFileTime As Ptr) As Boolean
-		  
-		  If Value = Nil Then Value = New Date()
-		  
-		  Dim SystemTime As New MemoryBlock(16)
-		  SystemTime.Short(0) = Value.Year
-		  SystemTime.Short(2) = Value.Month
-		  SystemTime.Short(4) = Value.DayOfWeek
-		  SystemTime.Short(6) = Value.Day
-		  SystemTime.Short(8) = Value.Hour
-		  SystemTime.Short(10) = Value.Minute
-		  SystemTime.Short(12) = Value.Second
-		  SystemTime.Short(14) = 0 // Milliseconds
-		  
-		  Dim FileTime As New MemoryBlock(8)
-		  
-		  Call SystemTimeToFileTime(SystemTime, FileTime)
-		  
-		  Return FileTime.UInt64Value(0)
-		  
-		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -1788,41 +1762,6 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function QWORDToDate(LowValue As UInt32, HighValue As UInt32) As Date
-		  
-		  Dim FileTime As New MemoryBlock(8)
-		  FileTime.UInt32Value(0) = LowValue
-		  FileTime.UInt32Value(4) = HighValue
-		  Return Globals.QWORDToDate(FileTime.UInt64Value(0))
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function QWORDToDate(Value As UInt64) As Date
-		  
-		  // Converts Battle.net FileTime structures (that are really
-		  // Windows FILETIME structs) to native Date objects.
-		  
-		  Const WINDOWS_TICK = 10000000
-		  
-		  Dim timestamp As New Date()
-		  
-		  timestamp.Year   = 1601
-		  timestamp.Month  = 1
-		  timestamp.Day    = 1
-		  timestamp.Hour   = 0
-		  timestamp.Minute = 0
-		  timestamp.Second = 0
-		  
-		  timestamp.TotalSeconds = timestamp.TotalSeconds + (Value / WINDOWS_TICK)
-		  
-		  Return timestamp
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function QWORDToIP(Value As UInt64) As String
 		  
 		  Dim Buffer As String = MemClass.WriteDWORD(Value, False)
@@ -2240,6 +2179,41 @@ Protected Module Globals
 		          
 		          Return False
 		          
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function WindowsFileTimeToDate(LowValue As UInt32, HighValue As UInt32) As Date
+		  
+		  Dim FileTime As New MemoryBlock(8)
+		  FileTime.UInt32Value(0) = LowValue
+		  FileTime.UInt32Value(4) = HighValue
+		  Return Globals.WindowsFileTimeToDate(FileTime.UInt64Value(0))
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function WindowsFileTimeToDate(Value As UInt64) As Date
+		  
+		  // Converts Battle.net FileTime structures (that are really
+		  // Windows FILETIME structs) to native Date objects.
+		  
+		  Const WINDOWS_TICK = 10000000
+		  
+		  Dim timestamp As New Date()
+		  
+		  timestamp.Year   = 1601
+		  timestamp.Month  = 1
+		  timestamp.Day    = 1
+		  timestamp.Hour   = 0
+		  timestamp.Minute = 0
+		  timestamp.Second = 0
+		  
+		  timestamp.TotalSeconds = timestamp.TotalSeconds + (Value / WINDOWS_TICK)
+		  
+		  Return timestamp
+		  
 		End Function
 	#tag EndMethod
 
