@@ -2631,7 +2631,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Format          =   ""
          Height          =   15
-         HelpTag         =   "Enter how soon after a disconnect you'd like to reconnect.\r\nDefault: 300000 milliseconds (5 minutes)\r\nMinimum: 5000 milliseconds (5 seconds)\r\n\r\nIf you enter it in hex, you must prefix with 0x or &H.\r\nIf we detect any letters A-F, it'll assume hex and auto-convert it for you."
+         HelpTag         =   "Enter how soon after a disconnect you'd like to reconnect.\r\nDefault: 300000 milliseconds (5 minutes)\r\nMinimum: 1000 milliseconds (1 second)\r\n\r\nIf you enter it in hex, you must prefix with 0x or &H.\r\nIf we detect any letters A-F, it'll assume hex and auto-convert it for you."
          Index           =   -2147483648
          InitialParent   =   "Pages"
          Italic          =   ""
@@ -2667,7 +2667,7 @@ Begin BotWindow ConfigWindow
          DataSource      =   ""
          Enabled         =   True
          Height          =   15
-         HelpTag         =   "Enter how soon after a disconnect you'd like to reconnect.\r\nDefault: 300000 milliseconds (5 minutes)\r\nMinimum: 5000 milliseconds (5 seconds)\r\n\r\nIf you enter it in hex, you must prefix with 0x or &H.\r\nIf we detect any letters A-F, it'll assume hex and auto-convert it for you."
+         HelpTag         =   "Enter how soon after a disconnect you'd like to reconnect.\r\nDefault: 300000 milliseconds (5 minutes)\r\nMinimum: 1000 milliseconds (1 second)\r\n\r\nIf you enter it in hex, you must prefix with 0x or &H.\r\nIf we detect any letters A-F, it'll assume hex and auto-convert it for you."
          Index           =   9
          InitialParent   =   "Pages"
          Italic          =   ""
@@ -2701,7 +2701,7 @@ Begin BotWindow ConfigWindow
          DataSource      =   ""
          Enabled         =   True
          Height          =   15
-         HelpTag         =   "Enter how soon after a disconnect you'd like to reconnect.\r\nDefault: 300000 milliseconds (5 minutes)\r\nMinimum: 5000 milliseconds (5 seconds)\r\n\r\nIf you enter it in hex, you must prefix with 0x or &H.\r\nIf we detect any letters A-F, it'll assume hex and auto-convert it for you."
+         HelpTag         =   "Enter how soon after a disconnect you'd like to reconnect.\r\nDefault: 300000 milliseconds (5 minutes)\r\nMinimum: 1000 milliseconds (1 second)\r\n\r\nIf you enter it in hex, you must prefix with 0x or &H.\r\nIf we detect any letters A-F, it'll assume hex and auto-convert it for you."
          Index           =   10
          InitialParent   =   "Pages"
          Italic          =   ""
@@ -4885,7 +4885,7 @@ End
 		      Buffer = Str(Val("&H" + Buffer)) Else Buffer = Str(Val(Buffer))
 		  End Select
 		  
-		  If Val(Buffer) < 5000 Then Buffer = Str(5000)
+		  If Val(Buffer) < 1000 Then Buffer = Str(1000)
 		  
 		  Me.Text = Buffer
 		  Config.ReconnectInterval = Val(Buffer)
