@@ -717,6 +717,55 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub DesktopNotification(summary As String, body As String, icon As Integer)
+		  
+		  #If TargetWin32 = True Then
+		    
+		    #pragma Unused summary
+		    #pragma Unused body
+		    #pragma Unused icon
+		    
+		    MainWindow.FlashWindowEx(1)
+		    
+		  #ElseIf TargetLinux = True Then
+		    
+		    Const libnotify = "libnotify.so.4"
+		    
+		    Soft Declare Function notify_notification_new         Lib libnotify (summary As Ptr, body    As Ptr,    icon As Integer) As Ptr
+		    Soft Declare Function notify_notification_set_timeout Lib libnotify (handle  As Ptr, timeout As Integer                ) // void
+		    Soft Declare Function notify_notification_show        Lib libnotify (handle  As Ptr, error   As Ptr                    ) As Boolean
+		    
+		    Dim summaryPtr As New MemoryBlock(LenB(summary) + 1)
+		    summaryPtr.CString(0) = summary
+		    
+		    Dim bodyPtr As New MemoryBlock(LenB(body) + 1)
+		    bodyPtr.CString(0) = body
+		    
+		    Dim handle As Ptr = notify_notification_new(summaryPtr, bodyPtr, icon)
+		    
+		    notify_notification_set_timeout(handle, 1000 + (LenB(summary + body) * 35));
+		    
+		    If Not notify_notification_show(handle, 0) Then
+		      Dim e As New RuntimeException()
+		      e.Message = "Failed to display desktop notification to user."
+		      Raise e
+		    End If
+		    
+		  #Else
+		    
+		    #pragma Unused summary
+		    #pragma Unused body
+		    #pragma Unused icon
+		    
+		    // No platform-specific method, default to showing main window:
+		    MainWindow.Show()
+		    
+		  #EndIf
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub DisconnectAll()
 		  
 		  Dim i As Integer = 0

@@ -1102,7 +1102,7 @@ Protected Module Packets
 		      If Direction = "TO" Then
 		        Sock.Config.AddChat(True, Colors.Cyan, "<To: " + Username + "> ", Colors.Gray, Text)
 		      ElseIf Direction = "FROM" Then
-		        MainWindow.FlashWindowEx(1)
+		        Globals.DesktopNotification("Whisper received from " + Username, Text, 0)
 		        If MainWindow.IsConfigSelected(Sock.Config) = False Then
 		          Sock.Config.CacheChatMention = True
 		          Sock.Config.Container.lstUsersTimer.Reset()
@@ -1190,7 +1190,7 @@ Protected Module Packets
 		      End If
 		      
 		      If InStr(Text, Sock.UniqueName) > 0 Or InStr(Text, Sock.AccountName) > 0 Then
-		        MainWindow.FlashWindowEx(1)
+		        Globals.DesktopNotification("Mentioned by " + Username, Text, 0)
 		        If MainWindow.IsConfigSelected(Sock.Config) = False Then
 		          Sock.Config.CacheChatMention = True
 		          Sock.Config.Container.lstUsersTimer.Reset()
@@ -1637,7 +1637,7 @@ Protected Module Packets
 		    End If
 		    
 		    If BitAnd(Flags, &H20) <= 0 Then
-		      MainWindow.FlashWindowEx(1)
+		      Globals.DesktopNotification("Whisper received from " + Username, Text, 0)
 		      If MainWindow.IsConfigSelected(Sock.Config) = False Then
 		        Sock.Config.CacheChatMention = True
 		        Sock.Config.Container.lstUsersTimer.Reset()
@@ -1682,7 +1682,7 @@ Protected Module Packets
 		      End If
 		      
 		      If InStr(Text, Sock.UniqueName) > 0 Or InStr(Text, Sock.AccountName) > 0 Then
-		        MainWindow.FlashWindowEx(1)
+		        Globals.DesktopNotification("Mentioned by " + Username, Text, 0)
 		        If MainWindow.IsConfigSelected(Sock.Config) = False Then
 		          Sock.Config.CacheChatMention = True
 		          Sock.Config.Container.lstUsersTimer.Reset()
