@@ -24,12 +24,28 @@ Inherits Application
 		Sub Open()
 		  
 		  Globals.TimeStarted = Microseconds()
-		  Me.AppTI = New AppTrayItem()
+		  
+		  #If TargetLinux = True Then
+		    Try
+		      If App.ExecutableFile.Parent.Child("BNRBot Libs").Child("RBGUIFramework.so").Exists And _
+		        Not App.ExecutableFile.Parent.Child("RBGUIFramework.so").Exists Then
+		        App.ExecutableFile.Parent.Child("BNRBot Libs").Child("RBGUIFramework.so").MoveFileTo(App.ExecutableFile.Parent)
+		      End If
+		    Catch err As NilObjectException
+		      // Silently ignore our sanity check, let whatever happens fail to the user
+		    End Try
+		  #EndIf
+		  
+		  #If TargetWin32 = True Then
+		    Me.AppTI = New AppTrayItem()
+		  #EndIf
+		  
 		  Globals.CreateLagIcons()
 		  Globals.CreateUserIcons()
 		  Globals.ClanCookies = New Dictionary()
 		  Globals.Cookies = New Dictionary()
 		  Globals.ProfileCookies = New Dictionary()
+		  
 		  Settings.CheckFiles()
 		  Settings.Load(Nil)
 		  
