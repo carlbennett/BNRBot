@@ -731,9 +731,9 @@ Protected Module Globals
 		    
 		    Const libnotify = "libnotify.so.4"
 		    
-		    Soft Declare Function notify_notification_new         Lib libnotify (summary As Ptr, body    As Ptr,    icon As Integer) As Ptr
-		    Soft Declare Function notify_notification_set_timeout Lib libnotify (handle  As Ptr, timeout As Integer                ) // void
-		    Soft Declare Function notify_notification_show        Lib libnotify (handle  As Ptr, error   As Ptr                    ) As Boolean
+		    Soft Declare Function notify_notification_new Lib libnotify (summary As Ptr, body As Ptr, icon As Integer) As Ptr
+		    Soft Declare Sub notify_notification_set_timeout Lib libnotify (handle As Ptr, timeout As Integer)
+		    Soft Declare Function notify_notification_show Lib libnotify (handle As Ptr, error As Ptr) As Boolean
 		    
 		    Dim summaryPtr As New MemoryBlock(LenB(summary) + 1)
 		    summaryPtr.CString(0) = summary
@@ -743,9 +743,9 @@ Protected Module Globals
 		    
 		    Dim handle As Ptr = notify_notification_new(summaryPtr, bodyPtr, icon)
 		    
-		    notify_notification_set_timeout(handle, 1000 + (LenB(summary + body) * 35));
+		    notify_notification_set_timeout(handle, 1000 + (LenB(summary + body) * 35))
 		    
-		    If Not notify_notification_show(handle, 0) Then
+		    If Not notify_notification_show(handle, Nil) Then
 		      Dim e As New RuntimeException()
 		      e.Message = "Failed to display desktop notification to user."
 		      Raise e
