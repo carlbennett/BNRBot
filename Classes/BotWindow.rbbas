@@ -83,13 +83,21 @@ Inherits Window
 	#tag Method, Flags = &h0
 		Sub Activate()
 		  
-		  #If TargetWin32 = False Then Return
-		  
-		  Soft Declare Function SetActiveWindow Lib "User32" (hWnd As Integer) As Integer
-		  Soft Declare Function SetForegroundWindow Lib "User32" (hWnd As Integer) As Integer
-		  
-		  Call SetActiveWindow(Me.Handle)
-		  Call SetForegroundWindow(Me.Handle)
+		  #If TargetWin32 = True Then
+		    
+		    Soft Declare Function SetActiveWindow Lib "User32" (hWnd As Integer) As Integer
+		    Soft Declare Function SetForegroundWindow Lib "User32" (hWnd As Integer) As Integer
+		    
+		    Call SetActiveWindow(Me.Handle)
+		    Call SetForegroundWindow(Me.Handle)
+		    
+		  #Else
+		    
+		    // Consider gtk_window_present() for Linux in the future
+		    
+		    Me.Show()
+		    
+		  #EndIf
 		  
 		End Sub
 	#tag EndMethod
