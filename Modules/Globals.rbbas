@@ -1801,28 +1801,23 @@ Protected Module Globals
 	#tag Method, Flags = &h0
 		Function QWORDToDate(Value As UInt64) As Date
 		  
-		  Soft Declare Function FileTimeToSystemTime Lib "Kernel32" (lpFileTime As Ptr, lpSystemTime As Ptr) As Boolean
+		  // Converts Battle.net FileTime structures (that are really
+		  // Windows FILETIME structs) to native Date objects.
 		  
-		  Dim Result As Date
+		  Const WINDOWS_TICK = 10000000
 		  
-		  Dim FileTime As New MemoryBlock(8)
-		  FileTime.UInt64Value(0) = Value
+		  Dim timestamp As New Date()
 		  
-		  Dim SystemTime As New MemoryBlock(16)
+		  timestamp.Year   = 1601
+		  timestamp.Month  = 1
+		  timestamp.Day    = 1
+		  timestamp.Hour   = 0
+		  timestamp.Minute = 0
+		  timestamp.Second = 0
 		  
-		  If FileTimeToSystemTime(FileTime, SystemTime) = False Then Return Result
-		  Result = New Date()
+		  timestamp.TotalSeconds = timestamp.TotalSeconds + (Value / WINDOWS_TICK)
 		  
-		  Result.Year = SystemTime.Short(0)
-		  Result.Month = SystemTime.Short(2)
-		  'Result.DayOfWeek = SystemTime.Short(4)
-		  Result.Day = SystemTime.Short(6)
-		  Result.Hour = SystemTime.Short(8)
-		  Result.Minute = SystemTime.Short(10)
-		  Result.Second = SystemTime.Short(12)
-		  'Result.Milliseconds = SystemTime.Short(14)
-		  
-		  Return Result
+		  Return timestamp
 		  
 		End Function
 	#tag EndMethod
