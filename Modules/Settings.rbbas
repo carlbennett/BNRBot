@@ -40,7 +40,7 @@ Protected Module Settings
 		  #EndIf
 		  
 		  Dim sTmp As String
-		  Dim varPATH() As String = Split(Globals.GetSystemPathVariable(), ";")
+		  Dim varPATH() As String = Split(System.EnvironmentVariable("Path"), ";")
 		  For Each sTmp In varPATH
 		    Folder = GetFolderItem(sTmp)
 		    If Folder <> Nil Then FoldersToCheck.Append(Folder)
@@ -242,18 +242,6 @@ Protected Module Settings
 		  Settings.Parse(Data)
 		  
 		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Function MustRunAsAdmin() As Boolean
-		  
-		  // DEPRECATED
-		  // This function is no longer used anywhere but can be used later.
-		  
-		  Return (OSVersionInformation.IsVista() = True Or OSVersionInformation.Is7() = True Or _
-		  OSVersionInformation.Is2008() = True)
-		  
-		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h1

@@ -1217,27 +1217,6 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function GetSystemPathVariable() As String
-		  
-		  #If TargetWin32 = True Then
-		    
-		    Declare Function GetEnvironmentVariableA Lib "Kernel32" (lpName As CString, lpBuffer As Ptr, nSize As UInt32) As UInt32
-		    
-		    Dim lpBuffer As New MemoryBlock(32767)
-		    Dim lpName As CString = "Path"
-		    
-		    If GetEnvironmentVariableA(lpName, lpBuffer, lpBuffer.Size) > 0 Then Return lpBuffer.CString(0) Else Return ""
-		    
-		  #Else
-		    
-		    Return System.EnvironmentVariable("Path")
-		    
-		  #EndIf
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function GetUserIcon(Flags As UInt32, Statstring As String) As Picture
 		  
 		  Dim Buffer As New Picture(28 * 2, 14, 24), g As Graphics = Buffer.Graphics
