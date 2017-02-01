@@ -653,7 +653,7 @@ Protected Module Settings
 		  If Folder = Nil Then Return Nil
 		  Dim Filename As String = "BNRBot.dat"
 		  
-		  If App.ExecutableFile <> Nil Then
+		  If App.ExecutableFile <> Nil And InStr(App.ExecutableFile.Name, ".") > 0 Then
 		    Dim Extension As String = NthField(App.ExecutableFile.Name, ".", CountFields(App.ExecutableFile.Name, "."))
 		    Filename = Left(Filename, Len(Filename) - Len(Extension)) + "dat"
 		  End If
