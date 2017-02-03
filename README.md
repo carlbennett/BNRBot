@@ -1,22 +1,23 @@
 # BNRBot
-## Preface
+## Summary
 **B**attle.**N**et **R**ealbasic **Bot** is a [Classic
 Battle.net&trade;](http://classic.battle.net) chat bot written by
 [@carlbennett](https://github.com/carlbennett)
 ([Jailout2000](http://jailout2000.com)) and licensed under the
 [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html) license.
 
-It was started in 2011 and went on hiatus in 2012. In late 2015, it was added
-to version control on GitHub and received lots of updates. It's been maintained
-here ever since.
+The project began in 2011, went on hiatus in 2012, and in late 2015 it was
+added to version control on GitHub and received many updates. It's been
+maintained on GitHub ever since.
 
 Some of its bragging rights include:
-- Handling heavy loads and floods in Battle.net chat channels.
-- Compatible with official Classic Battle.net, PvPGN, emNet,
-  [init 6](http://wserv.org/), and other custom servers.
-- Compatiblility with Windows XP up to Windows 10.
+- Handling heavy loads and floods in Battle.net&trade; chat channels.
+- Compatible with official Classic Battle.net&trade;, PvPGN, emNet,
+  [init 6](http://wserv.org/), and other custom servers that implement the
+  Battle.net&trade; binary chat protocol.
+- Runs on Windows XP up to Windows 10.
 - Multiple profiles and switching via tabbed (actually a list box) interface.
-- User interface is consistent throughout, allowing easy learning of the bot.
+- A custom user interface with little clutter in the main chat window.
 
 Give it a try!
 
