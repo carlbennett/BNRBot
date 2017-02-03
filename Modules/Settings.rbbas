@@ -47,8 +47,8 @@ Protected Module Settings
 		  Next
 		  
 		  For Each Folder In FoldersToCheck
-		    If FoundBNCSUtil = False And Folder <> Nil And Folder.Child("BNCSUtil.dll") <> Nil _
-		      And Folder.Child("BNCSUtil.dll").Exists = True Then FoundBNCSUtil = True
+		    If FoundBNCSUtil = False And Folder <> Nil And Folder.Child(App.BNCSUtil) <> Nil _
+		      And Folder.Child(App.BNCSUtil).Exists = True Then FoundBNCSUtil = True
 		      If FoundCheckRevisionDLL = False And Folder <> Nil And Folder.Child("CheckRevision.dll") <> Nil _
 		        And Folder.Child("CheckRevision.dll").Exists = True Then FoundCheckRevisionDLL = True
 		        If Settings.HashFolder = Nil And Folder <> Nil And Folder.Child("Hashes") <> Nil _

@@ -116,6 +116,12 @@ Inherits Application
 	#tag EndProperty
 
 
+	#tag Constant, Name = BNCSUtil, Type = String, Dynamic = False, Default = \"", Scope = Public
+		#Tag Instance, Platform = Any, Language = Default, Definition  = \"BNCSUtil"
+		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"BNCSUtil.dll"
+		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"BNCSUtil.so"
+	#tag EndConstant
+
 	#tag Constant, Name = kEditClear, Type = String, Dynamic = False, Default = \"&Delete", Scope = Public
 		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"&Delete"
 		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"&Delete"

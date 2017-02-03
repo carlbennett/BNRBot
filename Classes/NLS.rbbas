@@ -3,7 +3,7 @@ Protected Class NLS
 	#tag Method, Flags = &h0
 		Function AccountCreate() As String
 		  
-		  Soft Declare Function nls_account_create Lib "BNCSUtil.dll" _
+		  Soft Declare Function nls_account_create Lib App.BNCSUtil _
 		  (NLS As Ptr, Buffer As Ptr, BufLen As Integer) As Integer
 		  
 		  Dim buf As New MemoryBlock(Len(Me.mUsername) + 65)
@@ -18,7 +18,7 @@ Protected Class NLS
 	#tag Method, Flags = &h0
 		Function AccountLogon() As String
 		  
-		  Soft Declare Sub nls_get_A Lib "BNCSUtil.dll" _
+		  Soft Declare Sub nls_get_A Lib App.BNCSUtil _
 		  (NLS As Ptr, Buffer As Ptr)
 		  
 		  Dim buf As New MemoryBlock(32)
@@ -33,7 +33,7 @@ Protected Class NLS
 	#tag Method, Flags = &h0
 		Function AccountLogonProof(Salt As String, ServerKey As String) As String
 		  
-		  Soft Declare Sub nls_get_M1 Lib "BNCSUtil.dll" _
+		  Soft Declare Sub nls_get_M1 Lib App.BNCSUtil _
 		  (NLS As Ptr, Buffer As Ptr, B As Ptr, Salt As Ptr)
 		  
 		  Dim buf As New MemoryBlock(20)
@@ -51,7 +51,7 @@ Protected Class NLS
 	#tag Method, Flags = &h0
 		Sub Constructor(Username As String, Password As String)
 		  
-		  Soft Declare Function nls_init Lib "BNCSUtil.dll" _
+		  Soft Declare Function nls_init Lib App.BNCSUtil _
 		  (Username As Ptr, Password As Ptr) As Ptr
 		  
 		  Me.mUsername = Username
@@ -68,7 +68,7 @@ Protected Class NLS
 	#tag Method, Flags = &h0
 		Sub Destructor()
 		  
-		  Soft Declare Sub nls_free Lib "BNCSUtil.dll" (NLS As Ptr)
+		  Soft Declare Sub nls_free Lib App.BNCSUtil (NLS As Ptr)
 		  
 		  nls_free(Me.mInternalNLS)
 		  
@@ -78,7 +78,7 @@ Protected Class NLS
 	#tag Method, Flags = &h0
 		Function ServerPasswordProof(Buffer As String) As Boolean
 		  
-		  Soft Declare Function nls_check_M2 Lib "BNCSUtil.dll" _
+		  Soft Declare Function nls_check_M2 Lib App.BNCSUtil _
 		  (NLS As Ptr, Buffer As Ptr, B As Ptr, Salt As Ptr) As Boolean
 		  
 		  Dim buf As MemoryBlock = Globals.StringToMemory(Buffer)
