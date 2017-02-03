@@ -27,9 +27,15 @@ Inherits Application
 		  
 		  #If TargetLinux = True Then
 		    Try
-		      If App.ExecutableFile.Parent.Child("BNRBot Libs").Child("RBGUIFramework.so").Exists And _
+		      Dim LibFolder As String
+		      #If DebugBuild = True Then
+		        LibFolder = "DebugBNRBot Libs"
+		      #Else
+		        LibFolder = "BNRBot Libs"
+		      #EndIf
+		      If App.ExecutableFile.Parent.Child(LibFolder).Child("RBGUIFramework.so").Exists And _
 		        Not App.ExecutableFile.Parent.Child("RBGUIFramework.so").Exists Then
-		        App.ExecutableFile.Parent.Child("BNRBot Libs").Child("RBGUIFramework.so").MoveFileTo(App.ExecutableFile.Parent)
+		        App.ExecutableFile.Parent.Child(LibFolder).Child("RBGUIFramework.so").MoveFileTo(App.ExecutableFile.Parent)
 		      End If
 		    Catch err As NilObjectException
 		      // Silently ignore our sanity check, let whatever happens fail to the user
