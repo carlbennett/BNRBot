@@ -23,6 +23,8 @@ Inherits TCPSocket
 		      If InStr(Host, ":") = 0 Then Host = Host + ":6112"
 		      Me.Send(ChrB(4) + ChrB(1) + MemClass.WriteWORD(Val(NthField(Host, ":", 2)), False) _
 		      + MemClass.WriteDWORD(Globals.IPToDWORD(NthField(Host, ":", 1)), True) + ChrB(0))
+		    Case Configuration.ProxySOCKS5
+		      Me.Send(ChrB(5) + ChrB(1) + ChrB(0))
 		    End Select
 		  Else
 		    Packets.SendFirstSIDs(Me)
@@ -77,6 +79,85 @@ Inherits TCPSocket
 		          Me.Disconnect()
 		        End Select
 		      ElseIf Me.ProxyWait = 1 Then
+		        Packets.Receive(Me)
+		      End If
+		    Case Configuration.ProxySOCKS5
+		      If Me.ProxyWait = 0 And Me.BytesAvailable >= 2 Then
+		        Dim VN As Byte = AscB(Me.Read(1))
+		        Dim MN As Byte = AscB(Me.Read(1))
+		        If VN <> 5 Then
+		          Me.Config.AddChat(True, Colors.Red, "PROXY: Server sent unexpected SOCKS version (" + Format(VN, "-#") + ")")
+		          Me.Disconnect()
+		        ElseIf MN <> 0 Then
+		          Me.Config.AddChat(True, Colors.Red, "PROXY: Proxy requires authentication (type " + Format(MN, "-#") + ")")
+		          Me.Disconnect()
+		        Else
+		          Dim Host As String = Config.BNETHost
+		          Dim Port As UInt16
+		          If InStr(Host, ":") = 0 Then
+		            Port = 6112
+		          Else
+		            Port = Val(NthField(Host, ":", CountFields(Host, ":")))
+		            Host = Left(Host, Len(Host) - Len(":" + NthField(Host, ":", CountFields(Host, ":"))))
+		          End If
+		          If Globals.IsIPv6(Host) Then
+		            Me.Send(ChrB(5) + ChrB(1) + ChrB(0) + ChrB(4) + Globals.IPToBytes(Host) + MemClass.WriteWORD(Port, False))
+		          ElseIf Globals.IsIPv4(Host) Then
+		            Me.Send(ChrB(5) + ChrB(1) + ChrB(0) + ChrB(1) + MemClass.WriteDWORD(Globals.IPToDWORD(Host), True) + MemClass.WriteWORD(Port, False))
+		          Else
+		            Me.Send(ChrB(5) + ChrB(1) + ChrB(0) + ChrB(3) + ChrB(LenB(Host)) + Host + MemClass.WriteWORD(Port, False))
+		          End If
+		          Me.ProxyWait = 1
+		        End If
+		      ElseIf Me.ProxyWait = 1 Then
+		        Dim VN As Byte = AscB(Me.Read(1))
+		        Dim RF As Byte = AscB(Me.Read(1))
+		        If VN <> 5 Then
+		          Me.Config.AddChat(True, Colors.Red, "PROXY: Server sent unexpected SOCKS version (" + Format(VN, "-#") + ")")
+		          Me.Disconnect()
+		        Else
+		          Select Case RF
+		          Case 0
+		            Me.Config.AddChat(True, Colors.Lime, "PROXY: Connected.")
+		          Case 1
+		            Me.Config.AddChat(True, Colors.Red, "PROXY: General SOCKS server failure.")
+		          Case 2
+		            Me.Config.AddChat(True, Colors.Red, "PROXY: Connection not allowed by ruleset.")
+		          Case 3
+		            Me.Config.AddChat(True, Colors.Red, "PROXY: Network unreachable.")
+		          Case 4
+		            Me.Config.AddChat(True, Colors.Red, "PROXY: Host uneachable.")
+		          Case 5
+		            Me.Config.AddChat(True, Colors.Red, "PROXY: Connection refused.")
+		          Case 6
+		            Me.Config.AddChat(True, Colors.Red, "PROXY: TTL expired.")
+		          Case 7
+		            Me.Config.AddChat(True, Colors.Red, "PROXY: Command not supported.")
+		          Case 8
+		            Me.Config.AddChat(True, Colors.Red, "PROXY: Address type not supported.")
+		          Case Else
+		            Me.Config.AddChat(True, Colors.Red, "PROXY: Unexpected SOCKSv5 error code received (" + Format(RF, "-#") + ").")
+		          End Select
+		          If RF <> 0 Then
+		            Me.Disconnect()
+		          Else
+		            Call Me.Read(1) // Reserved Byte
+		            Dim ATYP As Byte = AscB(Me.Read(1))
+		            Select Case ATYP
+		            Case 1
+		              Call Me.Read(4) // Bound IPv4
+		            Case 3
+		              Call Me.Read(4) // Bound DOMAINNAME
+		            Case 4
+		              Call Me.Read(16) // Bound IPv6
+		            End Select
+		            Call Me.Read(2) // Bound Port
+		            Me.ProxyWait = 2
+		            Packets.SendFirstSIDs(Me)
+		            If Me.BytesAvailable > 0 Then Packets.Receive(Me)
+		          End If
+		        End If
+		      ElseIf Me.ProxyWait = 2 Then
 		        Packets.Receive(Me)
 		      End If
 		    End Select

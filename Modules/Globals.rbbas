@@ -1462,6 +1462,32 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function IPToBytes(IPAddress As String) As String
+		  
+		  Dim Fields() As String
+		  
+		  If InStr(IPAddress, ".") > 0 Then
+		    Fields = Split(IPAddress, ".")
+		  ElseIf InStr(IPAddress, ":") > 0 Then
+		    Fields = Split(IPAddress, ":")
+		  ElseIf InStr(IPAddress, " ") > 0 Then
+		    Fields = Split(IPAddress, " ")
+		  Else
+		    Return ""
+		  End If
+		  
+		  Dim Buffer As String
+		  
+		  For Each Field As String In Fields
+		    MemClass.WriteBYTE(Buffer, Val(Field))
+		  Next
+		  
+		  Return Buffer
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function IPToDWORD(IPAddress As String) As UInt32
 		  
 		  Dim Fields() As String
@@ -1483,32 +1509,6 @@ Protected Module Globals
 		  Next
 		  
 		  Return MemClass.ReadDWORD(Buffer, 1, True)
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function IPToQWORD(IPAddress As String) As UInt64
-		  
-		  Dim Fields() As String
-		  
-		  If InStr(IPAddress, ".") > 0 Then
-		    Fields = Split(IPAddress, ".")
-		  ElseIf InStr(IPAddress, ":") > 0 Then
-		    Fields = Split(IPAddress, ":")
-		  ElseIf InStr(IPAddress, " ") > 0 Then
-		    Fields = Split(IPAddress, " ")
-		  Else
-		    Return 0
-		  End If
-		  
-		  Dim Buffer As String
-		  
-		  For Each Field As String In Fields
-		    MemClass.WriteBYTE(Buffer, Val(Field))
-		  Next
-		  
-		  Return MemClass.ReadQWORD(Buffer, 1, True)
 		  
 		End Function
 	#tag EndMethod
@@ -1556,6 +1556,31 @@ Protected Module Globals
 		  Wend
 		  
 		  Return False
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsIPv4(value As String) As Boolean
+		  
+		  If CountFields(value, ".") <> 4 Then Return False
+		  
+		  Dim a, b, c, d As Integer
+		  
+		  a = Val(NthField(value, ".", 1))
+		  b = Val(NthField(value, ".", 2))
+		  c = Val(NthField(value, ".", 3))
+		  d = Val(NthField(value, ".", 4))
+		  
+		  Return (a >= 0 And a <= 255 And b >= 0 And b <= 255 And c >= 0 And c <= 255 And d >= 0 And d <= 255)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsIPv6(value As String) As Boolean
+		  
+		  Return (InStr(value, ":") > 0)
 		  
 		End Function
 	#tag EndMethod
