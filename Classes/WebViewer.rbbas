@@ -16,8 +16,6 @@ Inherits HTMLViewer
 		    
 		  Case Else
 		    
-		    If InStr(URL, "#bnrbot-iframe") > 0 Then Return False
-		    
 		    REALbasic.ShowURL(URL)
 		    Return True
 		    
@@ -125,9 +123,6 @@ Inherits HTMLViewer
 		    
 		    source = source + "a{color:#" + Globals.ColorToHex(Colors.UI.ListSelectionColor) + ";text-decoration:none;}"
 		    source = source + "a:hover{text-decoration:underline;}"
-		    
-		    source = source + "div.expanded{padding:4px 1em 4px 1em;}"
-		    source = source + "div.expanded iframe{}"
 		    
 		  Else
 		    
