@@ -32,6 +32,7 @@ Protected Class BNETClient
 		  
 		  Me.chatParser   = New ChatParseThread()
 		  Me.config       = New Configuration()
+		  Me.gui          = New ChatContainer()
 		  Me.packetParser = New PacketParseThread()
 		  Me.socBNET      = New BNETSocket()
 		  Me.socBNLS      = New BNLSSocket()
@@ -39,6 +40,8 @@ Protected Class BNETClient
 		  
 		  Me.chatParser.client   = Me
 		  Me.packetParser.client = Me
+		  
+		  Me.gui.client = Me
 		  
 		  Me.socBNET.client = Me
 		  Me.socBNLS.client = Me
@@ -53,6 +56,9 @@ Protected Class BNETClient
 		  Me.chatParser = Nil
 		  
 		  Me.config = Nil
+		  
+		  Me.gui.Close()
+		  Me.gui = Nil
 		  
 		  Me.packetParser.Kill()
 		  Me.packetParser = Nil

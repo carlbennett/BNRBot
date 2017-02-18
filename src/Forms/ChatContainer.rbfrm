@@ -30,7 +30,7 @@ Begin ContainerControl ChatContainer
       AutomaticallyCheckSpelling=   False
       BackColor       =   &hFFFFFF
       Bold            =   ""
-      Border          =   True
+      Border          =   False
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
@@ -69,13 +69,13 @@ Begin ContainerControl ChatContainer
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   ""
-      Border          =   True
+      Border          =   False
       ColumnCount     =   1
       ColumnsResizable=   ""
       ColumnWidths    =   ""
       DataField       =   ""
       DataSource      =   ""
-      DefaultRowHeight=   -1
+      DefaultRowHeight=   20
       Enabled         =   True
       EnableDrag      =   ""
       EnableDragReorder=   ""
@@ -83,7 +83,7 @@ Begin ContainerControl ChatContainer
       GridLinesVertical=   0
       HasHeading      =   ""
       HeadingIndex    =   -1
-      Height          =   330
+      Height          =   328
       HelpTag         =   ""
       Hierarchical    =   ""
       Index           =   -2147483648
@@ -109,7 +109,7 @@ Begin ContainerControl ChatContainer
       TextUnit        =   0
       Top             =   0
       Underline       =   ""
-      UseFocusRing    =   True
+      UseFocusRing    =   False
       Visible         =   True
       Width           =   100
       _ScrollWidth    =   -1
@@ -121,12 +121,12 @@ Begin ContainerControl ChatContainer
       AutomaticallyCheckSpelling=   True
       BackColor       =   &hFFFFFF
       Bold            =   ""
-      Border          =   True
+      Border          =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   326
+      Height          =   328
       HelpTag         =   ""
       HideSelection   =   True
       Index           =   -2147483648
@@ -142,7 +142,7 @@ Begin ContainerControl ChatContainer
       LockTop         =   True
       Mask            =   ""
       Multiline       =   True
-      ReadOnly        =   ""
+      ReadOnly        =   True
       Scope           =   0
       ScrollbarHorizontal=   ""
       ScrollbarVertical=   True
@@ -161,9 +161,148 @@ Begin ContainerControl ChatContainer
       Visible         =   True
       Width           =   370
    End
+   Begin SizeGripControl SizeGripControl1
+      AcceptFocus     =   ""
+      AcceptTabs      =   ""
+      AutoDeactivate  =   True
+      Backdrop        =   ""
+      DoubleBuffer    =   True
+      Enabled         =   True
+      EraseBackground =   True
+      Height          =   328
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   370
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   0
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   10
+   End
 End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Property, Flags = &h0
+		client As BNETClient
+	#tag EndProperty
+
+
 #tag EndWindowCode
 
+#tag Events ChatInput
+	#tag Event
+		Sub Open()
+		  
+		  Me.BackColor = App.colors.ChatBackColor
+		  Me.TextColor = App.colors.DefaultTextColor
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  
+		  Dim KeyAsc As Integer = Asc(Key)
+		  
+		  If Not (KeyAsc = 3 Or KeyAsc = 13) Then Return False
+		  
+		  Self.client.chatParser.responses.Insert(0, New ChatResponse(ChatResponse.TYPE_TALK, Me.Text))
+		  Me.Text = ""
+		  
+		  If Self.client.chatParser.State = Self.client.chatParser.NotRunning Then
+		    Self.client.chatParser.Run()
+		  End If
+		  
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events UserView
+	#tag Event
+		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
+		  
+		  #pragma Unused column
+		  
+		  If Me.ListIndex = row Then
+		    g.ForeColor = HighlightColor()
+		  Else
+		    g.ForeColor = App.colors.ChatBackColor
+		  End If
+		  
+		  g.FillRect(0, 0, g.Width, g.Height)
+		  
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
+		  
+		  If row = Me.ListIndex Then
+		    g.ForeColor = App.colors.ChatBackColor
+		  Else
+		    g.ForeColor = App.colors.DefaultTextColor
+		  End If
+		  
+		  If row < 0 Or row >= Me.ListCount Or column < 0 Or column >= Me.ColumnCount Then
+		    Return False
+		  End If
+		  
+		  g.DrawString(Me.Cell(row, column), x, y, g.Width - x * 2, True)
+		  
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events ChatOutput
+	#tag Event
+		Sub Open()
+		  
+		  Me.BackColor = App.colors.ChatBackColor
+		  Me.TextColor = App.colors.DefaultTextColor
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SizeGripControl1
+	#tag Event
+		Sub Open()
+		  
+		  Me.Direction = SizeGripControl.DirectionType.Vertical
+		  
+		  Me.Attach(Self.ChatOutput)
+		  Me.Attach(Self.UserView)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MoveControl(c As RectControl, dX As Integer, dY As Integer)
+		  
+		  #pragma Unused dY
+		  
+		  Select Case c
+		  Case Self.ChatOutput
+		    
+		    c.Width = c.Width + dX
+		    
+		  Case Self.UserView
+		    
+		    c.Left = c.Left + dX
+		    c.Width = c.Width - dX
+		    
+		  End Select
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents

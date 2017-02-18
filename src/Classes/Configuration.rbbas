@@ -10,14 +10,17 @@ Protected Class Configuration
 		  Me.email             = ""
 		  Me.gameKey1          = ""
 		  Me.gameKey2          = ""
-		  Me.gameKeyOwner      = "Kaleidoscope"
+		  Me.gameKeyOwner      = "BNRBotv3"
 		  Me.greetAclExclusive = False
 		  Me.greetEnabled      = False
 		  Me.greetMessage      = ""
 		  Me.homeChannel       = ""
+		  Me.logNetwork        = False
 		  Me.password          = ""
+		  Me.passwordNew       = ""
 		  Me.platform          = Battlenet.Platform_IX86
 		  Me.product           = 0
+		  Me.trigger           = "!"
 		  Me.username          = ""
 		  
 		End Sub

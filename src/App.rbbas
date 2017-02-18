@@ -4,8 +4,28 @@ Inherits Application
 	#tag Event
 		Sub Open()
 		  
-		  Me.AutoQuit = False
+		  Me.AutoQuit = True
 		  Me.uptimeConstant = Microseconds()
+		  
+		  Me.colors                        = New ColorSwatch()
+		  Me.colors.ChatBackColor          = &cFFFFFF
+		  Me.colors.ChatEventUserJoin      = &c00C000
+		  Me.colors.ChatEventUserLeave     = &cC00000
+		  Me.colors.DefaultBackColor       = REALbasic.FillColor()
+		  Me.colors.DefaultFrameColor      = REALbasic.FrameColor()
+		  Me.colors.DefaultHighlightColor  = REALbasic.HighlightColor()
+		  Me.colors.DefaultTextColor       = REALbasic.TextColor()
+		  Me.colors.InternalDebug          = &c808000
+		  Me.colors.InternalError          = &cC00000
+		  Me.colors.InternalInfo           = &cC0C000
+		  Me.colors.InternalSuccess        = &c00C000
+		  Me.colors.InternalNetworkDebug   = &c808080
+		  Me.colors.InternalNetworkError   = &cC00000
+		  Me.colors.InternalNetworkInfo    = &cC0C000
+		  Me.colors.InternalNetworkSuccess = &c00C000
+		  
+		  Dim w As New ChatWindow()
+		  w.Show()
 		  
 		End Sub
 	#tag EndEvent
@@ -356,6 +376,10 @@ Inherits Application
 
 	#tag Property, Flags = &h0
 		clients() As BNETClient
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		colors As ColorSwatch
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

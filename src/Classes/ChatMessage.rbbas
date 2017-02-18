@@ -54,6 +54,9 @@ Protected Class ChatMessage
 	#tag EndProperty
 
 
+	#tag Constant, Name = InternalFlagChatSent, Type = Double, Dynamic = False, Default = \"&H10", Scope = Public
+	#tag EndConstant
+
 	#tag Constant, Name = InternalFlagDebug, Type = Double, Dynamic = False, Default = \"&H03", Scope = Public
 	#tag EndConstant
 

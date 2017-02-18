@@ -8,7 +8,7 @@ Inherits Thread
 		  Dim acl As UserAccess
 		  Dim res As ChatResponse
 		  
-		  Dim responses() As ChatResponse
+		  Dim localResponses() As ChatResponse
 		  
 		  Do Until UBound(Me.messages) < 0
 		    
@@ -27,7 +27,7 @@ Inherits Thread
 		      
 		      If msg.eventId = Packets.EID_USERJOIN And Me.client.config.greetEnabled = True Then
 		        Dim greetMsg As ChatResponse = Battlenet.GreetBot(Me.client, msg, username)
-		        If greetMsg <> Nil Then responses.Append(greetMsg)
+		        If greetMsg <> Nil Then Me.responses.Append(greetMsg)
 		      End If
 		      
 		    Case Packets.EID_USERLEAVE
@@ -44,8 +44,8 @@ Inherits Thread
 		      
 		      GUIUpdateEvent.BattlenetMessage(msg, Me.client)
 		      
-		      acl       = Me.client.getAcl(msg.username)
-		      responses = BotCommand.handleCommand(Me.client, acl, msg)
+		      acl            = Me.client.getAcl(msg.username)
+		      localResponses = BotCommand.handleCommand(Me.client, acl, msg)
 		      
 		    Case Packets.EID_BROADCAST
 		      
@@ -70,7 +70,7 @@ Inherits Thread
 		      
 		      If Me.client.state.joinCommandState <> Nil And _
 		        Me.client.state.joinCommandState.Right = msg.text Then
-		        responses.Append(New ChatResponse(ChatResponse.TYPE_TALK, _
+		        localResponses.Append(New ChatResponse(ChatResponse.TYPE_TALK, _
 		        "/w " + Me.client.state.joinCommandState.Left + " " + msg.text + " is full"))
 		      End If
 		      
@@ -80,7 +80,7 @@ Inherits Thread
 		      
 		      If Me.client.state.joinCommandState <> Nil And _
 		        Me.client.state.joinCommandState.Right = msg.text Then
-		        responses.Append(New ChatResponse(ChatResponse.TYPE_TALK, _
+		        localResponses.Append(New ChatResponse(ChatResponse.TYPE_TALK, _
 		        "/w " + Me.client.state.joinCommandState.Left + " " + msg.text + " is restricted"))
 		      End If
 		      
@@ -90,30 +90,42 @@ Inherits Thread
 		      
 		    End Select
 		    
-		    If Me.client = Nil Or Me.client.socBNET = Nil Or Me.client.socBNET.IsConnected = False Then Continue Do
+		  Loop
+		  
+		  If localResponses <> Nil Then
+		    For Each res In localResponses
+		      Me.responses.Insert(0, res)
+		    Next
+		    ReDim localResponses(-1)
+		  End If
+		  
+		  If Me.client = Nil Or Me.client.socBNET = Nil Or Me.client.socBNET.IsConnected = False Then Return
+		  
+		  Do Until UBound(Me.responses) < 0
 		    
-		    If responses <> Nil Then
-		      Do Until UBound(responses) < 0
+		    res = Me.responses.Pop()
+		    
+		    Select Case res.type
+		    Case res.TYPE_PACKET
+		      If LenB(res.text) > 0 Then
+		        Me.client.socBNET.Write(res.text)
+		      End If
+		    Case res.TYPE_TALK
+		      If LenB(res.text) > 0 Then
+		        Me.client.socBNET.Write(Packets.CreateBNET_SID_CHATCOMMAND(res.text))
 		        
-		        res = responses.Pop()
+		        msg          = New ChatMessage(ChatMessage.OriginInternal)
+		        msg.flags    = ChatMessage.InternalFlagChatSent
+		        msg.username = Me.client.state.uniqueName
+		        msg.text     = res.text
 		        
-		        Select Case res.type
-		        Case res.TYPE_PACKET
-		          If LenB(res.text) > 0 Then
-		            Me.client.socBNET.Write(res.text)
-		          End If
-		        Case res.TYPE_TALK
-		          If LenB(res.text) > 0 Then
-		            Me.client.socBNET.Write(Packets.CreateBNET_SID_CHATCOMMAND(res.text))
-		          End If
-		        Case res.TYPE_EMOTE
-		          Me.client.socBNET.Write(Packets.CreateBNET_SID_CHATCOMMAND("/me " + res.text))
-		        Case res.TYPE_WHISPER
-		          Me.client.socBNET.Write(Packets.CreateBNET_SID_CHATCOMMAND("/w " + msg.username + " " + res.text))
-		        End Select
-		        
-		      Loop
-		    End If
+		        GUIUpdateEvent.BattlenetMessage(msg, Me.client)
+		      End If
+		    Case res.TYPE_EMOTE
+		      Me.client.socBNET.Write(Packets.CreateBNET_SID_CHATCOMMAND("/me " + res.text))
+		    Case res.TYPE_WHISPER
+		      Me.client.socBNET.Write(Packets.CreateBNET_SID_CHATCOMMAND("/w " + msg.username + " " + res.text))
+		    End Select
 		    
 		  Loop
 		  
@@ -127,6 +139,10 @@ Inherits Thread
 
 	#tag Property, Flags = &h0
 		messages() As ChatMessage
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		responses() As ChatResponse
 	#tag EndProperty
 
 
