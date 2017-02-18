@@ -183,11 +183,7 @@ End
 		  
 		  If Me.lstProfiles.ListIndex = -1 Then Return Nil
 		  
-		  Dim i As Integer = Me.lstProfiles.CellTag(Me.lstProfiles.ListIndex, 0)
-		  
-		  If i < 0 Or i > UBound(Settings.Configurations) Then Return Nil
-		  
-		  Return Settings.Configurations(i)
+		  Return Me.lstProfiles.CellTag(Me.lstProfiles.ListIndex, 0)
 		  
 		End Function
 	#tag EndMethod
@@ -225,7 +221,7 @@ End
 		      Me.Pages, Me.Pages.PanelCount - 1, 0, 0, Me.Pages.Width, Me.Pages.Height)
 		      
 		      Me.lstProfiles.AddRow(Settings.Configurations(i).Name)
-		      Me.lstProfiles.CellTag(Me.lstProfiles.LastIndex, 0) = i
+		      Me.lstProfiles.CellTag(Me.lstProfiles.LastIndex, 0) = Settings.Configurations(i)
 		      i = i + 1
 		      
 		    End If
@@ -247,7 +243,7 @@ End
 		  Dim Icon As Picture = Nil
 		  
 		  If row >= 0 And row < Me.ListCount Then
-		    Config = Settings.Configurations(Me.CellTag(row, 0))
+		    Config = Me.CellTag(row, 0)
 		    Icon = Globals.GetProductIcon(Config.Product)
 		  End If
 		  
@@ -274,7 +270,7 @@ End
 		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
 		  
 		  Dim Config As Configuration = Nil
-		  If row > -1 Then Config = Settings.Configurations(Me.CellTag(row, 0))
+		  If row > -1 Then Config = Me.CellTag(row, 0)
 		  
 		  If row = Me.ListIndex Then
 		    g.ForeColor = Colors.UI.ControlBackColor
@@ -342,7 +338,7 @@ End
 		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
 		  
 		  If hitItem = Nil Then Return False
-		  Dim Index As Integer
+		  Dim Config As Configuration
 		  
 		  Select Case hitItem.Text
 		  Case "Configure"
@@ -358,23 +354,17 @@ End
 		    Globals.DisconnectAll()
 		    
 		  Case "Connect"
-		    Index = Me.CellTag(Me.ListIndex, 0)
-		    If Index >= 0 And Index <= UBound(Settings.Configurations) _
-		      And Settings.Configurations(Index).BNET <> Nil Then _
-		      Settings.Configurations(Index).BNET.DoConnect()
-		      
+		    Config = Me.CellTag(Me.ListIndex, 0)
+		    If Config.BNET <> Nil Then Config.BNET.DoConnect()
+		    
 		  Case "Reconnect"
-		    Index = Me.CellTag(Me.ListIndex, 0)
-		    If Index >= 0 And Index <= UBound(Settings.Configurations) _
-		      And Settings.Configurations(Index).BNET <> Nil Then _
-		      Settings.Configurations(Index).BNET.DoReconnect()
-		      
+		    Config = Me.CellTag(Me.ListIndex, 0)
+		    If Config.BNET <> Nil Then Config.BNET.DoReconnect()
+		    
 		  Case "Disconnect"
-		    Index = Me.CellTag(Me.ListIndex, 0)
-		    If Index >= 0 And Index <= UBound(Settings.Configurations) _
-		      And Settings.Configurations(Index).BNET <> Nil Then _
-		      Settings.Configurations(Index).BNET.DoDisconnect()
-		      
+		    Config = Me.CellTag(Me.ListIndex, 0)
+		    If Config.BNET <> Nil Then Config.BNET.DoDisconnect()
+		    
 		  Case "Check for Updates"
 		    
 		    Dim w As New UpdateWindow()
@@ -402,7 +392,6 @@ End
 		    Config.CacheChatMention = False
 		    Config.CacheChatUnread = False
 		    Globals.ForceRedraw(Me)
-		    If Config.Container <> Nil Then Config.Container.oChatInput.SetFocus()
 		  End If
 		  
 		End Sub
@@ -427,6 +416,10 @@ End
 		Sub Change()
 		  
 		  If Self.lstProfiles.ListIndex <> Me.Value - 1 Then Self.lstProfiles.ListIndex = Me.Value - 1
+		  
+		  Dim Config As Configuration = Self.GetSelectedConfig()
+		  If Config <> Nil And Config.Container <> Nil And Config.Container.oChatInput <> Nil Then _
+		  Config.Container.oChatInput.SetFocus()
 		  
 		End Sub
 	#tag EndEvent

@@ -2836,8 +2836,7 @@ End
 		  Globals.ConfigWindow_Open = True
 		  Self.Reload()
 		  
-		  If MainWindow.lstProfiles.ListIndex <> -1 Then _
-		  ConfigWindow.SelectProfile(MainWindow.lstProfiles.CellTag(MainWindow.lstProfiles.ListIndex, 0))
+		  Me.lstCategories.ListIndex = MainWindow.lstProfiles.ListIndex + 1
 		  
 		End Sub
 	#tag EndEvent
@@ -2851,7 +2850,7 @@ End
 		  Pages.Value = 0
 		  lstCategories.DeleteAllRows()
 		  lstCategories.AddRow("Global Settings")
-		  lstCategories.CellTag(lstCategories.LastIndex, 0) = "-1"
+		  lstCategories.CellTag(lstCategories.LastIndex, 0) = Nil
 		  lstCategories.Cell(lstCategories.LastIndex, 1) = "1"
 		  
 		  chkCheckForUpdates.Value = Settings.PrefCheckForUpdates
@@ -2893,7 +2892,7 @@ End
 		  While i <= UBound(Settings.Configurations)
 		    
 		    lstCategories.AddRow(Settings.Configurations(i).Name)
-		    lstCategories.CellTag(lstCategories.LastIndex, 0) = i
+		    lstCategories.CellTag(lstCategories.LastIndex, 0) = Settings.Configurations(i)
 		    lstCategories.Cell(lstCategories.LastIndex, 1) = "2"
 		    
 		    i = i + 1
@@ -2906,14 +2905,6 @@ End
 		Sub Resave()
 		  
 		  Settings.Save(Nil)
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub SelectProfile(id As Integer)
-		  
-		  Self.lstCategories.ListIndex = 1 + id
 		  
 		End Sub
 	#tag EndMethod
@@ -3029,16 +3020,16 @@ End
 		  Config.ConfirmRemovingClanMembers = True
 		  Config.CreateAccountsFirst = False
 		  
-		  lstCategories.AddRow(Settings.Configurations(UBound(Settings.Configurations)).Name)
-		  lstCategories.CellTag(lstCategories.LastIndex, 0) = UBound(Settings.Configurations)
+		  lstCategories.AddRow(Config.Name)
+		  lstCategories.CellTag(lstCategories.LastIndex, 0) = Config
 		  lstCategories.Cell(lstCategories.LastIndex, 1) = "2"
 		  lstCategories.ListIndex = lstCategories.LastIndex
 		  
 		  MainWindow.Pages.Append()
-		  Settings.Configurations(UBound(Settings.Configurations)).Container.EmbedWithinPanel(_
+		  Config.Container.EmbedWithinPanel(_
 		  MainWindow.Pages, MainWindow.Pages.PanelCount - 1, 0, 0, MainWindow.Pages.Width, MainWindow.Pages.Height)
-		  MainWindow.lstProfiles.AddRow(Settings.Configurations(UBound(Settings.Configurations)).Name)
-		  MainWindow.lstProfiles.CellTag(MainWindow.lstProfiles.LastIndex, 0) = UBound(Settings.Configurations)
+		  MainWindow.lstProfiles.AddRow(Config.Name)
+		  MainWindow.lstProfiles.CellTag(MainWindow.lstProfiles.LastIndex, 0) = Config
 		  
 		End Sub
 	#tag EndEvent
@@ -3049,41 +3040,37 @@ End
 		  
 		  Dim i As Integer
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
-		  If Config.BNET <> Nil And Config.BNET.IsConnected = True Then
-		    i = MsgBox("This profile is currently connected to Battle.net." + EndOfLine + EndOfLine + _
-		    "Do you want to disconnect it?", 4 + 48 + 256, "Profile Is Connected")
-		    If (i = 1 Or i = 6) Then
-		      Config.BNET.DoDisconnect(False)
-		    Else
-		      Return
+		  If Config.BNET <> Nil Then
+		    If Config.BNET.IsConnected = True Then
+		      i = MsgBox("This profile is currently connected to Battle.net." + EndOfLine + EndOfLine + _
+		      "Do you want to disconnect it?", 4 + 48 + 256, "Profile Is Connected")
+		      If Not (i = 1 Or i = 6) Then Return
 		    End If
+		    Config.BNET.DoDisconnect(False)
 		  End If
 		  
-		  Settings.Configurations.Remove(Index)
+		  i = UBound(Settings.Configurations)
+		  While i >= 0
+		    If Settings.Configurations(i) = Config Then
+		      Settings.Configurations.Remove(i)
+		      Exit While
+		    End If
+		    i = i - 1
+		  Wend
 		  
 		  lstCategories.ListIndex = lstCategories.ListIndex - 1
 		  lstCategories.RemoveRow(lstCategories.ListIndex + 1)
 		  
-		  i = lstCategories.ListIndex + 1
-		  While i < lstCategories.ListCount
-		    If lstCategories.Cell(i, 1) = "2" Then lstCategories.CellTag(i, 0) = lstCategories.CellTag(i, 0) - 1
-		    i = i + 1
-		  Wend
-		  
-		  i = 0
-		  While i < MainWindow.lstProfiles.ListCount
-		    If MainWindow.lstProfiles.CellTag(i, 0) = Index Then
+		  i = MainWindow.lstProfiles.ListCount - 1
+		  While i >= 0
+		    If MainWindow.lstProfiles.CellTag(i, 0) = Config Then
 		      MainWindow.lstProfiles.RemoveRow(i)
 		      MainWindow.Pages.Remove(i)
-		    Else
-		      If MainWindow.lstProfiles.CellTag(i, 0) > Index Then _
-		      MainWindow.lstProfiles.CellTag(i, 0) = MainWindow.lstProfiles.CellTag(i, 0) - 1
-		      i = i + 1
+		      Exit While
 		    End If
+		    i = i - 1
 		  Wend
 		  
 		End Sub
@@ -3097,9 +3084,7 @@ End
 		  If btnDeleteProfile.Visible <> (Pages.Value = 2) Then btnDeleteProfile.Visible = (Pages.Value = 2)
 		  If Pages.Value <> 2 Then Return
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  fldProfileName.Text = Config.Name
 		  fldUsername.Text = Config.Username
@@ -3150,9 +3135,7 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.BNLSEnabled = Me.Value
 		  
@@ -3163,9 +3146,7 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.VerbosePackets = Me.Value
 		  
@@ -3176,9 +3157,7 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.AutoRejoinWhenKicked = Me.Value
 		  
@@ -3363,9 +3342,7 @@ End
 	#tag Event
 		Sub TextChange()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.HomeChannel = Me.Text
 		  
@@ -3390,9 +3367,7 @@ End
 	#tag Event
 		Sub TextChange()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.EmailAddress = Me.Text
 		  
@@ -3417,9 +3392,7 @@ End
 	#tag Event
 		Sub TextChange()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.CDKeyOwner = Me.Text
 		  
@@ -3444,9 +3417,7 @@ End
 	#tag Event
 		Sub TextChange()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.CDKeyExpansion = Me.Text
 		  
@@ -3471,9 +3442,7 @@ End
 	#tag Event
 		Sub TextChange()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.CDKey = Me.Text
 		  
@@ -3535,6 +3504,15 @@ End
 		Sub GotFocus()
 		  
 		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub TextChange()
+		  
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
+		  
+		  Config.VersionByte = Val(Me.Text)
 		  
 		End Sub
 	#tag EndEvent
@@ -3602,9 +3580,7 @@ End
 	#tag Event
 		Sub Change()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  If Me.ListIndex <> -1 Then
 		    Config.Product = MemClass.ReadDWORD(Me.Cell(Me.ListIndex, 0), 1, False)
@@ -3620,9 +3596,9 @@ End
 		    If txtInit6Protocol.Visible <> False Then txtInit6Protocol.Visible = False
 		  End If
 		  
-		  Index = MainWindow.lstProfiles.DefaultRowHeight
+		  Dim i As Integer = MainWindow.lstProfiles.DefaultRowHeight
 		  MainWindow.lstProfiles.DefaultRowHeight = 0
-		  MainWindow.lstProfiles.DefaultRowHeight = Index
+		  MainWindow.lstProfiles.DefaultRowHeight = i
 		  
 		End Sub
 	#tag EndEvent
@@ -3645,9 +3621,7 @@ End
 	#tag Event
 		Sub TextChange()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.BNLSHost = Me.Text
 		  
@@ -3672,9 +3646,7 @@ End
 	#tag Event
 		Sub TextChange()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.BNETHost = Me.Text
 		  
@@ -3699,9 +3671,7 @@ End
 	#tag Event
 		Sub TextChange()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.Password = Me.Text
 		  
@@ -3743,9 +3713,7 @@ End
 	#tag Event
 		Sub TextChange()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.Username = Me.Text
 		  
@@ -3792,18 +3760,18 @@ End
 	#tag Event
 		Sub TextChange()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  lstCategories.Cell(lstCategories.ListIndex, 0) = Me.Text
 		  
-		  Dim i As Integer = 0
-		  While i < MainWindow.lstProfiles.ListCount
-		    If MainWindow.lstProfiles.CellTag(i, 0) = Index Then Exit While
-		    i = i + 1
+		  Dim i As Integer = MainWindow.lstProfiles.ListCount - 1
+		  While i >= 0
+		    If MainWindow.lstProfiles.CellTag(i, 0) = Config Then
+		      MainWindow.lstProfiles.Cell(i, 0) = Me.Text
+		      Exit While
+		    End If
+		    i = i - 1
 		  Wend
-		  If i < MainWindow.lstProfiles.ListCount Then MainWindow.lstProfiles.Cell(i, 0) = Me.Text
 		  
 		  Config.Name = Me.Text
 		  
@@ -3828,9 +3796,7 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.CDKeySpawn = Me.Value
 		  
@@ -3930,9 +3896,8 @@ End
 		Sub Action()
 		  
 		  If Me.MenuValue = -1 Then Return
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  fldBNET.Text = Me.List(Me.MenuValue)
 		  Config.BNETHost = Me.List(Me.MenuValue)
@@ -3946,9 +3911,7 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.BNLSVersionCheck = Me.Value
 		  
@@ -3959,9 +3922,7 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.ShowJoinLeaveMessages = Me.Value
 		  
@@ -3993,9 +3954,7 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.EnableUTF8 = Me.Value
 		  
@@ -4109,7 +4068,7 @@ End
 		  
 		  Dim Config As Configuration = Nil
 		  If MainWindow.lstProfiles.ListIndex <> -1 Then
-		    Config = Settings.Configurations(MainWindow.lstProfiles.CellTag(MainWindow.lstProfiles.ListIndex, 0))
+		    Config = MainWindow.lstProfiles.CellTag(MainWindow.lstProfiles.ListIndex, 0)
 		  End If
 		  
 		  If Config <> Nil And Config.Container.lstUsers_Viewing_Channel() = True Then
@@ -4441,9 +4400,7 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.EnableUDP = Me.Value
 		  
@@ -4475,9 +4432,7 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.SpamPrevention = Me.Value
 		  
@@ -4509,9 +4464,7 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.IgnoreBanKickUnban = Me.Value
 		  
@@ -4543,9 +4496,7 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.ConfirmRemovingClanMembers = Me.Value
 		  
@@ -4577,9 +4528,7 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.CreateAccountsFirst = Me.Value
 		  
@@ -4611,9 +4560,7 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.ShowUserUpdateMessages = Me.Value
 		  
@@ -4906,9 +4853,7 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Config.Init6Protocol = Me.Value
 		  
