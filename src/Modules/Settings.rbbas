@@ -3,7 +3,7 @@ Protected Module Settings
 	#tag Method, Flags = &h21
 		Private Sub AppendLoadError(Line As String)
 		  
-		  Settings.LoadErrors = Settings.LoadErrors + Line
+		  Settings.LoadErrors = Settings.LoadErrors + Line + EndOfLine
 		  
 		End Sub
 	#tag EndMethod
@@ -11,7 +11,7 @@ Protected Module Settings
 	#tag Method, Flags = &h21
 		Private Sub AppendSaveError(Line As String)
 		  
-		  Settings.LoadErrors = Settings.LoadErrors + Line
+		  Settings.LoadErrors = Settings.LoadErrors + Line + EndOfLine
 		  
 		End Sub
 	#tag EndMethod

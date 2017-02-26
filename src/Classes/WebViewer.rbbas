@@ -76,11 +76,11 @@ Inherits HTMLViewer
 		      If Settings.FileCheckLockdownDLLs = False Then source = source + "<li>lockdown-IX86-##.dll (one or more are missing)</li>"
 		      If Settings.FileCheckVerIX86DLLs = False Then source = source + "<li>ver-IX86-#.dll (one or more are missing)</li>"
 		      
-		      source = source + "</ul></p></section>"
+		      source = source + "</ul></p>"
 		      
-		      If LenB(Settings.LoadErrors) > 0 Then source = source + "<section class=""red""><p>" + Settings.LoadErrors + "</p></section>"
+		      If LenB(Settings.LoadErrors) > 0 Then source = source + "<p>" + ReplaceAll(Settings.LoadErrors, EndOfLine, "<br>") + "</p>"
 		      
-		      source = source + "</article>"
+		      source = source + "</section></article>"
 		      
 		    End If
 		    
