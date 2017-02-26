@@ -223,6 +223,7 @@ Protected Module Settings
 		  End If
 		  If File.Exists = False Then
 		    Settings.AppendLoadError("Could not open the settings file because it does not exist yet.")
+		    Settings.LoadDefaults()
 		    Return
 		  End If
 		  If File.IsReadable = False Then
@@ -240,6 +241,77 @@ Protected Module Settings
 		  Buffer.Close()
 		  
 		  Settings.Parse(Data)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub LoadDefaultPingRanges()
+		  
+		  ReDim Settings.PrefPingRanges(-1)
+		  
+		  Dim pr As PingRange
+		  
+		  pr             = New PingRange()
+		  pr.BarColor    = PingRange.BarColor_Green
+		  pr.BarCount    = 1
+		  pr.LowestPing  = 1
+		  pr.HighestPing = 150
+		  Settings.PrefPingRanges.Append(pr)
+		  
+		  pr             = New PingRange()
+		  pr.BarColor    = PingRange.BarColor_Green
+		  pr.BarCount    = 2
+		  pr.LowestPing  = 151
+		  pr.HighestPing = 250
+		  Settings.PrefPingRanges.Append(pr)
+		  
+		  pr             = New PingRange()
+		  pr.BarColor    = PingRange.BarColor_Yellow
+		  pr.BarCount    = 3
+		  pr.LowestPing  = 251
+		  pr.HighestPing = 350
+		  Settings.PrefPingRanges.Append(pr)
+		  
+		  pr             = New PingRange()
+		  pr.BarColor    = PingRange.BarColor_Yellow
+		  pr.BarCount    = 4
+		  pr.LowestPing  = 351
+		  pr.HighestPing = 450
+		  Settings.PrefPingRanges.Append(pr)
+		  
+		  pr             = New PingRange()
+		  pr.BarColor    = PingRange.BarColor_Red
+		  pr.BarCount    = 5
+		  pr.LowestPing  = 451
+		  pr.HighestPing = 550
+		  Settings.PrefPingRanges.Append(pr)
+		  
+		  pr             = New PingRange()
+		  pr.BarColor    = PingRange.BarColor_Red
+		  pr.BarCount    = 6
+		  pr.LowestPing  = 551
+		  pr.HighestPing = &H7FFFFFFF
+		  Settings.PrefPingRanges.Append(pr)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub LoadDefaults()
+		  
+		  For Each Config As Configuration In Settings.Configurations()
+		    Config.BNET.DoDisconnect(False)
+		  Next
+		  
+		  ReDim Settings.Configurations(-1)
+		  
+		  Settings.PrefCheckForUpdates = True
+		  ReDim Settings.PrefMessageBlacklist(-1)
+		  Settings.PrefMinimizeToTray = False
+		  Settings.PrefPingRangesFlushRight = False
+		  
+		  Settings.LoadDefaultPingRanges()
 		  
 		End Sub
 	#tag EndMethod
