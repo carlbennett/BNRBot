@@ -1,6 +1,7 @@
 Type=Desktop
 RBProjectVersion=2012.021
 MinIDEVersion=20070100
+Folder=bin;bin;&h577C17FF;&h0;false
 Module=Colors;src/Modules/Colors/Colors.rbbas;&h21C127FF;&h7F7267FF;false
 Module=Globals;src/Modules/Globals.rbbas;&hAA647FF;&h7F7267FF;false
 Module=Packets;src/Modules/Packets.rbbas;&hABC5FFF;&h7F7267FF;false
