@@ -65,7 +65,8 @@ Inherits HTMLViewer
 		    If Settings.FileCheckBNCSUtilDLL = False Or _
 		      Settings.FileCheckCheckRevisionDLL = False Or _
 		      Settings.FileCheckLockdownDLLs = False Or _
-		      Settings.FileCheckVerIX86DLLs = False Then
+		      Settings.FileCheckVerIX86DLLs = False Or _
+		      Len(Settings.LoadErrors) > 0 Then
 		      
 		      source = source + "<article><header class=""red"">Integrity Check Failed</header><section class=""red"">" _
 		      + "<p>Some required files are missing from the bot. Please locate:</p><p><ul>"
@@ -75,7 +76,11 @@ Inherits HTMLViewer
 		      If Settings.FileCheckLockdownDLLs = False Then source = source + "<li>lockdown-IX86-##.dll (one or more are missing)</li>"
 		      If Settings.FileCheckVerIX86DLLs = False Then source = source + "<li>ver-IX86-#.dll (one or more are missing)</li>"
 		      
-		      source = source + "</ul></p></section></article>"
+		      source = source + "</ul></p></section>"
+		      
+		      If LenB(Settings.LoadErrors) > 0 Then source = source + "<section class=""red""><p>" + Settings.LoadErrors + "</p></section>"
+		      
+		      source = source + "</article>"
 		      
 		    End If
 		    
