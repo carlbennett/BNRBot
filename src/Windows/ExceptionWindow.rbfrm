@@ -46,6 +46,7 @@ Begin Window ExceptionWindow
       Selectable      =   True
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Title"
       TextAlign       =   0
       TextColor       =   "#Colors.UI.ControlTextColor"
@@ -80,6 +81,7 @@ Begin Window ExceptionWindow
       Selectable      =   True
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Description"
       TextAlign       =   0
       TextColor       =   "#Colors.UI.ControlTextColor"

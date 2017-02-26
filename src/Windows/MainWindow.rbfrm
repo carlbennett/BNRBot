@@ -91,6 +91,7 @@ Begin BotWindow MainWindow
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -112,6 +113,7 @@ Begin BotWindow MainWindow
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   1
+         TabStop         =   True
          Top             =   13
          Visible         =   True
          Width           =   627
