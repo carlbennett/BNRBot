@@ -93,10 +93,22 @@ Protected Class Cookie
 	#tag EndComputedProperty
 
 
-	#tag Constant, Name = TypeClanMemberInfo, Type = Double, Dynamic = False, Default = \"0", Scope = Public
+	#tag Constant, Name = TypeClanDisband, Type = Double, Dynamic = False, Default = \"6", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = TypeExtendedAccount, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag Constant, Name = TypeClanMemberInfo, Type = Double, Dynamic = False, Default = \"4", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = TypeClanMemberInvite, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = TypeClanMemberRankChange, Type = Double, Dynamic = False, Default = \"3", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = TypeClanMemberRemove, Type = Double, Dynamic = False, Default = \"5", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = TypeExtendedAccount, Type = Double, Dynamic = False, Default = \"0", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = TypeProfile, Type = Double, Dynamic = False, Default = \"1", Scope = Public

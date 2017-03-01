@@ -2027,15 +2027,15 @@ End
 		            base.Append(New MenuItem(base.TextSeparator))
 		            base.Append(New MenuItem("Change member's rank"))
 		            base.Item(base.Count() - 1).Insert(0, New MenuItem("Chieftain"))
-		            base.Item(base.Count() - 1).Item(0).Tag = MemClass.WriteBYTE(&H04) + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
+		            base.Item(base.Count() - 1).Item(0).Tag = New Pair(&H04, Me.Cell(Me.ListIndex, 1))
 		            base.Item(base.Count() - 1).Insert(1, New MenuItem("Shaman"))
-		            base.Item(base.Count() - 1).Item(1).Tag = MemClass.WriteBYTE(&H03) + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
+		            base.Item(base.Count() - 1).Item(1).Tag = New Pair(&H03, Me.Cell(Me.ListIndex, 1))
 		            base.Item(base.Count() - 1).Insert(2, New MenuItem("Grunt"))
-		            base.Item(base.Count() - 1).Item(2).Tag = MemClass.WriteBYTE(&H02) + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
+		            base.Item(base.Count() - 1).Item(2).Tag = New Pair(&H02, Me.Cell(Me.ListIndex, 1))
 		            base.Item(base.Count() - 1).Insert(3, New MenuItem("Peon"))
-		            base.Item(base.Count() - 1).Item(3).Tag = MemClass.WriteBYTE(&H01) + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
+		            base.Item(base.Count() - 1).Item(3).Tag = New Pair(&H01, Me.Cell(Me.ListIndex, 1))
 		            base.Item(base.Count() - 1).Insert(4, New MenuItem("Initiate"))
-		            base.Item(base.Count() - 1).Item(4).Tag = MemClass.WriteBYTE(&H00) + MemClass.WriteCString(Me.Cell(Me.ListIndex, 1))
+		            base.Item(base.Count() - 1).Item(4).Tag = New Pair(&H00, Me.Cell(Me.ListIndex, 1))
 		            If Self.lstUsers_Viewing_Clan() = True Then
 		              base.Item(base.Count() - 1).Item(0).Checked = (Val(Me.Cell(Me.ListIndex, 0)) = &H04)
 		              base.Item(base.Count() - 1).Item(1).Checked = (Val(Me.Cell(Me.ListIndex, 0)) = &H03)
@@ -2218,9 +2218,9 @@ End
 		    
 		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And Self.Config.BNET.ClanTag <> 0 _
 		      And hitItem.Tag <> Self.Config.BNET.UniqueName Then
-		      Dim Cookie As UInt32 = Globals.GenerateDWORD()
-		      Globals.ClanCookies.Value(Cookie) = MemClass.WriteCString(hitItem.Tag)
-		      Self.Config.BNET.Send(Packets.CreateSID_CLANINVITATION(Cookie, hitItem.Tag))
+		      Dim Cookie As New Cookie(Cookie.TypeClanMemberInvite)
+		      Cookie.Value("Username") = hitItem.Tag
+		      Self.Config.BNET.Send(Packets.CreateSID_CLANINVITATION(Cookie.Cookie, hitItem.Tag))
 		      Self.Config.AddChat(True, Colors.Yellow, "BNET: Inviting ")
 		      Self.Config.AddChat(False, Colors.Orange, hitItem.Tag)
 		      Self.Config.AddChat(False, Colors.Yellow, " to the clan..." + EndOfLine)
@@ -2237,11 +2237,11 @@ End
 		  Case "Initiate", "Peon", "Grunt", "Shaman", "Chieftain"
 		    
 		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And Self.Config.BNET.ClanTag <> 0 _
-		      And MemClass.ReadCString(hitItem.Tag, 2) <> Self.Config.BNET.UniqueName Then
-		      Dim Cookie As UInt32 = Globals.GenerateDWORD()
-		      Globals.ClanCookies.Value(Cookie) = MemClass.WriteCString(MemClass.ReadCString(hitItem.Tag, 2))
-		      Self.Config.BNET.Send(Packets.CreateSID_CLANRANKCHANGE(Cookie, MemClass.ReadCString(hitItem.Tag, 2), _
-		      MemClass.ReadBYTE(hitItem.Tag, 1)))
+		      And hitItem.Tag IsA Pair And Pair(hitItem.Tag).Right <> Self.Config.BNET.UniqueName Then
+		      Dim Cookie As New Cookie(Cookie.TypeClanMemberRankChange)
+		      Cookie.Value("Rank") = Pair(hitItem.Tag).Left
+		      Cookie.Value("Username") = Pair(hitItem.Tag).Right
+		      Self.Config.BNET.Send(Packets.CreateSID_CLANRANKCHANGE(Cookie.Cookie, Cookie.Value("Username"), Cookie.Value("Rank")))
 		    End If
 		    
 		  Case Else

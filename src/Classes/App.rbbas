@@ -48,7 +48,6 @@ Inherits Application
 		  
 		  Globals.CreateLagIcons()
 		  Globals.CreateUserIcons()
-		  Globals.ClanCookies = New Dictionary()
 		  Globals.Cookies = New Dictionary()
 		  
 		  Settings.CheckFiles()

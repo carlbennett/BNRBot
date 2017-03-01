@@ -423,13 +423,14 @@ Protected Module Globals
 		    Select Case Action
 		    Case Globals.ClanConfirmLeave
 		      
-		      Dim Cookie As UInt32 = Globals.GenerateDWORD()
-		      Globals.ClanCookies.Value(Cookie) = Config.BNET.AccountName
-		      Config.BNET.Send(Packets.CreateSID_CLANREMOVEMEMBER(Cookie, Config.BNET.AccountName))
+		      Dim Cookie As New Cookie(Cookie.TypeClanMemberRemove)
+		      Cookie.Value("Username") = Config.BNET.AccountName
+		      Config.BNET.Send(Packets.CreateSID_CLANREMOVEMEMBER(Cookie.Cookie, Config.BNET.AccountName))
 		      
 		    Case Globals.ClanConfirmDisband
 		      
-		      Config.BNET.Send(Packets.CreateSID_CLANDISBAND(0))
+		      Dim Cookie As New Cookie(Cookie.TypeClanDisband)
+		      Config.BNET.Send(Packets.CreateSID_CLANDISBAND(Cookie.Cookie))
 		      
 		    End Select
 		  End If
@@ -465,9 +466,9 @@ Protected Module Globals
 		  End If
 		  
 		  If ret = True Then
-		    Dim Cookie As UInt32 = Globals.GenerateDWORD()
-		    Globals.ClanCookies.Value(Cookie) = MemClass.WriteCString(MemberName)
-		    Config.BNET.Send(Packets.CreateSID_CLANREMOVEMEMBER(Cookie, MemberName))
+		    Dim Cookie As New Cookie(Cookie.TypeClanMemberRemove)
+		    Cookie.Value("Username") = MemberName
+		    Config.BNET.Send(Packets.CreateSID_CLANREMOVEMEMBER(Cookie.Cookie, MemberName))
 		  End If
 		  
 		End Sub
@@ -2267,10 +2268,6 @@ Protected Module Globals
 
 	#tag Property, Flags = &h1
 		Protected BNETs() As BNETSocket
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected ClanCookies As Dictionary
 	#tag EndProperty
 
 	#tag Property, Flags = &h1

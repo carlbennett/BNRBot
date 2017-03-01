@@ -1949,18 +1949,17 @@ Protected Module Packets
 		  If Sock.IsConnected = False Then Return False
 		  If LenB(PktData) <> 5 Then Return False
 		  
-		  Dim Cookie As UInt32 = MemClass.ReadDWORD(PktData, 1, True)
+		  Dim CookieId As UInt32 = MemClass.ReadDWORD(PktData, 1, True)
 		  Dim Result As Byte = MemClass.ReadBYTE(PktData, 5)
 		  
-		  Dim Data As String
-		  Data = Globals.ClanCookies.Lookup(Cookie, "")
+		  Dim Cookie As Cookie = Cookie.Lookup(CookieId, True)
 		  
-		  If LenB(Data) < 1 Then
+		  If Cookie = Nil Then
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Received unknown clan invitation reply.")
 		    Return True
 		  End If
 		  
-		  Dim Username As String = MemClass.ReadCString(Data, 1)
+		  Dim Username As String = Cookie.Value("Username")
 		  
 		  Select Case Result
 		  Case &H00 // Invitation accepted
@@ -2031,7 +2030,7 @@ Protected Module Packets
 		  If Sock.IsConnected = False Then Return False
 		  If LenB(PktData) < 15 Then Return False
 		  
-		  Dim iCookie As UInt32 = MemClass.ReadDWORD(PktData, 1)
+		  Dim iCookie As UInt32 = MemClass.ReadDWORD(PktData, 1, True)
 		  Dim Status As Byte = MemClass.ReadBYTE(PktData, 5)
 		  Dim ClanName As String = MemClass.ReadCString(PktData, 6)
 		  Dim ClanRank As Byte = MemClass.ReadBYTE(PktData, 7 + LenB(ClanName))
@@ -2257,18 +2256,17 @@ Protected Module Packets
 		  If Sock.IsConnected = False Then Return False
 		  If LenB(PktData) <> 5 Then Return False
 		  
-		  Dim Cookie As UInt32 = MemClass.ReadDWORD(PktData, 1)
+		  Dim CookieId As UInt32 = MemClass.ReadDWORD(PktData, 1, True)
 		  Dim Result As Byte = MemClass.ReadBYTE(PktData, 5)
 		  
-		  Dim Data As String
-		  Data = Globals.ClanCookies.Lookup(Cookie, "")
+		  Dim Cookie As Cookie = Cookie.Lookup(CookieId, True)
 		  
-		  If LenB(Data) < 1 Then
+		  If Cookie = Nil Then
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Received unknown clan rank change reply." + EndOfLine)
 		    Return True
 		  End If
 		  
-		  Dim Username As String = MemClass.ReadCString(Data, 1)
+		  Dim Username As String = Cookie.Value("Username")
 		  
 		  Select Case Result
 		  Case &H00 // Successfully changed rank
@@ -2304,18 +2302,17 @@ Protected Module Packets
 		  If Sock.IsConnected = False Then Return False
 		  If LenB(PktData) <> 5 Then Return False
 		  
-		  Dim Cookie As UInt32 = MemClass.ReadDWORD(PktData, 1, True)
+		  Dim CookieId As UInt32 = MemClass.ReadDWORD(PktData, 1, True)
 		  Dim Result As Byte = MemClass.ReadBYTE(PktData, 5)
 		  
-		  Dim Data As String
-		  Data = Globals.ClanCookies.Lookup(Cookie, "")
+		  Dim Cookie As Cookie = Cookie.Lookup(CookieId, True)
 		  
-		  If LenB(Data) < 1 Then
+		  If Cookie = Nil Then
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Received unknown clan member removal reply.")
 		    Return True
 		  End If
 		  
-		  Dim Username As String = Data
+		  Dim Username As String = Cookie.Value("Username")
 		  
 		  Select Case Result
 		  Case &H00 // Removed
