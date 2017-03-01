@@ -46,7 +46,6 @@ Begin Window ExceptionWindow
       Selectable      =   True
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Title"
       TextAlign       =   0
       TextColor       =   "#Colors.UI.ControlTextColor"
@@ -81,7 +80,6 @@ Begin Window ExceptionWindow
       Selectable      =   True
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Description"
       TextAlign       =   0
       TextColor       =   "#Colors.UI.ControlTextColor"
@@ -226,6 +224,13 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  
+		  If Me.Default = True Then Me.SetFocus()
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events oExitButton
 	#tag Event
@@ -247,6 +252,13 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  
+		  If Me.Default = True Then Me.SetFocus()
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events oReportButton
 	#tag Event
@@ -260,6 +272,13 @@ End
 		  "```" + EndOfLine + Join(Self.oException.Stack(), EndOfLine) + EndOfLine + "```" + EndOfLine
 		  
 		  REALbasic.ShowURL("https://github.com/carlbennett/BNRBot/issues/new?" + o.EncodeFormData(d))
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  
+		  If Me.Default = True Then Me.SetFocus()
 		  
 		End Sub
 	#tag EndEvent

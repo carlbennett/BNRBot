@@ -46,7 +46,6 @@ Begin BotWindow ClanInvitationWindow
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "You have been invited to a clan!"
       TextAlign       =   0
       TextColor       =   "#Colors.UI.ControlTextColor"
@@ -81,7 +80,6 @@ Begin BotWindow ClanInvitationWindow
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Clan Name: "
       TextAlign       =   0
       TextColor       =   "#Colors.UI.ControlTextColor"
@@ -210,7 +208,6 @@ Begin BotWindow ClanInvitationWindow
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Clan Tag:"
       TextAlign       =   0
       TextColor       =   "#Colors.UI.ControlTextColor"
@@ -292,7 +289,6 @@ Begin BotWindow ClanInvitationWindow
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Invited By:"
       TextAlign       =   0
       TextColor       =   "#Colors.UI.ControlTextColor"
@@ -466,6 +462,13 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  
+		  If Me.Default = True Then Me.SetFocus()
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events btnDecline
 	#tag Event
@@ -476,6 +479,13 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  
+		  If Me.Default = True Then Me.SetFocus()
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events btnIgnore
 	#tag Event
@@ -483,6 +493,13 @@ End
 		  
 		  Self.Result = Me
 		  Self.Hide()
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  
+		  If Me.Default = True Then Me.SetFocus()
 		  
 		End Sub
 	#tag EndEvent

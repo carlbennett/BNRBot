@@ -337,6 +337,13 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  
+		  If Me.Default = True Then Me.SetFocus()
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events btnCancel
 	#tag Event
@@ -344,6 +351,13 @@ End
 		  
 		  Self.Result = Me
 		  Self.Hide()
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  
+		  If Me.Default = True Then Me.SetFocus()
 		  
 		End Sub
 	#tag EndEvent

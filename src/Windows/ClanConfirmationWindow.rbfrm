@@ -46,7 +46,6 @@ Begin BotWindow ClanConfirmationWindow
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "You requested to %ACTION% Clan %TAG%!"
       TextAlign       =   0
       TextColor       =   "#Colors.UI.ControlTextColor"
@@ -143,7 +142,6 @@ Begin BotWindow ClanConfirmationWindow
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "If you really want to do this, hit OK below.\r\n\r\nOtherwise, hit Cancel to not take any action."
       TextAlign       =   0
       TextColor       =   "#Colors.UI.ControlTextColor"
@@ -176,6 +174,13 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  
+		  If Me.Default = True Then Me.SetFocus()
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events btnCancel
 	#tag Event
@@ -183,6 +188,13 @@ End
 		  
 		  Self.Result = Me
 		  Self.Hide()
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  
+		  If Me.Default = True Then Me.SetFocus()
 		  
 		End Sub
 	#tag EndEvent
