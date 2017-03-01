@@ -50,7 +50,6 @@ Inherits Application
 		  Globals.CreateUserIcons()
 		  Globals.ClanCookies = New Dictionary()
 		  Globals.Cookies = New Dictionary()
-		  Globals.ProfileCookies = New Dictionary()
 		  
 		  Settings.CheckFiles()
 		  Settings.Load(Nil)

@@ -1,7 +1,7 @@
 #tag Module
 Protected Module Globals
 	#tag Method, Flags = &h1
-		Protected Sub AddProfileDialog(Config As Configuration, Username As String, Keys() As String, Values() As String, Game As String)
+		Protected Sub AddProfileDialog(Config As Configuration, Username As String, Keys() As String, Values() As String, Product As UInt32)
 		  
 		  Dim w As New ProfileWindow()
 		  
@@ -11,7 +11,9 @@ Protected Module Globals
 		  
 		  w.Title = Username + "'s Profile - BNRBot"
 		  w.fldUsername.Text = Username
-		  w.fldGame.Text = Globals.ProductName(MemClass.ReadDWORD(Game, 1, False))
+		  w.fldGame.Text = Globals.ProductName(Product)
+		  
+		  Dim Game As String = MemClass.WriteDWORD(Product, False)
 		  
 		  Dim FieldDate As Date
 		  
@@ -2297,10 +2299,6 @@ Protected Module Globals
 
 	#tag Property, Flags = &h1
 		Protected imgNoUDP As Picture
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected ProfileCookies As Dictionary
 	#tag EndProperty
 
 	#tag Property, Flags = &h1

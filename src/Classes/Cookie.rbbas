@@ -96,6 +96,12 @@ Protected Class Cookie
 	#tag Constant, Name = TypeClanMemberInfo, Type = Double, Dynamic = False, Default = \"0", Scope = Public
 	#tag EndConstant
 
+	#tag Constant, Name = TypeExtendedAccount, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = TypeProfile, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
 
 	#tag ViewBehavior
 		#tag ViewProperty

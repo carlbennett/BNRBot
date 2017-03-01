@@ -440,14 +440,12 @@ Inherits TCPSocket
 	#tag Method, Flags = &h0
 		Sub ViewProfile(Username As String, Product As UInt32)
 		  
-		  Dim Cookie As UInt32
+		  Dim Cookie As New Cookie(Cookie.TypeProfile)
 		  Dim Game As String = MemClass.WriteDWORD(Product, False)
 		  Dim ProfileKeys() As String
 		  
-		  Cookie = Globals.GenerateDWORD()
-		  Globals.ProfileCookies.Value(Cookie) = MemClass.WriteDWORD(Packets.PROFILEDATA_VIEW_PROFILE) _
-		  + MemClass.WriteDWORD(Product, True) _
-		  + MemClass.WriteCString(Username)
+		  Cookie.Value("Username") = Username
+		  Cookie.Value("Product") = Product
 		  
 		  // Profile
 		  ProfileKeys.Append("profile\age")
@@ -473,7 +471,9 @@ Inherits TCPSocket
 		  ProfileKeys.Append("DynKey\" + Game + "\1\rank")
 		  ProfileKeys.Append("record\" + Game + "\1\high rank")
 		  
-		  Me.Send(Packets.CreateSID_READUSERDATA(Cookie, Array(Username), ProfileKeys))
+		  Cookie.Value("Keys") = ProfileKeys
+		  
+		  Me.Send(Packets.CreateSID_READUSERDATA(Cookie.Cookie, Array(Username), ProfileKeys))
 		  
 		End Sub
 	#tag EndMethod
