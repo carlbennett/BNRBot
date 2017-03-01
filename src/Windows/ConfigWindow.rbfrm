@@ -4848,9 +4848,7 @@ End
 		  
 		  Self.Refresh(False)
 		  
-		  Dim Index As Integer = lstCategories.CellTag(lstCategories.ListIndex, 0)
-		  If Index < 0 Or Index > UBound(Settings.Configurations) Then Return
-		  Dim Config As Configuration = Settings.Configurations(Index)
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
 		  
 		  Dim Buffer As String = Me.Text
 		  
