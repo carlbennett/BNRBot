@@ -454,22 +454,22 @@ Inherits TCPSocket
 		  ProfileKeys.Append("profile\description")
 		  
 		  // Normal Games
-		  ProfileKeys.Append("record\" + Game + "\0\wins")
-		  ProfileKeys.Append("record\" + Game + "\0\losses")
-		  ProfileKeys.Append("record\" + Game + "\0\disconnects")
-		  ProfileKeys.Append("record\" + Game + "\0\last game result")
-		  ProfileKeys.Append("record\" + Game + "\0\last game")
+		  ProfileKeys.Append("Record\" + Game + "\0\Wins")
+		  ProfileKeys.Append("Record\" + Game + "\0\Losses")
+		  ProfileKeys.Append("Record\" + Game + "\0\Disconnects")
+		  ProfileKeys.Append("Record\" + Game + "\0\Last Game Result")
+		  ProfileKeys.Append("Record\" + Game + "\0\Last Game")
 		  
 		  // Ladder Games
-		  ProfileKeys.Append("record\" + Game + "\1\wins")
-		  ProfileKeys.Append("record\" + Game + "\1\losses")
-		  ProfileKeys.Append("record\" + Game + "\1\disconnects")
-		  ProfileKeys.Append("record\" + Game + "\1\last game result")
-		  ProfileKeys.Append("record\" + Game + "\1\last game")
-		  ProfileKeys.Append("record\" + Game + "\1\rating")
-		  ProfileKeys.Append("record\" + Game + "\1\high rating")
-		  ProfileKeys.Append("DynKey\" + Game + "\1\rank")
-		  ProfileKeys.Append("record\" + Game + "\1\high rank")
+		  ProfileKeys.Append("Record\" + Game + "\1\Wins")
+		  ProfileKeys.Append("Record\" + Game + "\1\Losses")
+		  ProfileKeys.Append("Record\" + Game + "\1\Disconnects")
+		  ProfileKeys.Append("Record\" + Game + "\1\Last Game Result")
+		  ProfileKeys.Append("Record\" + Game + "\1\Last Game")
+		  ProfileKeys.Append("Record\" + Game + "\1\Rating")
+		  ProfileKeys.Append("Record\" + Game + "\1\High Rating")
+		  ProfileKeys.Append("DynKey\" + Game + "\1\Rank")
+		  ProfileKeys.Append("Record\" + Game + "\1\High Rank")
 		  
 		  Cookie.Value("Keys") = ProfileKeys
 		  
