@@ -3157,14 +3157,14 @@ Protected Module Packets
 		  End If
 		  
 		  Dim CDKeys(), TempKey As String
+		  Dim NeedsKey1, NeedsKey2 As Boolean
+		  
+		  NeedsKey1 = Globals.NeedsCDKey(Sock.Product)
+		  NeedsKey2 = Globals.NeedsCDKeyExpansion(Sock.Product)
 		  
 		  // CD-Key decrypting begins here.
 		  // Exclude any products that don't use CD-Keys now.
-		  If Sock.Product <> Packets.BNETProduct_W3DM And _  // Warcraft III Demo
-		    Sock.Product <> Packets.BNETProduct_CHAT And _ // Telnet
-		    Sock.Product <> Packets.BNETProduct_DRTL And _ // Diablo I
-		    Sock.Product <> Packets.BNETProduct_DSHR And _ // Diablo I Shareware
-		    Sock.Product <> Packets.BNETProduct_SSHR Then  // Starcraft Shareware
+		  If NeedsKey1 Or NeedsKey2 Then
 		    
 		    If Settings.FileCheckBNCSUtilDLL = False Then
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Error - it appears BNCSUtil.dll is missing." + EndOfLine)
@@ -3173,19 +3173,20 @@ Protected Module Packets
 		    End If
 		    
 		    // Decrypt original CD-Key
-		    //
-		    TempKey = Globals.DecryptCDKey(Sock.Config.CDKey, Sock.ClientToken, Sock.ServerToken)
-		    If LenB(TempKey) < 1 Then
-		      // Invalid CD-Key
-		      Sock.Config.AddChat(True, Colors.Red, "BNET: Failed to validate your CD-Key." + EndOfLine)
-		      Sock.DoDisconnect(False)
-		      Return False
+		    If NeedsKey1 Then
+		      TempKey = Globals.DecryptCDKey(Sock.Config.CDKey, Sock.ClientToken, Sock.ServerToken)
+		      If LenB(TempKey) < 1 Then
+		        // Invalid CD-Key
+		        Sock.Config.AddChat(True, Colors.Red, "BNET: Failed to validate your CD-Key." + EndOfLine)
+		        Sock.DoDisconnect(False)
+		        Return False
+		      End If
+		      CDKeys.Append(TempKey)
 		    End If
-		    CDKeys.Append(TempKey)
 		    
 		    // Decrypt expansion CD-Key, if necessary
 		    //
-		    If Sock.Product = Packets.BNETProduct_W3XP Or Sock.Product = Packets.BNETProduct_D2XP Then
+		    If NeedsKey2 Then
 		      TempKey = Globals.DecryptCDKey(Sock.Config.CDKeyExpansion, Sock.ClientToken, Sock.ServerToken)
 		      If LenB(TempKey) < 1 Then
 		        // Invalid CD-Key
