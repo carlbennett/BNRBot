@@ -1631,6 +1631,8 @@ Protected Module Globals
 		Function NeedsCDKey(Product As UInt32) As Boolean
 		  
 		  Select Case Product
+		  Case Packets.BNETProduct_STAR
+		  Case Packets.BNETProduct_SEXP
 		  Case Packets.BNETProduct_JSTR
 		  Case Packets.BNETProduct_D2DV
 		  Case Packets.BNETProduct_D2XP
