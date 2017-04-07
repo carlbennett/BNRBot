@@ -3159,8 +3159,20 @@ Protected Module Packets
 		  Dim CDKeys(), TempKey As String
 		  Dim NeedsKey1, NeedsKey2 As Boolean
 		  
-		  NeedsKey1 = Globals.NeedsCDKey(Sock.Product)
-		  NeedsKey2 = Globals.NeedsCDKeyExpansion(Sock.Product)
+		  NeedsKey1 = (Len(Sock.Config.CDKey) > 0)
+		  NeedsKey2 = (Len(Sock.Config.CDKeyExpansion) > 0)
+		  
+		  If NeedsKey1 And Not Globals.NeedsCDKey(Sock.Product) Then
+		    Sock.Config.AddChat(True, Colors.Orange, "BNET: Original CD-Key is being used when it's considered not required." + EndOfLine)
+		  ElseIf Not NeedsKey1 And Globals.NeedsCDKey(Sock.Product) Then
+		    Sock.Config.AddChat(True, Colors.Orange, "BNET: Original CD-Key is missing when it's considered required." + EndOfLine)
+		  End If
+		  
+		  If NeedsKey2 And Not Globals.NeedsCDKeyExpansion(Sock.Product) Then
+		    Sock.Config.AddChat(True, Colors.Orange, "BNET: Expansion-set CD-Key is being used when it's considered not required." + EndOfLine)
+		  ElseIf Not NeedsKey2 And Globals.NeedsCDKeyExpansion(Sock.Product) Then
+		    Sock.Config.AddChat(True, Colors.Orange, "BNET: Expansion-set CD-Key is missing when it's considered required." + EndOfLine)
+		  End If
 		  
 		  // CD-Key decrypting begins here.
 		  // Exclude any products that don't use CD-Keys now.
