@@ -71,7 +71,7 @@ Inherits HTMLViewer
 		      source = source + "<article><header class=""red"">Integrity Check Failed</header><section class=""red"">" _
 		      + "<p>Some required files are missing from the bot. Please locate:</p><p><ul>"
 		      
-		      If Settings.FileCheckBNCSUtilDLL = False Then source = source + "<li>BNCSUtil.dll</li>"
+		      If Settings.FileCheckBNCSUtilDLL = False Then source = source + "<li>" + App.BNCSUtil + "</li>"
 		      If Settings.FileCheckCheckRevisionDLL = False Then source = source + "<li>CheckRevision.dll</li>"
 		      If Settings.FileCheckLockdownDLLs = False Then source = source + "<li>lockdown-IX86-##.dll (one or more are missing)</li>"
 		      If Settings.FileCheckVerIX86DLLs = False Then source = source + "<li>ver-IX86-#.dll (one or more are missing)</li>"
