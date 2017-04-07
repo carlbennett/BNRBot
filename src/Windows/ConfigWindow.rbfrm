@@ -3407,6 +3407,17 @@ End
 		  
 		  Config.EmailAddress = Me.Text
 		  
+		  Dim Warnings As String = ""
+		  
+		  If Len(Me.Text) > 0 And InStr(Me.Text, "@") = 0 Then _
+		  Warnings = Warnings + _
+		  "The @ character is missing making this email address invalid." + EndOfLine + EndOfLine
+		  
+		  If Len(Warnings) > 0 Then Tooltip.Show(_
+		  Warnings + "You may continue at your own risk.", _
+		  Self.Left + Me.Left, Self.Top + Me.Top + Me.Height, True) _
+		  Else Tooltip.Hide()
+		    
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -3457,6 +3468,22 @@ End
 		  
 		  Config.CDKeyExpansion = Me.Text
 		  
+		  Dim Warnings As String = ""
+		  
+		  If Len(Me.Text) <> 0 And Len(Me.Text) <> 13 And Len(Me.Text) <> 16 And Len(Me.Text) <> 26 Then _
+		  Warnings = Warnings + _
+		  "There must be exactly 13, 16, or 26 characters." + EndOfLine + EndOfLine
+		  
+		  If Globals.NeedsCDKeyExpansion(Config.Product) And Len(Me.Text) = 0 Then _
+		  Warnings = Warnings + _
+		  "Your selected product requires an expansion-set CD-Key. Leaving " + EndOfLine + _
+		  "this blank will cause BNRBot to NOT use an expansion-set CD-Key." + EndOfLine + EndOfLine
+		  
+		  If Len(Warnings) > 0 Then Tooltip.Show(_
+		  Warnings + "You may continue at your own risk.", _
+		  Self.Left + Me.Left, Self.Top + Me.Top + Me.Height, True) _
+		  Else Tooltip.Hide()
+		    
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -3482,6 +3509,22 @@ End
 		  
 		  Config.CDKey = Me.Text
 		  
+		  Dim Warnings As String = ""
+		  
+		  If Len(Me.Text) <> 0 And Len(Me.Text) <> 13 And Len(Me.Text) <> 16 And Len(Me.Text) <> 26 Then _
+		  Warnings = Warnings + _
+		  "There must be exactly 13, 16, or 26 characters." + EndOfLine + EndOfLine
+		  
+		  If Globals.NeedsCDKey(Config.Product) And Len(Me.Text) = 0 Then _
+		  Warnings = Warnings + _
+		  "Your selected product requires a CD-Key. Leaving this blank will " + EndOfLine + _
+		  "cause BNRBot to NOT use a CD-Key." + EndOfLine + EndOfLine
+		  
+		  If Len(Warnings) > 0 Then Tooltip.Show(_
+		  Warnings + "You may continue at your own risk.", _
+		  Self.Left + Me.Left, Self.Top + Me.Top + Me.Height, True) _
+		  Else Tooltip.Hide()
+		    
 		End Sub
 	#tag EndEvent
 	#tag Event
