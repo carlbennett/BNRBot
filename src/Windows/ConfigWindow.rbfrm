@@ -184,7 +184,6 @@ Begin BotWindow ConfigWindow
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Value           =   1
       Visible         =   True
@@ -211,7 +210,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   1
-         TabStop         =   True
          Text            =   "Welcome to BNRBot's configuration!\r\n--\r\n\r\nPlease use the list on the far left to switch between each respective page. I've tried to create the bot to be as easy to use as possible without much understanding of how and why.\r\n\r\nIf you have an issue with something or don't know what something is, it's usually best to leave it alone until you find out what it does specifically. In most cases, someone else will be able to tell you what it probably does.\r\n\r\nTo create new profiles, click the respective button below all of this text.\r\n\r\nWhen a profile is changed, some specific data (such as your username) will not take affect until the Battle.net connection is reconnected. However, most data will take affect immediately (such as join/leave messages).\r\n\r\nWARNING: All changes are final and get saved immediately to memory. However, they will not be saved to disk until this window closes.\r\n"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -246,7 +244,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Profile Name:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -281,7 +278,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Username:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -316,7 +312,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Password:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -351,7 +346,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   6
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Server:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -386,7 +380,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   12
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "BNLS:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -453,7 +446,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   16
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Product:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -488,7 +480,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   20
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Version Byte:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -587,7 +578,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   34
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Timestamp:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -622,7 +612,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   32
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Home Channel:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -657,7 +646,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   30
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "E-mail Address:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -692,7 +680,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   28
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "CD-Key Owner:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -727,7 +714,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   26
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "CD-Key Exp.:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -762,7 +748,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   23
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "CD-Key:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -797,7 +782,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   55
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "(Debug: Verbose all packets sent/received.)"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -832,7 +816,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   45
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Automatically rejoin channels you get kicked from."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -1622,7 +1605,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   37
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Show join and leave messages for users in chat."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -1689,7 +1671,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   51
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Enable UTF-8 encoding on chat messages."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -1756,7 +1737,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Check for updates at startup."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -1823,7 +1803,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Minimize main window to tray."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -1858,7 +1837,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   11
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "* Right-click the list for options (such as adding and removing)."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2004,7 +1982,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Ping Ranges:  (for displaying user pings)"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2071,7 +2048,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   10
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Flush bars to the right"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2138,7 +2114,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   53
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Enable UDP packet support."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2205,7 +2180,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   41
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Enable spam prevention."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2272,7 +2246,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   43
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Ignore ban/kick/unban information from Battle.net."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2339,7 +2312,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   47
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Ask for confirmation when removing clan members."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2406,7 +2378,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   49
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Attempt to create the account before any logon attempt."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2473,7 +2444,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   39
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Show user flag changes in chat."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2488,7 +2458,6 @@ Begin BotWindow ConfigWindow
       End
       Begin TCPSocket VerByteSocket
          Address         =   ""
-         Enabled         =   True
          Height          =   32
          Index           =   -2147483648
          InitialParent   =   "Pages"
@@ -2496,11 +2465,8 @@ Begin BotWindow ConfigWindow
          LockedInPosition=   False
          Port            =   9367
          Scope           =   0
-         TabIndex        =   63
          TabPanelIndex   =   3
-         TabStop         =   True
          Top             =   397
-         Visible         =   True
          Width           =   32
       End
       Begin Label txtJunk
@@ -2525,7 +2491,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   12
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Message Blacklist:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2607,9 +2572,8 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   15
+         TabIndex        =   17
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "* Right-click the list for options (such as adding and removing)."
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2718,7 +2682,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   9
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Reconnect After:"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2753,7 +2716,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   11
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "milliseconds"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2820,7 +2782,6 @@ Begin BotWindow ConfigWindow
          Selectable      =   False
          TabIndex        =   19
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Init 6 Protocol"
          TextAlign       =   0
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -2832,6 +2793,68 @@ Begin BotWindow ConfigWindow
          Underline       =   ""
          Visible         =   False
          Width           =   90
+      End
+      Begin PushButton btnExportMessageBlacklist
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "Export"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   22
+         HelpTag         =   "Exports the message blacklist for sharing with a friend."
+         Index           =   -2147483648
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   326
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   ""
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   15
+         TabPanelIndex   =   2
+         TabStop         =   True
+         TextFont        =   "Arial"
+         TextSize        =   12
+         TextUnit        =   0
+         Top             =   482
+         Underline       =   ""
+         Visible         =   True
+         Width           =   80
+      End
+      Begin PushButton btnImportMessageBlacklist
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "Import"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   22
+         HelpTag         =   "Imports a message blacklist."
+         Index           =   -2147483648
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   136
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   16
+         TabPanelIndex   =   2
+         TabStop         =   True
+         TextFont        =   "Arial"
+         TextSize        =   12
+         TextUnit        =   0
+         Top             =   482
+         Underline       =   ""
+         Visible         =   True
+         Width           =   80
       End
    End
 End
@@ -4949,6 +4972,142 @@ End
 		  If X < 0 Or X > Me.Width Or Y < 0 Or Y > Me.Height Then Return
 		  
 		  chkInit6Protocol.Value = Not chkInit6Protocol.Value
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnExportMessageBlacklist
+	#tag Event
+		Sub Action()
+		  
+		  Dim f As FolderItem = GetSaveFolderItem(FileTypes.TextPlain + FileTypes.TextTabSeparatedValues, "BNRBot Blacklist.tsv")
+		  
+		  If f = Nil Then Return // User cancelled
+		  
+		  If Not f.IsWriteable Then
+		    Call MsgBox("Error: The selected file cannot be written to" + EndOfLine + EndOfLine + "File Not Writeable", 48, "File Not Writeable")
+		    Return
+		  End If
+		  
+		  Dim s As TextOutputStream = TextOutputStream.Create(f)
+		  
+		  If s = Nil Then
+		    Call MsgBox("Error: A stream could not be opened to the selected file" + EndOfLine + EndOfLine + "Null Stream", 48, "Null Stream")
+		    Return
+		  End If
+		  
+		  Dim i, j As Integer
+		  Dim line, key, val As String
+		  
+		  Dim tabKey As String = Chr(9)
+		  Dim tsv As Boolean = (NthField(f.Name, ".", CountFields(f.Name, ".")) = "tsv")
+		  
+		  i = 0
+		  j = lstMessageBlacklist.ListCount
+		  
+		  While Not s.WriteError And i < j
+		    key = lstMessageBlacklist.Cell(i, 0)
+		    val = lstMessageBlacklist.Cell(i, 1)
+		    
+		    If tsv Then
+		      line = key + tabKey + val
+		    Else
+		      line = key + " " + val
+		    End If
+		    
+		    s.WriteLine(line)
+		    i = i + 1
+		  Wend
+		  
+		  If s.WriteError = True Then
+		    Call MsgBox("Error: A write error occurred while saving to the selected file" + EndOfLine + EndOfLine _
+		    + "i=" + Format(i, "-#") + "; j=" + Format(j, "-#") + ";" + EndOfLine _
+		    + "Write Error #" + Format(s.LastErrorCode, "-#"), 48, "Write Error #" + Format(s.LastErrorCode, "-#"))
+		  End If
+		  
+		  s.Close()
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnImportMessageBlacklist
+	#tag Event
+		Sub Action()
+		  
+		  Dim overwriteEntries As Boolean
+		  
+		  If lstMessageBlacklist.ListCount > 0 Then
+		    
+		    Dim msgBoxResult As Integer = MsgBox("Do you want to discard your current entries?", 35, "Discard Blacklist?")
+		    If msgBoxResult = 2 Then Return
+		    
+		    overwriteEntries = (msgBoxResult = 6)
+		    
+		  Else
+		    
+		    overwriteEntries = False
+		    
+		  End If
+		  
+		  Dim f As FolderItem = GetOpenFolderItem(FileTypes.All)
+		  
+		  If f = Nil Then Return // User cancelled
+		  
+		  If Not f.Exists Then
+		    Call MsgBox("Error: The selected file no longer exists" + EndOfLine + EndOfLine + "File Gone", 48, "File Gone")
+		    Return
+		  End If
+		  
+		  If Not f.IsReadable Then
+		    Call MsgBox("Error: The selected file cannot be read" + EndOfLine + EndOfLine + "File Not Readable", 48, "File Not Readable")
+		    Return
+		  End If
+		  
+		  Dim s As TextInputStream = TextInputStream.Open(f)
+		  
+		  If s = Nil Then
+		    Call MsgBox("Error: A stream could not be opened to the selected file" + EndOfLine + EndOfLine + "Null Stream", 48, "Null Stream")
+		    Return
+		  End If
+		  
+		  If overwriteEntries = True Then lstMessageBlacklist.DeleteAllRows()
+		  
+		  Dim line, key, val As String
+		  
+		  Dim tabKey As String = Chr(9)
+		  Dim tsv As Boolean = (NthField(f.Name, ".", CountFields(f.Name, ".")) = "tsv")
+		  
+		  While Not s.ReadError And Not s.EOF()
+		    line = s.ReadLine(Encodings.UTF8)
+		    
+		    If tsv Then
+		      
+		      key = NthField(line, tabKey, 1)
+		      val = Mid(line, Len(key + tabKey) + 1)
+		      
+		    Else
+		      
+		      key = NthField(line, " ", 1)
+		      val = Mid(line, Len(key) + 2)
+		      
+		    End If
+		    
+		    Select Case key
+		    Case "Exact", "Regex"
+		      
+		      lstMessageBlacklist.AddRow(key)
+		      lstMessageBlacklist.Cell(lstMessageBlacklist.LastIndex, 1) = val
+		      
+		    Case Else
+		      
+		      s.Close()
+		      Call MsgBox("Error: File is corrupted or unrecognizable." + EndOfLine + EndOfLine + "Unknown key", 48, "Unknown key")
+		      Return
+		      
+		    End Select
+		  Wend
+		  
+		  s.Close()
 		  
 		End Sub
 	#tag EndEvent
