@@ -92,6 +92,7 @@ Begin Window GameKeysWindow
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
@@ -121,6 +122,7 @@ Begin Window GameKeysWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Key:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -198,6 +200,7 @@ Begin Window GameKeysWindow
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Product:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -232,6 +235,7 @@ Begin Window GameKeysWindow
          Selectable      =   True
          TabIndex        =   3
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "N/A"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -266,6 +270,7 @@ Begin Window GameKeysWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Public:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -300,6 +305,7 @@ Begin Window GameKeysWindow
          Selectable      =   True
          TabIndex        =   5
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "N/A"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -334,6 +340,7 @@ Begin Window GameKeysWindow
          Selectable      =   False
          TabIndex        =   6
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Private:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -368,6 +375,7 @@ Begin Window GameKeysWindow
          Selectable      =   True
          TabIndex        =   7
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "N/A"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -719,14 +727,14 @@ End
 		  Dim publicVal  As UInt32      = keyObj.PublicValue()
 		  Dim privateVal As MemoryBlock = keyObj.PrivateValue()
 		  
-		  Self.ProductLabel.Text = Battlenet.keyProductToStr(productVal) + " (Id: " + Format(productVal, "-#") + ")"
+		  Self.ProductLabel.Text = Battlenet.keyProductToStr(productVal) + " (Id: 0x" + App.HexPad(productVal) + ")"
 		  
-		  Self.PublicLabel.Text = Format(publicVal, "-#")
+		  Self.PublicLabel.Text = "0x" + App.HexPad(publicVal)
 		  
 		  If privateVal.Size = 4 Then
-		    Self.PrivateLabel.Text = Format(privateVal.UInt32Value(0), "-#")
+		    Self.PrivateLabel.Text = "0x" + App.HexPad(privateVal.UInt32Value(0))
 		  Else
-		    Self.PrivateLabel.Text = App.HexString(privateVal)
+		    Self.PrivateLabel.Text = "0x" + App.HexString(privateVal)
 		  End If
 		  
 		  Dim exists As Integer = Self.DuplicateKeyCheck(gameKey)

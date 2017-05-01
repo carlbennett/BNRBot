@@ -47,6 +47,34 @@ Inherits Application
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function HexPad(value As UInt64) As String
+		  
+		  Dim padLen As UInt8 = 0
+		  
+		  If value >= &H0000000000000000 And value <= &H00000000000000FF Then
+		    padLen = 2
+		  ElseIf value >= &H0000000000000100 And value <= &H000000000000FFFF Then
+		    padLen = 4
+		  ElseIf value >= &H0000000000010000 And value <= &H00000000FFFFFFFF Then
+		    padLen = 8
+		  ElseIf value >= &H0000000100000000 And value <= &HFFFFFFFFFFFFFFFF Then
+		    padLen = 16
+		  End If
+		  
+		  If padLen = 0 Then Return Hex(value)
+		  
+		  Dim buf As String
+		  
+		  While Len(buf) <= padLen
+		    buf = buf + "0"
+		  Wend
+		  
+		  Return Right(buf + Hex(value), padLen)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function HexString(value As String) As String
 		  
 		  Dim buf As String
