@@ -124,6 +124,47 @@ Protected Module Battlenet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function getKeyData(strKey As String, ByRef productVal As UInt32, ByRef publicVal As UInt32, ByRef privateVal As MemoryBlock) As Boolean
+		  
+		  Soft Declare Function kd_init   Lib Battlenet.libBNCSUtil () As Boolean
+		  Soft Declare Function kd_create Lib Battlenet.libBNCSUtil (cdkey As CString, keyLength As Integer) As Integer
+		  Soft Declare Function kd_free   Lib Battlenet.libBNCSUtil (decoder As Integer) As Boolean
+		  
+		  Soft Declare Function kd_product    Lib Battlenet.libBNCSUtil (decoder As Integer) As Integer
+		  Soft Declare Function kd_val1       Lib Battlenet.libBNCSUtil (decoder As Integer) As Integer
+		  Soft Declare Function kd_val2Length Lib Battlenet.libBNCSUtil (decoder As Integer) As Integer
+		  Soft Declare Function kd_val2       Lib Battlenet.libBNCSUtil (decoder As Integer) As Integer
+		  Soft Declare Function kd_longVal2   Lib Battlenet.libBNCSUtil (decoder As Integer, out As Ptr) As Integer
+		  
+		  If Not kd_init() Then Return False
+		  
+		  Dim decoder As Integer = kd_create(strKey, Len(strKey))
+		  
+		  If decoder = -1 Then Return False
+		  
+		  Try
+		    
+		    productVal = kd_product(decoder)
+		    publicVal  = kd_val1(decoder)
+		    
+		    privateVal = New MemoryBlock(kd_val2Length(decoder))
+		    
+		    If privateVal.Size <= 4 Then
+		      privateVal.Int32Value(0) = kd_val2(decoder)
+		    Else
+		      privateVal.Size = kd_longVal2(decoder, privateVal)
+		    End If
+		    
+		  Finally
+		    Call kd_free(decoder)
+		  End Try
+		  
+		  Return True
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function getLocalIP() As UInt32
 		  
 		  Dim soc As New TCPSocket()
@@ -210,6 +251,59 @@ Protected Module Battlenet
 		    Return False
 		  End Select
 		  Return True
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function keyProductToStr(keyLen As Integer, value As UInt32) As String
+		  
+		  Select Case value
+		  Case &H00000001, &H00000002
+		    Return "StarCraft"
+		  Case &H00000004
+		    Return "WarCraft II BNE"
+		  Case &H00000005
+		    If keyLen = 16 Then
+		      Return "Diablo II Beta"
+		    ElseIf keyLen = 26 Then
+		      Return "Starcraft II Beta"
+		    Else
+		      Return "Unknown"
+		    End If
+		  Case &H00000006, &H00000007
+		    Return "Diablo II"
+		  Case &H00000009
+		    Return "Diablo II Stress Test"
+		  Case &H0000000A, &H0000000C
+		    Return "Diablo II Lord of Destruction"
+		  Case &H000000D
+		    Return "WarCraft III Beta"
+		  Case &H000000E, &H0000000F
+		    Return "WarCraft III"
+		  Case &H00000011
+		    Return "WarCraft III Frozen Throne Beta"
+		  Case &H00000012, &H00000013
+		    Return "WarCraft III Frozen Throne"
+		  Case &H00000015
+		    Return "WoW Burning Crusade"
+		  Case &H00000016
+		    Return "WoW 14-Day Trial"
+		  Case &H00000017
+		    Return "StarCraft Digital Download"
+		  Case &H00000018
+		    Return "Diablo II Digital Download"
+		  Case &H00000019
+		    Return "Diablo II Lord of Destruction Digital Download"
+		  Case &H0000001A
+		    Return "WoW Wrath of the Lich King"
+		  Case &H0000001C
+		    Return "StarCraft II"
+		  Case &H0000001E
+		    Return "Diablo III"
+		  Case Else
+		    Return "Unknown"
+		  End Select
 		  
 		End Function
 	#tag EndMethod

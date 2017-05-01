@@ -27,6 +27,8 @@ Inherits Application
 		  Dim w As New ChatWindow()
 		  w.Show()
 		  
+		  GameKeysWindow.Show()
+		  
 		End Sub
 	#tag EndEvent
 
@@ -42,6 +44,25 @@ Inherits Application
 		  m.Byte(0) = value.Alpha
 		  
 		  Return m.UInt32Value(0)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function HexString(value As String) As String
+		  
+		  Dim buf As String
+		  Dim i, j As Integer
+		  
+		  i = 0
+		  j = LenB(value)
+		  
+		  While i < j
+		    i = i + 1
+		    buf = buf + Right("0" + Hex(AscB(MidB(value, i, 1))), 2)
+		  Wend
+		  
+		  Return buf
 		  
 		End Function
 	#tag EndMethod
@@ -411,6 +432,16 @@ Inherits Application
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="trigger"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="uptimeConstant"
+			Group="Behavior"
+			Type="Double"
+		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
 #tag EndClass
