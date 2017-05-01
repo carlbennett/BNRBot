@@ -14,6 +14,7 @@ Class=ChatMessage;src/Classes/ChatMessage.rbbas;&h69C72FFF;&h345747FF;false
 Class=ChatResponse;src/Classes/ChatResponse.rbbas;&h6EF6FFFF;&h345747FF;false
 Class=ColorSwatch;src/Classes/ColorSwatch.rbbas;&h7F1F67FF;&h345747FF;false
 Class=Configuration;src/Classes/Configuration.rbbas;&h7B97B7FF;&h345747FF;false
+Class=FileCloseWindowMenuItem;src/Classes/FileCloseWindowMenuItem.rbbas;&h5C960FFF;&h345747FF;false
 Class=GameKey;src/Classes/GameKey.rbbas;&h369B8FFF;&h345747FF;false
 Class=GameKeysMenuItem;src/Classes/GameKeysMenuItem.rbbas;&h63147FFF;&h345747FF;false
 Class=GUIUpdateEvent;src/Classes/GUIUpdateEvent.rbbas;&h1664EFFF;&h345747FF;false

@@ -5,10 +5,13 @@ Begin Menu ChatMenu
       Text = "&File"
       Index = -2147483648
       AutoEnable = True
-      Begin MenuItem FileClose
+      Begin FileCloseWindowMenuItem FileCloseWindow
          SpecialMenu = 0
          Text = "&Close Window"
          Index = -2147483648
+         ShortcutKey = "W"
+         Shortcut = "Cmd+W"
+         MenuModifier = True
          AutoEnable = True
       End
       Begin MenuItem Separators

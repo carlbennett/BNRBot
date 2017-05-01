@@ -127,6 +127,15 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub EnableMenuItems()
+		  
+		  FileCloseWindow.Tag = Me
+		  
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h0
 		Sub AddClient(client As BNETClient, focus As Boolean)
 		  
