@@ -27,8 +27,6 @@ Inherits Application
 		  Dim w As New ChatWindow()
 		  w.Show()
 		  
-		  GameKeysWindow.Show()
-		  
 		End Sub
 	#tag EndEvent
 

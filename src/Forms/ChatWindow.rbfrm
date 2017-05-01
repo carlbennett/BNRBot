@@ -14,7 +14,7 @@ Begin Window ChatWindow
    MaxHeight       =   32000
    MaximizeButton  =   True
    MaxWidth        =   32000
-   MenuBar         =   ""
+   MenuBar         =   1100060671
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
