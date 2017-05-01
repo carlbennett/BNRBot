@@ -408,6 +408,10 @@ Inherits Application
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		gameKeys() As GameKey
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		trigger As String
 	#tag EndProperty
 

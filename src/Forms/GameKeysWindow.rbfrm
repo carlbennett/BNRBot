@@ -7,16 +7,16 @@ Begin Window GameKeysWindow
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   228
+   Height          =   266
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
-   MaxHeight       =   228
+   MaxHeight       =   266
    MaximizeButton  =   False
    MaxWidth        =   32000
    MenuBar         =   ""
    MenuBarVisible  =   True
-   MinHeight       =   228
+   MinHeight       =   266
    MinimizeButton  =   True
    MinWidth        =   432
    Placement       =   3
@@ -389,7 +389,7 @@ Begin Window GameKeysWindow
       Caption         =   "Add Key"
       Default         =   ""
       Enabled         =   False
-      Height          =   22
+      Height          =   24
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -420,7 +420,7 @@ Begin Window GameKeysWindow
       Caption         =   "Remove Key"
       Default         =   ""
       Enabled         =   False
-      Height          =   22
+      Height          =   24
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -443,22 +443,84 @@ Begin Window GameKeysWindow
       Visible         =   True
       Width           =   100
    End
+   Begin PushButton SaveButton
+      AutoDeactivate  =   True
+      Bold            =   ""
+      ButtonStyle     =   0
+      Cancel          =   ""
+      Caption         =   "Save"
+      Default         =   True
+      Enabled         =   True
+      Height          =   24
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   454
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   228
+      Underline       =   ""
+      Visible         =   True
+      Width           =   80
+   End
+   Begin PushButton CancelButton
+      AutoDeactivate  =   True
+      Bold            =   ""
+      ButtonStyle     =   0
+      Cancel          =   True
+      Caption         =   "Cancel"
+      Default         =   False
+      Enabled         =   True
+      Height          =   24
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   362
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   5
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   228
+      Underline       =   ""
+      Visible         =   True
+      Width           =   80
+   End
 End
 #tag EndWindow
 
 #tag WindowCode
 	#tag Method, Flags = &h1
-		Protected Function DuplicateKeyCheck(key As String) As Boolean
+		Protected Function DuplicateKeyCheck(key As String) As Integer
 		  
 		  Dim i As Integer = 0
 		  Dim j As Integer = Me.KeyList.ListCount - 1
 		  
 		  While i <= j
-		    If Me.KeyList.Cell(i, 0) = key Then Return True
+		    If Me.KeyList.Cell(i, 0) = key Then Return i
 		    i = i + 1
 		  Wend
 		  
-		  Return False
+		  Return -1
 		  
 		End Function
 	#tag EndMethod
@@ -484,6 +546,7 @@ End
 		  Else
 		    
 		    Self.KeyField.Text = Me.Cell(Me.ListIndex, 0)
+		    Self.KeyField.SelectAll()
 		    
 		  End If
 		  
@@ -494,37 +557,72 @@ End
 	#tag Event
 		Sub TextChange()
 		  
-		  Dim gameKey    As String
-		  Dim productVal As UInt32
-		  Dim publicVal  As UInt32
-		  Dim privateVal As MemoryBlock
+		  If Len(Me.Text) = 0 Then
+		    
+		    Self.ProductLabel.Text    = "N/A"
+		    Self.PublicLabel.Text     = "N/A"
+		    Self.PrivateLabel.Text    = "N/A"
+		    Self.AddKeyButton.Enabled = False
+		    
+		    Return
+		    
+		  End If
 		  
-		  gameKey = Battlenet.strToGameKey(Me.Text)
+		  Dim keyObj As GameKey
 		  
-		  If Battlenet.getKeyData(gameKey, productVal, publicVal, privateVal) = False Then
+		  Try
+		    keyObj = New GameKey(Me.Text)
+		  Catch err As InvalidGameKeyException
+		    keyObj = Nil
+		  End Try
+		  
+		  If keyObj = Nil Then
 		    
 		    Self.ProductLabel.Text    = "Invalid Key"
 		    Self.PublicLabel.Text     = "N/A"
 		    Self.PrivateLabel.Text    = "N/A"
 		    Self.AddKeyButton.Enabled = False
 		    
-		  Else
-		    
-		    Self.ProductLabel.Text = Battlenet.keyProductToStr(Len(gameKey), productVal) + " (Id: " + Format(productVal, "-#") + ")"
-		    
-		    Self.PublicLabel.Text = Format(publicVal, "-#")
-		    
-		    If privateVal.Size = 4 Then
-		      Self.PrivateLabel.Text = Format(privateVal.UInt32Value(0), "-#")
-		    Else
-		      Self.PrivateLabel.Text = App.HexString(privateVal)
-		    End If
-		    
-		    Self.AddKeyButton.Enabled = Not Self.DuplicateKeyCheck(gameKey)
+		    Return
 		    
 		  End If
 		  
+		  Dim gameKey    As String      = keyObj.KeyString()
+		  Dim productVal As UInt32      = keyObj.ProductValue()
+		  Dim publicVal  As UInt32      = keyObj.PublicValue()
+		  Dim privateVal As MemoryBlock = keyObj.PrivateValue()
+		  
+		  Self.ProductLabel.Text = Battlenet.keyProductToStr(Len(gameKey), productVal) + " (Id: " + Format(productVal, "-#") + ")"
+		  
+		  Self.PublicLabel.Text = Format(publicVal, "-#")
+		  
+		  If privateVal.Size = 4 Then
+		    Self.PrivateLabel.Text = Format(privateVal.UInt32Value(0), "-#")
+		  Else
+		    Self.PrivateLabel.Text = App.HexString(privateVal)
+		  End If
+		  
+		  Dim exists As Integer = Self.DuplicateKeyCheck(gameKey)
+		  
+		  Self.AddKeyButton.Enabled = (exists = -1)
+		  
+		  If exists > -1 And Self.KeyList.ListIndex <> exists Then Self.KeyList.ListIndex = exists
+		  
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  
+		  Dim KeyId As Integer = Asc(Key)
+		  
+		  If (KeyId = 3 Or KeyId = 13) And Self.AddKeyButton.Enabled Then
+		    Self.AddKeyButton.Push()
+		    Return True
+		  End If
+		  
+		  Return False
+		  
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events AddKeyButton
@@ -543,6 +641,24 @@ End
 		  
 		  Self.KeyList.RemoveRow(Self.KeyList.ListIndex)
 		  Self.KeyList.ListIndex = Self.KeyList.LastIndex
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SaveButton
+	#tag Event
+		Sub Action()
+		  
+		  Self.Close()
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CancelButton
+	#tag Event
+		Sub Action()
+		  
+		  Self.Close()
 		  
 		End Sub
 	#tag EndEvent

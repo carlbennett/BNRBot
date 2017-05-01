@@ -264,13 +264,7 @@ Protected Module Battlenet
 		  Case &H00000004
 		    Return "WarCraft II BNE"
 		  Case &H00000005
-		    If keyLen = 16 Then
-		      Return "Diablo II Beta"
-		    ElseIf keyLen = 26 Then
-		      Return "Starcraft II Beta"
-		    Else
-		      Return "Unknown"
-		    End If
+		    Return "Generic Alpha/Beta Key"
 		  Case &H00000006, &H00000007
 		    Return "Diablo II"
 		  Case &H00000009
@@ -301,6 +295,8 @@ Protected Module Battlenet
 		    Return "StarCraft II"
 		  Case &H0000001E
 		    Return "Diablo III"
+		  Case &H00000024
+		    Return "Heroes of the Storm"
 		  Case Else
 		    Return "Unknown"
 		  End Select
