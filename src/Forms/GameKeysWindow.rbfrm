@@ -7,7 +7,7 @@ Begin Window GameKeysWindow
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   266
+   Height          =   286
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -78,7 +78,7 @@ Begin Window GameKeysWindow
       Bold            =   True
       Caption         =   "Key Properties"
       Enabled         =   True
-      Height          =   204
+      Height          =   206
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -448,7 +448,7 @@ Begin Window GameKeysWindow
       Bold            =   ""
       ButtonStyle     =   0
       Cancel          =   ""
-      Caption         =   "Save"
+      Caption         =   "&Save"
       Default         =   True
       Enabled         =   True
       Height          =   24
@@ -463,13 +463,13 @@ Begin Window GameKeysWindow
       LockRight       =   True
       LockTop         =   False
       Scope           =   0
-      TabIndex        =   4
+      TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   228
+      Top             =   248
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -479,7 +479,7 @@ Begin Window GameKeysWindow
       Bold            =   ""
       ButtonStyle     =   0
       Cancel          =   True
-      Caption         =   "Cancel"
+      Caption         =   "&Cancel"
       Default         =   False
       Enabled         =   True
       Height          =   24
@@ -494,13 +494,96 @@ Begin Window GameKeysWindow
       LockRight       =   True
       LockTop         =   False
       Scope           =   0
-      TabIndex        =   5
+      TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   228
+      Top             =   248
+      Underline       =   ""
+      Visible         =   True
+      Width           =   80
+   End
+   Begin PushButton ImportButton
+      AutoDeactivate  =   True
+      Bold            =   ""
+      ButtonStyle     =   0
+      Cancel          =   True
+      Caption         =   "I&mport"
+      Default         =   False
+      Enabled         =   True
+      Height          =   24
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   12
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   8
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   248
+      Underline       =   ""
+      Visible         =   True
+      Width           =   80
+   End
+   Begin Separator Separators
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   4
+      HelpTag         =   ""
+      Index           =   0
+      InitialParent   =   ""
+      Left            =   12
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   230
+      Visible         =   True
+      Width           =   522
+   End
+   Begin PushButton ExportButton
+      AutoDeactivate  =   True
+      Bold            =   ""
+      ButtonStyle     =   0
+      Cancel          =   True
+      Caption         =   "&Export"
+      Default         =   False
+      Enabled         =   True
+      Height          =   24
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   104
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   7
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   248
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -524,8 +607,10 @@ End
 		  Dim i As Integer = 0
 		  Dim j As Integer = Me.KeyList.ListCount - 1
 		  
+		  Dim keyStr As String = Battlenet.strToGameKey(key)
+		  
 		  While i <= j
-		    If Me.KeyList.Cell(i, 0) = key Then Return i
+		    If Me.KeyList.Cell(i, 0) = keyStr Then Return i
 		    i = i + 1
 		  Wend
 		  
@@ -705,6 +790,104 @@ End
 		Sub Action()
 		  
 		  Self.Close()
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ImportButton
+	#tag Event
+		Sub Action()
+		  
+		  Dim f As FolderItem = GetOpenFolderItem(FileTypes.All)
+		  
+		  If f = Nil Then Return
+		  
+		  If f.Exists = False Then
+		    Call MsgBox("Error: The selected file no longer exists.", 48, "File Not Found")
+		    Return
+		  End If
+		  
+		  If f.IsReadable = False Then
+		    Call MsgBox("Error: The selected file is not readable.", 48, "File Not Readable")
+		    Return
+		  End If
+		  
+		  Dim stream As TextInputStream = TextInputStream.Open(f)
+		  
+		  If stream = Nil Then
+		    Call MsgBox("Error: The selected file could not be opened." + EndOfLine + EndOfLine + "Null Stream", 48, "Null Stream")
+		    Return
+		  End If
+		  
+		  Dim line As String
+		  Dim keyObj As GameKey
+		  Dim count, duplicates As UInt32
+		  
+		  While Not stream.EOF()
+		    
+		    line = stream.ReadLine(Encodings.UTF8)
+		    
+		    If Self.DuplicateKeyCheck(line) <> -1 Then
+		      duplicates = duplicates + 1
+		      Continue While
+		    End If
+		    
+		    Try
+		      keyObj = New GameKey(line)
+		    Catch err As InvalidGameKeyException
+		      keyObj = Nil
+		    End Try
+		    
+		    If keyObj <> Nil Then
+		      Self.KeyList.AddRow(keyObj.KeyString())
+		      Self.KeyList.CellTag(Self.KeyList.LastIndex, 0) = keyObj
+		      count = count + 1
+		    End If
+		    
+		  Wend
+		  
+		  stream.Close()
+		  
+		  If duplicates = 0 Then
+		    Call MsgBox("Successfully imported " + Format(count, "-#") + " key(s)", 64, "Imported Keys")
+		  Else
+		    Call MsgBox("Successfully imported " + Format(count, "-#") + " key(s), " + Format(duplicates, "-#") + " duplicate(s) found", 64, "Imported Keys")
+		  End If
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ExportButton
+	#tag Event
+		Sub Action()
+		  
+		  Dim f As FolderItem = GetSaveFolderItem(FileTypes.Text, "Game Keys.txt")
+		  
+		  If f = Nil Then Return
+		  
+		  If f.IsWriteable = False Then
+		    Call MsgBox("Error: The selected file is not writeable.", 48, "File Not Writeable")
+		    Return
+		  End If
+		  
+		  Dim stream As TextOutputStream = TextOutputStream.Create(f)
+		  
+		  If stream = Nil Then
+		    Call MsgBox("Error: The selected file could not be opened." + EndOfLine + EndOfLine + "Null Stream", 48, "Null Stream")
+		    Return
+		  End If
+		  
+		  Dim i As Integer = 0
+		  Dim j As Integer = Self.KeyList.ListCount - 1
+		  
+		  While i <= j
+		    stream.WriteLine(GameKey(Self.KeyList.CellTag(i, 0)).KeyString())
+		    i = i + 1
+		  Wend
+		  
+		  stream.Close()
+		  
+		  Call MsgBox("Successfully exported " + Format(i, "-#") + " key(s)", 64, "Exported Keys")
 		  
 		End Sub
 	#tag EndEvent

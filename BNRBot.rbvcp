@@ -17,6 +17,7 @@ Class=Configuration;src/Classes/Configuration.rbbas;&h7B97B7FF;&h345747FF;false
 Class=GameKey;src/Classes/GameKey.rbbas;&h369B8FFF;&h345747FF;false
 Class=GameKeysMenuItem;src/Classes/GameKeysMenuItem.rbbas;&h63147FFF;&h345747FF;false
 Class=GUIUpdateEvent;src/Classes/GUIUpdateEvent.rbbas;&h1664EFFF;&h345747FF;false
+FileTypeSet=FileTypes;src/Classes/FileTypes.rbbas;&h45C467FF;&h345747FF;false
 Class=UserAccess;src/Classes/UserAccess.rbbas;&h2D16A7FF;&h345747FF;false
 Folder=Exceptions;src/Exceptions;&h144B97FF;&h2D3697FF;false
 Folder=Forms;src/Forms;&h4FB32FFF;&h2D3697FF;false
