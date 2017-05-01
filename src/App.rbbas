@@ -430,6 +430,7 @@ Inherits Application
 	#tag Constant, Name = kFileQuitShortcut, Type = String, Dynamic = False, Default = \"", Scope = Public
 		#Tag Instance, Platform = Mac OS, Language = Default, Definition  = \"Cmd+Q"
 		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"Ctrl+Q"
+		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"Ctrl+Q"
 	#tag EndConstant
 
 

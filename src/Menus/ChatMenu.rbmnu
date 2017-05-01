@@ -5,7 +5,7 @@ Begin Menu ChatMenu
       Text = "&File"
       Index = -2147483648
       AutoEnable = True
-      Begin FileCloseWindowMenuItem FileCloseWindow
+      Begin WindowCloseMenuItem FileCloseWindow
          SpecialMenu = 0
          Text = "&Close Window"
          Index = -2147483648
@@ -110,6 +110,30 @@ Begin Menu ChatMenu
          ShortcutKey = "K"
          Shortcut = "Cmd+K"
          MenuModifier = True
+         AutoEnable = True
+      End
+   End
+   Begin MenuItem WindowMenu
+      SpecialMenu = 0
+      Text = "&Window"
+      Index = -2147483648
+      AutoEnable = True
+      Begin WindowMaximizeMenuItem WindowMaximize
+         SpecialMenu = 0
+         Text = "Ma&ximize"
+         Index = -2147483648
+         AutoEnable = True
+      End
+      Begin WindowMinimizeMenuItem WindowMinimize
+         SpecialMenu = 0
+         Text = "Mi&nimize"
+         Index = -2147483648
+         AutoEnable = True
+      End
+      Begin WindowRestoreMenuItem WindowRestore
+         SpecialMenu = 0
+         Text = "&Restore"
+         Index = -2147483648
          AutoEnable = True
       End
    End

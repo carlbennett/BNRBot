@@ -131,6 +131,9 @@ End
 		Sub EnableMenuItems()
 		  
 		  FileCloseWindow.Tag = Me
+		  WindowMaximize.Tag = Me
+		  WindowMinimize.Tag = Me
+		  WindowRestore.Tag = Me
 		  
 		End Sub
 	#tag EndEvent
