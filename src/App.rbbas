@@ -439,6 +439,7 @@ Inherits Application
 			Name="trigger"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="uptimeConstant"

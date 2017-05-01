@@ -92,6 +92,7 @@ DefaultEncoding=&h0
 AppIcon=BNRBot.rbres;&h0
 OSXBundleID=
 DebuggerCommandLine=
+DebuggerDestination=D:\Real Studio\BNRBot\bin\
 UseGDIPlus=False
 UseBuildsFolder=True
 IsWebProject=False
