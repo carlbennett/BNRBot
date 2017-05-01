@@ -256,7 +256,7 @@ Protected Module Battlenet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Function keyProductToStr(keyLen As Integer, value As UInt32) As String
+		Protected Function keyProductToStr(value As UInt32) As String
 		  
 		  Select Case value
 		  Case &H00000001, &H00000002

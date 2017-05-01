@@ -509,6 +509,15 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Open()
+		  
+		  Me.Reload()
+		  
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h1
 		Protected Function DuplicateKeyCheck(key As String) As Integer
 		  
@@ -523,6 +532,39 @@ End
 		  Return -1
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub Reload()
+		  
+		  Self.KeyList.DeleteAllRows()
+		  
+		  Dim i As Integer = 0
+		  Dim j As Integer = App.gameKeys.Ubound
+		  
+		  While i <= j
+		    Self.KeyList.AddRow(App.gameKeys(i).KeyString())
+		    Self.KeyList.CellTag(Self.KeyList.LastIndex, 0) = App.gameKeys(i)
+		    i = i + 1
+		  Wend
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub Resave()
+		  
+		  ReDim App.gameKeys(-1)
+		  
+		  Dim i As Integer = 0
+		  Dim j As Integer = Self.KeyList.ListCount - 1
+		  
+		  While i <= j
+		    App.gameKeys.Append(Self.KeyList.CellTag(i, 0))
+		    i = i + 1
+		  Wend
+		  
+		End Sub
 	#tag EndMethod
 
 
@@ -592,7 +634,7 @@ End
 		  Dim publicVal  As UInt32      = keyObj.PublicValue()
 		  Dim privateVal As MemoryBlock = keyObj.PrivateValue()
 		  
-		  Self.ProductLabel.Text = Battlenet.keyProductToStr(Len(gameKey), productVal) + " (Id: " + Format(productVal, "-#") + ")"
+		  Self.ProductLabel.Text = Battlenet.keyProductToStr(productVal) + " (Id: " + Format(productVal, "-#") + ")"
 		  
 		  Self.PublicLabel.Text = Format(publicVal, "-#")
 		  
@@ -629,7 +671,10 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  Self.KeyList.AddRow(Battlenet.strToGameKey(Self.KeyField.Text))
+		  Dim keyObj As New GameKey(Self.KeyField.Text)
+		  
+		  Self.KeyList.AddRow(keyObj.KeyString())
+		  Self.KeyList.CellTag(Self.KeyList.LastIndex, 0) = keyObj
 		  Self.KeyList.ListIndex = Self.KeyList.LastIndex
 		  
 		End Sub
@@ -649,6 +694,7 @@ End
 	#tag Event
 		Sub Action()
 		  
+		  Self.Resave()
 		  Self.Close()
 		  
 		End Sub
