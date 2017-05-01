@@ -47,7 +47,7 @@ Protected Class BotCommand
 		  Case Packets.EID_WHISPER
 		    suggestedResponseType = ChatResponse.TYPE_WHISPER
 		  Case Else
-		    Raise New BNRBotException("Unable to handle command based on chat event id '" + Format(message.eventId, "-#") + "'")
+		    Raise New BotException("Unable to handle command based on chat event id '" + Format(message.eventId, "-#") + "'")
 		  End Select
 		  
 		  cmds = Split(text, ";")

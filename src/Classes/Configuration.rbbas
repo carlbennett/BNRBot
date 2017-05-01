@@ -10,7 +10,7 @@ Protected Class Configuration
 		  Me.email             = ""
 		  Me.gameKey1          = ""
 		  Me.gameKey2          = ""
-		  Me.gameKeyOwner      = "BNRBotv3"
+		  Me.gameKeyOwner      = App.ProjectName() + "v" + Format(App.MajorVersion, "-#")
 		  Me.greetAclExclusive = False
 		  Me.greetEnabled      = False
 		  Me.greetMessage      = ""
@@ -176,6 +176,11 @@ Protected Class Configuration
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="logNetwork"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"

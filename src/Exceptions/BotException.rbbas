@@ -1,5 +1,5 @@
 #tag Class
-Protected Class BNRBotException
+Protected Class BotException
 Inherits RuntimeException
 	#tag Method, Flags = &h1000
 		Sub Constructor(error As String = "", errno As Integer = 0, previous As RuntimeException = Nil)

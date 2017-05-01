@@ -115,7 +115,7 @@ Inherits Thread
 		        End Select
 		        
 		      Case Else
-		        Dim err As New BNRBotException("Unable to handle chat message origin", 0, Nil)
+		        Dim err As New BotException("Unable to handle chat message origin", 0, Nil)
 		        Raise err
 		      End Select
 		      
@@ -139,7 +139,7 @@ Inherits Thread
 		      e.client.gui.UserView.DeleteAllRows()
 		      
 		    Else
-		      Dim err As New BNRBotException("Unable to handle GUI update event", 0, Nil)
+		      Dim err As New BotException("Unable to handle GUI update event", 0, Nil)
 		      Raise err
 		    End If
 		  Wend
@@ -160,7 +160,7 @@ Inherits Thread
 		      client.gui.ChatOutput.SelStart = Len(client.gui.ChatOutput.Text)
 		      client.gui.ChatOutput.SelText  = v.StringValue
 		    Case Else
-		      Dim err As New BNRBotException("Unable to handle addchat parameter", 0, Nil)
+		      Dim err As New BotException("Unable to handle addchat parameter", 0, Nil)
 		      Raise err
 		    End Select
 		  Next

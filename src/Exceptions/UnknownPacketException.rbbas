@@ -1,6 +1,6 @@
 #tag Class
 Protected Class UnknownPacketException
-Inherits BNRBotException
+Inherits BotException
 	#tag Method, Flags = &h1000
 		Sub Constructor()
 		  

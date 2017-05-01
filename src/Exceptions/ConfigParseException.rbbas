@@ -1,6 +1,6 @@
 #tag Class
 Protected Class ConfigParseException
-Inherits BNRBotException
+Inherits BotException
 	#tag Method, Flags = &h1000
 		Sub Constructor(message As String, previous As RuntimeException = Nil)
 		  

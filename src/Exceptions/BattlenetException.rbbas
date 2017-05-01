@@ -1,6 +1,6 @@
 #tag Class
 Protected Class BattlenetException
-Inherits BNRBotException
+Inherits BotException
 	#tag Method, Flags = &h1000
 		Sub Constructor(error As String, errno As Integer = 0, previous As RuntimeException = Nil)
 		  
