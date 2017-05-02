@@ -19,7 +19,7 @@ Begin Window ChatWindow
    MinHeight       =   64
    MinimizeButton  =   True
    MinWidth        =   64
-   Placement       =   3
+   Placement       =   0
    Resizeable      =   True
    Title           =   "Chat Window"
    Visible         =   True
@@ -91,6 +91,7 @@ Begin Window ChatWindow
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -127,6 +128,27 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Function CancelClose(appQuitting as Boolean) As Boolean
+		  
+		  If appQuitting = True Then Return False
+		  
+		  Dim i As Integer = 0
+		  Dim j As Integer = REALbasic.WindowCount() - 1
+		  
+		  While i <= j
+		    If REALbasic.Window(i) IsA ChatWindow And REALbasic.Window(i) <> Me Then Return False
+		    i = i + 1
+		  Wend
+		  
+		  If MsgBox("There are no other chat windows, closing this one will exit the application. Are you sure?", _
+		    36, "Confirm Quit") = 6 Then Return False
+		    
+		    Return True
+		    
+		End Function
+	#tag EndEvent
+
 	#tag Event
 		Sub EnableMenuItems()
 		  

@@ -65,6 +65,7 @@ Window=WhisperChatContainer;src/Forms/WhisperChatContainer.rbfrm;&h3E17FF;&h4FB3
 Class=WindowCloseMenuItem;src/Classes/MenuItems/WindowCloseMenuItem.rbbas;&h5C960FFF;&h42F45FFF;false
 Class=WindowMaximizeMenuItem;src/Classes/MenuItems/WindowMaximizeMenuItem.rbbas;&h4EAB6FFF;&h42F45FFF;false
 Class=WindowMinimizeMenuItem;src/Classes/MenuItems/WindowMinimizeMenuItem.rbbas;&h5AE0BFFF;&h42F45FFF;false
+Class=WindowNewMenuItem;src/Classes/MenuItems/WindowNewMenuItem.rbbas;&h3C7477FF;&h42F45FFF;false
 Class=WindowRestoreMenuItem;src/Classes/MenuItems/WindowRestoreMenuItem.rbbas;&h7158FFFF;&h42F45FFF;false
 MajorVersion=1
 MinorVersion=0

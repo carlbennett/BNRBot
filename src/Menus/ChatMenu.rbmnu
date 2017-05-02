@@ -5,6 +5,12 @@ Begin Menu ChatMenu
       Text = "&File"
       Index = -2147483648
       AutoEnable = True
+      Begin WindowNewMenuItem FileNewWindow
+         SpecialMenu = 0
+         Text = "&New Window"
+         Index = -2147483648
+         AutoEnable = True
+      End
       Begin WindowCloseMenuItem FileCloseWindow
          SpecialMenu = 0
          Text = "&Close Window"
