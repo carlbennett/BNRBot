@@ -181,19 +181,19 @@ Begin Window ExceptionWindow
       Visible         =   True
       Width           =   80
    End
-   Begin Separator Separator1
+   Begin Separator Separators
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   4
       HelpTag         =   ""
-      Index           =   -2147483648
+      Index           =   0
       InitialParent   =   ""
       Left            =   16
-      LockBottom      =   ""
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
+      LockRight       =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
