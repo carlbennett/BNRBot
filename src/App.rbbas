@@ -4,8 +4,16 @@ Inherits Application
 	#tag Event
 		Sub Open()
 		  
+		  Dim w As New LoadingWindow()
+		  w.SetProgress("Initializing BNRBot...", "", 0, 3)
+		  w.Show()
+		  
+		  w.SetProgress("Initializing BNRBot...", "Configuring internal settings...", 1, 3)
+		  
 		  Me.AutoQuit = False
 		  Me.uptimeConstant = Microseconds()
+		  
+		  w.SetProgress("Initializing BNRBot...", "Defining user interface colors...", 1, 3)
 		  
 		  Me.colors                        = New ColorSwatch()
 		  Me.colors.ChatBackColor          = &cFFFFFF
@@ -24,8 +32,11 @@ Inherits Application
 		  Me.colors.InternalNetworkInfo    = &cC0C000
 		  Me.colors.InternalNetworkSuccess = &c00C000
 		  
-		  Dim w As New ChatWindow()
-		  w.Show()
+		  w.SetProgress("Initialized BNRBot", "Please Wait...", 1, 1)
+		  w.ShowModal()
+		  
+		  Dim c As New ChatWindow()
+		  c.Show()
 		  
 		End Sub
 	#tag EndEvent
