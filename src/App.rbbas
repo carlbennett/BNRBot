@@ -5,15 +5,15 @@ Inherits Application
 		Sub Open()
 		  
 		  Dim w As New LoadingWindow()
-		  w.SetProgress("Initializing BNRBot...", "", 0, 3)
+		  w.SetProgress("Initializing BNRBot...", "", 0, 0)
 		  w.Show()
 		  
-		  w.SetProgress("Initializing BNRBot...", "Configuring internal settings...", 1, 3)
+		  w.SetProgress("Initializing BNRBot...", "Configuring internal settings...", 0, 0)
 		  
 		  Me.AutoQuit = False
 		  Me.uptimeConstant = Microseconds()
 		  
-		  w.SetProgress("Initializing BNRBot...", "Defining user interface colors...", 1, 3)
+		  w.SetProgress("Initializing BNRBot...", "Defining user interface colors...", 0, 0)
 		  
 		  Me.colors                        = New ColorSwatch()
 		  Me.colors.ChatBackColor          = &cFFFFFF
