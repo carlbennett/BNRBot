@@ -153,10 +153,13 @@ End
 	#tag Method, Flags = &h0
 		Sub SetProgress(title As String, description As String = "", value As Integer, maximum As Integer)
 		  
-		  Me.Label1.Text          = title
-		  Me.Label2.Text          = description
-		  Me.ProgressBar1.Value   = value
-		  Me.ProgressBar1.Maximum = maximum
+		  If Me.Label1       <> Nil Then Me.Label1.Text = title
+		  If Me.Label2       <> Nil Then Me.Label2.Text = description
+		  
+		  If Me.ProgressBar1 <> Nil Then
+		    Me.ProgressBar1.Maximum = maximum
+		    Me.ProgressBar1.Value   = value
+		  End If
 		  
 		End Sub
 	#tag EndMethod

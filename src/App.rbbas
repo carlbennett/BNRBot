@@ -32,10 +32,23 @@ Inherits Application
 		  Me.colors.InternalNetworkInfo    = &cC0C000
 		  Me.colors.InternalNetworkSuccess = &c00C000
 		  
-		  w.SetProgress("Initialized BNRBot", "Please Wait...", 1, 1)
-		  w.ShowModal()
+		  w.SetProgress("Checking for updates...", "", 0, 0)
+		  
+		  Dim updateObj As New UpdateCheckSocket(w)
+		  updateObj.Check()
+		  
+		  w.Close()
+		  
+		  If updateObj.UserChoseToUpdate = True Then
+		    REALbasic.Quit()
+		    Return
+		  End If
 		  
 		  Dim c As New ChatWindow()
+		  
+		  c.Hide()
+		  c.Left = REALbasic.Screen(0).Left + REALbasic.Screen(0).Width  / 2 - c.Width  / 2
+		  c.Top  = REALbasic.Screen(0).Top  + REALbasic.Screen(0).Height / 2 - c.Height / 2
 		  c.Show()
 		  
 		End Sub
