@@ -54,6 +54,51 @@ Inherits Application
 		End Sub
 	#tag EndEvent
 
+	#tag Event
+		Function UnhandledException(error As RuntimeException) As Boolean
+		  
+		  Dim errorName As String = Introspection.GetType(error).Name
+		  Dim w As New ExceptionWindow()
+		  
+		  w.DetailsLabel.Text = errorName
+		  
+		  If error.ErrorNumber <> 0 Then
+		    w.DetailsLabel.Text = w.DetailsLabel.Text + ", error #" + Format(error.ErrorNumber, "-#")
+		  End If
+		  
+		  If Len(error.Message) > 0 Then
+		    w.DetailsLabel.Text = w.DetailsLabel.Text + EndOfLine + error.Message
+		  End If
+		  
+		  #If DebugBuild Then
+		    w.ReportBox.Value = False
+		  #EndIf
+		  
+		  REALbasic.Beep()
+		  w.ShowModal()
+		  
+		  If w.ReportBox.Value = True Then
+		    Dim o As New HTTPSocket()
+		    Dim d As New Dictionary()
+		    d.Value("title") = "Uncaught exception of type " + errorName + " encountered"
+		    d.Value("body") = w.DetailsLabel.Text + EndOfLine + EndOfLine + _
+		    "```" + EndOfLine + Join(error.Stack(), EndOfLine) + EndOfLine + "```" + EndOfLine
+		    REALbasic.ShowURL("https://github.com/carlbennett/BNRBot/issues/new?" + o.EncodeFormData(d))
+		  End If
+		  
+		  If w.UserChoseButton = w.ContinueButton Then
+		    w.Close()
+		    Return True
+		  End If
+		  
+		  REALbasic.Quit(1)
+		  
+		  w.Close()
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+
 
 	#tag Method, Flags = &h0
 		Function ColorToUInt32(value As Color) As UInt32
