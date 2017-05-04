@@ -4,7 +4,7 @@ Inherits Application
 	#tag Event
 		Sub Open()
 		  
-		  Me.AutoQuit = True
+		  Me.AutoQuit = False
 		  Me.uptimeConstant = Microseconds()
 		  
 		  Me.colors                        = New ColorSwatch()
