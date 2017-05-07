@@ -2,6 +2,7 @@ Type=Desktop
 RBProjectVersion=2012.021
 MinIDEVersion=20070100
 Folder=bin;bin;&h52AF1FFF;&h0;false
+Folder=log;log;&h6D1A67FF;&h0;false
 Folder=src;src;&h2D3697FF;&h0;false
 Class=App;src/App.rbbas;&h39C097FF;&h2D3697FF;false
 Folder=Bot Commands;src/Bot Commands;&h2FF647FF;&h2D3697FF;false
