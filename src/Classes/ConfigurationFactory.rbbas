@@ -16,16 +16,10 @@ Protected Class ConfigurationFactory
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub Constructor()
-		  
-		  Me.ResetDefaults()
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h21
 		Private Sub DigestStream(stream As BinaryStream)
+		  
+		  stream.LittleEndian = True
 		  
 		  Dim formatWarning As String = stream.ReadCString()
 		  Dim formatVersion As UInt8 = stream.ReadUInt8()
@@ -424,6 +418,8 @@ Protected Class ConfigurationFactory
 		  
 		  ReDim Me.configs(-1)
 		  
+		  ReDim Me.files(-1)
+		  
 		  Try
 		    
 		    Me.AddFile(SpecialFolder.ApplicationData.Child(App.ProjectName() + ".dat"))
@@ -448,10 +444,6 @@ Protected Class ConfigurationFactory
 		  End Try
 		  
 		  Me.globalConfig = New GlobalConfiguration()
-		  
-		  Me.globalConfig.CheckForUpdates      = True
-		  Me.globalConfig.MinimizeToTray       = False
-		  Me.globalConfig.PingRangesFlushRight = True
 		  
 		  ReDim Me.messageBlacklist(-1)
 		  
