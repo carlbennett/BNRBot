@@ -265,7 +265,7 @@ Protected Module Packets
 		      Packets.ReceiveBNET_SID_AUTH_CHECK(client, MidB(packetObject, 5))
 		      
 		    Case Else
-		      Raise New UnknownPacketException()
+		      Raise New UnknownNetworkMessageException()
 		      
 		    End Select
 		    
@@ -275,7 +275,7 @@ Protected Module Packets
 		    BitOr(ChatMessage.InternalFlagError, ChatMessage.InternalFlagNetwork), client)
 		    Return False
 		    
-		  Catch err As UnknownPacketException // thrown if packetId is unknown
+		  Catch err As UnknownNetworkMessageException // thrown if packetId is unknown
 		    
 		    GUIUpdateEvent.InternalMessage("BNET: Unable to recognize packet id 0x" + Right("0" + Hex(packetId), 2), _
 		    BitOr(ChatMessage.InternalFlagError, ChatMessage.InternalFlagNetwork), client)
@@ -583,7 +583,7 @@ Protected Module Packets
 		      Packets.ReceiveBNLS_VERSIONCHECKEX2(client, MidB(packetObject, 4))
 		      
 		    Case Else
-		      Raise New UnknownPacketException()
+		      Raise New UnknownNetworkMessageException()
 		      
 		    End Select
 		    
@@ -593,7 +593,7 @@ Protected Module Packets
 		    BitOr(ChatMessage.InternalFlagError, ChatMessage.InternalFlagNetwork), client)
 		    Return False
 		    
-		  Catch err As UnknownPacketException // thrown if packetId is unknown
+		  Catch err As UnknownNetworkMessageException // thrown if packetId is unknown
 		    
 		    GUIUpdateEvent.InternalMessage("BNLS: Unable to recognize packet id 0x" + Right("0" + Hex(packetId), 2), _
 		    BitOr(ChatMessage.InternalFlagError, ChatMessage.InternalFlagNetwork), client)
@@ -628,7 +628,7 @@ Protected Module Packets
 		Protected Sub ReceiveBNLS_REQUESTVERSIONBYTE(client As BNETClient, packetObject As MemoryBlock)
 		  
 		  If packetObject.UInt32Value(0) <> Battlenet.productToBNLS(client.state.product) Then
-		    Raise New UnknownPacketException()
+		    Raise New InvalidPacketException()
 		  End If
 		  
 		  client.state.versionByte = packetObject.UInt32Value(4)
