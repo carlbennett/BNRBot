@@ -34,6 +34,7 @@ Class=InvalidPacketException;src/Exceptions/InvalidPacketException.rbbas;&h28870
 Class=UnknownPacketException;src/Exceptions/UnknownPacketException.rbbas;&h27B15FFF;&h144B97FF;false
 Folder=Modules;src/Modules;&h3C44EFFF;&h2D3697FF;false
 Module=Battlenet;src/Modules/Battlenet.rbbas;&h14417FF;&h3C44EFFF;false
+Module=ExtendFunctions;src/Modules/ExtendFunctions.rbbas;&h645727FF;&h3C44EFFF;false
 Module=Packets;src/Modules/Packets.rbbas;&h62B3AFFF;&h3C44EFFF;false
 Folder=Sockets;src/Sockets;&h3FD92FFF;&h2D3697FF;false
 Class=BNETSocket;src/Sockets/BNETSocket.rbbas;&h578F27FF;&h3FD92FFF;false

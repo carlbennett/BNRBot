@@ -2,6 +2,14 @@
 Protected Class App
 Inherits Application
 	#tag Event
+		Sub Close()
+		  
+		  Logger.Close()
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Open()
 		  
 		  Dim w As New LoadingWindow()

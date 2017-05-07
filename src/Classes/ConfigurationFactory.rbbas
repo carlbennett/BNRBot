@@ -45,6 +45,17 @@ Protected Class ConfigurationFactory
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub DigestStream(file As FolderItem, stream As BinaryStream)
+		  
+		  Dim formatWarning As String = stream.ReadCString()
+		  Dim formatVersion As UInt8 = stream.ReadUInt8()
+		  
+		  Logger.WriteLine(True, "File [" + file.AbsolutePath + "] uses format version [" + Format(formatVersion, "-#") + "]")
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub GetAllConfigs()
 		  
@@ -75,6 +86,17 @@ Protected Class ConfigurationFactory
 		  End If
 		  
 		  Logger.WriteLine(True, "Opening file [" + file.AbsolutePath + "]...")
+		  
+		  Dim stream As BinaryStream = BinaryStream.Open(file, False)
+		  
+		  If stream = Nil Or stream.LastErrorCode <> 0 Then
+		    Logger.WriteLine(True, "Failed to open [" + file.AbsolutePath + "] due to stream error " + Format(stream.LastErrorCode, "-#"))
+		    Return
+		  End If
+		  
+		  Me.DigestStream(file, stream)
+		  
+		  stream.Close()
 		  
 		End Sub
 	#tag EndMethod
