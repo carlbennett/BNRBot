@@ -8,10 +8,40 @@ Inherits Application
 		  w.SetProgress("Initializing BNRBot...", "", 0, 0)
 		  w.Show()
 		  
+		  w.SetProgress("Initializing BNRBot...", "Opening log file...", 0, 0)
+		  
+		  Logger.Initialize()
+		  Logger.Open()
+		  
+		  w.SetProgress("Initializing BNRBot...", "Writing session info to log...", 0, 0)
+		  
+		  Logger.Write(True, "Session started [" + App.ProjectName() + " v" + App.VersionString() + "] on [")
+		  
+		  #If TargetWin32 Then
+		    Logger.Write(False, "Windows Platform")
+		  #ElseIf TargetLinux Then
+		    Logger.Write(False, "Linux Platform")
+		  #ElseIf TargetMacOS Then
+		    Logger.Write(False, "Mac OS Platform")
+		  #EndIf
+		  
+		  Logger.Write(False, "]")
+		  
+		  #If DebugBuild Then
+		    Logger.Write(False, " with debugging enabled")
+		  #EndIf
+		  
+		  Logger.WriteLine(False, " from [" + App.ExecutableFile.AbsolutePath + "]")
+		  
 		  w.SetProgress("Initializing BNRBot...", "Configuring internal settings...", 0, 0)
 		  
 		  Me.AutoQuit = False
 		  Me.uptimeConstant = Microseconds()
+		  
+		  w.SetProgress("Initializing BNRBot...", "Reading user settings...", 0, 0)
+		  
+		  Me.configManager = New ConfigurationManager()
+		  Me.configManager.GetAllConfigs()
 		  
 		  w.SetProgress("Initializing BNRBot...", "Defining user interface colors...", 0, 0)
 		  
@@ -499,7 +529,7 @@ Inherits Application
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		configFile As FolderItem
+		configManager As ConfigurationManager
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
