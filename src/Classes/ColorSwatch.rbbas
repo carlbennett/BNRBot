@@ -3,21 +3,32 @@ Protected Class ColorSwatch
 	#tag Method, Flags = &h0
 		Sub Constructor()
 		  
-		  Me.ChatBackColor          = &cFFFFFF
-		  Me.ChatEventUserJoin      = &c00C000
-		  Me.ChatEventUserLeave     = &cC00000
-		  Me.DefaultBackColor       = REALbasic.FillColor()
-		  Me.DefaultFrameColor      = REALbasic.FrameColor()
-		  Me.DefaultHighlightColor  = REALbasic.HighlightColor()
-		  Me.DefaultTextColor       = REALbasic.TextColor()
-		  Me.InternalDebug          = &c808000
-		  Me.InternalError          = &cC00000
-		  Me.InternalInfo           = &cC0C000
-		  Me.InternalSuccess        = &c00C000
-		  Me.InternalNetworkDebug   = &c808080
-		  Me.InternalNetworkError   = &cC00000
-		  Me.InternalNetworkInfo    = &cC0C000
-		  Me.InternalNetworkSuccess = &c00C000
+		  Me.ChatBackColor               = &cFFFFFF
+		  Me.ChatEventBroadcastMessage   = &cC00000
+		  Me.ChatEventBroadcastName      = &cF00000
+		  Me.ChatEventChannelJoin        = &c00C0C0
+		  Me.ChatEventError              = &cF02020
+		  Me.ChatEventInfo               = &cF0F020
+		  Me.ChatEventUserEmoteMessage   = &cC0C000
+		  Me.ChatEventUserEmoteName      = &cF0F020
+		  Me.ChatEventUserJoin           = &c00C000
+		  Me.ChatEventUserLeave          = &cC00000
+		  Me.ChatEventUserTalkMessage    = &cC0C0C0
+		  Me.ChatEventUserTalkName       = &cF0F020
+		  Me.ChatEventUserWhisperMessage = &cA0A0A0
+		  Me.ChatEventUserWhisperName    = &cC0C0C0
+		  Me.DefaultBackColor            = REALbasic.FillColor()
+		  Me.DefaultFrameColor           = REALbasic.FrameColor()
+		  Me.DefaultHighlightColor       = REALbasic.HighlightColor()
+		  Me.DefaultTextColor            = REALbasic.TextColor()
+		  Me.InternalDebug               = &c808000
+		  Me.InternalError               = &cC00000
+		  Me.InternalInfo                = &cC0C000
+		  Me.InternalNetworkDebug        = &c808080
+		  Me.InternalNetworkError        = &cC00000
+		  Me.InternalNetworkInfo         = &cC0C000
+		  Me.InternalNetworkSuccess      = &c00C000
+		  Me.InternalSuccess             = &c00C000
 		  
 		End Sub
 	#tag EndMethod
