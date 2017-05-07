@@ -40,7 +40,7 @@ Inherits Application
 		  
 		  w.SetProgress("Initializing BNRBot...", "Reading user settings...", 0, 0)
 		  
-		  Me.configManager = New ConfigurationManager()
+		  Me.configManager = New ConfigurationFactory()
 		  Me.configManager.GetAllConfigs()
 		  
 		  w.SetProgress("Initializing BNRBot...", "Defining user interface colors...", 0, 0)
@@ -529,7 +529,7 @@ Inherits Application
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		configManager As ConfigurationManager
+		configManager As ConfigurationFactory
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

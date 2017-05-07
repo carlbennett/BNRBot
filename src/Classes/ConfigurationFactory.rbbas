@@ -1,5 +1,5 @@
 #tag Class
-Protected Class ConfigurationManager
+Protected Class ConfigurationFactory
 	#tag Method, Flags = &h0
 		Sub AddFile(file As FolderItem)
 		  
