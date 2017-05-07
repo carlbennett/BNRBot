@@ -94,6 +94,8 @@ Inherits HTTPSecureSocket
 	#tag Event
 		Sub ReceiveProgress(bytesReceived as integer, totalBytes as integer, newData as string)
 		  
+		  #pragma Unused newData
+		  
 		  Me.LoadWindow.SetProgress(UpdateCheckSocket.ProgressTitle, "Please Wait...", bytesReceived, totalBytes)
 		  
 		End Sub
@@ -167,6 +169,35 @@ Inherits HTTPSecureSocket
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="CertificateFile"
+			Visible=true
+			Group="Behavior"
+			Type="FolderItem"
+			InheritedFrom="HTTPSecureSocket"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CertificatePassword"
+			Visible=true
+			Group="Behavior"
+			Type="String"
+			InheritedFrom="HTTPSecureSocket"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CertificateRejectionFile"
+			Visible=true
+			Group="Behavior"
+			Type="FolderItem"
+			InheritedFrom="HTTPSecureSocket"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ConnectionType"
+			Visible=true
+			Group="Behavior"
+			InitialValue="2"
+			Type="Integer"
+			InheritedFrom="HTTPSecureSocket"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
@@ -187,6 +218,13 @@ Inherits HTTPSecureSocket
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Secure"
+			Visible=true
+			Group="Behavior"
+			Type="Boolean"
+			InheritedFrom="HTTPSecureSocket"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
@@ -198,6 +236,11 @@ Inherits HTTPSecureSocket
 			Group="Position"
 			InitialValue="0"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="UserChoseToUpdate"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
