@@ -11,7 +11,7 @@ Begin ContainerControl ChatContainer
    Height          =   360
    HelpTag         =   ""
    InitialParent   =   ""
-   Left            =   3.2e+1
+   Left            =   32
    LockBottom      =   True
    LockLeft        =   True
    LockRight       =   True
@@ -19,7 +19,7 @@ Begin ContainerControl ChatContainer
    TabIndex        =   0
    TabPanelIndex   =   0
    TabStop         =   True
-   Top             =   3.2e+1
+   Top             =   32
    UseFocusRing    =   ""
    Visible         =   True
    Width           =   480
@@ -203,8 +203,8 @@ End
 	#tag Event
 		Sub Open()
 		  
-		  Me.BackColor = App.colors.ChatBackColor
-		  Me.TextColor = App.colors.DefaultTextColor
+		  Me.BackColor = App.config.globalConfig.Colors.ChatBackColor
+		  Me.TextColor = App.config.globalConfig.Colors.DefaultTextColor
 		  
 		End Sub
 	#tag EndEvent
@@ -236,7 +236,7 @@ End
 		  If Me.ListIndex = row Then
 		    g.ForeColor = HighlightColor()
 		  Else
-		    g.ForeColor = App.colors.ChatBackColor
+		    g.ForeColor = App.config.globalConfig.Colors.ChatBackColor
 		  End If
 		  
 		  g.FillRect(0, 0, g.Width, g.Height)
@@ -249,9 +249,9 @@ End
 		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
 		  
 		  If row = Me.ListIndex Then
-		    g.ForeColor = App.colors.ChatBackColor
+		    g.ForeColor = App.config.globalConfig.Colors.ChatBackColor
 		  Else
-		    g.ForeColor = App.colors.DefaultTextColor
+		    g.ForeColor = App.config.globalConfig.Colors.DefaultTextColor
 		  End If
 		  
 		  If row < 0 Or row >= Me.ListCount Or column < 0 Or column >= Me.ColumnCount Then
@@ -269,8 +269,8 @@ End
 	#tag Event
 		Sub Open()
 		  
-		  Me.BackColor = App.colors.ChatBackColor
-		  Me.TextColor = App.colors.DefaultTextColor
+		  Me.BackColor = App.config.globalConfig.Colors.ChatBackColor
+		  Me.TextColor = App.config.globalConfig.Colors.DefaultTextColor
 		  
 		End Sub
 	#tag EndEvent

@@ -1,5 +1,28 @@
 #tag Class
 Protected Class ColorSwatch
+	#tag Method, Flags = &h0
+		Sub Constructor()
+		  
+		  Me.ChatBackColor          = &cFFFFFF
+		  Me.ChatEventUserJoin      = &c00C000
+		  Me.ChatEventUserLeave     = &cC00000
+		  Me.DefaultBackColor       = REALbasic.FillColor()
+		  Me.DefaultFrameColor      = REALbasic.FrameColor()
+		  Me.DefaultHighlightColor  = REALbasic.HighlightColor()
+		  Me.DefaultTextColor       = REALbasic.TextColor()
+		  Me.InternalDebug          = &c808000
+		  Me.InternalError          = &cC00000
+		  Me.InternalInfo           = &cC0C000
+		  Me.InternalSuccess        = &c00C000
+		  Me.InternalNetworkDebug   = &c808080
+		  Me.InternalNetworkError   = &cC00000
+		  Me.InternalNetworkInfo    = &cC0C000
+		  Me.InternalNetworkSuccess = &c00C000
+		  
+		End Sub
+	#tag EndMethod
+
+
 	#tag Property, Flags = &h0
 		ChatBackColor As Color
 	#tag EndProperty
@@ -106,6 +129,108 @@ Protected Class ColorSwatch
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="ChatBackColor"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ChatEventBroadcastMessage"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ChatEventBroadcastName"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ChatEventChannelJoin"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ChatEventError"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ChatEventInfo"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ChatEventUserEmoteMessage"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ChatEventUserEmoteName"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ChatEventUserJoin"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ChatEventUserLeave"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ChatEventUserTalkMessage"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ChatEventUserTalkName"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ChatEventUserWhisperMessage"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ChatEventUserWhisperName"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DefaultBackColor"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DefaultFrameColor"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DefaultHighlightColor"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DefaultTextColor"
 			Group="Behavior"

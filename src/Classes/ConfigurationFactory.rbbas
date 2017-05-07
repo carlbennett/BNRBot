@@ -453,24 +453,42 @@ Protected Class ConfigurationFactory
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h21
-		Private configs() As Configuration
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  Return Me.globalConfig.Colors
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  
+			  Me.globalConfig.Colors = value
+			  
+			End Set
+		#tag EndSetter
+		colors As ColorSwatch
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0
+		configs() As Configuration
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
-		Private files() As FolderItem
+	#tag Property, Flags = &h0
+		files() As FolderItem
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
-		Private globalConfig As GlobalConfiguration
+	#tag Property, Flags = &h0
+		globalConfig As GlobalConfiguration
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
-		Private messageBlacklist() As StringSearch
+	#tag Property, Flags = &h0
+		messageBlacklist() As StringSearch
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
-		Private pingRanges() As PingRange
+	#tag Property, Flags = &h0
+		pingRanges() As PingRange
 	#tag EndProperty
 
 

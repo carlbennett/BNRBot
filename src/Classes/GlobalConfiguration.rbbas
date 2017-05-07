@@ -4,6 +4,7 @@ Protected Class GlobalConfiguration
 		Sub Constructor()
 		  
 		  Me.CheckForUpdates      = True
+		  Me.Colors               = New ColorSwatch()
 		  Me.MinimizeToTray       = False
 		  Me.PingRangesFlushRight = True
 		  
@@ -13,6 +14,10 @@ Protected Class GlobalConfiguration
 
 	#tag Property, Flags = &h0
 		CheckForUpdates As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Colors As ColorSwatch
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

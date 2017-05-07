@@ -237,7 +237,7 @@ End
 		  If Me.ListIndex = row Then
 		    g.ForeColor = HighlightColor()
 		  Else
-		    g.ForeColor = App.colors.ChatBackColor
+		    g.ForeColor = App.config.globalConfig.Colors.ChatBackColor
 		  End If
 		  
 		  g.FillRect(0, 0, g.Width, g.Height)
@@ -250,9 +250,9 @@ End
 		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
 		  
 		  If row = Me.ListIndex Then
-		    g.ForeColor = App.colors.ChatBackColor
+		    g.ForeColor = App.config.globalConfig.Colors.ChatBackColor
 		  Else
-		    g.ForeColor = App.colors.DefaultTextColor
+		    g.ForeColor = App.config.globalConfig.Colors.DefaultTextColor
 		  End If
 		  
 		  If row < 0 Or row >= Me.ListCount Or column < 0 Or column >= Me.ColumnCount Then
