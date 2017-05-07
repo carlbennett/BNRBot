@@ -14,15 +14,16 @@ Inherits Application
 		Sub Open()
 		  
 		  Dim w As New LoadingWindow()
-		  w.SetProgress("Initializing BNRBot...", "", 0, 0)
+		  w.Title = "Progress - " + Me.ProjectName()
+		  w.SetProgress("Initializing " + Me.ProjectName() + "...", "", 0, 0)
 		  w.Show()
 		  
-		  w.SetProgress("Initializing BNRBot...", "Opening log file...", 0, 0)
+		  w.SetProgress("Initializing " + Me.ProjectName() + "...", "Opening log file...", 0, 0)
 		  
 		  Logger.Initialize()
 		  Logger.Open()
 		  
-		  w.SetProgress("Initializing BNRBot...", "Writing session info to log...", 0, 0)
+		  w.SetProgress("Initializing " + Me.ProjectName() + "...", "Writing session info to log...", 0, 0)
 		  
 		  Logger.Write(True, "Session started [" + App.ProjectName() + " v" + App.VersionString() + "] on [")
 		  
@@ -42,26 +43,35 @@ Inherits Application
 		  
 		  Logger.WriteLine(False, " from [" + App.ExecutableFile.AbsolutePath + "]")
 		  
-		  w.SetProgress("Initializing BNRBot...", "Configuring internal settings...", 0, 0)
+		  w.SetProgress("Initializing " + Me.ProjectName() + "...", "Configuring internal settings...", 0, 0)
 		  
 		  Me.AutoQuit = False
 		  Me.uptimeConstant = Microseconds()
 		  
-		  w.SetProgress("Initializing BNRBot...", "Reading user settings...", 0, 0)
+		  w.SetProgress("Initializing " + Me.ProjectName() + "...", "Reading user settings...", 0, 0)
 		  
 		  Me.config = New ConfigurationFactory()
 		  Me.config.GetAllConfigs()
 		  
-		  w.SetProgress("Checking for updates...", "", 0, 0)
-		  
-		  Dim updateObj As New UpdateCheckSocket(w)
-		  updateObj.Check()
-		  
-		  w.Close()
-		  
-		  If updateObj.UserChoseToUpdate = True Then
-		    REALbasic.Quit()
-		    Return
+		  If config.globalConfig.CheckForUpdates Then
+		    
+		    w.SetProgress("Checking for updates...", "", 0, 0)
+		    
+		    Dim updateObj As New UpdateCheckSocket(w)
+		    updateObj.Check()
+		    
+		    w.Close()
+		    
+		    If updateObj.UserChoseToUpdate = True Then
+		      REALbasic.Quit()
+		      Return
+		    End If
+		    
+		  Else
+		    
+		    w.SetProgress("Initialized " + Me.ProjectName(), "Please Wait...", 1, 1)
+		    w.ShowModal()
+		    
 		  End If
 		  
 		  Dim c As New ChatWindow()
