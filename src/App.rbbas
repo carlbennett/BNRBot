@@ -74,12 +74,21 @@ Inherits Application
 		    
 		  End If
 		  
+		  Dim profile As Configuration = Me.ConnectProfile()
+		  
+		  If profile = Nil Then
+		    REALbasic.Quit()
+		    Return
+		  End If
+		  
 		  Dim c As New ChatWindow()
 		  
 		  c.Hide()
 		  c.Left = REALbasic.Screen(0).Left + REALbasic.Screen(0).Width  / 2 - c.Width  / 2
 		  c.Top  = REALbasic.Screen(0).Top  + REALbasic.Screen(0).Height / 2 - c.Height / 2
 		  c.Show()
+		  
+		  //c.AddClient()
 		  
 		End Sub
 	#tag EndEvent
@@ -141,6 +150,33 @@ Inherits Application
 		  m.Byte(0) = value.Alpha
 		  
 		  Return m.UInt32Value(0)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ConnectProfile() As Configuration
+		  
+		  Dim w As New ConnectWindow()
+		  Dim i, j As Integer
+		  
+		  i = 0
+		  j = Me.config.profiles.Ubound
+		  
+		  While i <= j
+		    If Len(Me.config.profiles(i).alias) > 0 Then
+		      w.ProfileMenu.AddRow(Me.config.profiles(i).alias)
+		    Else
+		      w.ProfileMenu.AddRow(Me.config.profiles(i).username + "@" + Me.config.profiles(i).bnetHost)
+		    End If
+		    i = i + 1
+		  Wend
+		  
+		  w.ShowModal()
+		  
+		  If w.UserChoice = w.CancelButton Then Return Nil
+		  
+		  Return Me.config.profiles(w.ProfileMenu.ListIndex)
 		  
 		End Function
 	#tag EndMethod

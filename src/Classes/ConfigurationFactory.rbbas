@@ -123,7 +123,7 @@ Protected Class ConfigurationFactory
 		      config.proxyMode = stream.ReadUInt8()
 		      config.proxyHost = stream.ReadCString()
 		      
-		      Me.configs.Append(config)
+		      Me.profiles.Append(config)
 		      
 		    Case Else
 		      Logger.WriteLine(True, "Failed to parse stream due to unrecognized section id [0x" + App.HexPad(section) + "]")
@@ -223,7 +223,7 @@ Protected Class ConfigurationFactory
 		      config.proxyMode = stream.ReadUInt8()
 		      config.proxyHost = stream.ReadCString()
 		      
-		      Me.configs.Append(config)
+		      Me.profiles.Append(config)
 		      
 		    Case Else
 		      Logger.WriteLine(True, "Failed to parse stream due to unrecognized section id [0x" + App.HexPad(section) + "]")
@@ -324,7 +324,7 @@ Protected Class ConfigurationFactory
 		      config.proxyMode = stream.ReadUInt8()
 		      config.proxyHost = stream.ReadCString()
 		      
-		      Me.configs.Append(config)
+		      Me.profiles.Append(config)
 		      
 		    Case Else
 		      Logger.WriteLine(True, "Failed to parse stream due to unrecognized section id [0x" + App.HexPad(section) + "]")
@@ -350,7 +350,7 @@ Protected Class ConfigurationFactory
 		  
 		  Logger.WriteLine(True, "User configuration has been read")
 		  
-		  Logger.Write(True, "Configurations=" + Format(UBound(Me.configs) + 1, "-#") + " ")
+		  Logger.Write(True, "Configurations=" + Format(UBound(Me.profiles) + 1, "-#") + " ")
 		  If Me.globalConfig = Nil Then Logger.Write(False, "GlobalConfig=0 ") Else Logger.Write(False, "GlobalConfig=1 ")
 		  Logger.Write(False, "MessageBlacklist=" + Format(UBound(Me.messageBlacklist) + 1, "-#") + " ")
 		  Logger.Write(False, "PingRanges=" + Format(UBound(Me.pingRanges) + 1, "-#"))
@@ -416,7 +416,7 @@ Protected Class ConfigurationFactory
 	#tag Method, Flags = &h0
 		Sub ResetDefaults()
 		  
-		  ReDim Me.configs(-1)
+		  ReDim Me.profiles(-1)
 		  
 		  ReDim Me.files(-1)
 		  
@@ -472,10 +472,6 @@ Protected Class ConfigurationFactory
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0
-		configs() As Configuration
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
 		files() As FolderItem
 	#tag EndProperty
 
@@ -489,6 +485,10 @@ Protected Class ConfigurationFactory
 
 	#tag Property, Flags = &h0
 		pingRanges() As PingRange
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		profiles() As Configuration
 	#tag EndProperty
 
 
