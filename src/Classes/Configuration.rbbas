@@ -3,29 +3,56 @@ Protected Class Configuration
 	#tag Method, Flags = &h0
 		Sub Constructor()
 		  
-		  Me.bnetHost          = "useast.battle.net"
-		  Me.bnetPort          = 6112
-		  Me.bnlsHost          = "bnls.bnetdocs.org"
-		  Me.bnlsPort          = 9367
-		  Me.email             = ""
-		  Me.gameKey1          = ""
-		  Me.gameKey2          = ""
-		  Me.gameKeyOwner      = App.ProjectName() + "v" + Format(App.MajorVersion, "-#")
-		  Me.greetAclExclusive = False
-		  Me.greetEnabled      = False
-		  Me.greetMessage      = ""
-		  Me.homeChannel       = ""
-		  Me.logNetwork        = False
-		  Me.password          = ""
-		  Me.passwordNew       = ""
-		  Me.platform          = Battlenet.Platform_IX86
-		  Me.product           = 0
-		  Me.trigger           = "!"
-		  Me.username          = ""
+		  Me.alias                    = ""
+		  Me.autoRejoinOnKick         = False
+		  Me.bnetHost                 = "useast.battle.net"
+		  Me.bnetPort                 = 6112
+		  Me.bnlsEnabled              = True
+		  Me.bnlsHost                 = "bnls.bnetdocs.org"
+		  Me.bnlsPort                 = 9367
+		  Me.confirmClanMemberRemoval = True
+		  Me.createAccountBeforeLogon = False
+		  Me.email                    = ""
+		  Me.gameKey1                 = ""
+		  Me.gameKey2                 = ""
+		  Me.gameKeyOwner             = App.ProjectName() + "v" + Format(App.MajorVersion, "-#")
+		  Me.gameKeySpawn             = False
+		  Me.greetAclExclusive        = False
+		  Me.greetEnabled             = False
+		  Me.greetMessage             = ""
+		  Me.homeChannel              = ""
+		  Me.init6Protocol            = False
+		  Me.logJoinLeave             = True
+		  Me.logNetwork               = False
+		  Me.muteBanKickUnban         = False
+		  Me.muteUserInChannelUpdates = False
+		  Me.password                 = ""
+		  Me.passwordNew              = ""
+		  Me.pingSpoof                = 0
+		  Me.platform                 = Battlenet.Platform_IX86
+		  Me.preventDuplicateMessages = True
+		  Me.product                  = 0
+		  Me.productVersionCode       = 0
+		  Me.proxyHost                = ""
+		  Me.proxyMode                = Me.ProxyModeDisabled
+		  Me.reconnectInterval        = 300000
+		  Me.timestampMode            = BitOr(Me.TimestampModeShortDate, Me.TimestampModeLongTime)
+		  Me.trigger                  = "!"
+		  Me.udpEnabled               = True
+		  Me.username                 = ""
+		  Me.utf8Messages             = True
 		  
 		End Sub
 	#tag EndMethod
 
+
+	#tag Property, Flags = &h0
+		alias As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		autoRejoinOnKick As Boolean
+	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		bnetHost As String
@@ -36,11 +63,23 @@ Protected Class Configuration
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		bnlsEnabled As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		bnlsHost As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		bnlsPort As UInt16
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		confirmClanMemberRemoval As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		createAccountBeforeLogon As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -60,6 +99,10 @@ Protected Class Configuration
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		gameKeySpawn As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		greetAclExclusive As Boolean
 	#tag EndProperty
 
@@ -76,7 +119,23 @@ Protected Class Configuration
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		init6Protocol As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		logJoinLeave As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		logNetwork As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		muteBanKickUnban As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		muteUserInChannelUpdates As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -88,7 +147,15 @@ Protected Class Configuration
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		pingSpoof As UInt32
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		platform As UInt32
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		preventDuplicateMessages As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -96,12 +163,71 @@ Protected Class Configuration
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		productVersionCode As UInt32
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		proxyHost As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		proxyMode As UInt8
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		reconnectInterval As UInt32
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		timestampMode As UInt8
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		trigger As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		udpEnabled As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		username As String
 	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		utf8Messages As Boolean
+	#tag EndProperty
+
+
+	#tag Constant, Name = ProxyModeDisabled, Type = Double, Dynamic = False, Default = \"0", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = ProxyModeHTTP, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = ProxyModeSocksV4, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = ProxyModeSocksV5, Type = Double, Dynamic = False, Default = \"3", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = TimestampModeAbbrDate, Type = Double, Dynamic = False, Default = \"&H02", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = TimestampModeLongDate, Type = Double, Dynamic = False, Default = \"&H04", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = TimestampModeLongTime, Type = Double, Dynamic = False, Default = \"&H10", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = TimestampModeMilitaryTime, Type = Double, Dynamic = False, Default = \"&H20", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = TimestampModeShortDate, Type = Double, Dynamic = False, Default = \"&H01", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = TimestampModeShortTime, Type = Double, Dynamic = False, Default = \"&H08", Scope = Public
+	#tag EndConstant
 
 
 	#tag ViewBehavior

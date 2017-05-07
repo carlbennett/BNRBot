@@ -4,6 +4,7 @@ Inherits Application
 	#tag Event
 		Sub Close()
 		  
+		  Logger.WriteLine(True, "Session ended")
 		  Logger.Close()
 		  
 		End Sub
