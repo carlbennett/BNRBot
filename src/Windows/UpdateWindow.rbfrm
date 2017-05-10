@@ -4,19 +4,19 @@ Begin Window UpdateWindow
    Backdrop        =   ""
    CloseButton     =   True
    Composite       =   False
-   Frame           =   1
+   Frame           =   4
    FullScreen      =   False
-   HasBackColor    =   True
-   Height          =   96
+   HasBackColor    =   False
+   Height          =   170
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
-   MaxHeight       =   100
+   MaxHeight       =   32000
    MaximizeButton  =   False
-   MaxWidth        =   400
+   MaxWidth        =   32000
    MenuBar         =   ""
    MenuBarVisible  =   True
-   MinHeight       =   100
+   MinHeight       =   170
    MinimizeButton  =   True
    MinWidth        =   400
    Placement       =   3
@@ -30,12 +30,12 @@ Begin Window UpdateWindow
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   18
+      Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   14
+      Left            =   40
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -46,41 +46,38 @@ Begin Window UpdateWindow
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "%status%"
       TextAlign       =   0
       TextColor       =   "#Colors.Black"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   14
+      Top             =   16
       Transparent     =   True
       Underline       =   ""
       Visible         =   True
-      Width           =   372
+      Width           =   344
    End
    Begin ProgressBar uiProgress
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   16
+      Height          =   18
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   14
-      LockBottom      =   ""
+      Left            =   40
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Maximum         =   0
       Scope           =   0
-      TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   38
+      Top             =   80
       Value           =   0
       Visible         =   True
-      Width           =   372
+      Width           =   344
    End
    Begin PushButton uiCurrentAction
       AutoDeactivate  =   True
@@ -90,28 +87,28 @@ Begin Window UpdateWindow
       Caption         =   "%action%"
       Default         =   True
       Enabled         =   True
-      Height          =   22
+      Height          =   24
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   306
-      LockBottom      =   ""
+      Left            =   294
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
-      TabIndex        =   0
+      TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   58
+      Top             =   130
       Underline       =   ""
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin Label uiSubstatus
       AutoDeactivate  =   True
@@ -119,68 +116,59 @@ Begin Window UpdateWindow
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   22
+      Height          =   32
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   14
-      LockBottom      =   ""
+      Left            =   40
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      Multiline       =   ""
+      Multiline       =   True
       Scope           =   0
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "%substatus%"
       TextAlign       =   0
       TextColor       =   "#Colors.Black"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   58
+      Top             =   40
       Transparent     =   True
       Underline       =   ""
       Visible         =   True
-      Width           =   288
+      Width           =   344
    End
    Begin HTTPSecureSocket HTTP
       CertificateFile =   ""
       CertificatePassword=   ""
       CertificateRejectionFile=   ""
       ConnectionType  =   3
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
-      Left            =   368
+      Left            =   214
       LockedInPosition=   False
       Scope           =   0
       Secure          =   True
-      TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   0
-      Visible         =   True
+      Top             =   -28
       Width           =   32
    End
    Begin Timer TransitionTimer
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
-      Left            =   336
+      Left            =   183
       LockedInPosition=   False
       Mode            =   0
       Period          =   1000
       Scope           =   0
-      TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   0
-      Visible         =   True
+      Top             =   -28
       Width           =   32
    End
    Begin PushButton uiCancelAction
@@ -188,31 +176,73 @@ Begin Window UpdateWindow
       Bold            =   ""
       ButtonStyle     =   0
       Cancel          =   True
-      Caption         =   "Cancel"
+      Caption         =   "&Cancel"
       Default         =   ""
       Enabled         =   True
-      Height          =   22
+      Height          =   24
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   306
-      LockBottom      =   ""
+      Left            =   192
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
-      TabIndex        =   3
+      TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   32
+      Top             =   130
       Underline       =   ""
       Visible         =   False
-      Width           =   80
+      Width           =   90
+   End
+   Begin ProgressWheel uiProgressWheel
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   16
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   16
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   0
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   16
+      Visible         =   True
+      Width           =   16
+   End
+   Begin Separator uiSeparator
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   4
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   16
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   114
+      Visible         =   True
+      Width           =   368
    End
 End
 #tag EndWindow
@@ -336,13 +366,14 @@ End
 		  Select Case stepId
 		  Case Self.STEP_CHECK
 		    
-		    uiStatus.Text = "Checking for updates..."
+		    uiStatus.Text = "BNRBot: Checking for updates..."
 		    uiSubstatus.Text = "(User initiated)"
 		    uiProgress.Maximum = 0
 		    uiProgress.Value = 0
 		    uiProgress.Visible = True
+		    uiProgressWheel.Visible = True
 		    uiCancelAction.Visible = False
-		    uiCurrentAction.Caption = "Cancel"
+		    uiCurrentAction.Caption = "&Cancel"
 		    Self.stateAuto = False
 		    
 		    TransitionTimer.Mode = TransitionTimer.ModeSingle
@@ -351,13 +382,14 @@ End
 		    
 		  Case Self.STEP_CHECK_AUTO
 		    
-		    uiStatus.Text = "Checking for updates..."
+		    uiStatus.Text = "BNRBot: Checking for updates..."
 		    uiSubstatus.Text = "(Automatically initiated)"
 		    uiProgress.Maximum = 0
 		    uiProgress.Value = 0
 		    uiProgress.Visible = True
+		    uiProgressWheel.Visible = True
 		    uiCancelAction.Visible = False
-		    uiCurrentAction.Caption = "Cancel"
+		    uiCurrentAction.Caption = "&Cancel"
 		    Self.stateAuto = True
 		    
 		    TransitionTimer.Mode = TransitionTimer.ModeSingle
@@ -366,23 +398,25 @@ End
 		    
 		  Case Self.STEP_HTTP_SENDING
 		    
-		    uiStatus.Text = "Checking for updates..."
+		    uiStatus.Text = "BNRBot: Checking for updates..."
 		    uiSubstatus.Text = "Sending request..."
 		    uiProgress.Maximum = 0
 		    uiProgress.Value = 0
 		    uiProgress.Visible = True
+		    uiProgressWheel.Visible = True
 		    uiCancelAction.Visible = False
-		    uiCurrentAction.Caption = "Cancel"
+		    uiCurrentAction.Caption = "&Cancel"
 		    
 		  Case Self.STEP_HTTP_RECEIVING
 		    
-		    uiStatus.Text = "Checking for updates..."
+		    uiStatus.Text = "BNRBot: Checking for updates..."
 		    uiSubstatus.Text = "Receiving response..."
 		    uiProgress.Maximum = 0
 		    uiProgress.Value = 0
 		    uiProgress.Visible = True
+		    uiProgressWheel.Visible = True
 		    uiCancelAction.Visible = False
-		    uiCurrentAction.Caption = "Cancel"
+		    uiCurrentAction.Caption = "&Cancel"
 		    
 		  Case Self.STEP_HTTP_FAILURE
 		    
@@ -404,10 +438,11 @@ End
 		    
 		  Case Self.STEP_UPDATE_AVAILABLE
 		    
-		    uiCurrentAction.Caption = "Continue"
-		    uiStatus.Text = "Update found!"
+		    uiCurrentAction.Caption = "Co&ntinue"
+		    uiStatus.Text = "BNRBot: Update found!"
 		    uiSubstatus.Text = "Click " + uiCurrentAction.Caption + " to download in your web browser."
 		    uiProgress.Visible = False
+		    uiProgressWheel.Visible = False
 		    uiCancelAction.Visible = True
 		    
 		  Case Self.STEP_UPDATE_LATEST
