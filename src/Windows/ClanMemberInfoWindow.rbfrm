@@ -93,6 +93,7 @@ Begin BotWindow ClanMemberInfoWindow
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Username:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -127,6 +128,7 @@ Begin BotWindow ClanMemberInfoWindow
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Clan Tag:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -255,6 +257,7 @@ Begin BotWindow ClanMemberInfoWindow
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Clan Name:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -367,6 +370,7 @@ Begin BotWindow ClanMemberInfoWindow
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Clan Rank:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
@@ -448,6 +452,7 @@ Begin BotWindow ClanMemberInfoWindow
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Date Joined:"
       TextAlign       =   0
       TextColor       =   "#Colors.White"
