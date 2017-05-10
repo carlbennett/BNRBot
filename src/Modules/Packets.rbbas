@@ -1460,6 +1460,8 @@ Protected Module Packets
 	#tag Method, Flags = &h1
 		Protected Function ParseSID_CHATEVENT(Sock As BNETSocket, PktData As String) As Boolean
 		  
+		  // TODO Fix this beast
+		  
 		  If Sock = Nil Then Return False
 		  If Sock.IsConnected = False Then Return False
 		  If Sock.Config = Nil Then Return False
@@ -1532,11 +1534,10 @@ Protected Module Packets
 		      Sock.ChannelUsers.Value(Username) = dTmp
 		      
 		      If EventID = &H02 And Sock.Config.ShowJoinLeaveMessages = True Then
-		        Sock.Config.AddChat(True, Colors.Lime, "-- ", _
+		        Sock.Config.AddChat(True, Colors.DarkSeaGreen, "-- ", _
 		        Colors.LightSeaGreen, Username, _
-		        Colors.Lime, " joined the channel using ", _
-		        Colors.LightSeaGreen, Globals.ProductName(MemClass.ReadDWORD(Text, 1, True), False), _
-		        Colors.Lime, ".")
+		        Colors.DarkSeaGreen, " joined the channel using ", _
+		        Colors.LightSeaGreen, Globals.ProductName(MemClass.ReadDWORD(Text, 1, True), False))
 		      End If
 		      
 		    End If
@@ -1618,7 +1619,7 @@ Protected Module Packets
 		      Sock.ChannelUsers.Remove(Username)
 		      
 		      If Sock.Config.ShowJoinLeaveMessages = True Then
-		        Sock.Config.AddChat(True, Colors.Red, "-- ", Colors.Maroon, Username, Colors.Red, " left the channel.")
+		        Sock.Config.AddChat(True, Colors.FireBrick, "-- ", Colors.Crimson, Username, Colors.FireBrick, " left the channel")
 		      End If
 		      
 		      If MainWindow.GetSelectedConfig() = Sock.Config Then Sock.Config.Container.lstUsersTimer.Reset()
@@ -1640,7 +1641,7 @@ Protected Module Packets
 		        Sock.Config.CacheChatMention = True
 		        Sock.Config.Container.lstUsersTimer.Reset()
 		      End If
-		      Sock.Config.AddChat(True, Colors.Orange, "<", Colors.Yellow, "From: " + Username, Colors.Orange, "> ", Colors.Gray, Text)
+		      Sock.Config.AddChat(True, Colors.GoldenRod, "From ", Colors.Gold, Username, Colors.GoldenRod, ": ", Colors.SlateGray, Text)
 		    End If
 		    
 		  Case &H05
@@ -1673,8 +1674,8 @@ Protected Module Packets
 		        colorB = Colors.White
 		        colorC = Colors.White
 		      Else
-		        colorA = Colors.Orange
-		        colorB = Colors.Yellow
+		        colorA = Colors.GoldenRod
+		        colorB = Colors.Gold
 		        If BitAnd(Flags, &H04) > 0 Then colorC = Colors.Yellow Else colorC = Colors.White
 		      End If
 		      
@@ -1686,7 +1687,7 @@ Protected Module Packets
 		        End If
 		      End If
 		      
-		      Sock.Config.AddChat(True, colorA, "<", colorB, Username, colorA, "> ", colorC, Text)
+		      Sock.Config.AddChat(True, colorB, Username, colorA, ": ", colorC, Text)
 		    End If
 		    
 		    If MainWindow.GetSelectedConfig() = Sock.Config And _
@@ -1696,10 +1697,10 @@ Protected Module Packets
 		  Case &H06
 		    
 		    If Username <> "Battle.net" And LenB(Username) > 0 Then
-		      Sock.Config.AddChat(True, Colors.Cyan, "Server Broadcast from ", Colors.Teal, Username, _
+		      Sock.Config.AddChat(True, Colors.Cyan, "Server broadcast from ", Colors.Teal, Username, _
 		      Colors.Cyan, ": ", Colors.Silver, Text)
 		    Else
-		      Sock.Config.AddChat(True, Colors.Cyan, "Server Broadcast: ", Colors.Silver, Text)
+		      Sock.Config.AddChat(True, Colors.Cyan, "Server broadcast: ", Colors.Silver, Text)
 		    End If
 		    
 		  Case &H07
@@ -1710,8 +1711,8 @@ Protected Module Packets
 		    
 		    If MainWindow.GetSelectedConfig() = Sock.Config Then Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
 		    
-		    Sock.Config.AddChat(True, Colors.Cyan, "Joined Channel: ", Colors.Teal, Sock.ChannelName, _
-		    Colors.Gray, " (" + Globals.SChannelFlags(Sock.ChannelFlags) + ")")
+		    Sock.Config.AddChat(True, Colors.LightSeaGreen, "-- Entered channel: ", Colors.Aquamarine, Sock.ChannelName, _
+		    Colors.SlateGray, " (" + Globals.SChannelFlags(Sock.ChannelFlags) + ")")
 		    
 		  Case &H0A
 		    
@@ -1723,22 +1724,22 @@ Protected Module Packets
 		    End If
 		    
 		    If BitAnd(Flags, &H20) <= 0 Then
-		      Sock.Config.AddChat(True, Colors.Cyan, "<To: " + Username + "> ", Colors.Gray, Text)
+		      Sock.Config.AddChat(True, Colors.MediumVioletRed, "To ", Colors.MediumOrchid, Username, Colors.MediumVioletRed, ": ", Colors.SlateGray, Text)
 		    End If
 		    
 		  Case &H0D // full
 		    
-		    Sock.Config.AddChat(True, Colors.Red, "BNET: The channel ", Colors.Maroon, Text, Colors.Red, " is full.")
+		    Sock.Config.AddChat(True, Colors.FireBrick, "BNET: The channel ", Colors.Crimson, Text, Colors.FireBrick, " is full.")
 		    
 		  Case &H0E // empty
 		    
-		    Sock.Config.AddChat(True, Colors.Red, "BNET: The channel ", Colors.Maroon, Text, Colors.Red, " is empty", _
-		    Colors.Yellow, "; forcing join...")
+		    Sock.Config.AddChat(True, Colors.FireBrick, "BNET: The channel ", Colors.Crimson, Text, Colors.FireBrick, " is empty", _
+		    Colors.GoldenRod, "; forcing join...")
 		    Sock.Send(Packets.CreateSID_JOINCHANNEL(&H2, Text))
 		    
 		  Case &H0F // restricted
 		    
-		    Sock.Config.AddChat(True, Colors.Red, "BNET: The channel ", Colors.Maroon, Text, Colors.Red, " is restricted.")
+		    Sock.Config.AddChat(True, Colors.FireBrick, "BNET: The channel ", Colors.Crimson, Text, Colors.FireBrick, " is restricted.")
 		    
 		  Case &H12
 		    
@@ -1762,7 +1763,7 @@ Protected Module Packets
 		    
 		    If showLine = True Then
 		      For Each Line As String In Split(ReplaceLineEndings(Text, EndOfLine), EndOfLine)
-		        Sock.Config.AddChat(True, Colors.Yellow, Line)
+		        Sock.Config.AddChat(True, Colors.Colors.GoldenRod, Line)
 		      Next
 		    End If
 		    
@@ -1773,7 +1774,7 @@ Protected Module Packets
 		  Case &H13
 		    
 		    For Each Line As String In Split(ReplaceLineEndings(Text, EndOfLine), EndOfLine)
-		      Sock.Config.AddChat(True, Colors.Red, Line)
+		      Sock.Config.AddChat(True, Colors.FireBrick, Line)
 		    Next
 		    
 		  Case &H17
@@ -1798,24 +1799,24 @@ Protected Module Packets
 		    
 		    If BitAnd(Flags, &H20) <= 0 And bTmp = False Then
 		      If BitAnd(Flags, &H09) > 0 Then
-		        colorA = Colors.Teal
+		        colorA = Colors.GoldenRod
 		        colorB = Colors.Cyan
-		        colorC = Colors.Cyan
+		        colorC = Colors.GoldenRod
 		      ElseIf BitAnd(Flags, &H02) > 0 Then
 		        colorA = Colors.Silver
 		        colorB = Colors.White
-		        colorC = Colors.White
+		        colorC = Colors.Silver
 		      ElseIf Username = Sock.UniqueName Then
-		        colorA = Colors.Teal
+		        colorA = Colors.GoldenRod
 		        colorB = Colors.Cyan
-		        colorC = Colors.Yellow
+		        colorC = Colors.GoldenRod
 		      Else
-		        colorA = Colors.Orange
-		        colorB = Colors.Yellow
-		        colorC = Colors.Yellow
+		        colorA = Colors.GoldenRod
+		        colorB = Colors.Gold
+		        colorC = Colors.GoldenRod
 		      End If
 		      
-		      Sock.Config.AddChat(True, colorA, "<", colorB, Username, colorA, " ", colorC, Text, colorA, ">")
+		      Sock.Config.AddChat(True, colorA, "-- ", colorB, Username, colorA, " ", colorC, Text)
 		    End If
 		    
 		    If MainWindow.GetSelectedConfig() = Sock.Config And _

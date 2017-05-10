@@ -2390,7 +2390,7 @@ End
 		    End If
 		    
 		    If Left(Line, 1) <> "/" And Config.BNET.Init6Protocol = False Then
-		      Config.AddChat(True, Colors.Teal, "<", Colors.Cyan, Config.BNET.UniqueName, Colors.Teal, "> ", Colors.White, Line)
+		      Config.AddChat(True, Colors.MediumOrchid, Config.BNET.UniqueName, Colors.MediumVioletRed, ": ", Colors.White, Line)
 		      
 		      'Else
 		      'Config.AddChat(True, Colors.SkyBlue, Line + EndOfLine)
