@@ -2483,11 +2483,12 @@ Protected Module Packets
 		  If Sock.FriendsList = Nil Then Sock.FriendsList = New Dictionary()
 		  Sock.FriendsList.Value(Sock.FriendsList.Count) = dTmp
 		  
-		  If Sock.Config.Container.lstUsers_Viewing_Friends() Then _
-		  Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
-		  
-		  Return True
-		  
+		  If Sock.Config.Container <> Nil And _
+		    Sock.Config.Container.lstUsers_Viewing_Friends() Then _
+		    Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
+		    
+		    Return True
+		    
 		End Function
 	#tag EndMethod
 
@@ -2518,11 +2519,12 @@ Protected Module Packets
 		    
 		  Wend
 		  
-		  If Sock.Config.Container.lstUsers_Viewing_Friends() Then _
-		  Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
-		  
-		  Return True
-		  
+		  If Sock.Config.Container <> Nil And _
+		    Sock.Config.Container.lstUsers_Viewing_Friends() Then _
+		    Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
+		    
+		    Return True
+		    
 		End Function
 	#tag EndMethod
 
@@ -2555,11 +2557,12 @@ Protected Module Packets
 		    End If
 		  End If
 		  
-		  If Sock.Config.Container.lstUsers_Viewing_Friends() Then _
-		  Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
-		  
-		  Return True
-		  
+		  If Sock.Config.Container <> Nil And _
+		    Sock.Config.Container.lstUsers_Viewing_Friends() Then _
+		    Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
+		    
+		    Return True
+		    
 		End Function
 	#tag EndMethod
 
@@ -2580,11 +2583,12 @@ Protected Module Packets
 		    Sock.FriendsList.Remove(Index)
 		  End If
 		  
-		  If Sock.Config.Container.lstUsers_Viewing_Friends() Then _
-		  Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
-		  
-		  Return True
-		  
+		  If Sock.Config.Container <> Nil And _
+		    Sock.Config.Container.lstUsers_Viewing_Friends() Then _
+		    Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
+		    
+		    Return True
+		    
 		End Function
 	#tag EndMethod
 
@@ -2616,31 +2620,32 @@ Protected Module Packets
 		  dTmp.Value("Product") = Product
 		  dTmp.Value("Location Name") = LocationName
 		  
-		  If Sock.Config.Container.lstUsers_Viewing_Friends() Then _
-		  Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
-		  
-		  #If DebugBuild = True Then
-		    If BitAnd(Status, &H01) > 0 Then
-		      Select Case Location
-		      Case &H00 // User went offline; Battle.net will send a whisper so no message needs to be displayed.
-		      Case &H01 // Sent SID_LEAVECHAT to Battle.net.
-		        Sock.Config.AddChat(True, Colors.Gray, "BNET: Your friend " + dTmp.Value("Username") + " left chat.")
-		      Case &H02 // Entered chat.
-		        Sock.Config.AddChat(True, Colors.Gray, "BNET: Your friend " + dTmp.Value("Username") + " entered the channel " + LocationName + ".")
-		      Case &H03 // Joined a public game.
-		        Sock.Config.AddChat(True, Colors.Gray, "BNET: Your friend " + dTmp.Value("Username") + " entered the game " + LocationName + ".")
-		      Case &H04 // Joined a private game, not on friends list.
-		        Sock.Config.AddChat(True, Colors.Gray, "BNET: Your friend " + dTmp.Value("Username") + " entered a private game.")
-		      Case &H05 // Joined a private game, on friends list.
-		        Sock.Config.AddChat(True, Colors.Gray, "BNET: Your friend " + dTmp.Value("Username") + " entered the private game " + LocationName + ".")
-		      Case Else // ???
-		        Sock.Config.AddChat(True, Colors.Gray, "BNET: Received unknown friend location in an update! " + MemClass.HexPrefix(Location, "0x", 2))
-		      End Select
-		    End If
-		  #EndIf
-		  
-		  Return True
-		  
+		  If Sock.Config.Container <> Nil And _
+		    Sock.Config.Container.lstUsers_Viewing_Friends() Then _
+		    Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
+		    
+		    #If DebugBuild = True Then
+		      If BitAnd(Status, &H01) > 0 Then
+		        Select Case Location
+		        Case &H00 // User went offline; Battle.net will send a whisper so no message needs to be displayed.
+		        Case &H01 // Sent SID_LEAVECHAT to Battle.net.
+		          Sock.Config.AddChat(True, Colors.Gray, "BNET: Your friend " + dTmp.Value("Username") + " left chat.")
+		        Case &H02 // Entered chat.
+		          Sock.Config.AddChat(True, Colors.Gray, "BNET: Your friend " + dTmp.Value("Username") + " entered the channel " + LocationName + ".")
+		        Case &H03 // Joined a public game.
+		          Sock.Config.AddChat(True, Colors.Gray, "BNET: Your friend " + dTmp.Value("Username") + " entered the game " + LocationName + ".")
+		        Case &H04 // Joined a private game, not on friends list.
+		          Sock.Config.AddChat(True, Colors.Gray, "BNET: Your friend " + dTmp.Value("Username") + " entered a private game.")
+		        Case &H05 // Joined a private game, on friends list.
+		          Sock.Config.AddChat(True, Colors.Gray, "BNET: Your friend " + dTmp.Value("Username") + " entered the private game " + LocationName + ".")
+		        Case Else // ???
+		          Sock.Config.AddChat(True, Colors.Gray, "BNET: Received unknown friend location in an update! " + MemClass.HexPrefix(Location, "0x", 2))
+		        End Select
+		      End If
+		    #EndIf
+		    
+		    Return True
+		    
 		End Function
 	#tag EndMethod
 
