@@ -147,9 +147,7 @@ Protected Module Settings
 		  Select Case iProduct
 		  Case Packets.BNETProduct_D2DV, Packets.BNETProduct_D2XP
 		    If Base.Child("Game.exe") <> Nil Then Result(0) = Base.Child("Game.exe").AbsolutePath
-		    If Base.Child("Bnclient.dll") <> Nil Then Result(1) = Base.Child("Bnclient.dll").AbsolutePath
-		    If Base.Child("D2Client.dll") <> Nil Then Result(2) = Base.Child("D2Client.dll").AbsolutePath
-		    Result(3) = ""
+		    Result(1) = ""
 		    
 		  Case Packets.BNETProduct_DRTL
 		    If Base.Child("Diablo.exe") <> Nil Then Result(0) = Base.Child("Diablo.exe").AbsolutePath
