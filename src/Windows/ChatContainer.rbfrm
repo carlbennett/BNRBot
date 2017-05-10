@@ -1090,7 +1090,7 @@ End
 			  
 			  If sChannelText <> "Online" Then
 			    If lstUsers.ListCount > 0 Then sChannelText = sChannelText + " (" + Str(lstUsers.ListCount) + ")"
-			    txtChannel.Text = sChannelText
+			    txtChannel.Text = ReplaceAll(sChannelText, "&", "&&")
 			    Return
 			  End If
 			  
@@ -1631,7 +1631,7 @@ End
 			    lstUsers.ScrollPositionX = scrollPosX
 			    lstUsers.ScrollPosition = scrollPosY
 			    
-			    txtChannel.Text = sChannelText
+			    txtChannel.Text = ReplaceAll(sChannelText, "&", "&&")
 			    
 			End Set
 		#tag EndSetter

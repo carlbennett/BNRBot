@@ -12,6 +12,7 @@
 *.log
 *.patch
 *.rar
+*.rbuistate
 *.swp
 *.tar
 *.tgz
