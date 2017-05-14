@@ -799,12 +799,12 @@ Protected Module Packets
 		    
 		    If MainWindow.GetSelectedConfig() = Sock.Config Then Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
 		    
-		    Sock.Config.AddChat(True, Colors.Cyan, "Joined Channel: ", Colors.Teal, Sock.ChannelName, _
-		    Colors.Gray, " (" + Globals.SChannelFlags(Sock.ChannelFlags) + ")")
+		    Sock.Config.AddChat(True, Colors.LightSeaGreen, "-- Entered channel: ", Colors.Aquamarine, Sock.ChannelName, _
+		    Colors.SlateGray, " (" + Globals.SChannelFlags(Sock.ChannelFlags) + ")")
 		    
 		  Case "TOPIC"
 		    
-		    Sock.Config.AddChat(True, Colors.Yellow, Join(fields, " "))
+		    Sock.Config.AddChat(True, Colors.GoldenRod, Join(fields, " "))
 		    
 		  Case Else
 		    
@@ -855,7 +855,7 @@ Protected Module Packets
 		    
 		    Dim Text As String = Join(fields, " ")
 		    
-		    Sock.Config.AddChat(True, Colors.Yellow, Text)
+		    Sock.Config.AddChat(True, Colors.GoldenRod, Text)
 		    
 		  Case "ERROR"
 		    
@@ -865,7 +865,7 @@ Protected Module Packets
 		    
 		    Dim Text As String = Join(fields, " ")
 		    
-		    Sock.Config.AddChat(True, Colors.Red, Text)
+		    Sock.Config.AddChat(True, Colors.FireBrick, Text)
 		    
 		  Case "BROADCAST", "UPDATE"
 		    
@@ -972,11 +972,10 @@ Protected Module Packets
 		      Sock.ChannelUsers.Value(Username) = dTmp
 		      
 		      If msgName = "JOIN" And Sock.Config.ShowJoinLeaveMessages = True Then
-		        Sock.Config.AddChat(True, Colors.Lime, "-- ", _
+		        Sock.Config.AddChat(True, Colors.DarkSeaGreen, "-- ", _
 		        Colors.LightSeaGreen, Username, _
-		        Colors.Lime, " joined the channel using ", _
-		        Colors.LightSeaGreen, Globals.ProductName(MemClass.ReadDWORD(Text, 1, True), False), _
-		        Colors.Lime, ".")
+		        Colors.DarkSeaGreen, " joined the channel using ", _
+		        Colors.LightSeaGreen, Globals.ProductName(MemClass.ReadDWORD(Text, 1, True), False))
 		      End If
 		      
 		    End If
@@ -1066,7 +1065,7 @@ Protected Module Packets
 		      Sock.ChannelUsers.Remove(Username)
 		      
 		      If Sock.Config.ShowJoinLeaveMessages = True Then
-		        Sock.Config.AddChat(True, Colors.Red, "-- ", Colors.Maroon, Username, Colors.Red, " left the channel.")
+		        Sock.Config.AddChat(True, Colors.FireBrick, "-- ", Colors.Crimson, Username, Colors.FireBrick, " left the channel")
 		      End If
 		      
 		      If MainWindow.GetSelectedConfig() = Sock.Config Then Sock.Config.Container.lstUsersTimer.Reset()
@@ -1100,14 +1099,14 @@ Protected Module Packets
 		    
 		    If BitAnd(Flags, &H20) <= 0 Then
 		      If Direction = "TO" Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "<To: " + Username + "> ", Colors.Gray, Text)
+		        Sock.Config.AddChat(True, Colors.MediumVioletRed, "To ", Colors.MediumOrchid, Username, Colors.MediumVioletRed, ": ", Colors.SlateGray, Text)
 		      ElseIf Direction = "FROM" Then
 		        Globals.DesktopNotification("Whisper received from " + Username, Text, 0)
 		        If MainWindow.IsConfigSelected(Sock.Config) = False Then
 		          Sock.Config.CacheChatMention = True
 		          Sock.Config.Container.lstUsersTimer.Reset()
 		        End If
-		        Sock.Config.AddChat(True, Colors.Orange, "<", Colors.Yellow, "From: " + Username, Colors.Orange, "> ", Colors.Gray, Text)
+		        Sock.Config.AddChat(True, Colors.GoldenRod, "From ", Colors.Gold, Username, Colors.GoldenRod, ": ", Colors.SlateGray, Text)
 		      Else
 		        Sock.Config.AddChat(True, Colors.Gray, "<" + Direction + ": " + Username + "> " + Text)
 		      End If
@@ -1152,8 +1151,8 @@ Protected Module Packets
 		    If BitAnd(Flags, &H20) <= 0 And bTmp = False Then
 		      If msgName = "TALK" Then
 		        If Direction = "TO" Then
-		          colorA = Colors.Teal
-		          colorB = Colors.Cyan
+		          colorA = Colors.MediumOrchid
+		          colorB = Colors.MediumVioletRed
 		          colorC = Colors.White
 		        ElseIf BitAnd(Flags, &H09) > 0 Then
 		          colorA = Colors.Teal
@@ -1164,27 +1163,27 @@ Protected Module Packets
 		          colorB = Colors.White
 		          colorC = Colors.White
 		        Else
-		          colorA = Colors.Orange
-		          colorB = Colors.Yellow
+		          colorA = Colors.GoldenRod
+		          colorB = Colors.Gold
 		          If BitAnd(Flags, &H04) > 0 Then colorC = Colors.Yellow Else colorC = Colors.White
 		        End If
 		      ElseIf msgName = "EMOTE" Then
 		        If Username = Sock.UniqueName Then
-		          colorA = Colors.Teal
-		          colorB = Colors.Cyan
-		          colorC = Colors.Yellow
+		          colorA = Colors.MediumOrchid
+		          colorB = Colors.MediumVioletRed
+		          colorC = Colors.MediumOrchid
 		        ElseIf BitAnd(Flags, &H09) > 0 Then
-		          colorA = Colors.Teal
+		          colorA = Colors.GoldenRod
 		          colorB = Colors.Cyan
-		          colorC = Colors.Cyan
+		          colorC = Colors.GoldenRod
 		        ElseIf BitAnd(Flags, &H02) > 0 Then
 		          colorA = Colors.Silver
 		          colorB = Colors.White
-		          colorC = Colors.White
+		          colorC = Colors.Silver
 		        Else
-		          colorA = Colors.Orange
-		          colorB = Colors.Yellow
-		          colorC = Colors.Yellow
+		          colorA = Colors.GoldenRod
+		          colorB = Colors.Gold
+		          colorC = Colors.GoldenRod
 		        End If
 		      End If
 		      
@@ -1197,9 +1196,9 @@ Protected Module Packets
 		      End If
 		      
 		      If msgName = "TALK" Then
-		        Sock.Config.AddChat(True, colorA, "<", colorB, Username, colorA, "> ", colorC, Text)
+		        Sock.Config.AddChat(True, colorB, Username, colorA, ": ", colorC, Text)
 		      ElseIf msgName = "EMOTE" Then
-		        Sock.Config.AddChat(True, colorA, "<", colorB, Username, colorA, " ", colorC, Text, colorA, ">")
+		        Sock.Config.AddChat(True, colorA, "-- ", colorB, Username, colorA, " ", colorC, Text)
 		      End If
 		    End If
 		    
@@ -1763,7 +1762,7 @@ Protected Module Packets
 		    
 		    If showLine = True Then
 		      For Each Line As String In Split(ReplaceLineEndings(Text, EndOfLine), EndOfLine)
-		        Sock.Config.AddChat(True, Colors.Colors.GoldenRod, Line)
+		        Sock.Config.AddChat(True, Colors.GoldenRod, Line)
 		      Next
 		    End If
 		    
@@ -1807,9 +1806,9 @@ Protected Module Packets
 		        colorB = Colors.White
 		        colorC = Colors.Silver
 		      ElseIf Username = Sock.UniqueName Then
-		        colorA = Colors.GoldenRod
-		        colorB = Colors.Cyan
-		        colorC = Colors.GoldenRod
+		        colorA = Colors.MediumOrchid
+		        colorB = Colors.MediumVioletRed
+		        colorC = Colors.MediumOrchid
 		      Else
 		        colorA = Colors.GoldenRod
 		        colorB = Colors.Gold
