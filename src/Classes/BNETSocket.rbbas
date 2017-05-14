@@ -219,7 +219,10 @@ Inherits TCPSocket
 		    Me.ReconnectTimer.Enabled = Errored
 		    If Me.ReconnectTimer.Enabled = True Then _
 		    Me.Config.AddChat(True, Colors.Cyan, "Reconnecting in " + _
-		    Globals.TimeString(Me.ReconnectTimer.Period / 1000) + "." + EndOfLine)
+		    IIf(Me.ReconnectTimer.Period < 1000, _
+		    Format(Me.ReconnectTimer.Period, "-#") + "ms", _
+		    Globals.TimeString(Me.ReconnectTimer.Period / 1000)) + _
+		    "." + EndOfLine)
 		  End If
 		  
 		  If Me.SendNullTimer <> Nil Then Me.SendNullTimer.Enabled = False
