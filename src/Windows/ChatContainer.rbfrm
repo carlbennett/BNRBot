@@ -566,6 +566,7 @@ End
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //fakejoin <game>  --  Makes Battle.net think you entered a <game>.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //force <channel>  --  Forces you into a <channel>.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //home  --  Forces you into your home channel, otherwise requests a first-join from Battle.net.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //join <channel>  --  Gracefully attempts to join <channel>.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //leave  --  Forces you out of chat; only friends will be able to chat with you.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //lenny [message]  --  Types [message] ( ͡° ͜ʖ ͡°) to the chat.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //ping [username]  --  Pings [username] or yourself if [username] omitted.")
@@ -649,6 +650,20 @@ End
 		        Self.Config.BNET.Send(Packets.CreateSID_JOINCHANNEL(&H5, ProductName(Self.Config.BNET.Product, True)))
 		      Else
 		        Self.Config.BNET.Send(Packets.CreateSID_JOINCHANNEL(&H1, ProductName(Self.Config.BNET.Product, True)))
+		      End If
+		    Else
+		      BNETText = " "
+		    End If
+		    
+		  Case "Join"
+		    
+		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
+		      If Self.Config.BNET.Product <> Packets.BNETProduct_CHAT Then
+		        If LenB(Self.Config.BNET.ChannelName) < 1 Then Self.Config.BNET.ReturnChannel = ""
+		        Self.Config.BNET.Send(Packets.CreateSID_JOINCHANNEL(&H0, Rest))
+		      Else
+		        Self.Config.AddChat(True, Colors.SkyBlue, "Error - //join is only supported on BNET binary protocol.")
+		        BNETText = ""
 		      End If
 		    Else
 		      BNETText = " "
