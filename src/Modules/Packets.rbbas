@@ -1499,6 +1499,20 @@ Protected Module Packets
 		    
 		  End If
 		  
+		  If Sock.TimingForNextChatEvent <> Nil And Sock.TimingForNextChatEvent.Left Then
+		    
+		    // calculate time elapsed
+		    Sock.TimingForNextChatEvent = New Pair(False, Microseconds() - Sock.TimingForNextChatEvent.Right)
+		    
+		    // display it
+		    Sock.Config.AddChat(True, Colors.Gray, "Time from mark to next chat event: ", _
+		    Format((Sock.TimingForNextChatEvent.Right / 1000) - Sock.Ping, "-#.0#") + "ms.")
+		    
+		    // and reset
+		    Sock.TimingForNextChatEvent = Nil
+		    
+		  End If
+		  
 		  Select Case EventID
 		  Case &H01, &H02, &H09
 		    
@@ -1708,12 +1722,20 @@ Protected Module Packets
 		    Sock.ChannelName = Text
 		    Sock.ChannelUsers.Clear()
 		    
+		    #If DebugBuild Then
+		      Sock.TimingForNextChatEvent = New Pair(True, Microseconds())
+		    #EndIf
+		    
 		    If MainWindow.GetSelectedConfig() = Sock.Config Then Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
 		    
 		    Sock.Config.AddChat(True, Colors.LightSeaGreen, "-- Entered channel: ", Colors.Aquamarine, Sock.ChannelName, _
 		    Colors.SlateGray, " (" + Globals.SChannelFlags(Sock.ChannelFlags) + ")")
 		    
 		  Case &H0A
+		    
+		    #If DebugBuild Then
+		      Sock.TimingForNextChatEvent = New Pair(True, Microseconds())
+		    #EndIf
 		    
 		    dTmp = Sock.ChannelUsers.Lookup(Username, Nil)
 		    If dTmp <> Nil Then

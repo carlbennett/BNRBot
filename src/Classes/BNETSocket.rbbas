@@ -329,6 +329,7 @@ Inherits TCPSocket
 		  Me.ServerSignature = ""
 		  Me.ServerToken = 0
 		  Me.Statstring = ""
+		  Me.TimingForNextChatEvent = Nil
 		  Me.UDPCode = 0
 		  Me.UDPCodeSet = False
 		  Me.UDPValue = 0
@@ -652,6 +653,10 @@ Inherits TCPSocket
 
 	#tag Property, Flags = &h0
 		Statstring As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TimingForNextChatEvent As Pair
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
