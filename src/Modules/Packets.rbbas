@@ -2904,6 +2904,11 @@ Protected Module Packets
 		  If LenB(PktData) < 1 Then Return False
 		  
 		  Sock.RequiredWorkMPQ = MemClass.ReadCString(PktData, 1)
+		  
+		  If Sock.Config <> Nil Then
+		    Sock.Config.AddChat(True, Colors.Red, "BNET: Required Work Archive: ", Colors.GoldenRod, Sock.RequiredWorkMPQ)
+		  End If
+		  
 		  Return True
 		  
 		End Function
