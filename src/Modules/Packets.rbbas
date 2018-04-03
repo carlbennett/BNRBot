@@ -1322,7 +1322,7 @@ Protected Module Packets
 		        Sock.Send(Packets.CreateSID_SETEMAIL(Sock.Config.EmailAddress))
 		        
 		        If Sock.Config <> Nil Then
-		          Sock.Config.AddChat(True, Colors.Cyan, "BNET: Binded ", Colors.Teal, Sock.Config.EmailAddress, " to the account.")
+		          Sock.Config.AddChat(True, Colors.Cyan, "BNET: Binded ", Colors.Teal, Sock.Config.EmailAddress, Colors.Cyan, " to the account.")
 		        End If
 		      End If
 		      
