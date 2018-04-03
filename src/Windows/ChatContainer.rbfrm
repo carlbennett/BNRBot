@@ -542,6 +542,14 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub DisplayChatSend(Text As String)
+		  
+		  Config.AddChat( True, Colors.MediumOrchid, Config.BNET.UniqueName, Colors.MediumVioletRed, ": ", Colors.White, Text )
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub HandleChatInput(Text As String)
 		  
 		  Dim Cmd As String = NthField(Text, " ", 1)
@@ -913,12 +921,12 @@ End
 		  If LenB(BNETText) > 0 Then
 		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
 		      
-		      If LeftB(BNETText, 1) <> "/" And Self.Config.BNET.Init6Protocol = False Then
-		        Self.Config.AddChat(True, Colors.Cyan, "<" + Self.Config.BNET.UniqueName + "> ", Colors.White, BNETText)
+		      If Self.Config.EnableUTF8 = True Then
+		        BNETText = ConvertEncoding( BNETText, Encodings.UTF8 )
 		      End If
 		      
-		      If Self.Config.EnableUTF8 = True Then
-		        BNETText = ConvertEncoding(BNETText, Encodings.UTF8)
+		      If LeftB(BNETText, 1) <> "/" And Self.Config.BNET.Init6Protocol = False Then
+		        Self.DisplayChatSend( BNETText )
 		      End If
 		      
 		      If Config.BNET.Product = Packets.BNETProduct_CHAT Then
@@ -2405,7 +2413,7 @@ End
 		    End If
 		    
 		    If Left(Line, 1) <> "/" And Config.BNET.Init6Protocol = False Then
-		      Config.AddChat(True, Colors.MediumOrchid, Config.BNET.UniqueName, Colors.MediumVioletRed, ": ", Colors.White, Line)
+		      Self.DisplayChatSend( Line )
 		      
 		      'Else
 		      'Config.AddChat(True, Colors.SkyBlue, Line + EndOfLine)
