@@ -192,10 +192,8 @@ Protected Module Settings
 		    If Base.Child("W3DM.bin") <> Nil Then Result(3) = Base.Child("W3DM.bin").AbsolutePath
 		    
 		  Case Packets.BNETProduct_WAR3, Packets.BNETProduct_W3XP
-		    If Base.Child("war3.exe") <> Nil Then Result(0) = Base.Child("war3.exe").AbsolutePath
-		    If Base.Child("Storm.dll") <> Nil Then Result(1) = Base.Child("Storm.dll").AbsolutePath
-		    If Base.Child("game.dll") <> Nil Then Result(2) = Base.Child("game.dll").AbsolutePath
-		    Result(3) = ""
+		    If Base.Child("Warcraft III.exe") <> Nil Then Result(0) = Base.Child("Warcraft III.exe").AbsolutePath
+		    Result(1) = ""
 		    
 		  Case Else
 		  End Select
