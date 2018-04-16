@@ -62,27 +62,37 @@ Inherits HTMLViewer
 		    + "Right click the list on the left and choose &quot;Configure&quot;, or <a href=""" _
 		    + "chrome://settings"">click here</a>.</p></section></article>"
 		    
-		    If Settings.FileCheckBNCSUtilDLL = False Or _
-		      Settings.FileCheckCheckRevisionDLL = False Or _
-		      Settings.FileCheckLockdownDLLs = False Or _
-		      Settings.FileCheckVerIX86DLLs = False Or _
-		      Len(Settings.LoadErrors) > 0 Then
+		    If Settings.BNCSUtil = Nil Or Settings.CheckRevDLL = Nil Or Settings.ProductFiles = Nil Or Len( Settings.LoadErrors ) > 0 Then
 		      
-		      source = source + "<article><header class=""red"">Integrity Check Failed</header><section class=""red"">" _
-		      + "<p>Some required files are missing from the bot. Please locate:</p><p><ul>"
+		      source = source + "<article><header class=""red"">Integrity Check Failed</header><section class=""red"">"
 		      
-		      If Settings.FileCheckBNCSUtilDLL = False Then source = source + "<li>" + App.BNCSUtil + "</li>"
-		      If Settings.FileCheckCheckRevisionDLL = False Then source = source + "<li>CheckRevision.dll</li>"
-		      If Settings.FileCheckLockdownDLLs = False Then source = source + "<li>lockdown-IX86-##.dll (one or more are missing)</li>"
-		      If Settings.FileCheckVerIX86DLLs = False Then source = source + "<li>ver-IX86-#.dll (one or more are missing)</li>"
+		      If Settings.BNCSUtil = Nil Or Settings.CheckRevDLL = Nil Or Settings.ProductFiles = Nil Then
+		        source = source + "<p>Some files are missing from the bot:</p><p><ul>"
+		      End If
+		      
+		      If Settings.BNCSUtil = Nil Then
+		        source = source + "<li>" + App.BNCSUtil + "</li>"
+		      End If
+		      
+		      If Settings.CheckRevDLL = Nil Then
+		        source = source + "<li>CheckRevision.dll</li>"
+		      End If
+		      
+		      If Settings.ProductFiles = Nil Then
+		        source = source + "<li>Hashes</li>"
+		      End If
 		      
 		      source = source + "</ul></p>"
 		      
-		      If LenB(Settings.LoadErrors) > 0 Then source = source + "<p>" + ReplaceAll(Settings.LoadErrors, EndOfLine, "<br>") + "</p>"
+		    End If
+		    
+		    If Len( Settings.LoadErrors ) > 0 Then
 		      
-		      source = source + "</section></article>"
+		      source = source + "<p>" + ReplaceAll(Settings.LoadErrors, EndOfLine, "<br>") + "</p>"
 		      
 		    End If
+		    
+		    source = source + "</section></article>"
 		    
 		    source = source + "</main>"
 		    

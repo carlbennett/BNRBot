@@ -3167,7 +3167,7 @@ Protected Module Packets
 		  Dim CRevResult As UInt32
 		  
 		  If FromBNLS = False Then
-		    If Settings.FileCheckCheckRevisionDLL = False Then
+		    If Settings.CheckRevDLL = Nil Or Not Settings.CheckRevDLL.Exists Then
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Error - it appears CheckRevision.dll is missing." + EndOfLine)
 		      Sock.DoDisconnect()
 		      Return False
@@ -3210,7 +3210,7 @@ Protected Module Packets
 		  // Exclude any products that don't use CD-Keys now.
 		  If NeedsKey1 Or NeedsKey2 Then
 		    
-		    If Settings.FileCheckBNCSUtilDLL = False Then
+		    If Settings.BNCSUtil = Nil Or Not Settings.BNCSUtil.Exists Then
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Error - it appears " + App.BNCSUtil + " is missing." + EndOfLine)
 		      Sock.DoDisconnect()
 		      Return False

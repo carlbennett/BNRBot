@@ -249,7 +249,7 @@ Protected Module Globals
 		  Dim sUnused As New MemoryBlock(1)
 		  Dim PathToVideoBin As New MemoryBlock(1)
 		  
-		  Dim Files() As String = Settings.GetHashFiles(Product, DLLName, sDLLPath)
+		  Dim Files() As String = Settings.GetProductFiles( Product, DLLName, sDLLPath )
 		  If UBound(Files) >= 0 Then GameFile1 = Globals.StringToMemory(Files(0))
 		  If UBound(Files) >= 1 Then GameFile2 = Globals.StringToMemory(Files(1))
 		  If UBound(Files) >= 2 Then GameFile3 = Globals.StringToMemory(Files(2))

@@ -50,7 +50,8 @@ Inherits Application
 		  Globals.CreateUserIcons()
 		  Globals.Cookies = New Dictionary()
 		  
-		  Settings.CheckFiles()
+		  Settings.InitCoreFiles()
+		  
 		  Settings.Load(Nil)
 		  
 		  If Settings.PrefCheckForUpdates = True Or DebugBuild = True Then

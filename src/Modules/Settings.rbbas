@@ -17,88 +17,6 @@ Protected Module Settings
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Sub CheckFiles()
-		  
-		  Dim FoundBNCSUtil As Boolean = False
-		  Dim FoundCheckRevisionDLL As Boolean = False
-		  Dim FoundLockdown(19) As Boolean
-		  Dim FoundLockdowns As Boolean = False
-		  Dim FoundVerCheck(7) As Boolean
-		  Dim FoundVerChecks As Boolean = False
-		  
-		  Dim i, j, k As Integer
-		  
-		  Dim Folder As FolderItem
-		  Dim FoldersToCheck() As FolderItem
-		  
-		  Settings.HashFolder = Nil
-		  
-		  #If DebugBuild = True Then
-		    FoldersToCheck.Append(GetFolderItem("").Parent)
-		  #Else
-		    FoldersToCheck.Append(GetFolderItem(""))
-		  #EndIf
-		  
-		  Dim sTmp As String
-		  Dim varPATH() As String = Split(System.EnvironmentVariable("Path"), ";")
-		  For Each sTmp In varPATH
-		    Folder = GetFolderItem(sTmp)
-		    If Folder <> Nil Then FoldersToCheck.Append(Folder)
-		  Next
-		  
-		  For Each Folder In FoldersToCheck
-		    If FoundBNCSUtil = False And Folder <> Nil And Folder.Child(App.BNCSUtil) <> Nil _
-		      And Folder.Child(App.BNCSUtil).Exists = True Then FoundBNCSUtil = True
-		      If FoundCheckRevisionDLL = False And Folder <> Nil And Folder.Child("CheckRevision.dll") <> Nil _
-		        And Folder.Child("CheckRevision.dll").Exists = True Then FoundCheckRevisionDLL = True
-		        If Settings.HashFolder = Nil And Folder <> Nil And Folder.Child("Hashes") <> Nil _
-		          And Folder.Child("Hashes").Exists = True Then Settings.HashFolder = Folder.Child("Hashes")
-		          If FoundBNCSUtil = True And FoundCheckRevisionDLL = True And Settings.HashFolder <> Nil Then Exit For
-		  Next
-		  
-		  ReDim FoldersToCheck(-1)
-		  If Settings.HashFolder <> Nil Then
-		    i = 1
-		    While i < Settings.HashFolder.Count
-		      If Settings.HashFolder.Item(i) <> Nil Then FoldersToCheck.Append(Settings.HashFolder.Item(i))
-		      i = i + 1
-		    Wend
-		  End If
-		  
-		  j = 0
-		  k = 0
-		  For Each Folder In FoldersToCheck
-		    If Left(Folder.Name, 14) = "lockdown-IX86-" And Right(Folder.Name, 4) = ".dll" Then
-		      i = Val(Mid(Folder.Name, 15, Len(Folder.Name) - 18))
-		      If i >= 00 And i <= UBound(FoundLockdown) Then
-		        FoundLockdown(i) = True
-		        j = j + 1
-		      End If
-		    End If
-		    If Left(Folder.Name, 9) = "ver-IX86-" And Right(Folder.Name, 4) = ".dll" Then
-		      i = Val(Mid(Folder.Name, 10, Len(Folder.Name) - 18))
-		      If i >= 0 And i <= UBound(FoundVerCheck) Then
-		        FoundVerCheck(i) = True
-		        k = k + 1
-		      End If
-		    End If
-		    If j > UBound(FoundLockdown) And k > UBound(FoundVerCheck) Then Exit For
-		  Next
-		  FoundLockdowns = (j > UBound(FoundLockdown))
-		  FoundVerChecks = (k > UBound(FoundVerCheck))
-		  
-		  // We're finally done checking every file, except for the true hash files (we only
-		  // checked for the Hashes folder, not each individual hash folder plus files).
-		  
-		  Settings.FileCheckBNCSUtilDLL = FoundBNCSUtil
-		  Settings.FileCheckCheckRevisionDLL = FoundCheckRevisionDLL
-		  Settings.FileCheckLockdownDLLs = FoundLockdowns
-		  Settings.FileCheckVerIX86DLLs = FoundVerChecks
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
 		Protected Function CreateFile(File As FolderItem, DefaultData As String) As Boolean
 		  
 		  If File = Nil Then Return False
@@ -114,17 +32,17 @@ Protected Module Settings
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Function GetHashFiles(Product As UInt32, DLLName As String, ByRef sPathToDLL As String) As String()
+		Protected Function GetProductFiles(Product As UInt32, DLLName As String, ByRef sPathToDLL As String) As String()
 		  
 		  Dim Result(3) As String
 		  Dim iProduct As UInt32 = Product
 		  
-		  If Settings.HashFolder = Nil Then Settings.CheckFiles()
-		  If Settings.HashFolder = Nil Then Return Result
+		  If Settings.ProductFiles = Nil Then Settings.InitCoreFiles()
+		  If Settings.ProductFiles = Nil Then Return Result
 		  
 		  If LenB(DLLName) > 0 Then
 		    Dim Extension As String = NthField(DLLName, ".", CountFields(DLLName, "."))
-		    sPathToDLL = Settings.HashFolder.Child(Left(DLLName, Len(DLLName) - Len(Extension)) + "dll").AbsolutePath
+		    sPathToDLL = Settings.ProductFiles.Child(Left(DLLName, Len(DLLName) - Len(Extension)) + "dll").AbsolutePath
 		  End If
 		  
 		  If iProduct = Packets.BNETProduct_SEXP Then iProduct = Packets.BNETProduct_STAR
@@ -135,7 +53,7 @@ Protected Module Settings
 		  If ChrSearchB(sProduct, "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", False) = False Then _
 		  sProduct = MemClass.HexPrefix(iProduct, "0x", 8)
 		  
-		  Dim Base As FolderItem = Settings.HashFolder.Child(sProduct)
+		  Dim Base As FolderItem = Settings.ProductFiles.Child(sProduct)
 		  
 		  If Base = Nil Then Return Result
 		  If Base.Directory = False Then Return Result
@@ -203,6 +121,68 @@ Protected Module Settings
 		  Return Result
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub InitCoreFiles()
+		  
+		  // **objective:**
+		  // check debug work dir
+		  // check non-debug work dir
+		  // check path env var
+		  // find bncsutil
+		  // find checkrev dll
+		  // find hashes
+		  
+		  Dim fileIterator, fileIterator2, fileObjects() As FolderItem
+		  Dim s, strings() As String
+		  
+		  // collect file objects
+		  
+		  #If DebugBuild Then
+		    fileObjects.Append( App.ExecutableFile.Parent.Parent.Child( "bin" ))
+		  #EndIf
+		  
+		  fileObjects.Append( App.ExecutableFile.Parent )
+		  fileObjects.Append( App.ExecutableFile.Parent.Parent )
+		  
+		  strings = Split( System.EnvironmentVariable( "PATH" ), ";" )
+		  
+		  For Each s In strings
+		    fileIterator = GetFolderItem( s )
+		    If fileIterator <> Nil And fileIterator.Exists Then
+		      fileObjects.Append( fileIterator )
+		    End If
+		  Next
+		  
+		  // scan file object list
+		  
+		  For Each fileIterator In fileObjects
+		    
+		    If fileIterator = Nil Then Continue For
+		    If Not fileIterator.Exists Then Continue For
+		    
+		    If Not fileIterator.Directory Then
+		      
+		      If Settings.BNCSUtil = Nil And fileIterator.Name = App.BNCSUtil Then Settings.BNCSUtil = fileIterator
+		      If Settings.CheckRevDLL = Nil And fileIterator.Name = "CheckRevision.dll" Then Settings.CheckRevDLL = fileIterator
+		      
+		    Else
+		      
+		      fileIterator2 = fileIterator.Child( App.BNCSUtil )
+		      If Settings.BNCSUtil = Nil And fileIterator2 <> Nil And fileIterator2.Exists Then Settings.BNCSUtil = fileIterator2
+		      
+		      fileIterator2 = fileIterator.Child( "CheckRevision.dll" )
+		      If Settings.CheckRevDLL = Nil And fileIterator2 <> Nil And fileIterator2.Exists Then Settings.CheckRevDLL = fileIterator2
+		      
+		      fileIterator2 = fileIterator.Child( "Hashes" )
+		      If Settings.ProductFiles = Nil And fileIterator2 <> Nil And fileIterator2.Exists Then Settings.ProductFiles = fileIterator2
+		      
+		    End If
+		    
+		  Next
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
@@ -737,28 +717,16 @@ Protected Module Settings
 	#tag EndMethod
 
 
+	#tag Property, Flags = &h1
+		Protected BNCSUtil As FolderItem
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected CheckRevDLL As FolderItem
+	#tag EndProperty
+
 	#tag Property, Flags = &h0
 		Configurations() As Configuration
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected FileCheckBNCSUtilDLL As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected FileCheckCheckRevisionDLL As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected FileCheckLockdownDLLs As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected FileCheckVerIX86DLLs As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected HashFolder As FolderItem
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
@@ -783,6 +751,10 @@ Protected Module Settings
 
 	#tag Property, Flags = &h1
 		Protected PrefPingRangesFlushRight As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected ProductFiles As FolderItem
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
