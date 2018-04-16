@@ -34,11 +34,11 @@ Protected Module Settings
 	#tag Method, Flags = &h1
 		Protected Function GetProductFiles(Product As UInt32, DLLName As String, ByRef sPathToDLL As String) As String()
 		  
-		  Dim Result(3) As String
+		  Dim Results() As String
 		  Dim iProduct As UInt32 = Product
 		  
 		  If Settings.ProductFiles = Nil Then Settings.InitCoreFiles()
-		  If Settings.ProductFiles = Nil Then Return Result
+		  If Settings.ProductFiles = Nil Then Return Results
 		  
 		  If LenB(DLLName) > 0 Then
 		    Dim Extension As String = NthField(DLLName, ".", CountFields(DLLName, "."))
@@ -55,68 +55,66 @@ Protected Module Settings
 		  
 		  Dim Base As FolderItem = Settings.ProductFiles.Child(sProduct)
 		  
-		  If Base = Nil Then Return Result
-		  If Base.Directory = False Then Return Result
+		  If Base = Nil Then Return Results
+		  If Base.Directory = False Then Return Results
 		  If Base.Exists = False Then
 		    Base.CreateAsFolder()
-		    Return Result
+		    Return Results
 		  End If
 		  
 		  Select Case iProduct
 		  Case Packets.BNETProduct_D2DV, Packets.BNETProduct_D2XP
-		    If Base.Child("Game.exe") <> Nil Then Result(0) = Base.Child("Game.exe").AbsolutePath
-		    Result(1) = ""
+		    If Base.Child("Game.exe") <> Nil Then Results.Append( Base.Child("Game.exe").AbsolutePath )
 		    
 		  Case Packets.BNETProduct_DRTL
-		    If Base.Child("Diablo.exe") <> Nil Then Result(0) = Base.Child("Diablo.exe").AbsolutePath
-		    If Base.Child("Storm.dll") <> Nil Then Result(1) = Base.Child("Storm.dll").AbsolutePath
-		    If Base.Child("Battle.snp") <> Nil Then Result(2) = Base.Child("Battle.snp").AbsolutePath
-		    If Base.Child("DRTL.bin") <> Nil Then Result(3) = Base.Child("DRTL.bin").AbsolutePath
+		    If Base.Child("Diablo.exe") <> Nil Then Results.Append( Base.Child("Diablo.exe").AbsolutePath )
+		    If Base.Child("Storm.dll") <> Nil Then Results.Append( Base.Child("Storm.dll").AbsolutePath )
+		    If Base.Child("Battle.snp") <> Nil Then Results.Append( Base.Child("Battle.snp").AbsolutePath )
+		    If Base.Child("DRTL.bin") <> Nil Then Results.Append( Base.Child("DRTL.bin").AbsolutePath )
 		    
 		  Case Packets.BNETProduct_DSHR
-		    If Base.Child("Diablo_s.exe") <> Nil Then Result(0) = Base.Child("Diablo_s.exe").AbsolutePath
-		    If Base.Child("Storm.dll") <> Nil Then Result(1) = Base.Child("Storm.dll").AbsolutePath
-		    If Base.Child("Battle.snp") <> Nil Then Result(2) = Base.Child("Battle.snp").AbsolutePath
-		    If Base.Child("DSHR.bin") <> Nil Then Result(3) = Base.Child("DSHR.bin").AbsolutePath
+		    If Base.Child("Diablo_s.exe") <> Nil Then Results.Append( Base.Child("Diablo_s.exe").AbsolutePath )
+		    If Base.Child("Storm.dll") <> Nil Then Results.Append( Base.Child("Storm.dll").AbsolutePath )
+		    If Base.Child("Battle.snp") <> Nil Then Results.Append( Base.Child("Battle.snp").AbsolutePath )
+		    If Base.Child("DSHR.bin") <> Nil Then Results.Append( Base.Child("DSHR.bin").AbsolutePath )
 		    
 		  Case Packets.BNETProduct_JSTR
-		    If Base.Child("StarcraftJ.exe") <> Nil Then Result(0) = Base.Child("StarcraftJ.exe").AbsolutePath
-		    If Base.Child("Storm.dll") <> Nil Then Result(1) = Base.Child("Storm.dll").AbsolutePath
-		    If Base.Child("Battle.snp") <> Nil Then Result(2) = Base.Child("Battle.snp").AbsolutePath
-		    If Base.Child("JSTR.bin") <> Nil Then Result(3) = Base.Child("JSTR.bin").AbsolutePath
+		    If Base.Child("StarcraftJ.exe") <> Nil Then Results.Append( Base.Child("StarcraftJ.exe").AbsolutePath )
+		    If Base.Child("Storm.dll") <> Nil Then Results.Append( Base.Child("Storm.dll").AbsolutePath )
+		    If Base.Child("Battle.snp") <> Nil Then Results.Append( Base.Child("Battle.snp").AbsolutePath )
+		    If Base.Child("JSTR.bin") <> Nil Then Results.Append( Base.Child("JSTR.bin").AbsolutePath )
 		    
 		  Case Packets.BNETProduct_SSHR
-		    If Base.Child("Starcraft_s.exe") <> Nil Then Result(0) = Base.Child("Starcraft_s.exe").AbsolutePath
-		    If Base.Child("Storm.dll") <> Nil Then Result(1) = Base.Child("Storm.dll").AbsolutePath
-		    If Base.Child("Battle.snp") <> Nil Then Result(2) = Base.Child("Battle.snp").AbsolutePath
-		    If Base.Child("SSHR.bin") <> Nil Then Result(3) = Base.Child("SSHR.bin").AbsolutePath
+		    If Base.Child("Starcraft_s.exe") <> Nil Then Results.Append( Base.Child("Starcraft_s.exe").AbsolutePath )
+		    If Base.Child("Storm.dll") <> Nil Then Results.Append( Base.Child("Storm.dll").AbsolutePath )
+		    If Base.Child("Battle.snp") <> Nil Then Results.Append( Base.Child("Battle.snp").AbsolutePath )
+		    If Base.Child("SSHR.bin") <> Nil Then Results.Append( Base.Child("SSHR.bin").AbsolutePath )
 		    
 		  Case Packets.BNETProduct_STAR, Packets.BNETProduct_SEXP
-		    If Base.Child("Starcraft.exe") <> Nil Then Result(0) = Base.Child("Starcraft.exe").AbsolutePath
-		    If Base.Child("Storm.dll") <> Nil Then Result(1) = Base.Child("Storm.dll").AbsolutePath
-		    If Base.Child("Battle.snp") <> Nil Then Result(2) = Base.Child("Battle.snp").AbsolutePath
-		    If Base.Child("STAR.bin") <> Nil Then Result(3) = Base.Child("STAR.bin").AbsolutePath
+		    If Base.Child("Starcraft.exe") <> Nil Then Results.Append( Base.Child("Starcraft.exe").AbsolutePath )
+		    If Base.Child("Storm.dll") <> Nil Then Results.Append( Base.Child("Storm.dll").AbsolutePath )
+		    If Base.Child("Battle.snp") <> Nil Then Results.Append( Base.Child("Battle.snp").AbsolutePath )
+		    If Base.Child("STAR.bin") <> Nil Then Results.Append( Base.Child("STAR.bin").AbsolutePath )
 		    
 		  Case Packets.BNETProduct_W2BN
-		    If Base.Child("Warcraft II BNE.exe") <> Nil Then Result(0) = Base.Child("Warcraft II BNE.exe").AbsolutePath
-		    If Base.Child("Storm.dll") <> Nil Then Result(1) = Base.Child("Storm.dll").AbsolutePath
-		    If Base.Child("Battle.snp") <> Nil Then Result(2) = Base.Child("Battle.snp").AbsolutePath
-		    If Base.Child("W2BN.bin") <> Nil Then Result(3) = Base.Child("W2BN.bin").AbsolutePath
+		    If Base.Child("Warcraft II BNE.exe") <> Nil Then Results.Append( Base.Child("Warcraft II BNE.exe").AbsolutePath )
+		    If Base.Child("Storm.dll") <> Nil Then Results.Append( Base.Child("Storm.dll").AbsolutePath )
+		    If Base.Child("Battle.snp") <> Nil Then Results.Append( Base.Child("Battle.snp").AbsolutePath )
+		    If Base.Child("W2BN.bin") <> Nil Then Results.Append( Base.Child("W2BN.bin").AbsolutePath )
 		    
 		  Case Packets.BNETProduct_W3DM
-		    If Base.Child("War3Demo.exe") <> Nil Then Result(0) = Base.Child("War3Demo.exe").AbsolutePath
-		    If Base.Child("Storm.dll") <> Nil Then Result(1) = Base.Child("Storm.dll").AbsolutePath
-		    If Base.Child("Game.dll") <> Nil Then Result(2) = Base.Child("Game.dll").AbsolutePath
-		    If Base.Child("W3DM.bin") <> Nil Then Result(3) = Base.Child("W3DM.bin").AbsolutePath
+		    If Base.Child("War3Demo.exe") <> Nil Then Results.Append(  Base.Child("War3Demo.exe").AbsolutePath )
+		    If Base.Child("Storm.dll") <> Nil Then Results.Append( Base.Child("Storm.dll").AbsolutePath )
+		    If Base.Child("Game.dll") <> Nil Then Results.Append( Base.Child("Game.dll").AbsolutePath )
+		    If Base.Child("W3DM.bin") <> Nil Then Results.Append( Base.Child("W3DM.bin").AbsolutePath )
 		    
 		  Case Packets.BNETProduct_WAR3, Packets.BNETProduct_W3XP
-		    If Base.Child("Warcraft III.exe") <> Nil Then Result(0) = Base.Child("Warcraft III.exe").AbsolutePath
-		    Result(1) = ""
+		    If Base.Child("Warcraft III.exe") <> Nil Then Results.Append( Base.Child("Warcraft III.exe").AbsolutePath )
 		    
 		  Case Else
 		  End Select
 		  
-		  Return Result
+		  Return Results
 		  
 		End Function
 	#tag EndMethod

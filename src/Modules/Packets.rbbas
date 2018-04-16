@@ -3178,7 +3178,7 @@ Protected Module Packets
 		    
 		    If CRevResult = &H0 Then
 		      // Invalid check revision
-		      Sock.Config.AddChat(True, Colors.Red, "BNET: CheckRevision() failed." + EndOfLine)
+		      Sock.Config.AddChat(True, Colors.Red, "BNET: CheckRevision.dll failed. Use BNLS or update local hashes." + EndOfLine)
 		      Sock.DoDisconnect(False)
 		      Return False
 		    End If
