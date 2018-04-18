@@ -126,7 +126,7 @@ Begin ContainerControl ChatContainer
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   328
+      Height          =   314
       HelpTag         =   ""
       HideSelection   =   True
       Index           =   -2147483648
@@ -155,7 +155,7 @@ Begin ContainerControl ChatContainer
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   0
+      Top             =   14
       Underline       =   ""
       UseFocusRing    =   True
       Visible         =   True
@@ -187,6 +187,40 @@ Begin ContainerControl ChatContainer
       UseFocusRing    =   True
       Visible         =   True
       Width           =   10
+   End
+   Begin Label UIAlphaLabel
+      AutoDeactivate  =   True
+      Bold            =   True
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   14
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   0
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   ""
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      Text            =   "USER INTERFACE ALPHA"
+      TextAlign       =   1
+      TextColor       =   &h000000
+      TextFont        =   "Arial"
+      TextSize        =   11
+      TextUnit        =   0
+      Top             =   0
+      Transparent     =   True
+      Underline       =   ""
+      Visible         =   True
+      Width           =   370
    End
 End
 #tag EndWindow
