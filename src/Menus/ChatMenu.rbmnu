@@ -118,6 +118,15 @@ Begin Menu ChatMenu
          MenuModifier = True
          AutoEnable = True
       End
+      Begin ProfilesMenuItem EditProfileManager
+         SpecialMenu = 0
+         Text = "&Profile Manager"
+         Index = -2147483648
+         ShortcutKey = "P"
+         Shortcut = "Cmd+P"
+         MenuModifier = True
+         AutoEnable = True
+      End
    End
    Begin MenuItem WindowMenu
       SpecialMenu = 0

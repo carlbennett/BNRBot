@@ -11,12 +11,12 @@ Begin Window GameKeysWindow
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
-   MaxHeight       =   266
+   MaxHeight       =   286
    MaximizeButton  =   False
    MaxWidth        =   32000
    MenuBar         =   ""
    MenuBarVisible  =   True
-   MinHeight       =   266
+   MinHeight       =   286
    MinimizeButton  =   True
    MinWidth        =   432
    Placement       =   0
