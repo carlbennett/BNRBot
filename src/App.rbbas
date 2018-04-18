@@ -535,6 +535,47 @@ Inherits Application
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function UserChoice(titleString As String = "", promptString As String = "", detailsString As String = "", actionButtonCaption As String = "&OK", cancelButtonCaption As String = "&Cancel", expireSeconds As Integer = 0) As Integer
+		  
+		  Dim w As New ChoiceWindow()
+		  
+		  If Len( titleString ) > 0 Then w.Title = titleString
+		  If Len( promptString ) > 0 Then w.TitleLabel.Text = promptString
+		  If Len( detailsString ) > 0 Then w.DetailsLabel.Text = detailsString
+		  
+		  If Len( actionButtonCaption ) > 0 Then w.ActionButtonCtl.Caption = actionButtonCaption
+		  If Len( cancelButtonCaption ) > 0 Then w.CancelButtonCtl.Caption = cancelButtonCaption
+		  
+		  If expireSeconds > 0 Then w.ExpireAfter( expireSeconds )
+		  
+		  w.ShowModal()
+		  
+		  Dim button As PushButton
+		  Dim result As Integer
+		  
+		  button = w.UserChoseButton
+		  
+		  If ( button = Nil ) Then
+		    result = App.UserChoiceClose
+		  ElseIf ( button = w.CancelButtonCtl ) Then
+		    result = App.UserChoiceCancel
+		  ElseIf ( button = w.ActionButtonCtl ) Then
+		    result = App.UserChoiceAction
+		  End If
+		  
+		  w.Close()
+		  
+		  Logger.WriteLine( True, "User choice dialog: Title=""" + titleString + """ Prompt=""" + promptString + """ " _
+		  + "Details=""" + ReplaceAll( ReplaceAll( detailsString, Chr(10), "\n" ), Chr(13), "\r" ) + """ " _
+		  + "ActionString=""" + actionButtonCaption + """ CancelString=""" + cancelButtonCaption + """ " _
+		  + "Expire=" + Format( expireSeconds, "-#" ) + " Result=" + Format( result, "-#" ))
+		  
+		  Return result
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function VersionString() As String
 		  
 		  Dim verstr As String
@@ -565,10 +606,6 @@ Inherits Application
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		gameKeys() As GameKey
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
 		trigger As String
 	#tag EndProperty
 
@@ -590,6 +627,15 @@ Inherits Application
 		#Tag Instance, Platform = Mac OS, Language = Default, Definition  = \"Cmd+Q"
 		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"Ctrl+Q"
 		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"Ctrl+Q"
+	#tag EndConstant
+
+	#tag Constant, Name = UserChoiceAction, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = UserChoiceCancel, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = UserChoiceClose, Type = Double, Dynamic = False, Default = \"0", Scope = Public
 	#tag EndConstant
 
 
