@@ -315,6 +315,7 @@ End
 		  
 		  Me.Direction = SizeGripControl.DirectionType.Vertical
 		  
+		  Me.Attach(Self.UIAlphaLabel)
 		  Me.Attach(Self.ChatOutput)
 		  Me.Attach(Self.UserView)
 		  
@@ -326,6 +327,10 @@ End
 		  #pragma Unused dY
 		  
 		  Select Case c
+		  Case Self.UIAlphaLabel
+		    
+		    c.Width = c.Width + dX
+		    
 		  Case Self.ChatOutput
 		    
 		    c.Width = c.Width + dX
