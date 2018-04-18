@@ -32,6 +32,9 @@ Inherits Canvas
 		  deltaY = (Y - Me.mLockY)
 		  If deltaX = 0 And deltaY = 0 Then Return
 		  
+		  If Me.mDirection = SizeGripControl.DirectionType.Vertical And ( Me.Left + deltaX < 0 Or Me.Left + deltaX > Me.Window.Width - Me.Width ) Then Return
+		  If Me.mDirection = SizeGripControl.DirectionType.Horizontal And ( Me.Top + deltaY < 0 Or Me.Top + deltaY > Me.Window.Height - Me.Height ) Then Return
+		  
 		  Dim temp(3) As Integer
 		  
 		  For Each c As RectControl In Me.attachments()
