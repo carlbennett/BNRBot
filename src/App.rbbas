@@ -88,7 +88,11 @@ Inherits Application
 		  c.Top  = REALbasic.Screen(0).Top  + REALbasic.Screen(0).Height / 2 - c.Height / 2
 		  c.Show()
 		  
-		  //c.AddClient()
+		  Dim cl As New BNETClient()
+		  
+		  cl.config = profile
+		  
+		  c.AddClient( cl, True )
 		  
 		End Sub
 	#tag EndEvent
