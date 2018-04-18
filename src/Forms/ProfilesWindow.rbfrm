@@ -24,39 +24,111 @@ Begin Window ProfilesWindow
    Title           =   "Profile Manager"
    Visible         =   True
    Width           =   548
-   Begin Label TodoLabel
+   Begin PagePanel Profiles
       AutoDeactivate  =   True
-      Bold            =   True
-      DataField       =   ""
-      DataSource      =   ""
       Enabled         =   True
-      Height          =   20
+      Height          =   203
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Italic          =   ""
-      Left            =   224
+      Left            =   0
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      Multiline       =   ""
+      PanelCount      =   2
+      Panels          =   ""
       Scope           =   0
-      Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      Text            =   "TODO"
-      TextAlign       =   1
-      TextColor       =   &h000000
+      Top             =   0
+      Value           =   0
+      Visible         =   True
+      Width           =   548
+   End
+   Begin Separator Separators
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   4
+      HelpTag         =   ""
+      Index           =   0
+      InitialParent   =   ""
+      Left            =   12
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   230
+      Visible         =   True
+      Width           =   522
+   End
+   Begin PushButton SaveButton
+      AutoDeactivate  =   True
+      Bold            =   ""
+      ButtonStyle     =   0
+      Cancel          =   ""
+      Caption         =   "&Save"
+      Default         =   True
+      Enabled         =   True
+      Height          =   24
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   454
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
       TextFont        =   "Arial"
-      TextSize        =   14
+      TextSize        =   12
       TextUnit        =   0
-      Top             =   133
-      Transparent     =   False
+      Top             =   248
       Underline       =   ""
       Visible         =   True
-      Width           =   100
+      Width           =   80
+   End
+   Begin PushButton CancelButton
+      AutoDeactivate  =   True
+      Bold            =   ""
+      ButtonStyle     =   0
+      Cancel          =   True
+      Caption         =   "&Cancel"
+      Default         =   False
+      Enabled         =   True
+      Height          =   24
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   362
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   248
+      Underline       =   ""
+      Visible         =   True
+      Width           =   80
    End
 End
 #tag EndWindow
@@ -64,3 +136,22 @@ End
 #tag WindowCode
 #tag EndWindowCode
 
+#tag Events SaveButton
+	#tag Event
+		Sub Action()
+		  
+		  Self.Resave()
+		  Self.Close()
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CancelButton
+	#tag Event
+		Sub Action()
+		  
+		  Self.Close()
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
