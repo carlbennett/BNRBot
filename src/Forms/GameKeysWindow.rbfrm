@@ -625,11 +625,11 @@ End
 		  Self.KeyList.DeleteAllRows()
 		  
 		  Dim i As Integer = 0
-		  Dim j As Integer = App.gameKeys.Ubound
+		  Dim j As Integer = App.config.gameKeys.Ubound
 		  
 		  While i <= j
-		    Self.KeyList.AddRow(App.gameKeys(i).KeyString())
-		    Self.KeyList.CellTag(Self.KeyList.LastIndex, 0) = App.gameKeys(i)
+		    Self.KeyList.AddRow(App.config.gameKeys(i).KeyString())
+		    Self.KeyList.CellTag(Self.KeyList.LastIndex, 0) = App.config.gameKeys(i)
 		    i = i + 1
 		  Wend
 		  
@@ -639,15 +639,21 @@ End
 	#tag Method, Flags = &h1
 		Protected Sub Resave()
 		  
-		  ReDim App.gameKeys(-1)
+		  ReDim App.config.gameKeys(-1)
 		  
 		  Dim i As Integer = 0
 		  Dim j As Integer = Self.KeyList.ListCount - 1
 		  
 		  While i <= j
-		    App.gameKeys.Append(Self.KeyList.CellTag(i, 0))
+		    App.config.gameKeys.Append(Self.KeyList.CellTag(i, 0))
 		    i = i + 1
 		  Wend
+		  
+		  Try
+		    App.config.SaveKeys()
+		  Catch err As NilObjectException
+		    Logger.WriteLine(True, "Unable to save keys [NilObjectException]")
+		  End Try
 		  
 		End Sub
 	#tag EndMethod

@@ -49,6 +49,43 @@ Protected Class ConfigurationFactory
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Sub DigestStream(stream As TextInputStream, fileName As String)
+		  
+		  Dim fileNameType As String = NthField( fileName, ".", CountFields( fileName, "." ))
+		  Dim fileNameSection As String = Left( fileName, Len( fileName ) - Len( fileNameType ) - 1 )
+		  
+		  Logger.WriteLine( True, "Format section is [" + fileNameSection + "] of type [" + fileNameType + "]" )
+		  
+		  Select Case fileNameSection
+		  Case "Keys"
+		    Me.DigestStreamKeys( stream, fileNameType )
+		    
+		  Case Else
+		    Logger.WriteLine( True, "Unrecognized format section [" + fileNameSection + "]" )
+		    
+		  End Select
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DigestStreamKeys(stream As TextInputStream, fileType As String)
+		  
+		  If fileType <> "txt" Then
+		    Logger.WriteLine( True, "Unrecognized keys format type [" + fileType + "]" )
+		    Return
+		  End If
+		  
+		  ReDim Me.gameKeys( -1 )
+		  
+		  While Not stream.EOF()
+		    Me.gameKeys.Append( New GameKey( stream.ReadLine() ))
+		  Wend
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Sub DigestStreamV0(stream As BinaryStream)
 		  
 		  Do Until stream.EOF()
@@ -352,6 +389,7 @@ Protected Class ConfigurationFactory
 		  
 		  Logger.Write(True, "Configurations=" + Format(UBound(Me.profiles) + 1, "-#") + " ")
 		  If Me.globalConfig = Nil Then Logger.Write(False, "GlobalConfig=0 ") Else Logger.Write(False, "GlobalConfig=1 ")
+		  Logger.Write(False, "Keys=" + Format(UBound(Me.gameKeys) + 1, "-#") + " ")
 		  Logger.Write(False, "MessageBlacklist=" + Format(UBound(Me.messageBlacklist) + 1, "-#") + " ")
 		  Logger.Write(False, "PingRanges=" + Format(UBound(Me.pingRanges) + 1, "-#"))
 		  Logger.WriteLine(False, "")
@@ -376,16 +414,33 @@ Protected Class ConfigurationFactory
 		  
 		  Logger.WriteLine(True, "Opening file [" + file.AbsolutePath + "]...")
 		  
-		  Dim stream As BinaryStream = BinaryStream.Open(file, False)
-		  
-		  If stream = Nil Or stream.LastErrorCode <> 0 Then
-		    Logger.WriteLine(True, "Failed to open [" + file.AbsolutePath + "] due to stream error " + Format(stream.LastErrorCode, "-#"))
-		    Return
+		  If NthField( file.AbsolutePath, ".", CountFields( file.AbsolutePath, "." )) = "txt" Then
+		    
+		    Dim stream As TextInputStream = TextInputStream.Open( file )
+		    
+		    If stream = Nil Or stream.LastErrorCode <> 0 Then
+		      Logger.WriteLine(True, "Failed to open [" + file.AbsolutePath + "] due to stream error " + Format( stream.LastErrorCode, "-#" ))
+		      Return
+		    End If
+		    
+		    Me.DigestStream( stream, file.Name )
+		    
+		    stream.Close()
+		    
+		  Else
+		    
+		    Dim stream As BinaryStream = BinaryStream.Open( file, False )
+		    
+		    If stream = Nil Or stream.LastErrorCode <> 0 Then
+		      Logger.WriteLine(True, "Failed to open [" + file.AbsolutePath + "] due to stream error " + Format( stream.LastErrorCode, "-#" ))
+		      Return
+		    End If
+		    
+		    Me.DigestStream( stream )
+		    
+		    stream.Close()
+		    
 		  End If
-		  
-		  Me.DigestStream(stream)
-		  
-		  stream.Close()
 		  
 		End Sub
 	#tag EndMethod
@@ -437,6 +492,7 @@ Protected Class ConfigurationFactory
 		    #If DebugBuild Then
 		      Me.AddFile(App.ExecutableFile.Parent.Parent.Child(App.ProjectName() + ".dat"))
 		      Me.AddFile(App.ExecutableFile.Parent.Parent.Parent.Child(App.ProjectName() + ".dat"))
+		      Me.AddFile(App.ExecutableFile.Parent.Parent.Parent.Child("etc").Child("Keys.txt"))
 		    #EndIf
 		    
 		  Catch error As NilObjectException
@@ -448,6 +504,38 @@ Protected Class ConfigurationFactory
 		  ReDim Me.messageBlacklist(-1)
 		  
 		  ReDim Me.pingRanges(-1)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SaveKeys()
+		  
+		  Dim fileIterator As FolderItem
+		  
+		  For Each fileIterator In Me.files
+		    If fileIterator <> Nil And fileIterator.Name = "Keys.txt" Then Exit For
+		  Next
+		  
+		  If fileIterator = Nil Then
+		    Logger.WriteLine( True, "File object is null when trying to save keys" )
+		    Raise New BotException("File object is null")
+		  End If
+		  
+		  Dim stream As TextOutputStream = TextOutputStream.Create( fileIterator )
+		  
+		  If stream = Nil Then
+		    Logger.WriteLine( True, "Stream object is null for [" + fileIterator.AbsolutePath + "]" )
+		    Raise New BotException("Stream object is null", stream.LastErrorCode)
+		  End If
+		  
+		  For Each key As GameKey In Me.gameKeys
+		    stream.WriteLine( key.KeyString() )
+		  Next
+		  
+		  stream.Close()
+		  
+		  Logger.WriteLine( True, "Saved [" + Format( UBound( Me.gameKeys ) + 1, "-#" ) + "] keys to [" + fileIterator.AbsolutePath + "]" )
 		  
 		End Sub
 	#tag EndMethod
@@ -473,6 +561,10 @@ Protected Class ConfigurationFactory
 
 	#tag Property, Flags = &h0
 		files() As FolderItem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		gameKeys() As GameKey
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
