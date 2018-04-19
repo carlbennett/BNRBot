@@ -27,11 +27,11 @@ Begin Window ProfilesWindow
    Begin PagePanel Pages
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   317
+      Height          =   344
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   180
+      Left            =   182
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -45,7 +45,7 @@ Begin Window ProfilesWindow
       Top             =   0
       Value           =   1
       Visible         =   True
-      Width           =   510
+      Width           =   508
       Begin Label NoProfileLabels
          AutoDeactivate  =   True
          Bold            =   True
@@ -57,7 +57,7 @@ Begin Window ProfilesWindow
          Index           =   0
          InitialParent   =   "Pages"
          Italic          =   ""
-         Left            =   180
+         Left            =   182
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   True
@@ -74,11 +74,11 @@ Begin Window ProfilesWindow
          TextFont        =   "Arial"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   113
+         Top             =   161
          Transparent     =   True
          Underline       =   ""
          Visible         =   True
-         Width           =   510
+         Width           =   508
       End
       Begin Label NoProfileLabels
          AutoDeactivate  =   True
@@ -91,7 +91,7 @@ Begin Window ProfilesWindow
          Index           =   1
          InitialParent   =   "Pages"
          Italic          =   ""
-         Left            =   180
+         Left            =   182
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   True
@@ -108,11 +108,11 @@ Begin Window ProfilesWindow
          TextFont        =   "Arial"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   129
+         Top             =   177
          Transparent     =   True
          Underline       =   ""
          Visible         =   True
-         Width           =   510
+         Width           =   508
       End
       Begin GroupBox ProfileAliasGroupCtl
          AutoDeactivate  =   True
@@ -835,7 +835,7 @@ Begin Window ProfilesWindow
             TabStop         =   True
             Text            =   ""
             TextColor       =   &h000000
-            TextFont        =   "Arial"
+            TextFont        =   "Courier New"
             TextSize        =   12
             TextUnit        =   0
             Top             =   166
@@ -1274,6 +1274,7 @@ End
 		  If Self.ProfileListCtl.ListCount > 0 Then
 		    Self.ProfileListCtl.ListIndex = 0
 		  Else
+		    Self.Pages.Value = 0
 		    Self.CreateButtonCtl.SetFocus()
 		  End If
 		  
