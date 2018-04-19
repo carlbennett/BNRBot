@@ -346,6 +346,8 @@ End
 		  
 		  drag.PrivateRawData( DragNDropTypes.ChatContainer ) = buffer
 		  
+		  Return True
+		  
 		End Function
 	#tag EndEvent
 #tag EndEvents
