@@ -74,25 +74,12 @@ Inherits Application
 		    
 		  End If
 		  
-		  Dim profile As Configuration = Me.ConnectProfile()
-		  
-		  If profile = Nil Then
-		    REALbasic.Quit()
-		    Return
-		  End If
-		  
 		  Dim c As New ChatWindow()
 		  
 		  c.Hide()
 		  c.Left = REALbasic.Screen(0).Left + REALbasic.Screen(0).Width  / 2 - c.Width  / 2
 		  c.Top  = REALbasic.Screen(0).Top  + REALbasic.Screen(0).Height / 2 - c.Height / 2
 		  c.Show()
-		  
-		  Dim cl As New BNETClient()
-		  
-		  cl.config = profile
-		  
-		  c.AddClient( cl, True )
 		  
 		End Sub
 	#tag EndEvent
