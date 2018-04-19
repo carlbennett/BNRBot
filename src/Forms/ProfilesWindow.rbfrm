@@ -7,7 +7,7 @@ Begin Window ProfilesWindow
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   340
+   Height          =   400
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -16,22 +16,22 @@ Begin Window ProfilesWindow
    MaxWidth        =   32000
    MenuBar         =   ""
    MenuBarVisible  =   True
-   MinHeight       =   340
+   MinHeight       =   400
    MinimizeButton  =   True
    MinWidth        =   640
    Placement       =   0
    Resizeable      =   False
    Title           =   "Profile Manager"
    Visible         =   True
-   Width           =   670
+   Width           =   690
    Begin PagePanel Pages
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   257
+      Height          =   317
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   170
+      Left            =   180
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -45,7 +45,7 @@ Begin Window ProfilesWindow
       Top             =   0
       Value           =   1
       Visible         =   True
-      Width           =   500
+      Width           =   510
       Begin Label NoProfileLabels
          AutoDeactivate  =   True
          Bold            =   True
@@ -57,7 +57,7 @@ Begin Window ProfilesWindow
          Index           =   0
          InitialParent   =   "Pages"
          Italic          =   ""
-         Left            =   170
+         Left            =   180
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   True
@@ -78,7 +78,7 @@ Begin Window ProfilesWindow
          Transparent     =   True
          Underline       =   ""
          Visible         =   True
-         Width           =   500
+         Width           =   510
       End
       Begin Label NoProfileLabels
          AutoDeactivate  =   True
@@ -91,7 +91,7 @@ Begin Window ProfilesWindow
          Index           =   1
          InitialParent   =   "Pages"
          Italic          =   ""
-         Left            =   170
+         Left            =   180
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   True
@@ -112,7 +112,7 @@ Begin Window ProfilesWindow
          Transparent     =   True
          Underline       =   ""
          Visible         =   True
-         Width           =   500
+         Width           =   510
       End
       Begin GroupBox ProfileAliasGroupCtl
          AutoDeactivate  =   True
@@ -124,7 +124,7 @@ Begin Window ProfilesWindow
          Index           =   -2147483648
          InitialParent   =   "Pages"
          Italic          =   ""
-         Left            =   178
+         Left            =   188
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   True
@@ -139,7 +139,7 @@ Begin Window ProfilesWindow
          Top             =   12
          Underline       =   ""
          Visible         =   True
-         Width           =   240
+         Width           =   244
          Begin TextField ProfileAliasCtl
             AcceptTabs      =   ""
             Alignment       =   0
@@ -158,7 +158,7 @@ Begin Window ProfilesWindow
             Index           =   -2147483648
             InitialParent   =   "ProfileAliasGroupCtl"
             Italic          =   ""
-            Left            =   186
+            Left            =   196
             LimitText       =   0
             LockBottom      =   ""
             LockedInPosition=   False
@@ -181,10 +181,10 @@ Begin Window ProfilesWindow
             Underline       =   ""
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   224
+            Width           =   228
          End
       End
-      Begin GroupBox BNLSGroupBox
+      Begin GroupBox ProfileBnlsGroupBox
          AutoDeactivate  =   True
          Bold            =   True
          Caption         =   "Battle.Net Logon Server (BNLS)"
@@ -194,7 +194,7 @@ Begin Window ProfilesWindow
          Index           =   -2147483648
          InitialParent   =   "Pages"
          Italic          =   ""
-         Left            =   422
+         Left            =   438
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   True
@@ -209,7 +209,7 @@ Begin Window ProfilesWindow
          Top             =   12
          Underline       =   ""
          Visible         =   True
-         Width           =   240
+         Width           =   244
          Begin TextField ProfileBnlsHostCtl
             AcceptTabs      =   ""
             Alignment       =   0
@@ -226,9 +226,9 @@ Begin Window ProfilesWindow
             Height          =   22
             HelpTag         =   ""
             Index           =   -2147483648
-            InitialParent   =   "BNLSGroupBox"
+            InitialParent   =   "ProfileBnlsGroupBox"
             Italic          =   ""
-            Left            =   430
+            Left            =   446
             LimitText       =   0
             LockBottom      =   ""
             LockedInPosition=   False
@@ -251,7 +251,7 @@ Begin Window ProfilesWindow
             Underline       =   ""
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   160
+            Width           =   164
          End
          Begin TextField ProfileBnlsPortCtl
             AcceptTabs      =   ""
@@ -269,9 +269,9 @@ Begin Window ProfilesWindow
             Height          =   22
             HelpTag         =   ""
             Index           =   -2147483648
-            InitialParent   =   "BNLSGroupBox"
+            InitialParent   =   "ProfileBnlsGroupBox"
             Italic          =   ""
-            Left            =   594
+            Left            =   614
             LimitText       =   0
             LockBottom      =   ""
             LockedInPosition=   False
@@ -303,8 +303,8 @@ Begin Window ProfilesWindow
             Height          =   23
             HelpTag         =   ""
             Index           =   -2147483648
-            InitialParent   =   "BNLSGroupBox"
-            Left            =   642
+            InitialParent   =   "ProfileBnlsGroupBox"
+            Left            =   662
             LockBottom      =   ""
             LockedInPosition=   False
             LockLeft        =   False
@@ -319,7 +319,7 @@ Begin Window ProfilesWindow
             Width           =   13
          End
       End
-      Begin GroupBox BnetGroupBox
+      Begin GroupBox ProfileBnetGroupBox
          AutoDeactivate  =   True
          Bold            =   True
          Caption         =   "Battle.net Server"
@@ -329,7 +329,7 @@ Begin Window ProfilesWindow
          Index           =   -2147483648
          InitialParent   =   "Pages"
          Italic          =   ""
-         Left            =   422
+         Left            =   438
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   True
@@ -344,7 +344,7 @@ Begin Window ProfilesWindow
          Top             =   67
          Underline       =   ""
          Visible         =   True
-         Width           =   240
+         Width           =   244
          Begin TextField ProfileBnetHostCtl
             AcceptTabs      =   ""
             Alignment       =   0
@@ -361,9 +361,9 @@ Begin Window ProfilesWindow
             Height          =   22
             HelpTag         =   ""
             Index           =   -2147483648
-            InitialParent   =   "BnetGroupBox"
+            InitialParent   =   "ProfileBnetGroupBox"
             Italic          =   ""
-            Left            =   430
+            Left            =   446
             LimitText       =   0
             LockBottom      =   ""
             LockedInPosition=   False
@@ -386,7 +386,7 @@ Begin Window ProfilesWindow
             Underline       =   ""
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   160
+            Width           =   164
          End
          Begin TextField ProfileBnetPortCtl
             AcceptTabs      =   ""
@@ -404,9 +404,9 @@ Begin Window ProfilesWindow
             Height          =   22
             HelpTag         =   ""
             Index           =   -2147483648
-            InitialParent   =   "BnetGroupBox"
+            InitialParent   =   "ProfileBnetGroupBox"
             Italic          =   ""
-            Left            =   594
+            Left            =   614
             LimitText       =   0
             LockBottom      =   ""
             LockedInPosition=   False
@@ -438,8 +438,8 @@ Begin Window ProfilesWindow
             Height          =   23
             HelpTag         =   ""
             Index           =   -2147483648
-            InitialParent   =   "BnetGroupBox"
-            Left            =   642
+            InitialParent   =   "ProfileBnetGroupBox"
+            Left            =   662
             LockBottom      =   ""
             LockedInPosition=   False
             LockLeft        =   False
@@ -454,7 +454,7 @@ Begin Window ProfilesWindow
             Width           =   13
          End
       End
-      Begin GroupBox BattlenetGameEmulationGroup
+      Begin GroupBox ProfileBnetGameEmulationGroup
          AutoDeactivate  =   True
          Bold            =   True
          Caption         =   "Battle.net Game Emulation"
@@ -464,7 +464,7 @@ Begin Window ProfilesWindow
          Index           =   -2147483648
          InitialParent   =   "Pages"
          Italic          =   ""
-         Left            =   178
+         Left            =   188
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   True
@@ -479,7 +479,7 @@ Begin Window ProfilesWindow
          Top             =   67
          Underline       =   ""
          Visible         =   True
-         Width           =   240
+         Width           =   244
          Begin PopupMenu ProfileProductCtl
             AutoDeactivate  =   True
             Bold            =   ""
@@ -489,10 +489,10 @@ Begin Window ProfilesWindow
             Height          =   22
             HelpTag         =   ""
             Index           =   -2147483648
-            InitialParent   =   "BattlenetGameEmulationGroup"
+            InitialParent   =   "ProfileBnetGameEmulationGroup"
             InitialValue    =   ""
             Italic          =   ""
-            Left            =   186
+            Left            =   196
             ListIndex       =   0
             LockBottom      =   ""
             LockedInPosition=   False
@@ -512,17 +512,17 @@ Begin Window ProfilesWindow
             Width           =   224
          End
       End
-      Begin GroupBox GameKeysGroup
+      Begin GroupBox ProfileGameKeysGroup
          AutoDeactivate  =   True
          Bold            =   True
          Caption         =   "Game Keys"
          Enabled         =   True
-         Height          =   76
+         Height          =   116
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "Pages"
          Italic          =   ""
-         Left            =   178
+         Left            =   188
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   True
@@ -537,7 +537,7 @@ Begin Window ProfilesWindow
          Top             =   122
          Underline       =   ""
          Visible         =   True
-         Width           =   240
+         Width           =   244
          Begin TextField ProfileGameKeyCtl1
             AcceptTabs      =   ""
             Alignment       =   0
@@ -554,9 +554,9 @@ Begin Window ProfilesWindow
             Height          =   22
             HelpTag         =   ""
             Index           =   -2147483648
-            InitialParent   =   "GameKeysGroup"
+            InitialParent   =   "ProfileGameKeysGroup"
             Italic          =   ""
-            Left            =   186
+            Left            =   196
             LimitText       =   0
             LockBottom      =   ""
             LockedInPosition=   False
@@ -564,22 +564,22 @@ Begin Window ProfilesWindow
             LockRight       =   True
             LockTop         =   True
             Mask            =   ""
-            Password        =   ""
+            Password        =   True
             ReadOnly        =   ""
             Scope           =   0
-            TabIndex        =   0
+            TabIndex        =   1
             TabPanelIndex   =   2
             TabStop         =   True
             Text            =   ""
             TextColor       =   &h000000
-            TextFont        =   "Arial"
+            TextFont        =   "Courier New"
             TextSize        =   12
             TextUnit        =   0
-            Top             =   141
+            Top             =   166
             Underline       =   ""
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   224
+            Width           =   228
          End
          Begin TextField ProfileGameKeyCtl2
             AcceptTabs      =   ""
@@ -597,9 +597,9 @@ Begin Window ProfilesWindow
             Height          =   22
             HelpTag         =   ""
             Index           =   -2147483648
-            InitialParent   =   "GameKeysGroup"
+            InitialParent   =   "ProfileGameKeysGroup"
             Italic          =   ""
-            Left            =   186
+            Left            =   196
             LimitText       =   0
             LockBottom      =   ""
             LockedInPosition=   False
@@ -607,10 +607,85 @@ Begin Window ProfilesWindow
             LockRight       =   True
             LockTop         =   True
             Mask            =   ""
-            Password        =   ""
+            Password        =   True
             ReadOnly        =   ""
             Scope           =   0
-            TabIndex        =   1
+            TabIndex        =   2
+            TabPanelIndex   =   2
+            TabStop         =   True
+            Text            =   ""
+            TextColor       =   &h000000
+            TextFont        =   "Courier New"
+            TextSize        =   12
+            TextUnit        =   0
+            Top             =   191
+            Underline       =   ""
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   228
+         End
+         Begin CheckBox ProfileRevealGameKeysCtl
+            AutoDeactivate  =   True
+            Bold            =   ""
+            Caption         =   "Reveal"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   16
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "ProfileGameKeysGroup"
+            Italic          =   ""
+            Left            =   364
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   0
+            State           =   0
+            TabIndex        =   3
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextFont        =   "Arial"
+            TextSize        =   12
+            TextUnit        =   0
+            Top             =   217
+            Underline       =   ""
+            Value           =   False
+            Visible         =   True
+            Width           =   60
+         End
+         Begin TextField ProfileGameKeyOwnerCtl
+            AcceptTabs      =   ""
+            Alignment       =   0
+            AutoDeactivate  =   True
+            AutomaticallyCheckSpelling=   False
+            BackColor       =   &hFFFFFF
+            Bold            =   ""
+            Border          =   True
+            CueText         =   "game key owner"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Format          =   ""
+            Height          =   22
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "ProfileGameKeysGroup"
+            Italic          =   ""
+            Left            =   196
+            LimitText       =   0
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Mask            =   ""
+            Password        =   False
+            ReadOnly        =   ""
+            Scope           =   0
+            TabIndex        =   0
             TabPanelIndex   =   2
             TabStop         =   True
             Text            =   ""
@@ -618,24 +693,56 @@ Begin Window ProfilesWindow
             TextFont        =   "Arial"
             TextSize        =   12
             TextUnit        =   0
-            Top             =   166
+            Top             =   141
             Underline       =   ""
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   224
+            Width           =   228
+         End
+         Begin CheckBox ProfileSpawnKeyCtl
+            AutoDeactivate  =   True
+            Bold            =   ""
+            Caption         =   "Spawn"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   16
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "ProfileGameKeysGroup"
+            Italic          =   ""
+            Left            =   200
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   0
+            State           =   0
+            TabIndex        =   4
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextFont        =   "Arial"
+            TextSize        =   12
+            TextUnit        =   0
+            Top             =   217
+            Underline       =   ""
+            Value           =   False
+            Visible         =   True
+            Width           =   60
          End
       End
-      Begin GroupBox CredentialsGroup
+      Begin GroupBox ProfileCredentialsGroup
          AutoDeactivate  =   True
          Bold            =   True
          Caption         =   "Credentials"
          Enabled         =   True
-         Height          =   76
+         Height          =   91
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "Pages"
          Italic          =   ""
-         Left            =   422
+         Left            =   438
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   True
@@ -650,7 +757,7 @@ Begin Window ProfilesWindow
          Top             =   122
          Underline       =   ""
          Visible         =   True
-         Width           =   240
+         Width           =   244
          Begin TextField ProfileUsernameCtl
             AcceptTabs      =   ""
             Alignment       =   0
@@ -667,9 +774,9 @@ Begin Window ProfilesWindow
             Height          =   22
             HelpTag         =   ""
             Index           =   -2147483648
-            InitialParent   =   "CredentialsGroup"
+            InitialParent   =   "ProfileCredentialsGroup"
             Italic          =   ""
-            Left            =   430
+            Left            =   446
             LimitText       =   0
             LockBottom      =   ""
             LockedInPosition=   False
@@ -692,7 +799,7 @@ Begin Window ProfilesWindow
             Underline       =   ""
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   224
+            Width           =   228
          End
          Begin TextField ProfilePasswordCtl
             AcceptTabs      =   ""
@@ -710,9 +817,9 @@ Begin Window ProfilesWindow
             Height          =   22
             HelpTag         =   ""
             Index           =   -2147483648
-            InitialParent   =   "CredentialsGroup"
+            InitialParent   =   "ProfileCredentialsGroup"
             Italic          =   ""
-            Left            =   430
+            Left            =   446
             LimitText       =   0
             LockBottom      =   ""
             LockedInPosition=   False
@@ -735,7 +842,141 @@ Begin Window ProfilesWindow
             Underline       =   ""
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   224
+            Width           =   228
+         End
+         Begin CheckBox ProfileRevealPasswordCtl
+            AutoDeactivate  =   True
+            Bold            =   ""
+            Caption         =   "Reveal"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   16
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "ProfileCredentialsGroup"
+            Italic          =   ""
+            Left            =   614
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   0
+            State           =   0
+            TabIndex        =   2
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextFont        =   "Arial"
+            TextSize        =   12
+            TextUnit        =   0
+            Top             =   192
+            Underline       =   ""
+            Value           =   False
+            Visible         =   True
+            Width           =   60
+         End
+      End
+      Begin GroupBox ProfileEmailGroup
+         AutoDeactivate  =   True
+         Bold            =   True
+         Caption         =   "Email address"
+         Enabled         =   True
+         Height          =   67
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   438
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   6
+         TabPanelIndex   =   2
+         TextFont        =   "Arial"
+         TextSize        =   12
+         TextUnit        =   0
+         Top             =   219
+         Underline       =   ""
+         Visible         =   True
+         Width           =   244
+         Begin TextField ProfileEmailCtl
+            AcceptTabs      =   ""
+            Alignment       =   0
+            AutoDeactivate  =   True
+            AutomaticallyCheckSpelling=   False
+            BackColor       =   &hFFFFFF
+            Bold            =   ""
+            Border          =   True
+            CueText         =   "email address"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Format          =   ""
+            Height          =   22
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "ProfileEmailGroup"
+            Italic          =   ""
+            Left            =   446
+            LimitText       =   0
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Mask            =   ""
+            Password        =   True
+            ReadOnly        =   ""
+            Scope           =   0
+            TabIndex        =   0
+            TabPanelIndex   =   2
+            TabStop         =   True
+            Text            =   ""
+            TextColor       =   &h000000
+            TextFont        =   "Arial"
+            TextSize        =   12
+            TextUnit        =   0
+            Top             =   238
+            Underline       =   ""
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   228
+         End
+         Begin CheckBox ProfileRevealEmailCtl
+            AutoDeactivate  =   True
+            Bold            =   ""
+            Caption         =   "Reveal"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   16
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "ProfileEmailGroup"
+            Italic          =   ""
+            Left            =   614
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   0
+            State           =   0
+            TabIndex        =   1
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextFont        =   "Arial"
+            TextSize        =   12
+            TextUnit        =   0
+            Top             =   264
+            Underline       =   ""
+            Value           =   False
+            Visible         =   True
+            Width           =   60
          End
       End
    End
@@ -756,9 +997,9 @@ Begin Window ProfilesWindow
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   284
+      Top             =   344
       Visible         =   True
-      Width           =   644
+      Width           =   664
    End
    Begin PushButton SaveButtonCtl
       AutoDeactivate  =   True
@@ -773,7 +1014,7 @@ Begin Window ProfilesWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   576
+      Left            =   596
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -786,7 +1027,7 @@ Begin Window ProfilesWindow
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   302
+      Top             =   362
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -804,7 +1045,7 @@ Begin Window ProfilesWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   484
+      Left            =   504
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -817,7 +1058,7 @@ Begin Window ProfilesWindow
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   302
+      Top             =   362
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -840,7 +1081,7 @@ Begin Window ProfilesWindow
       GridLinesVertical=   0
       HasHeading      =   ""
       HeadingIndex    =   -1
-      Height          =   257
+      Height          =   317
       HelpTag         =   ""
       Hierarchical    =   ""
       Index           =   -2147483648
@@ -868,7 +1109,7 @@ Begin Window ProfilesWindow
       Underline       =   ""
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   140
+      Width           =   150
       _ScrollWidth    =   -1
    End
    Begin PushButton CreateButtonCtl
@@ -897,7 +1138,7 @@ Begin Window ProfilesWindow
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   302
+      Top             =   362
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -928,7 +1169,7 @@ Begin Window ProfilesWindow
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   302
+      Top             =   362
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -936,12 +1177,12 @@ Begin Window ProfilesWindow
    Begin Separator Separators
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   276
+      Height          =   336
       HelpTag         =   ""
       Index           =   0
       InitialParent   =   ""
-      Left            =   168
-      LockBottom      =   ""
+      Left            =   178
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   ""
@@ -1006,10 +1247,13 @@ End
 		  Self.ProfileBnlsPortCtl.Text = Format( p.bnlsPort, "-#" )
 		  Self.ProfileBnetHostCtl.Text = p.bnetHost
 		  Self.ProfileBnetPortCtl.Text = Format( p.bnetPort, "-#" )
+		  Self.ProfileGameKeyOwnerCtl.Text = p.gameKeyOwner
 		  Self.ProfileGameKeyCtl1.Text = p.gameKey1
 		  Self.ProfileGameKeyCtl2.Text = p.gameKey2
+		  Self.ProfileSpawnKeyCtl.Value = p.gameKeySpawn
 		  Self.ProfileUsernameCtl.Text = p.username
 		  Self.ProfilePasswordCtl.Text = p.password
+		  Self.ProfileEmailCtl.Text = p.email
 		  
 		  Dim i As Integer = Self.ProfileProductCtl.ListCount - 1
 		  While i >= 0
@@ -1252,6 +1496,12 @@ End
 		  
 		  p.product = Me.RowTag( Me.ListIndex )
 		  
+		  Self.ProfileGameKeyCtl1.Enabled = Battlenet.needsGameKey1( p.product )
+		  Self.ProfileGameKeyCtl2.Enabled = Battlenet.needsGameKey2( p.product )
+		  
+		  Self.ProfileGameKeyOwnerCtl.Enabled = ( Self.ProfileGameKeyCtl1.Enabled Or Self.ProfileGameKeyCtl2.Enabled )
+		  Self.ProfileSpawnKeyCtl.Enabled = ( Self.ProfileGameKeyCtl1.Enabled Or Self.ProfileGameKeyCtl2.Enabled )
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1277,6 +1527,44 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events ProfileRevealGameKeysCtl
+	#tag Event
+		Sub Action()
+		  
+		  Self.ProfileGameKeyCtl1.Password = Not Me.Value
+		  Self.ProfileGameKeyCtl2.Password = Not Me.Value
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ProfileGameKeyOwnerCtl
+	#tag Event
+		Sub TextChange()
+		  
+		  Dim p As Configuration = Self.ProfileListCtl.RowTag( Self.ProfileListCtl.ListIndex )
+		  
+		  p.gameKeyOwner = Me.Text
+		  
+		  If LenB( p.gameKeyOwner ) < 1 Or LenB( p.gameKeyOwner ) > 15 Then
+		    If Me.BackColor <> &cFFC0C0 Then Me.BackColor = &cFFC0C0
+		  Else
+		    If Me.BackColor <> &cFFFFFF Then Me.BackColor = &cFFFFFF
+		  End If
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ProfileSpawnKeyCtl
+	#tag Event
+		Sub Action()
+		  
+		  Dim p As Configuration = Self.ProfileListCtl.RowTag( Self.ProfileListCtl.ListIndex )
+		  
+		  p.gameKeySpawn = Me.Value
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events ProfileUsernameCtl
 	#tag Event
 		Sub TextChange()
@@ -1295,6 +1583,35 @@ End
 		  Dim p As Configuration = Self.ProfileListCtl.RowTag( Self.ProfileListCtl.ListIndex )
 		  
 		  p.password = Me.Text
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ProfileRevealPasswordCtl
+	#tag Event
+		Sub Action()
+		  
+		  Self.ProfilePasswordCtl.Password = Not Me.Value
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ProfileEmailCtl
+	#tag Event
+		Sub TextChange()
+		  
+		  Dim p As Configuration = Self.ProfileListCtl.RowTag( Self.ProfileListCtl.ListIndex )
+		  
+		  p.email = Me.Text
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ProfileRevealEmailCtl
+	#tag Event
+		Sub Action()
+		  
+		  Self.ProfileEmailCtl.Password = Not Me.Value
 		  
 		End Sub
 	#tag EndEvent
