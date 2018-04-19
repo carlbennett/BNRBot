@@ -171,6 +171,10 @@ End
 		  Me.ChatContainerList.RowTag(Me.ChatContainerList.LastIndex) = client
 		  Me.ChatContainerList.CellTag(Me.ChatContainerList.LastIndex, 1) = Me.ChatContainers.PanelCount - 1
 		  
+		  If client.gui = Nil Then
+		    client.gui = New ChatContainer()
+		  End If
+		  
 		  client.gui.EmbedWithinPanel(Me.ChatContainers, Me.ChatContainers.PanelCount - 1, _
 		  0, 0, Me.ChatContainers.Width, Me.ChatContainers.Height)
 		  
@@ -197,13 +201,32 @@ End
 		  
 		  i = Me.ChatContainerList.ListCount - 1
 		  While i >= 0
-		    If Me.ChatContainerList.CellTag(i, 0) = client Then
-		      Me.ChatContainerList.RemoveRow(i)
+		    If Me.ChatContainerList.RowTag(i) = client Then
 		      Me.ChatContainers.Remove(Me.ChatContainerList.CellTag(i, 1))
+		      Me.ChatContainerList.RemoveRow(i)
 		      Exit While
 		    End If
 		    i = i - 1
 		  Wend
+		  
+		  client.gui.Close()
+		  client.gui = Nil
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Shared Sub TransferProfile(source As ChatWindow, destination As ChatWindow, sourceRow As Integer)
+		  
+		  Logger.WriteLine( True, "Transfer profile between two chat windows in progress" )
+		  
+		  Dim client As BNETClient = source.ChatContainerList.RowTag( sourceRow )
+		  
+		  source.RemoveClient( client )
+		  
+		  destination.AddClient( client, True )
+		  
+		  destination.SetFocus()
 		  
 		End Sub
 	#tag EndMethod
@@ -261,6 +284,67 @@ End
 		  g.DrawString(Me.Cell(row, column), x, y, g.Width - x * 2, True)
 		  
 		  Return True
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  
+		  Me.AcceptRawDataDrop( DragNDropTypes.ChatContainer )
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DropObject(obj As DragItem, action As Integer)
+		  
+		  #pragma Unused action
+		  
+		  If obj = Nil Then Return
+		  
+		  Dim buffer As MemoryBlock
+		  Dim row As Integer
+		  Dim windowHandle As Integer
+		  Dim cw As ChatWindow
+		  
+		  Do
+		    
+		    If Not obj.RawDataAvailable( DragNDropTypes.ChatContainer ) Then Continue Do
+		    
+		    buffer = obj.RawData( DragNDropTypes.ChatContainer )
+		    row = buffer.Int32Value( 0 )
+		    windowHandle = buffer.Int32Value( 4 )
+		    
+		    Dim i As Integer = 0
+		    While i < REALbasic.WindowCount()
+		      
+		      If REALbasic.Window( i ).Handle = windowHandle And REALbasic.Window( i ) IsA ChatWindow Then
+		        
+		        cw = ChatWindow( REALbasic.Window( i ))
+		        
+		        ChatWindow.TransferProfile( cw, Self, row )
+		        
+		        Exit While
+		        
+		      End If
+		      
+		      i = i + 1
+		    Wend
+		    
+		  Loop Until Not obj.NextItem()
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function DragRow(drag As DragItem, row As Integer) As Boolean
+		  
+		  If drag = Nil Or row < 0 Or row >= Me.ListCount Then Return False // REALbasic is a fucker.
+		  
+		  Dim buffer As New MemoryBlock( 8 )
+		  
+		  buffer.Int32Value( 0 ) = row
+		  buffer.Int32Value( 4 ) = Self.Handle
+		  
+		  drag.PrivateRawData( DragNDropTypes.ChatContainer ) = buffer
 		  
 		End Function
 	#tag EndEvent
