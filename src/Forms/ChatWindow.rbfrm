@@ -167,8 +167,8 @@ End
 		  
 		  Me.ChatContainers.Append()
 		  
-		  Me.ChatContainerList.AddRow(client.config.username)
-		  Me.ChatContainerList.CellTag(Me.ChatContainerList.LastIndex, 0) = client
+		  Me.ChatContainerList.AddRow(client.config.alias)
+		  Me.ChatContainerList.RowTag(Me.ChatContainerList.LastIndex) = client
 		  Me.ChatContainerList.CellTag(Me.ChatContainerList.LastIndex, 1) = Me.ChatContainers.PanelCount - 1
 		  
 		  client.gui.EmbedWithinPanel(Me.ChatContainers, Me.ChatContainers.PanelCount - 1, _

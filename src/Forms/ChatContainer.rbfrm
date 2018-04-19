@@ -210,6 +210,7 @@ Begin ContainerControl ChatContainer
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "USER INTERFACE ALPHA"
       TextAlign       =   1
       TextColor       =   &h000000
