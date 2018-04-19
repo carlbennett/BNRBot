@@ -55,7 +55,7 @@ Begin Window ChatWindow
       LockLeft        =   True
       LockRight       =   ""
       LockTop         =   True
-      RequiresSelection=   True
+      RequiresSelection=   False
       Scope           =   0
       ScrollbarHorizontal=   ""
       ScrollBarVertical=   True
@@ -86,7 +86,7 @@ Begin Window ChatWindow
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      PanelCount      =   0
+      PanelCount      =   1
       Panels          =   ""
       Scope           =   0
       TabIndex        =   1
@@ -95,6 +95,74 @@ Begin Window ChatWindow
       Value           =   0
       Visible         =   True
       Width           =   490
+      Begin Label NoProfileLabels
+         AutoDeactivate  =   True
+         Bold            =   True
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   14
+         HelpTag         =   ""
+         Index           =   0
+         InitialParent   =   "ChatContainers"
+         Italic          =   ""
+         Left            =   110
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   False
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   0
+         TabPanelIndex   =   1
+         Text            =   "No profile selected."
+         TextAlign       =   1
+         TextColor       =   &h000000
+         TextFont        =   "Arial"
+         TextSize        =   11
+         TextUnit        =   0
+         Top             =   14
+         Transparent     =   True
+         Underline       =   ""
+         Visible         =   True
+         Width           =   490
+      End
+      Begin Label NoProfileLabels
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   14
+         HelpTag         =   ""
+         Index           =   1
+         InitialParent   =   "ChatContainers"
+         Italic          =   ""
+         Left            =   110
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   False
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   1
+         TabPanelIndex   =   1
+         Text            =   "Select from the left or open Profile Manager."
+         TextAlign       =   1
+         TextColor       =   &h000000
+         TextFont        =   "Arial"
+         TextSize        =   11
+         TextUnit        =   0
+         Top             =   30
+         Transparent     =   True
+         Underline       =   ""
+         Visible         =   True
+         Width           =   490
+      End
    End
    Begin SizeGripControl SizeGripControl1
       AcceptFocus     =   ""
@@ -243,11 +311,15 @@ End
 	#tag Event
 		Sub Change()
 		  
+		  Dim page As Integer
+		  
 		  If Me.ListIndex = -1 Then
-		    Self.ChatContainers.Value = -1
+		    page = 0
 		  Else
-		    Self.ChatContainers.Value = Me.CellTag(Me.ListIndex, 1)
+		    page = Me.CellTag(Me.ListIndex, 1)
 		  End If
+		  
+		  Self.ChatContainers.Value = page
 		  
 		End Sub
 	#tag EndEvent
