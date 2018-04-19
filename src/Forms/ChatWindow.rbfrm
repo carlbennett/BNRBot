@@ -123,7 +123,7 @@ Begin Window ChatWindow
          TextFont        =   "Arial"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   14
+         Top             =   22
          Transparent     =   True
          Underline       =   ""
          Visible         =   True
@@ -157,7 +157,7 @@ Begin Window ChatWindow
          TextFont        =   "Arial"
          TextSize        =   11
          TextUnit        =   0
-         Top             =   30
+         Top             =   38
          Transparent     =   True
          Underline       =   ""
          Visible         =   True
