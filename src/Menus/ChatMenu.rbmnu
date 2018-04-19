@@ -9,6 +9,9 @@ Begin Menu ChatMenu
          SpecialMenu = 0
          Text = "&New Window"
          Index = -2147483648
+         ShortcutKey = "N"
+         Shortcut = "Cmd+N"
+         MenuModifier = True
          AutoEnable = True
       End
       Begin WindowCloseMenuItem FileCloseWindow
