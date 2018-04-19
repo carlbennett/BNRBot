@@ -109,6 +109,15 @@ Begin Menu ChatMenu
          Index = 3
          AutoEnable = True
       End
+      Begin AccountsMenuItem EditAccountManager
+         SpecialMenu = 0
+         Text = "Account &Manager"
+         Index = -2147483648
+         ShortcutKey = "M"
+         Shortcut = "Cmd+M"
+         MenuModifier = True
+         AutoEnable = True
+      End
       Begin GameKeysMenuItem EditGameKeyManager
          SpecialMenu = 0
          Text = "Game &Key Manager"
