@@ -4,7 +4,7 @@ Begin Window ProfilesWindow
    Backdrop        =   ""
    CloseButton     =   True
    Composite       =   False
-   Frame           =   0
+   Frame           =   1
    FullScreen      =   False
    HasBackColor    =   False
    Height          =   400
@@ -737,7 +737,7 @@ Begin Window ProfilesWindow
          Bold            =   True
          Caption         =   "Credentials"
          Enabled         =   True
-         Height          =   91
+         Height          =   116
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "Pages"
@@ -864,17 +864,60 @@ Begin Window ProfilesWindow
             LockTop         =   True
             Scope           =   0
             State           =   0
-            TabIndex        =   2
+            TabIndex        =   3
             TabPanelIndex   =   2
             TabStop         =   True
             TextFont        =   "Arial"
             TextSize        =   12
             TextUnit        =   0
-            Top             =   192
+            Top             =   217
             Underline       =   ""
             Value           =   False
             Visible         =   True
             Width           =   60
+         End
+         Begin TextField ProfilePasswordNewCtl
+            AcceptTabs      =   ""
+            Alignment       =   0
+            AutoDeactivate  =   True
+            AutomaticallyCheckSpelling=   False
+            BackColor       =   &hFFFFFF
+            Bold            =   ""
+            Border          =   True
+            CueText         =   "new password"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Format          =   ""
+            Height          =   22
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "ProfileCredentialsGroup"
+            Italic          =   ""
+            Left            =   446
+            LimitText       =   0
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Mask            =   ""
+            Password        =   True
+            ReadOnly        =   ""
+            Scope           =   0
+            TabIndex        =   2
+            TabPanelIndex   =   2
+            TabStop         =   True
+            Text            =   ""
+            TextColor       =   &h000000
+            TextFont        =   "Courier New"
+            TextSize        =   12
+            TextUnit        =   0
+            Top             =   191
+            Underline       =   ""
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   228
          End
       End
       Begin GroupBox ProfileEmailGroup
@@ -899,7 +942,7 @@ Begin Window ProfilesWindow
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
-         Top             =   219
+         Top             =   243
          Underline       =   ""
          Visible         =   True
          Width           =   244
@@ -940,7 +983,7 @@ Begin Window ProfilesWindow
             TextFont        =   "Arial"
             TextSize        =   12
             TextUnit        =   0
-            Top             =   238
+            Top             =   262
             Underline       =   ""
             UseFocusRing    =   True
             Visible         =   True
@@ -972,7 +1015,7 @@ Begin Window ProfilesWindow
             TextFont        =   "Arial"
             TextSize        =   12
             TextUnit        =   0
-            Top             =   264
+            Top             =   288
             Underline       =   ""
             Value           =   False
             Visible         =   True
@@ -1253,6 +1296,7 @@ End
 		  Self.ProfileSpawnKeyCtl.Value = p.gameKeySpawn
 		  Self.ProfileUsernameCtl.Text = p.username
 		  Self.ProfilePasswordCtl.Text = p.password
+		  Self.ProfilePasswordNewCtl.Text = p.passwordNew
 		  Self.ProfileEmailCtl.Text = p.email
 		  
 		  Dim i As Integer = Self.ProfileProductCtl.ListCount - 1
@@ -1592,6 +1636,18 @@ End
 		Sub Action()
 		  
 		  Self.ProfilePasswordCtl.Password = Not Me.Value
+		  Self.ProfilePasswordNewCtl.Password = Not Me.Value
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ProfilePasswordNewCtl
+	#tag Event
+		Sub TextChange()
+		  
+		  Dim p As Configuration = Self.ProfileListCtl.RowTag( Self.ProfileListCtl.ListIndex )
+		  
+		  p.passwordNew = Me.Text
 		  
 		End Sub
 	#tag EndEvent
