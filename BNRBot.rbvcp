@@ -8,6 +8,7 @@ Folder=Bot Commands;src/Bot Commands;&h2FF647FF;&h2D3697FF;false
 Folder=Classes;src/Classes;&h345747FF;&h2D3697FF;false
 Folder=MenuItems;src/Classes/MenuItems;&h42F45FFF;&h345747FF;false
 Class=AccountsMenuItem;src/Classes/MenuItems/AccountsMenuItem.rbbas;&h387E7FF;&h42F45FFF;false
+Class=ConnectMenuItem;src/Classes/MenuItems/ConnectMenuItem.rbbas;&h52E8EFFF;&h42F45FFF;false
 Class=GameKeysMenuItem;src/Classes/MenuItems/GameKeysMenuItem.rbbas;&h63147FFF;&h42F45FFF;false
 Class=ProfilesMenuItem;src/Classes/MenuItems/ProfilesMenuItem.rbbas;&h4A9A17FF;&h42F45FFF;false
 Class=BNETClient;src/Classes/BNETClient.rbbas;&h55AEA7FF;&h345747FF;false

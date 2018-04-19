@@ -5,6 +5,21 @@ Begin Menu ChatMenu
       Text = "&File"
       Index = -2147483648
       AutoEnable = True
+      Begin ConnectMenuItem FileConnect
+         SpecialMenu = 0
+         Text = "Connect..."
+         Index = -2147483648
+         ShortcutKey = "1"
+         Shortcut = "Cmd+1"
+         MenuModifier = True
+         AutoEnable = True
+      End
+      Begin MenuItem Separators
+         SpecialMenu = 0
+         Text = "-"
+         Index = 0
+         AutoEnable = True
+      End
       Begin WindowNewMenuItem FileNewWindow
          SpecialMenu = 0
          Text = "&New Window"
@@ -26,7 +41,7 @@ Begin Menu ChatMenu
       Begin MenuItem Separators
          SpecialMenu = 0
          Text = "-"
-         Index = 0
+         Index = 1
          AutoEnable = True
       End
       Begin QuitMenuItem FileQuit
@@ -55,7 +70,7 @@ Begin Menu ChatMenu
       Begin MenuItem Separators
          SpecialMenu = 0
          Text = "-"
-         Index = 1
+         Index = 2
          AutoEnable = True
       End
       Begin MenuItem EditCut
@@ -94,7 +109,7 @@ Begin Menu ChatMenu
       Begin MenuItem Separators
          SpecialMenu = 0
          Text = "-"
-         Index = 2
+         Index = 3
          AutoEnable = True
       End
       Begin MenuItem EditSelectAll
@@ -109,7 +124,7 @@ Begin Menu ChatMenu
       Begin MenuItem Separators
          SpecialMenu = 0
          Text = "-"
-         Index = 3
+         Index = 4
          AutoEnable = True
       End
       Begin AccountsMenuItem EditAccountManager
