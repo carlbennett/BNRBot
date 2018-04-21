@@ -34,6 +34,8 @@ Inherits MenuItem
 		  
 		  c.Show()
 		  
+		  cl.Connect()
+		  
 		  Return True
 		  
 		End Function
