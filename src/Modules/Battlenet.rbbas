@@ -322,7 +322,7 @@ Protected Module Battlenet
 		    
 		  Case TYPE_NLS_BETA, TYPE_NLS
 		    
-		    GUIUpdateEvent.InternalMessage("DEBUG: NLS", ChatMessage.InternalFlagDebug, client)
+		    client.socBNET.Write( Packets.CreateBNET_SID_AUTH_ACCOUNTLOGON( client.state.nls.AccountLogon() ))
 		    
 		  Case Else
 		    
@@ -562,6 +562,35 @@ Protected Module Battlenet
 		  Case TYPE_NLS_BETA, TYPE_NLS
 		    
 		    GUIUpdateEvent.InternalMessage("DEBUG: NLS", ChatMessage.InternalFlagDebug, client)
+		    
+		  Case Else
+		    
+		    Raise New BattlenetException("Undefined logon type '" + Format(client.state.logonType, "-#") + "'")
+		    
+		  End Select
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub setEmail(client As BNETClient)
+		  
+		  Const TYPE_OLS      = &H00
+		  Const TYPE_NLS_BETA = &H01
+		  Const TYPE_NLS      = &H02
+		  
+		  Select Case client.state.logonType
+		  Case TYPE_OLS
+		    
+		    client.socBNET.Write(Packets.CreateBNET_SID_LOGONRESPONSE2(_
+		    client.state.clientToken, client.state.serverToken, _
+		    Battlenet.passwordDataOLS(client.state.password, _
+		    client.state.clientToken, client.state.serverToken), _
+		    client.state.username))
+		    
+		  Case TYPE_NLS_BETA, TYPE_NLS
+		    
+		    client.socBNET.Write( Packets.CreateBNET_SID_AUTH_ACCOUNTLOGON( client.state.nls.AccountLogon() ))
 		    
 		  Case Else
 		    

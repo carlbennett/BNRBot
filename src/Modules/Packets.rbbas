@@ -16,6 +16,35 @@ Protected Module Packets
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function CreateBNET_SID_AUTH_ACCOUNTLOGON(nlsBuffer As String) As String
+		  
+		  Return Packets.CreateBNET( Packets.SID_AUTH_ACCOUNTLOGON, nlsBuffer )
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function CreateBNET_SID_AUTH_ACCOUNTLOGON(clientKey As String, username As String) As String
+		  
+		  Dim o As New MemoryBlock( 33 + LenB( username ))
+		  
+		  o.StringValue( 0, 32 ) = clientKey
+		  o.CString( 32 ) = username
+		  
+		  Return Packets.CreateBNET( Packets.SID_AUTH_ACCOUNTLOGON, o )
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function CreateBNET_SID_AUTH_ACCOUNTLOGONPROOF(clientPasswordProof As String) As String
+		  
+		  Return Packets.CreateBNET( Packets.SID_AUTH_ACCOUNTLOGONPROOF, LeftB( clientPasswordProof, 20 ) )
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function CreateBNET_SID_AUTH_CHECK(clientToken As UInt32, versionNumber As UInt32, versionChecksum As UInt32, numberOfKeys As UInt32, spawnKey As Boolean, keyData As String, versionSignature As String, keyOwner As String) As String
 		  
 		  Dim o As New MemoryBlock(20 + (numberOfKeys * 36) + 2 + LenB(versionSignature) + LenB(keyOwner))
@@ -176,6 +205,14 @@ Protected Module Packets
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Function CreateBNET_SID_SETEMAIL(emailAddress As String) As String
+		  
+		  Return Packets.CreateBNET( Packets.SID_SETEMAIL, emailAddress + ChrB( 0 ))
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Function CreateBNLS(packetId As Byte, packetData As String) As String
 		  
@@ -264,6 +301,12 @@ Protected Module Packets
 		    Case Packets.SID_AUTH_CHECK
 		      Packets.ReceiveBNET_SID_AUTH_CHECK(client, MidB(packetObject, 5))
 		      
+		    Case Packets.SID_AUTH_ACCOUNTLOGON
+		      Packets.ReceiveBNET_SID_AUTH_ACCOUNTLOGON(client, MidB(packetObject, 5))
+		      
+		    Case Packets.SID_AUTH_ACCOUNTLOGONPROOF
+		      Packets.ReceiveBNET_SID_AUTH_ACCOUNTLOGONPROOF(client, MidB(packetObject, 5))
+		      
 		    Case Else
 		      Raise New UnknownNetworkMessageException()
 		      
@@ -292,6 +335,114 @@ Protected Module Packets
 		  End Try
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub ReceiveBNET_SID_AUTH_ACCOUNTLOGON(client As BNETClient, packetObject As MemoryBlock)
+		  
+		  Dim status As UInt32 = packetObject.UInt32Value( 0 )
+		  Dim salt As String = packetObject.StringValue( 4, 32 )
+		  Dim serverKey As String = packetObject.StringValue( 36, 32 )
+		  
+		  Const STATUS_ACCEPTED     = &H00
+		  Const STATUS_NOT_FOUND    = &H01
+		  Const STATUS_UPGRADE      = &H05
+		  
+		  Select Case status
+		  Case STATUS_ACCEPTED
+		    GUIUpdateEvent.InternalMessage( "BNET: Account name accepted, send password.", BitOr( ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagDebug ), client )
+		    
+		  Case STATUS_NOT_FOUND
+		    GUIUpdateEvent.InternalMessage( "BNET: Account does not exist.", ChatMessage.InternalFlagError, client )
+		    
+		  Case STATUS_UPGRADE
+		    GUIUpdateEvent.InternalMessage( "BNET: Account requires upgrade.", ChatMessage.InternalFlagError, client )
+		    
+		  Case Else
+		    Raise New InvalidPacketException()
+		    
+		  End Select
+		  
+		  If status <> STATUS_ACCEPTED Then
+		    client.socBNET.Disconnect()
+		    Return
+		  End If
+		  
+		  client.socBNET.Write( Packets.CreateBNET_SID_AUTH_ACCOUNTLOGONPROOF( client.state.nls.AccountLogonProof( salt, serverKey ) ))
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub ReceiveBNET_SID_AUTH_ACCOUNTLOGONPROOF(client As BNETClient, packetObject As MemoryBlock)
+		  
+		  Dim status As UInt32 = packetObject.UInt32Value( 0 )
+		  Dim serverPasswordProof As String = packetObject.StringValue( 4, 20 )
+		  Dim statusString As String = ""
+		  
+		  If packetObject.Size > 24 Then
+		    statusString = packetObject.CString( 24 )
+		  End If
+		  
+		  Const STATUS_SUCCESS      = &H00
+		  Const STATUS_BAD_PASSWORD = &H02
+		  Const STATUS_CLOSED       = &H06
+		  Const STATUS_SET_EMAIL    = &H0E
+		  Const STATUS_ERROR_STRING = &H0F
+		  
+		  If Not client.state.nls.ServerPasswordProof( serverPasswordProof ) Then
+		    GUIUpdateEvent.InternalMessage( "BNET: Server password proof failed! The server does not really know the password.", _
+		    BitOr( ChatMessage.InternalFlagError, ChatMessage.InternalFlagDebug ), client )
+		  End If
+		  
+		  Select Case status
+		  Case STATUS_SUCCESS, STATUS_SET_EMAIL
+		    
+		  Case STATUS_BAD_PASSWORD
+		    GUIUpdateEvent.InternalMessage( "BNET: Incorrect password.", ChatMessage.InternalFlagError, client )
+		    
+		  Case STATUS_CLOSED
+		    If Len( statusString ) > 0 Then
+		      GUIUpdateEvent.InternalMessage( "BNET: Account has been closed. Reason: " + statusString, ChatMessage.InternalFlagError, client )
+		    Else
+		      GUIUpdateEvent.InternalMessage( "BNET: Account has been closed.", ChatMessage.InternalFlagError, client )
+		    End If
+		    
+		  Case STATUS_ERROR_STRING
+		    GUIUpdateEvent.InternalMessage( "BNET: " + statusString, ChatMessage.InternalFlagError, client )
+		    
+		  Case Else
+		    Raise New InvalidPacketException()
+		    
+		  End Select
+		  
+		  If Not ( status = STATUS_SUCCESS Or status = STATUS_SET_EMAIL ) Then
+		    client.socBNET.Disconnect()
+		    Return
+		  End If
+		  
+		  If status = STATUS_SET_EMAIL Then
+		    Battlenet.setEmail( client )
+		  End If
+		  
+		  GUIUpdateEvent.InternalMessage( "BNET: Account login success.", BitOr( ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagSuccess ), client )
+		  
+		  Dim flags As UInt32, channel As String
+		  
+		  If Len( client.config.homeChannel ) = 0 Then
+		    Battlenet.getDefaultChannel( client.state.product, flags, channel )
+		  Else
+		    flags   = Packets.FLAG_NOCREATE
+		    channel = client.config.homeChannel
+		  End If
+		  
+		  client.socBNET.Write(_
+		  Packets.CreateBNET_SID_ENTERCHAT( client.state.username, "" ) + _
+		  Packets.CreateBNET_SID_GETCHANNELLIST( client.state.product ) + _
+		  Packets.CreateBNET_SID_JOINCHANNEL( flags, channel )_
+		  )
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
@@ -768,6 +919,12 @@ Protected Module Packets
 	#tag Constant, Name = FLAG_NOCREATE, Type = Double, Dynamic = False, Default = \"&H00", Scope = Protected
 	#tag EndConstant
 
+	#tag Constant, Name = SID_AUTH_ACCOUNTLOGON, Type = Double, Dynamic = False, Default = \"&H53", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = SID_AUTH_ACCOUNTLOGONPROOF, Type = Double, Dynamic = False, Default = \"&H54", Scope = Protected
+	#tag EndConstant
+
 	#tag Constant, Name = SID_AUTH_CHECK, Type = Double, Dynamic = False, Default = \"&H51", Scope = Protected
 	#tag EndConstant
 
@@ -814,6 +971,9 @@ Protected Module Packets
 	#tag EndConstant
 
 	#tag Constant, Name = SID_RESETPASSWORD, Type = Double, Dynamic = False, Default = \"&H5A", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = SID_SETEMAIL, Type = Double, Dynamic = False, Default = \"&H59", Scope = Protected
 	#tag EndConstant
 
 	#tag Constant, Name = SID_STARTVERSIONING, Type = Double, Dynamic = False, Default = \"&H06", Scope = Protected

@@ -26,6 +26,7 @@ Class=GameKey;src/Classes/GameKey.rbbas;&h369B8FFF;&h345747FF;false
 Class=GlobalConfiguration;src/Classes/GlobalConfiguration.rbbas;&h2130AFFF;&h345747FF;false
 Class=GUIUpdateEvent;src/Classes/GUIUpdateEvent.rbbas;&h1664EFFF;&h345747FF;false
 Class=Logger;src/Classes/Logger.rbbas;&h77D46FFF;&h345747FF;false
+Class=NLS;src/Classes/NLS.rbbas;&h6E62EFFF;&h345747FF;false
 Class=PingRange;src/Classes/PingRange.rbbas;&h426177FF;&h345747FF;false
 Class=StringSearch;src/Classes/StringSearch.rbbas;&h2E2E87FF;&h345747FF;false
 Class=UserAccess;src/Classes/UserAccess.rbbas;&h2D16A7FF;&h345747FF;false

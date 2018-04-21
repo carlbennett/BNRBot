@@ -19,6 +19,7 @@ Protected Class BNETState
 		  Me.lastCommand           = Nil
 		  Me.localIP               = Battlenet.getLocalIP()
 		  Me.logonType             = 0
+		  Me.nls                   = new NLS( client.config.username, client.config.password )
 		  Me.nullTimer             = new PacketTimer()
 		  Me.password              = client.config.password
 		  Me.passwordNew           = client.config.passwordNew
@@ -59,6 +60,8 @@ Protected Class BNETState
 		  Me.bnlsReadBuffer = Nil
 		  
 		  Me.channelUsers = Nil
+		  
+		  Me.nls = Nil
 		  
 		  Me.nullTimer.Enabled = False
 		  Me.nullTimer = Nil
@@ -133,6 +136,10 @@ Protected Class BNETState
 
 	#tag Property, Flags = &h0
 		logonType As UInt32
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		nls As NLS
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
