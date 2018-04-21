@@ -105,9 +105,9 @@ Protected Class NLS
 
 
 	#tag Constant, Name = BNCSUtil, Type = String, Dynamic = False, Default = \"", Scope = Public
-		#Tag Instance, Platform = Mac OS, Language = Default, Definition  = \"bncsutil.so"
+		#Tag Instance, Platform = Mac OS, Language = Default, Definition  = \"libbncsutil.so"
 		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"bncsutil.dll"
-		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"bncsutil.so"
+		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"libbncsutil.so"
 	#tag EndConstant
 
 

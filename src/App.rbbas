@@ -53,6 +53,10 @@ Inherits Application
 		  Me.config = New ConfigurationFactory()
 		  Me.config.GetAllConfigs()
 		  
+		  w.SetProgress("Testing for BNCSUtil...", 0, 1)
+		  
+		  w.SetProgress("BNCSUtil version: " + Battlenet.bncsutilVersion(), 1, 1)
+		  
 		  If config.globalConfig.CheckForUpdates Then
 		    
 		    w.SetProgress("Checking for updates...", "", 0, 0)

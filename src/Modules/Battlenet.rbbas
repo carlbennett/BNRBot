@@ -1,6 +1,20 @@
 #tag Module
 Protected Module Battlenet
 	#tag Method, Flags = &h1
+		Protected Function bncsutilVersion() As String
+		  
+		  Soft Declare Function bncsutil_getVersionString Lib Battlenet.libBNCSUtil ( outBuf As Ptr ) As Integer
+		  
+		  Dim buf As New MemoryBlock( 8 )
+		  
+		  Call bncsutil_getVersionString( buf )
+		  
+		  Return buf
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Sub changePassword(client As BNETClient)
 		  
 		  Const TYPE_OLS      = &H00
@@ -697,8 +711,9 @@ Protected Module Battlenet
 
 
 	#tag Constant, Name = libBNCSUtil, Type = String, Dynamic = False, Default = \"", Scope = Protected
-		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"/usr/lib/libbncsutil.so"
-		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"C:\\Windows\\bncsutil.dll"
+		#Tag Instance, Platform = Mac OS, Language = Default, Definition  = \"libbncsutil.so"
+		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"bncsutil.dll"
+		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"libbncsutil.so"
 	#tag EndConstant
 
 	#tag Constant, Name = Platform_IX86, Type = Double, Dynamic = False, Default = \"&H49583836", Scope = Protected
