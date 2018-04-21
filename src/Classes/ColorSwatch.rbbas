@@ -3,7 +3,8 @@ Protected Class ColorSwatch
 	#tag Method, Flags = &h0
 		Sub Constructor()
 		  
-		  Me.ChatBackColor               = &cFFFFFF
+		  Me.ChatBackColor               = &c36393E
+		  
 		  Me.ChatEventBroadcastMessage   = &cC00000
 		  Me.ChatEventBroadcastName      = &cF00000
 		  Me.ChatEventChannelJoin        = &c00C0C0
@@ -17,18 +18,22 @@ Protected Class ColorSwatch
 		  Me.ChatEventUserTalkName       = &cF0F020
 		  Me.ChatEventUserWhisperMessage = &cA0A0A0
 		  Me.ChatEventUserWhisperName    = &cC0C0C0
-		  Me.DefaultBackColor            = REALbasic.FillColor()
-		  Me.DefaultFrameColor           = REALbasic.FrameColor()
-		  Me.DefaultHighlightColor       = REALbasic.HighlightColor()
-		  Me.DefaultTextColor            = REALbasic.TextColor()
-		  Me.InternalDebug               = &c808000
-		  Me.InternalError               = &cC00000
-		  Me.InternalInfo                = &cC0C000
-		  Me.InternalNetworkDebug        = &c808080
-		  Me.InternalNetworkError        = &cC00000
-		  Me.InternalNetworkInfo         = &cC0C000
-		  Me.InternalNetworkSuccess      = &c00C000
-		  Me.InternalSuccess             = &c00C000
+		  
+		  Me.DefaultBackColor            = &c2F3136
+		  Me.DefaultFrameColor           = &c686878
+		  Me.DefaultHighlightColor       = &c42464D
+		  Me.DefaultTextColor            = &cADBAC2
+		  
+		  Me.InternalDebug               = &cDD7928
+		  Me.InternalError               = &cBB4F5F
+		  Me.InternalInfo                = &cF1BF26
+		  
+		  Me.InternalNetworkDebug        = &cDD7928
+		  Me.InternalNetworkError        = &cBB4F5F
+		  Me.InternalNetworkInfo         = &cF1BF26
+		  Me.InternalNetworkSuccess      = &c18DEBF
+		  
+		  Me.InternalSuccess             = &c18DEBF
 		  
 		End Sub
 	#tag EndMethod

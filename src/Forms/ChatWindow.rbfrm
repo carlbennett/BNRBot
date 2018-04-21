@@ -227,6 +227,15 @@ End
 		End Sub
 	#tag EndEvent
 
+	#tag Event
+		Sub Open()
+		  
+		  Me.BackColor = App.config.colors.DefaultBackColor
+		  Me.HasBackColor = True
+		  
+		End Sub
+	#tag EndEvent
+
 
 	#tag Method, Flags = &h0
 		Sub AddClient(client As BNETClient, focus As Boolean)
@@ -309,29 +318,14 @@ End
 
 #tag Events ChatContainerList
 	#tag Event
-		Sub Change()
-		  
-		  Dim page As Integer
-		  
-		  If Me.ListIndex = -1 Then
-		    page = 0
-		  Else
-		    page = Me.CellTag(Me.ListIndex, 1)
-		  End If
-		  
-		  Self.ChatContainers.Value = page
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
 		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
 		  
 		  #pragma Unused column
 		  
 		  If Me.ListIndex = row Then
-		    g.ForeColor = HighlightColor()
+		    g.ForeColor = App.config.colors.DefaultHighlightColor
 		  Else
-		    g.ForeColor = App.config.globalConfig.Colors.ChatBackColor
+		    g.ForeColor = App.config.colors.ChatBackColor
 		  End If
 		  
 		  g.FillRect(0, 0, g.Width, g.Height)
@@ -344,9 +338,9 @@ End
 		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
 		  
 		  If row = Me.ListIndex Then
-		    g.ForeColor = App.config.globalConfig.Colors.ChatBackColor
+		    g.ForeColor = App.config.colors.ChatBackColor
 		  Else
-		    g.ForeColor = App.config.globalConfig.Colors.DefaultTextColor
+		    g.ForeColor = App.config.colors.DefaultTextColor
 		  End If
 		  
 		  If row < 0 Or row >= Me.ListCount Or column < 0 Or column >= Me.ColumnCount Then
@@ -421,6 +415,30 @@ End
 		  Return True
 		  
 		End Function
+	#tag EndEvent
+	#tag Event
+		Sub Change()
+		  
+		  Dim page As Integer
+		  
+		  If Me.ListIndex = -1 Then
+		    page = 0
+		  Else
+		    page = Me.CellTag(Me.ListIndex, 1)
+		  End If
+		  
+		  Self.ChatContainers.Value = page
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events NoProfileLabels
+	#tag Event
+		Sub Open(index as Integer)
+		  
+		  Me.TextColor = App.config.colors.DefaultTextColor
+		  
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events SizeGripControl1

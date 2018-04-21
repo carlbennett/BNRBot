@@ -22,33 +22,33 @@ Inherits Thread
 		        
 		        If BitAnd(msg.flags, BitOr(ChatMessage.InternalFlagDebug, ChatMessage.InternalFlagNetwork)) _
 		          = BitOr(ChatMessage.InternalFlagDebug, ChatMessage.InternalFlagNetwork) Then
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.InternalNetworkDebug, msg.text + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.InternalNetworkDebug, msg.text + EndOfLine)
 		        ElseIf BitAnd(msg.flags, BitOr(ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagNetwork)) _
 		          = BitOr(ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagNetwork) Then
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.InternalNetworkInfo, msg.text + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.InternalNetworkInfo, msg.text + EndOfLine)
 		        ElseIf BitAnd(msg.flags, BitOr(ChatMessage.InternalFlagError, ChatMessage.InternalFlagNetwork)) _
 		          = BitOr(ChatMessage.InternalFlagError, ChatMessage.InternalFlagNetwork) Then
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.InternalNetworkError, msg.text + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.InternalNetworkError, msg.text + EndOfLine)
 		        ElseIf BitAnd(msg.flags, BitOr(ChatMessage.InternalFlagSuccess, ChatMessage.InternalFlagNetwork)) _
 		          = BitOr(ChatMessage.InternalFlagSuccess, ChatMessage.InternalFlagNetwork) Then
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.InternalNetworkSuccess, msg.text + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.InternalNetworkSuccess, msg.text + EndOfLine)
 		        ElseIf BitAnd(msg.flags, ChatMessage.InternalFlagDebug) = ChatMessage.InternalFlagDebug Then
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.InternalDebug, msg.text + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.InternalDebug, msg.text + EndOfLine)
 		        ElseIf BitAnd(msg.flags, ChatMessage.InternalFlagInfo) = ChatMessage.InternalFlagInfo Then
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.InternalInfo, msg.text + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.InternalInfo, msg.text + EndOfLine)
 		        ElseIf BitAnd(msg.flags, ChatMessage.InternalFlagError) = ChatMessage.InternalFlagError Then
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.InternalError, msg.text + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.InternalError, msg.text + EndOfLine)
 		        ElseIf BitAnd(msg.flags, ChatMessage.InternalFlagSuccess) = ChatMessage.InternalFlagSuccess Then
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.InternalSuccess, msg.text + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.InternalSuccess, msg.text + EndOfLine)
 		        ElseIf BitAnd(msg.flags, ChatMessage.InternalFlagChatSent) = ChatMessage.InternalFlagChatSent Then
 		          If Left(msg.text, 1) = "/" Then
-		            Me.AddChat(e.client, App.config.globalConfig.Colors.InternalDebug, msg.text + EndOfLine)
+		            Me.AddChat(e.client, App.config.colors.InternalDebug, msg.text + EndOfLine)
 		          Else
-		            Me.AddChat(e.client, App.config.globalConfig.Colors.ChatEventUserTalkName, "<" + msg.username + "> ", _
-		            App.config.globalConfig.Colors.ChatEventUserTalkMessage, msg.text + EndOfLine)
+		            Me.AddChat(e.client, App.config.colors.ChatEventUserTalkName, "<" + msg.username + "> ", _
+		            App.config.colors.ChatEventUserTalkMessage, msg.text + EndOfLine)
 		          End If
 		        Else
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.DefaultTextColor, msg.text + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.DefaultTextColor, msg.text + EndOfLine)
 		        End If
 		        
 		      Case ChatMessage.OriginBattlenet
@@ -59,58 +59,58 @@ Inherits Thread
 		          
 		        Case Packets.EID_USERJOIN
 		          Me.events.Append(New GUIUpdateEvent(e.client, GUIUpdateEvent.TypeUserJoin, msg.username))
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.ChatEventUserJoin, "-- " + msg.username + " joined the channel" + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.ChatEventUserJoin, "-- " + msg.username + " joined the channel" + EndOfLine)
 		          
 		        Case Packets.EID_USERLEAVE
 		          Me.events.Append(New GUIUpdateEvent(e.client, GUIUpdateEvent.TypeUserLeave, msg.username))
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.ChatEventUserLeave, "-- " + msg.username + " left the channel" + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.ChatEventUserLeave, "-- " + msg.username + " left the channel" + EndOfLine)
 		          
 		        Case Packets.EID_WHISPER
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.ChatEventUserWhisperName, "<From: " + msg.username + "> ", _
-		          App.config.globalConfig.Colors.ChatEventUserWhisperMessage, msg.text + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.ChatEventUserWhisperName, "<From: " + msg.username + "> ", _
+		          App.config.colors.ChatEventUserWhisperMessage, msg.text + EndOfLine)
 		          
 		        Case Packets.EID_TALK
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.ChatEventUserTalkName, "<" + msg.username + "> ", _
-		          App.config.globalConfig.Colors.ChatEventUserTalkMessage, msg.text + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.ChatEventUserTalkName, "<" + msg.username + "> ", _
+		          App.config.colors.ChatEventUserTalkMessage, msg.text + EndOfLine)
 		          
 		        Case Packets.EID_BROADCAST
 		          If msg.username = "Battle.net" Or Len(msg.username) = 0 Then
-		            Me.AddChat(e.client, App.config.globalConfig.Colors.ChatEventBroadcastName, "Server Broadcast: ", _
-		            App.config.globalConfig.Colors.ChatEventBroadcastMessage, msg.text + EndOfLine)
+		            Me.AddChat(e.client, App.config.colors.ChatEventBroadcastName, "Server Broadcast: ", _
+		            App.config.colors.ChatEventBroadcastMessage, msg.text + EndOfLine)
 		          Else
-		            Me.AddChat(e.client, App.config.globalConfig.Colors.ChatEventBroadcastName, "Server Broadcast from " + msg.username + ": ", _
-		            App.config.globalConfig.Colors.ChatEventBroadcastMessage, msg.text + EndOfLine)
+		            Me.AddChat(e.client, App.config.colors.ChatEventBroadcastName, "Server Broadcast from " + msg.username + ": ", _
+		            App.config.colors.ChatEventBroadcastMessage, msg.text + EndOfLine)
 		          End If
 		          
 		        Case Packets.EID_CHANNEL
 		          Me.events.Append(New GUIUpdateEvent(e.client, GUIUpdateEvent.TypeChannelJoin, msg.text))
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.ChatEventChannelJoin, "-- Joined Channel: " + msg.text + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.ChatEventChannelJoin, "-- Joined Channel: " + msg.text + EndOfLine)
 		          
 		        Case Packets.EID_USERUPDATE
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.InternalDebug, "-- User updated: " + msg.username + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.InternalDebug, "-- User updated: " + msg.username + EndOfLine)
 		          
 		        Case Packets.EID_WHISPERSENT
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.ChatEventUserWhisperName, "<To: " + msg.username + "> ", _
-		          App.config.globalConfig.Colors.ChatEventUserWhisperMessage, msg.text + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.ChatEventUserWhisperName, "<To: " + msg.username + "> ", _
+		          App.config.colors.ChatEventUserWhisperMessage, msg.text + EndOfLine)
 		          
 		        Case Packets.EID_CHANNEL_FULL
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.ChatEventError, "-- Channel " + msg.text + " is full" + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.ChatEventError, "-- Channel " + msg.text + " is full" + EndOfLine)
 		          
 		        Case Packets.EID_CHANNEL_EMPTY
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.ChatEventError, "-- Channel " + msg.text + " is empty" + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.ChatEventError, "-- Channel " + msg.text + " is empty" + EndOfLine)
 		          
 		        Case Packets.EID_CHANNEL_RESTRICTED
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.ChatEventError, "-- Channel " + msg.text + " is restricted" + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.ChatEventError, "-- Channel " + msg.text + " is restricted" + EndOfLine)
 		          
 		        Case Packets.EID_INFO
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.ChatEventInfo, msg.text + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.ChatEventInfo, msg.text + EndOfLine)
 		          
 		        Case Packets.EID_ERROR
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.ChatEventError, msg.text + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.ChatEventError, msg.text + EndOfLine)
 		          
 		        Case Packets.EID_EMOTE
-		          Me.AddChat(e.client, App.config.globalConfig.Colors.ChatEventUserEmoteName, "<" + msg.username + " ", _
-		          App.config.globalConfig.Colors.ChatEventUserEmoteMessage, msg.text + ">" + EndOfLine)
+		          Me.AddChat(e.client, App.config.colors.ChatEventUserEmoteName, "<" + msg.username + " ", _
+		          App.config.colors.ChatEventUserEmoteMessage, msg.text + ">" + EndOfLine)
 		          
 		        End Select
 		        

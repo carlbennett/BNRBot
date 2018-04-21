@@ -83,9 +83,9 @@ Inherits Canvas
 		  
 		  #pragma Unused areas
 		  
-		  g.ForeColor = App.config.globalConfig.Colors.DefaultBackColor
+		  g.ForeColor = App.config.colors.DefaultBackColor
 		  g.FillRect(0, 0, g.Width, g.Height)
-		  g.ForeColor = App.config.globalConfig.Colors.DefaultFrameColor
+		  g.ForeColor = App.config.colors.DefaultFrameColor
 		  
 		  Dim x1, x2, y1, y2, i As Integer
 		  

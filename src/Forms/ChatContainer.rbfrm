@@ -210,7 +210,6 @@ Begin ContainerControl ChatContainer
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "USER INTERFACE ALPHA"
       TextAlign       =   1
       TextColor       =   &h000000
@@ -238,8 +237,8 @@ End
 	#tag Event
 		Sub Open()
 		  
-		  Me.BackColor = App.config.globalConfig.Colors.ChatBackColor
-		  Me.TextColor = App.config.globalConfig.Colors.DefaultTextColor
+		  Me.BackColor = App.config.colors.ChatBackColor
+		  Me.TextColor = App.config.colors.DefaultTextColor
 		  
 		End Sub
 	#tag EndEvent
@@ -271,7 +270,7 @@ End
 		  If Me.ListIndex = row Then
 		    g.ForeColor = HighlightColor()
 		  Else
-		    g.ForeColor = App.config.globalConfig.Colors.ChatBackColor
+		    g.ForeColor = App.config.colors.ChatBackColor
 		  End If
 		  
 		  g.FillRect(0, 0, g.Width, g.Height)
@@ -284,9 +283,9 @@ End
 		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
 		  
 		  If row = Me.ListIndex Then
-		    g.ForeColor = App.config.globalConfig.Colors.ChatBackColor
+		    g.ForeColor = App.config.colors.ChatBackColor
 		  Else
-		    g.ForeColor = App.config.globalConfig.Colors.DefaultTextColor
+		    g.ForeColor = App.config.colors.DefaultTextColor
 		  End If
 		  
 		  If row < 0 Or row >= Me.ListCount Or column < 0 Or column >= Me.ColumnCount Then
@@ -304,8 +303,8 @@ End
 	#tag Event
 		Sub Open()
 		  
-		  Me.BackColor = App.config.globalConfig.Colors.ChatBackColor
-		  Me.TextColor = App.config.globalConfig.Colors.DefaultTextColor
+		  Me.BackColor = App.config.colors.ChatBackColor
+		  Me.TextColor = App.config.colors.DefaultTextColor
 		  
 		End Sub
 	#tag EndEvent
@@ -342,6 +341,15 @@ End
 		    c.Width = c.Width - dX
 		    
 		  End Select
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events UIAlphaLabel
+	#tag Event
+		Sub Open()
+		  
+		  Me.TextColor = App.config.colors.DefaultTextColor
 		  
 		End Sub
 	#tag EndEvent

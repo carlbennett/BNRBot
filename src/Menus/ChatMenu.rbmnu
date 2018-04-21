@@ -9,8 +9,8 @@ Begin Menu ChatMenu
          SpecialMenu = 0
          Text = "Connect..."
          Index = -2147483648
-         ShortcutKey = "1"
-         Shortcut = "Cmd+1"
+         ShortcutKey = "O"
+         Shortcut = "Cmd+O"
          MenuModifier = True
          AutoEnable = True
       End
@@ -31,7 +31,7 @@ Begin Menu ChatMenu
       End
       Begin WindowCloseMenuItem FileCloseWindow
          SpecialMenu = 0
-         Text = "&Close Window"
+         Text = "Close &Window"
          Index = -2147483648
          ShortcutKey = "W"
          Shortcut = "Cmd+W"
