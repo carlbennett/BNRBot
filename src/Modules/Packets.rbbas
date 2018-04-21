@@ -133,6 +133,14 @@ Protected Module Packets
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function CreateBNET_SID_FRIENDSLIST() As String
+		  
+		  Return Packets.CreateBNET( Packets.SID_FRIENDSLIST, "" )
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function CreateBNET_SID_GETCHANNELLIST(product As UInt32) As String
 		  
 		  Dim o As New MemoryBlock(4)
@@ -307,6 +315,9 @@ Protected Module Packets
 		    Case Packets.SID_AUTH_ACCOUNTLOGONPROOF
 		      Packets.ReceiveBNET_SID_AUTH_ACCOUNTLOGONPROOF(client, MidB(packetObject, 5))
 		      
+		    Case Packets.SID_FRIENDSLIST
+		      Packets.ReceiveBNET_SID_FRIENDSLIST(client, MidB( packetObject, 5))
+		      
 		    Case Else
 		      Raise New UnknownNetworkMessageException()
 		      
@@ -427,20 +438,7 @@ Protected Module Packets
 		  
 		  GUIUpdateEvent.InternalMessage( "BNET: Account login success.", BitOr( ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagSuccess ), client )
 		  
-		  Dim flags As UInt32, channel As String
-		  
-		  If Len( client.config.homeChannel ) = 0 Then
-		    Battlenet.getDefaultChannel( client.state.product, flags, channel )
-		  Else
-		    flags   = Packets.FLAG_NOCREATE
-		    channel = client.config.homeChannel
-		  End If
-		  
-		  client.socBNET.Write(_
-		  Packets.CreateBNET_SID_ENTERCHAT( client.state.username, "" ) + _
-		  Packets.CreateBNET_SID_GETCHANNELLIST( client.state.product ) + _
-		  Packets.CreateBNET_SID_JOINCHANNEL( flags, channel )_
-		  )
+		  client.socBNET.Write( Packets.CreateBNET_SID_ENTERCHAT( client.state.username, "" ))
 		  
 		End Sub
 	#tag EndMethod
@@ -612,6 +610,63 @@ Protected Module Packets
 		  GUIUpdateEvent.InternalMessage("BNET: Logged on as " + client.state.uniqueName + "!", _
 		  BitOr(ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagSuccess), client)
 		  
+		  Dim flags As UInt32, channel As String
+		  
+		  If Len( client.config.homeChannel ) = 0 Then
+		    Battlenet.getDefaultChannel( client.state.product, flags, channel )
+		  Else
+		    flags   = Packets.FLAG_NOCREATE
+		    channel = client.config.homeChannel
+		  End If
+		  
+		  client.socBNET.Write( Packets.CreateBNET_SID_GETCHANNELLIST( client.state.product ))
+		  
+		  client.socBNET.Write( Packets.CreateBNET_SID_FRIENDSLIST() )
+		  
+		  client.socBNET.Write( Packets.CreateBNET_SID_JOINCHANNEL( flags, channel ))
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub ReceiveBNET_SID_FRIENDSLIST(client As BNETClient, packetObject As MemoryBlock)
+		  
+		  Dim friends() As Friend
+		  Dim friend, locationStr As String
+		  Dim status, location As UInt8
+		  Dim product As UInt32
+		  Dim count, cursor As Integer = 1
+		  
+		  count = packetObject.UInt8Value( 0 )
+		  
+		  Do
+		    friend = packetObject.CString( cursor )
+		    cursor = cursor + LenB( friend ) + 1
+		    
+		    status = packetObject.UInt8Value( cursor )
+		    location = packetObject.UInt8Value( cursor + 1 )
+		    product = packetObject.UInt32Value( cursor + 2 )
+		    locationStr = packetObject.CString( cursor + 6 )
+		    cursor = cursor + LenB( locationStr ) + 7
+		    
+		    friends.Append( new Friend( friend, status, location, product, locationStr ))
+		    
+		    If cursor >= packetObject.Size Then Exit Do
+		  Loop
+		  
+		  client.state.friendsList = friends
+		  
+		  Dim total As Integer = UBound( friends ) + 1
+		  Dim message As String
+		  
+		  If total = 1 Then
+		    message = "BNET: Received 1 friend."
+		  Else
+		    message = "BNET: Received " + Format(total, "-#") + " friends."
+		  End If
+		  
+		  GUIUpdateEvent.InternalMessage( message, ChatMessage.InternalFlagInfo, client )
+		  
 		End Sub
 	#tag EndMethod
 
@@ -685,11 +740,7 @@ Protected Module Packets
 		    channel = client.config.homeChannel
 		  End If
 		  
-		  client.socBNET.Write(_
-		  Packets.CreateBNET_SID_ENTERCHAT(client.state.username, "") + _
-		  Packets.CreateBNET_SID_GETCHANNELLIST(client.state.product) + _
-		  Packets.CreateBNET_SID_JOINCHANNEL(flags, channel)_
-		  )
+		  client.socBNET.Write( Packets.CreateBNET_SID_ENTERCHAT( client.state.username, "" ))
 		  
 		End Sub
 	#tag EndMethod
@@ -947,6 +998,9 @@ Protected Module Packets
 	#tag EndConstant
 
 	#tag Constant, Name = SID_ENTERCHAT, Type = Double, Dynamic = False, Default = \"&H0A", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = SID_FRIENDSLIST, Type = Double, Dynamic = False, Default = \"&H65", Scope = Protected
 	#tag EndConstant
 
 	#tag Constant, Name = SID_GETCHANNELLIST, Type = Double, Dynamic = False, Default = \"&H0B", Scope = Protected

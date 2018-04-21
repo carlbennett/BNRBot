@@ -22,6 +22,7 @@ Class=Configuration;src/Classes/Configuration.rbbas;&h7B97B7FF;&h345747FF;false
 Class=ConfigurationFactory;src/Classes/ConfigurationFactory.rbbas;&h19A0D7FF;&h345747FF;false
 FileTypeSet=DragNDropTypes;src/Classes/DragNDropTypes.rbbas;&h38F4FFF;&h345747FF;false
 FileTypeSet=FileTypes;src/Classes/FileTypes.rbbas;&h45C467FF;&h345747FF;false
+Class=Friend;src/Classes/Friend.rbbas;&h7383B7FF;&h345747FF;false
 Class=GameKey;src/Classes/GameKey.rbbas;&h369B8FFF;&h345747FF;false
 Class=GlobalConfiguration;src/Classes/GlobalConfiguration.rbbas;&h2130AFFF;&h345747FF;false
 Class=GUIUpdateEvent;src/Classes/GUIUpdateEvent.rbbas;&h1664EFFF;&h345747FF;false

@@ -111,6 +111,10 @@ Protected Class BNETState
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		friendsList() As Friend
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		gameKey1 As String
 	#tag EndProperty
 
