@@ -83,9 +83,9 @@ Inherits Canvas
 		  
 		  #pragma Unused areas
 		  
-		  g.ForeColor = App.config.colors.DefaultBackColor
+		  g.ForeColor = Me.BackColor
 		  g.FillRect(0, 0, g.Width, g.Height)
-		  g.ForeColor = App.config.colors.DefaultFrameColor
+		  g.ForeColor = Me.ForeColor
 		  
 		  Dim x1, x2, y1, y2, i As Integer
 		  
@@ -167,6 +167,10 @@ Inherits Canvas
 		Protected attachments() As RectControl
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		BackColor As Color
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
@@ -185,6 +189,10 @@ Inherits Canvas
 		#tag EndSetter
 		Direction As SizeGripControl.DirectionType
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0
+		ForeColor As Color
+	#tag EndProperty
 
 	#tag Property, Flags = &h1
 		Protected mDirection As SizeGripControl.DirectionType
@@ -233,6 +241,12 @@ Inherits Canvas
 			InheritedFrom="Canvas"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="BackColor"
+			Visible=true
+			Group="Appearance"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Backdrop"
 			Group="Appearance"
 			Type="Picture"
@@ -262,6 +276,12 @@ Inherits Canvas
 			InitialValue="True"
 			Type="Boolean"
 			InheritedFrom="Canvas"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ForeColor"
+			Visible=true
+			Group="Appearance"
+			Type="Color"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Height"

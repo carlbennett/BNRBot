@@ -137,6 +137,7 @@ Inherits Thread
 		    ElseIf e.type = GUIUpdateEvent.TypeChannelJoin Then
 		      
 		      e.client.gui.UserView.DeleteAllRows()
+		      e.client.gui.StatusCtl.Text = e.data
 		      
 		    Else
 		      Dim err As New BotException("Unable to handle GUI update event", 0, Nil)

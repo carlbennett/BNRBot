@@ -23,7 +23,7 @@ Begin Window ChatWindow
    Resizeable      =   True
    Title           =   "Chat Window"
    Visible         =   True
-   Width           =   600
+   Width           =   760
    Begin Listbox ChatContainerList
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
@@ -70,7 +70,7 @@ Begin Window ChatWindow
       Underline       =   ""
       UseFocusRing    =   False
       Visible         =   True
-      Width           =   100
+      Width           =   150
       _ScrollWidth    =   -1
    End
    Begin PagePanel ChatContainers
@@ -80,7 +80,7 @@ Begin Window ChatWindow
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   110
+      Left            =   160
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -94,7 +94,7 @@ Begin Window ChatWindow
       Top             =   0
       Value           =   0
       Visible         =   True
-      Width           =   490
+      Width           =   600
       Begin Label NoProfileLabels
          AutoDeactivate  =   True
          Bold            =   True
@@ -106,7 +106,7 @@ Begin Window ChatWindow
          Index           =   0
          InitialParent   =   "ChatContainers"
          Italic          =   ""
-         Left            =   110
+         Left            =   160
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   True
@@ -127,7 +127,7 @@ Begin Window ChatWindow
          Transparent     =   True
          Underline       =   ""
          Visible         =   True
-         Width           =   490
+         Width           =   600
       End
       Begin Label NoProfileLabels
          AutoDeactivate  =   True
@@ -140,7 +140,7 @@ Begin Window ChatWindow
          Index           =   1
          InitialParent   =   "ChatContainers"
          Italic          =   ""
-         Left            =   110
+         Left            =   160
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   True
@@ -161,22 +161,24 @@ Begin Window ChatWindow
          Transparent     =   True
          Underline       =   ""
          Visible         =   True
-         Width           =   490
+         Width           =   600
       End
    End
    Begin SizeGripControl SizeGripControl1
       AcceptFocus     =   ""
       AcceptTabs      =   ""
       AutoDeactivate  =   True
+      BackColor       =   ""
       Backdrop        =   ""
       DoubleBuffer    =   True
       Enabled         =   True
       EraseBackground =   True
+      ForeColor       =   ""
       Height          =   400
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   100
+      Left            =   150
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -449,6 +451,9 @@ End
 		  
 		  Me.Attach(Self.ChatContainerList)
 		  Me.Attach(Self.ChatContainers)
+		  
+		  Me.BackColor = App.config.colors.DefaultBackColor
+		  Me.ForeColor = App.config.colors.DefaultTextColor
 		  
 		End Sub
 	#tag EndEvent

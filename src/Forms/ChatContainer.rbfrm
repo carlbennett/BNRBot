@@ -22,7 +22,7 @@ Begin ContainerControl ChatContainer
    Top             =   32
    UseFocusRing    =   ""
    Visible         =   True
-   Width           =   480
+   Width           =   580
    Begin TextField ChatInput
       AcceptTabs      =   ""
       Alignment       =   0
@@ -63,7 +63,7 @@ Begin ContainerControl ChatContainer
       Underline       =   ""
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   480
+      Width           =   580
    End
    Begin Listbox UserView
       AutoDeactivate  =   True
@@ -83,14 +83,14 @@ Begin ContainerControl ChatContainer
       GridLinesVertical=   0
       HasHeading      =   ""
       HeadingIndex    =   -1
-      Height          =   328
+      Height          =   292
       HelpTag         =   ""
       Hierarchical    =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       InitialValue    =   ""
       Italic          =   ""
-      Left            =   380
+      Left            =   430
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -107,11 +107,11 @@ Begin ContainerControl ChatContainer
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   0
+      Top             =   36
       Underline       =   ""
       UseFocusRing    =   False
       Visible         =   True
-      Width           =   100
+      Width           =   150
       _ScrollWidth    =   -1
    End
    Begin TextArea ChatOutput
@@ -159,21 +159,23 @@ Begin ContainerControl ChatContainer
       Underline       =   ""
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   370
+      Width           =   420
    End
    Begin SizeGripControl SizeGripControl1
       AcceptFocus     =   ""
       AcceptTabs      =   ""
       AutoDeactivate  =   True
+      BackColor       =   ""
       Backdrop        =   ""
       DoubleBuffer    =   True
       Enabled         =   True
       EraseBackground =   True
+      ForeColor       =   ""
       Height          =   328
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   370
+      Left            =   420
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -208,7 +210,7 @@ Begin ContainerControl ChatContainer
       Multiline       =   ""
       Scope           =   0
       Selectable      =   False
-      TabIndex        =   4
+      TabIndex        =   5
       TabPanelIndex   =   0
       Text            =   "USER INTERFACE ALPHA"
       TextAlign       =   1
@@ -220,7 +222,65 @@ Begin ContainerControl ChatContainer
       Transparent     =   True
       Underline       =   ""
       Visible         =   True
-      Width           =   370
+      Width           =   420
+   End
+   Begin Rectangle StatusBackCtl
+      AutoDeactivate  =   True
+      BorderWidth     =   0
+      BottomRightColor=   &h000000
+      Enabled         =   True
+      FillColor       =   &hFFFFFF
+      Height          =   24
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   430
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      Top             =   0
+      TopLeftColor    =   &h000000
+      Visible         =   True
+      Width           =   150
+      Begin Label StatusCtl
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "StatusBackCtl"
+         Italic          =   ""
+         Left            =   432
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   True
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         Text            =   "Status"
+         TextAlign       =   1
+         TextColor       =   &h000000
+         TextFont        =   "Microsoft Sans Serif"
+         TextSize        =   11
+         TextUnit        =   0
+         Top             =   2
+         Transparent     =   True
+         Underline       =   ""
+         Visible         =   True
+         Width           =   146
+      End
    End
 End
 #tag EndWindow
@@ -317,7 +377,11 @@ End
 		  
 		  Me.Attach(Self.UIAlphaLabel)
 		  Me.Attach(Self.ChatOutput)
+		  Me.Attach(Self.StatusBackCtl)
 		  Me.Attach(Self.UserView)
+		  
+		  Me.BackColor = App.config.colors.DefaultBackColor
+		  Me.ForeColor = App.config.colors.DefaultTextColor
 		  
 		End Sub
 	#tag EndEvent
@@ -335,6 +399,11 @@ End
 		    
 		    c.Width = c.Width + dX
 		    
+		  Case Self.StatusBackCtl
+		    
+		    c.Left = c.Left + dX
+		    c.Width = c.Width - dX
+		    
 		  Case Self.UserView
 		    
 		    c.Left = c.Left + dX
@@ -346,6 +415,27 @@ End
 	#tag EndEvent
 #tag EndEvents
 #tag Events UIAlphaLabel
+	#tag Event
+		Sub Open()
+		  
+		  Me.TextColor = App.config.colors.DefaultTextColor
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events StatusBackCtl
+	#tag Event
+		Sub Open()
+		  
+		  Me.FillColor = App.config.colors.ChatBackColor
+		  
+		  Me.TopLeftColor = Me.FillColor
+		  Me.BottomRightColor = Me.FillColor
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events StatusCtl
 	#tag Event
 		Sub Open()
 		  
