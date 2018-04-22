@@ -1,5 +1,6 @@
 #tag Class
 Protected Class ColorSwatch
+Implements Serializable
 	#tag Method, Flags = &h0
 		Sub Constructor()
 		  
@@ -34,6 +35,96 @@ Protected Class ColorSwatch
 		  Me.InternalNetworkSuccess      = &c18DEBF
 		  
 		  Me.InternalSuccess             = &c18DEBF
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Serialize() As String
+		  // Part of the Serializable interface.
+		  
+		  Dim mb As New MemoryBlock( &H0068 )
+		  
+		  mb.LittleEndian = True
+		  
+		  mb.ColorValue( &H0000, 32 ) = Me.ChatBackColor
+		  mb.ColorValue( &H0004, 32 ) = Me.ChatEventBroadcastMessage
+		  mb.ColorValue( &H0008, 32 ) = Me.ChatEventBroadcastName
+		  mb.ColorValue( &H000C, 32 ) = Me.ChatEventChannelJoin
+		  
+		  mb.ColorValue( &H0010, 32 ) = Me.ChatEventError
+		  mb.ColorValue( &H0014, 32 ) = Me.ChatEventInfo
+		  mb.ColorValue( &H0018, 32 ) = Me.ChatEventUserEmoteMessage
+		  mb.ColorValue( &H001C, 32 ) = Me.ChatEventUserEmoteName
+		  
+		  mb.ColorValue( &H0020, 32 ) = Me.ChatEventUserJoin
+		  mb.ColorValue( &H0024, 32 ) = Me.ChatEventUserLeave
+		  mb.ColorValue( &H0028, 32 ) = Me.ChatEventUserTalkMessage
+		  mb.ColorValue( &H002C, 32 ) = Me.ChatEventUserTalkName
+		  
+		  mb.ColorValue( &H0030, 32 ) = Me.ChatEventUserWhisperMessage
+		  mb.ColorValue( &H0034, 32 ) = Me.ChatEventUserWhisperName
+		  mb.ColorValue( &H0038, 32 ) = Me.DefaultBackColor
+		  mb.ColorValue( &H003C, 32 ) = Me.DefaultFrameColor
+		  
+		  mb.ColorValue( &H0040, 32 ) = Me.DefaultHighlightColor
+		  mb.ColorValue( &H0044, 32 ) = Me.DefaultTextColor
+		  mb.ColorValue( &H0048, 32 ) = Me.InternalDebug
+		  mb.ColorValue( &H004C, 32 ) = Me.InternalError
+		  
+		  mb.ColorValue( &H0050, 32 ) = Me.InternalInfo
+		  mb.ColorValue( &H0054, 32 ) = Me.InternalNetworkDebug
+		  mb.ColorValue( &H0058, 32 ) = Me.InternalNetworkError
+		  mb.ColorValue( &H005C, 32 ) = Me.InternalNetworkInfo
+		  
+		  mb.ColorValue( &H0060, 32 ) = Me.InternalNetworkSuccess
+		  mb.ColorValue( &H0064, 32 ) = Me.InternalSuccess
+		  
+		  Return mb
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Unserialize(value As String)
+		  // Part of the Serializable interface.
+		  
+		  Dim mb As MemoryBlock = value
+		  
+		  mb.LittleEndian = True
+		  
+		  Me.ChatBackColor               = mb.ColorValue( &H0000, 32 )
+		  Me.ChatEventBroadcastMessage   = mb.ColorValue( &H0004, 32 )
+		  Me.ChatEventBroadcastName      = mb.ColorValue( &H0008, 32 )
+		  Me.ChatEventChannelJoin        = mb.ColorValue( &H000C, 32 )
+		  
+		  Me.ChatEventError              = mb.ColorValue( &H0010, 32 )
+		  Me.ChatEventInfo               = mb.ColorValue( &H0014, 32 )
+		  Me.ChatEventUserEmoteMessage   = mb.ColorValue( &H0018, 32 )
+		  Me.ChatEventUserEmoteName      = mb.ColorValue( &H001C, 32 )
+		  
+		  Me.ChatEventUserJoin           = mb.ColorValue( &H0020, 32 )
+		  Me.ChatEventUserLeave          = mb.ColorValue( &H0024, 32 )
+		  Me.ChatEventUserTalkMessage    = mb.ColorValue( &H0028, 32 )
+		  Me.ChatEventUserTalkName       = mb.ColorValue( &H002C, 32 )
+		  
+		  Me.ChatEventUserWhisperMessage = mb.ColorValue( &H0030, 32 )
+		  Me.ChatEventUserWhisperName    = mb.ColorValue( &H0034, 32 )
+		  Me.DefaultBackColor            = mb.ColorValue( &H0038, 32 )
+		  Me.DefaultFrameColor           = mb.ColorValue( &H003C, 32 )
+		  
+		  Me.DefaultHighlightColor       = mb.ColorValue( &H0040, 32 )
+		  Me.DefaultTextColor            = mb.ColorValue( &H0044, 32 )
+		  Me.InternalDebug               = mb.ColorValue( &H0048, 32 )
+		  Me.InternalError               = mb.ColorValue( &H004C, 32 )
+		  
+		  Me.InternalInfo                = mb.ColorValue( &H0050, 32 )
+		  Me.InternalNetworkDebug        = mb.ColorValue( &H0054, 32 )
+		  Me.InternalNetworkError        = mb.ColorValue( &H0058, 32 )
+		  Me.InternalNetworkInfo         = mb.ColorValue( &H005C, 32 )
+		  
+		  Me.InternalNetworkSuccess      = mb.ColorValue( &H0060, 32 )
+		  Me.InternalSuccess             = mb.ColorValue( &H0064, 32 )
 		  
 		End Sub
 	#tag EndMethod

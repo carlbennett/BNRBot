@@ -49,6 +49,16 @@ Protected Class NLS
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Close()
+		  
+		  Soft Declare Sub nls_free Lib NLS.BNCSUtil ( NLS As Ptr )
+		  
+		  nls_free( Me.mInternalNLS )
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Constructor(Username As String, Password As String)
 		  
 		  Soft Declare Function nls_init Lib NLS.BNCSUtil _
@@ -68,9 +78,7 @@ Protected Class NLS
 	#tag Method, Flags = &h0
 		Sub Destructor()
 		  
-		  Soft Declare Sub nls_free Lib NLS.BNCSUtil ( NLS As Ptr )
-		  
-		  nls_free( Me.mInternalNLS )
+		  Me.Close()
 		  
 		End Sub
 	#tag EndMethod

@@ -1,5 +1,6 @@
 #tag Class
 Protected Class GameKey
+Implements Serializable
 	#tag Method, Flags = &h0
 		Sub Constructor(Key As String)
 		  
@@ -60,6 +61,38 @@ Protected Class GameKey
 		  Return Me.PublicVal
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Serialize() As String
+		  // Part of the Serializable interface.
+		  
+		  Dim mb As New MemoryBlock( 8 + Me.PrivateVal.Size )
+		  
+		  mb.LittleEndian = True
+		  
+		  mb.UInt32Value( 0 ) = Me.ProductVal
+		  mb.UInt32Value( 4 ) = Me.PublicVal
+		  mb.StringValue( 8, Me.PrivateVal.Size ) = Me.PrivateVal
+		  
+		  Return mb
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Unserialize(value As String)
+		  // Part of the Serializable interface.
+		  
+		  Dim mb As MemoryBlock = value
+		  
+		  mb.LittleEndian = True
+		  
+		  Me.ProductVal = mb.UInt32Value( 0 )
+		  Me.PublicVal = mb.UInt32Value( 4 )
+		  Me.PrivateVal = mb.StringValue( 8, mb.Size - 8 )
+		  
+		End Sub
 	#tag EndMethod
 
 

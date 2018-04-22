@@ -42,6 +42,7 @@ Begin Window ProfilesWindow
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   1
       Visible         =   True
@@ -68,6 +69,7 @@ Begin Window ProfilesWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   1
+         TabStop         =   True
          Text            =   "No profile selected."
          TextAlign       =   1
          TextColor       =   &h000000
@@ -102,6 +104,7 @@ Begin Window ProfilesWindow
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   1
+         TabStop         =   True
          Text            =   "Select from the left or click Create."
          TextAlign       =   1
          TextColor       =   &h000000
@@ -133,6 +136,7 @@ Begin Window ProfilesWindow
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   2
+         TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -203,6 +207,7 @@ Begin Window ProfilesWindow
          Scope           =   0
          TabIndex        =   1
          TabPanelIndex   =   2
+         TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -338,6 +343,7 @@ Begin Window ProfilesWindow
          Scope           =   0
          TabIndex        =   3
          TabPanelIndex   =   2
+         TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -473,6 +479,7 @@ Begin Window ProfilesWindow
          Scope           =   0
          TabIndex        =   2
          TabPanelIndex   =   2
+         TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -531,6 +538,7 @@ Begin Window ProfilesWindow
          Scope           =   0
          TabIndex        =   4
          TabPanelIndex   =   2
+         TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -751,6 +759,7 @@ Begin Window ProfilesWindow
          Scope           =   0
          TabIndex        =   5
          TabPanelIndex   =   2
+         TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -939,6 +948,7 @@ Begin Window ProfilesWindow
          Scope           =   0
          TabIndex        =   6
          TabPanelIndex   =   2
+         TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -1315,6 +1325,8 @@ End
 
 	#tag Method, Flags = &h1
 		Protected Sub Resave()
+		  
+		  App.config.Save()
 		  
 		End Sub
 	#tag EndMethod

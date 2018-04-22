@@ -61,6 +61,7 @@ Protected Class BNETState
 		  
 		  Me.channelUsers = Nil
 		  
+		  Me.nls.Close()
 		  Me.nls = Nil
 		  
 		  Me.nullTimer.Enabled = False

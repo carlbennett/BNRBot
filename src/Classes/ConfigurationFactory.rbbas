@@ -16,6 +16,31 @@ Protected Class ConfigurationFactory
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Function bnrbotVersion() As String
+		  
+		  Dim platformName As String = App.PlatformName()
+		  Dim platformVersion As String = App.PlatformVersion()
+		  
+		  Dim mb As New MemoryBlock( &H26 + LenB( platformName + platformVersion ) )
+		  
+		  mb.LittleEndian = True
+		  
+		  mb.Int32Value( &H00 ) = App.MajorVersion
+		  mb.Int32Value( &H04 ) = App.MinorVersion
+		  mb.Int32Value( &H08 ) = App.BugVersion
+		  mb.Int32Value( &H0C ) = App.NonReleaseVersion
+		  mb.Int32Value( &H10 ) = App.StageCode
+		  mb.DoubleValue( &H14 ) = App.BuildDate.TotalSeconds
+		  mb.DoubleValue( &H1C ) = App.BuildDate.GMTOffset
+		  mb.CString( &H24 ) = App.PlatformName()
+		  mb.CString( &H25 + LenB( platformName ) ) = platformVersion
+		  
+		  Return mb
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub DigestStream(stream As BinaryStream)
 		  
@@ -93,7 +118,7 @@ Protected Class ConfigurationFactory
 		    Dim section As UInt32 = stream.ReadUInt32()
 		    
 		    Select Case section
-		    Case Me.SectionGlobal
+		    Case Me.V2SectionGlobal
 		      
 		      Dim options As UInt8 = stream.ReadUInt8()
 		      
@@ -118,7 +143,7 @@ Protected Class ConfigurationFactory
 		        Me.pingRanges.Append(pr)
 		      Wend
 		      
-		    Case Me.SectionConfiguration
+		    Case Me.V2SectionConfiguration
 		      
 		      Dim config As New Configuration()
 		      
@@ -181,7 +206,7 @@ Protected Class ConfigurationFactory
 		    Dim section As UInt32 = stream.ReadUInt32()
 		    
 		    Select Case section
-		    Case Me.SectionGlobal
+		    Case Me.V2SectionGlobal
 		      
 		      Dim options As UInt8 = stream.ReadUInt8()
 		      
@@ -221,7 +246,7 @@ Protected Class ConfigurationFactory
 		        Me.messageBlacklist.Append(blmsg)
 		      Wend
 		      
-		    Case Me.SectionConfiguration
+		    Case Me.V2SectionConfiguration
 		      
 		      Dim config As New Configuration()
 		      
@@ -281,7 +306,7 @@ Protected Class ConfigurationFactory
 		    Dim section As UInt32 = stream.ReadUInt32()
 		    
 		    Select Case section
-		    Case Me.SectionGlobal
+		    Case Me.V2SectionGlobal
 		      
 		      Dim options As UInt8 = stream.ReadUInt8()
 		      
@@ -321,7 +346,7 @@ Protected Class ConfigurationFactory
 		        Me.messageBlacklist.Append(blmsg)
 		      Wend
 		      
-		    Case Me.SectionConfiguration
+		    Case Me.V2SectionConfiguration
 		      
 		      Dim config As New Configuration()
 		      
@@ -484,7 +509,11 @@ Protected Class ConfigurationFactory
 		    
 		    #If Not TargetWin32 Then
 		      Me.AddFile("/etc/" + App.ProjectName() + ".dat")
+		      Me.AddFile("/etc/" + Lowercase( App.ProjectName() ) + ".dat")
 		      Me.AddFile("/etc/" + App.ProjectName() + "/" + App.ProjectName() + ".dat")
+		      Me.AddFile("/etc/" + App.ProjectName() + "/" + Lowercase( App.ProjectName() ) + ".dat")
+		      Me.AddFile("/etc/" + Lowercase( App.ProjectName() ) + "/" + App.ProjectName() + ".dat")
+		      Me.AddFile("/etc/" + Lowercase( App.ProjectName() ) + "/" + Lowercase( App.ProjectName() ) + ".dat")
 		    #EndIf
 		    
 		    Me.AddFile(App.ExecutableFile.Parent.Child(App.ProjectName() + ".dat"))
@@ -509,6 +538,103 @@ Protected Class ConfigurationFactory
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Save()
+		  
+		  Dim fileIterator As FolderItem
+		  fileIterator = SpecialFolder.ApplicationData.Child( App.ProjectName() )
+		  
+		  If fileIterator <> Nil Then
+		    If Not fileIterator.Exists Then fileIterator.CreateAsFolder()
+		    
+		    fileIterator = fileIterator.Child( App.ProjectName() + ".dat" )
+		    
+		    If fileIterator <> Nil And fileIterator.Exists Then
+		      Dim timestamp As New Date()
+		      fileIterator.MoveFileTo( fileIterator.Parent.Child( App.ProjectName() + "-" _
+		      + Format( timestamp.Year, "000#" ) _
+		      + Format( timestamp.Month, "0#" ) _
+		      + Format( timestamp.Day, "0#" ) + "-" _
+		      + Format( timestamp.Hour, "0#" ) _
+		      + Format( timestamp.Minute, "0#" ) + ".dat" ))
+		      fileIterator = fileIterator.Parent.Child( App.ProjectName() + ".dat" )
+		    End If
+		    
+		  End If
+		  
+		  If fileIterator = Nil Then
+		    Logger.WriteLine( True, "File object is null when trying to save profiles" )
+		    Raise New BotException("File object is null")
+		  End If
+		  
+		  Dim stream As BinaryStream = BinaryStream.Create( fileIterator, True )
+		  
+		  If stream = Nil Then
+		    Logger.WriteLine( True, "Stream object is null for [" + fileIterator.AbsolutePath + "]" )
+		    Raise New BotException( "Stream object is null", stream.LastErrorCode )
+		  End If
+		  
+		  stream.LittleEndian = True
+		  
+		  stream.WriteCString( "DO NOT EDIT OR SAVE THIS FILE MANUALLY" + EndOfLine.Windows )
+		  stream.WriteUInt8( 3 ) // Format version
+		  
+		  Dim buffer As String
+		  
+		  stream.WriteUInt8( UInt8( ConfigurationFactory.V3Sections.bnrbotVersion ))
+		  buffer = Me.bnrbotVersion()
+		  stream.WriteUInt32( LenB( buffer ))
+		  stream.Write( buffer )
+		  
+		  stream.WriteUInt8( UInt8( ConfigurationFactory.V3Sections.colors ))
+		  buffer = Me.globalConfig.Colors.Serialize()
+		  stream.WriteUInt32( LenB( buffer ))
+		  stream.Write( buffer )
+		  
+		  stream.WriteUInt8( UInt8( ConfigurationFactory.V3Sections.gameKeys ))
+		  stream.WriteUInt32( UBound( Me.gameKeys ) + 1 )
+		  For Each key As GameKey In Me.gameKeys
+		    buffer = key.Serialize()
+		    stream.WriteUInt8( LenB( buffer ))
+		    stream.Write( buffer )
+		  Next
+		  
+		  stream.WriteUInt8( UInt8( ConfigurationFactory.V3Sections.globalConfig ))
+		  stream.WriteBoolean( Me.globalConfig.CheckForUpdates )
+		  stream.WriteBoolean( Me.globalConfig.MinimizeToTray )
+		  stream.WriteBoolean( Me.globalConfig.PingRangesFlushRight )
+		  
+		  stream.WriteUInt8( UInt8( ConfigurationFactory.V3Sections.messageBlacklist ))
+		  stream.WriteUInt32( UBound( Me.messageBlacklist ) + 1 )
+		  For Each blackMessage As StringSearch In Me.messageBlacklist
+		    stream.WriteUInt8( blackMessage.Mode )
+		    stream.WriteCString( blackMessage.Pattern )
+		  Next
+		  
+		  stream.WriteUInt8( UInt8( ConfigurationFactory.V3Sections.pingRanges ))
+		  stream.WriteUInt32( UBound( Me.pingRanges ) + 1 )
+		  For Each pr As PingRange In Me.pingRanges
+		    stream.WriteUInt32( pr.BarColorId )
+		    stream.WriteUInt32( pr.BarCount )
+		    stream.WriteUInt32( pr.LowestPing )
+		    stream.WriteUInt32( pr.HighestPing )
+		  Next
+		  
+		  stream.WriteUInt8( UInt8( ConfigurationFactory.V3Sections.profiles ))
+		  stream.WriteUInt32( UBound( Me.profiles ) + 1 )
+		  For Each profile As Configuration In Me.profiles
+		    buffer = profile.Serialize()
+		    stream.WriteUInt32( LenB( buffer ))
+		    stream.Write( buffer )
+		  Next
+		  
+		  stream.Close()
+		  
+		  Logger.WriteLine( True, "Saved [" + Format( UBound( Me.profiles ) + 1, "-#" ) + "] profiles to [" + fileIterator.AbsolutePath + "]" )
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub SaveKeys()
 		  
 		  Dim fileIterator As FolderItem
@@ -526,7 +652,7 @@ Protected Class ConfigurationFactory
 		  
 		  If stream = Nil Then
 		    Logger.WriteLine( True, "Stream object is null for [" + fileIterator.AbsolutePath + "]" )
-		    Raise New BotException("Stream object is null", stream.LastErrorCode)
+		    Raise New BotException( "Stream object is null", stream.LastErrorCode )
 		  End If
 		  
 		  For Each key As GameKey In Me.gameKeys
@@ -584,14 +710,25 @@ Protected Class ConfigurationFactory
 	#tag EndProperty
 
 
-	#tag Constant, Name = SectionConfiguration, Type = Double, Dynamic = False, Default = \"&H50524F46", Scope = Private
+	#tag Constant, Name = V2SectionConfiguration, Type = Double, Dynamic = False, Default = \"&H50524F46", Scope = Private
 	#tag EndConstant
 
-	#tag Constant, Name = SectionGlobal, Type = Double, Dynamic = False, Default = \"&H434F4E46", Scope = Private
+	#tag Constant, Name = V2SectionGlobal, Type = Double, Dynamic = False, Default = \"&H434F4E46", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = WarningConst, Type = String, Dynamic = False, Default = \"EDIT THIS FILE WITH BNRBOT\x2C DO NOT MODIFY THIS FILE YOURSELF.", Scope = Private
 	#tag EndConstant
+
+
+	#tag Enum, Name = V3Sections, Type = UInt8, Flags = &h0
+		bnrbotVersion
+		  colors
+		  gameKeys
+		  globalConfig
+		  messageBlacklist
+		  pingRanges
+		profiles
+	#tag EndEnum
 
 
 	#tag ViewBehavior
