@@ -33,6 +33,7 @@ Protected Class BNETClient
 		  Me.chatParser   = New ChatParseThread()
 		  Me.config       = New Configuration()
 		  Me.gui          = New ChatContainer()
+		  Me.guiUpdater   = New GUIUpdateThread()
 		  Me.packetParser = New PacketParseThread()
 		  Me.socBNET      = New BNETSocket()
 		  Me.socBNLS      = New BNLSSocket()
@@ -56,6 +57,9 @@ Protected Class BNETClient
 		  Me.chatParser = Nil
 		  
 		  Me.config = Nil
+		  
+		  Me.guiUpdater.Kill()
+		  Me.guiUpdater = Nil
 		  
 		  Me.gui.Close()
 		  Me.gui = Nil
@@ -122,6 +126,10 @@ Protected Class BNETClient
 
 	#tag Property, Flags = &h0
 		gui As ChatContainer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		guiUpdater As GUIUpdateThread
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

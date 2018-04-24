@@ -37,7 +37,9 @@ Protected Class GUIUpdateEvent
 	#tag Method, Flags = &h0
 		Sub Render()
 		  
-		  If Me.GUIUpdateThread = Nil Then
+		  If Me.GUIUpdateThread = Nil And Me.client <> Nil And Me.client.guiUpdater <> Nil Then
+		    Me.GUIUpdateThread = Me.client.guiUpdater
+		  ElseIf Me.GUIUpdateThread = Nil Then
 		    Me.GUIUpdateThread = New GUIUpdateThread()
 		  End If
 		  
