@@ -21,11 +21,13 @@ Protected Class BNETState
 		  Me.logonType             = 0
 		  Me.nls                   = new NLS( client.config.username, client.config.password )
 		  Me.nullTimer             = new PacketTimer()
+		  Me.optionalWorkMpq       = ""
 		  Me.password              = client.config.password
 		  Me.passwordNew           = client.config.passwordNew
 		  Me.platform              = client.config.platform
 		  Me.product               = client.config.product
 		  Me.reconnecting          = False
+		  Me.requiredWorkMpq       = ""
 		  Me.serverSignature       = ""
 		  Me.serverToken           = 0
 		  Me.statstring            = ""
@@ -152,6 +154,10 @@ Protected Class BNETState
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		optionalWorkMpq As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		password As String
 	#tag EndProperty
 
@@ -169,6 +175,10 @@ Protected Class BNETState
 
 	#tag Property, Flags = &h0
 		reconnecting As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		requiredWorkMpq As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

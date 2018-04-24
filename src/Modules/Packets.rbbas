@@ -303,6 +303,12 @@ Protected Module Packets
 		    Case Packets.SID_LOGONRESPONSE2
 		      Packets.ReceiveBNET_SID_LOGONRESPONSE2(client, MidB(packetObject, 5))
 		      
+		    Case Packets.SID_OPTIONALWORK
+		      Packets.ReceiveBNET_SID_OPTIONALWORK(client, MidB(packetObject, 5))
+		      
+		    Case Packets.SID_REQUIREDWORK
+		      Packets.ReceiveBNET_SID_REQUIREDWORK(client, MidB(packetObject, 5))
+		      
 		    Case Packets.SID_AUTH_INFO
 		      Packets.ReceiveBNET_SID_AUTH_INFO(client, MidB(packetObject, 5))
 		      
@@ -758,9 +764,33 @@ Protected Module Packets
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Sub ReceiveBNET_SID_OPTIONALWORK(client As BNETClient, packetObject As MemoryBlock)
+		  
+		  Dim mpqFilename As String = packetObject.CString( 0 )
+		  
+		  client.state.optionalWorkMpq = mpqFilename
+		  
+		  GUIUpdateEvent.InternalMessage( "BNET: Optional Work: " + mpqFilename, ChatMessage.InternalFlagInfo + ChatMessage.InternalFlagDebug, client )
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Sub ReceiveBNET_SID_PING(client As BNETClient, packetObject As MemoryBlock)
 		  
 		  client.socBNET.Write(Packets.CreateBNET_SID_PING(packetObject.UInt32Value(0)))
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub ReceiveBNET_SID_REQUIREDWORK(client As BNETClient, packetObject As MemoryBlock)
+		  
+		  Dim mpqFilename As String = packetObject.CString( 0 )
+		  
+		  client.state.requiredWorkMpq = mpqFilename
+		  
+		  GUIUpdateEvent.InternalMessage( "BNET: Required Work: " + mpqFilename, ChatMessage.InternalFlagInfo + ChatMessage.InternalFlagDebug, client )
 		  
 		End Sub
 	#tag EndMethod
@@ -1000,6 +1030,9 @@ Protected Module Packets
 	#tag Constant, Name = SID_ENTERCHAT, Type = Double, Dynamic = False, Default = \"&H0A", Scope = Protected
 	#tag EndConstant
 
+	#tag Constant, Name = SID_EXTRAWORK, Type = Double, Dynamic = False, Default = \"&H4B", Scope = Protected
+	#tag EndConstant
+
 	#tag Constant, Name = SID_FRIENDSLIST, Type = Double, Dynamic = False, Default = \"&H65", Scope = Protected
 	#tag EndConstant
 
@@ -1021,7 +1054,13 @@ Protected Module Packets
 	#tag Constant, Name = SID_NULL, Type = Double, Dynamic = False, Default = \"&H00", Scope = Protected
 	#tag EndConstant
 
+	#tag Constant, Name = SID_OPTIONALWORK, Type = Double, Dynamic = False, Default = \"&H4A", Scope = Protected
+	#tag EndConstant
+
 	#tag Constant, Name = SID_PING, Type = Double, Dynamic = False, Default = \"&H25", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = SID_REQUIREDWORK, Type = Double, Dynamic = False, Default = \"&H4C", Scope = Protected
 	#tag EndConstant
 
 	#tag Constant, Name = SID_RESETPASSWORD, Type = Double, Dynamic = False, Default = \"&H5A", Scope = Protected
