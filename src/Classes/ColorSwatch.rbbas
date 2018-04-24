@@ -22,7 +22,8 @@ Implements Serializable
 		  
 		  Me.DefaultBackColor            = &c2F3136
 		  Me.DefaultFrameColor           = &c686878
-		  Me.DefaultHighlightColor       = &c42464D
+		  Me.DefaultHighlightBackColor   = &c42464D
+		  Me.DefaultHighlightTextColor   = &cADBAC2
 		  Me.DefaultTextColor            = &cADBAC2
 		  
 		  Me.InternalDebug               = &cDD7928
@@ -43,7 +44,7 @@ Implements Serializable
 		Function Serialize() As String
 		  // Part of the Serializable interface.
 		  
-		  Dim mb As New MemoryBlock( &H0068 )
+		  Dim mb As New MemoryBlock( &H006C )
 		  
 		  mb.LittleEndian = True
 		  
@@ -67,7 +68,7 @@ Implements Serializable
 		  mb.ColorValue( &H0038, 32 ) = Me.DefaultBackColor
 		  mb.ColorValue( &H003C, 32 ) = Me.DefaultFrameColor
 		  
-		  mb.ColorValue( &H0040, 32 ) = Me.DefaultHighlightColor
+		  mb.ColorValue( &H0040, 32 ) = Me.DefaultHighlightBackColor
 		  mb.ColorValue( &H0044, 32 ) = Me.DefaultTextColor
 		  mb.ColorValue( &H0048, 32 ) = Me.InternalDebug
 		  mb.ColorValue( &H004C, 32 ) = Me.InternalError
@@ -79,6 +80,7 @@ Implements Serializable
 		  
 		  mb.ColorValue( &H0060, 32 ) = Me.InternalNetworkSuccess
 		  mb.ColorValue( &H0064, 32 ) = Me.InternalSuccess
+		  mb.ColorValue( &H0068, 32 ) = Me.DefaultHighlightTextColor
 		  
 		  Return mb
 		  
@@ -93,38 +95,48 @@ Implements Serializable
 		  
 		  mb.LittleEndian = True
 		  
-		  Me.ChatBackColor               = mb.ColorValue( &H0000, 32 )
-		  Me.ChatEventBroadcastMessage   = mb.ColorValue( &H0004, 32 )
-		  Me.ChatEventBroadcastName      = mb.ColorValue( &H0008, 32 )
-		  Me.ChatEventChannelJoin        = mb.ColorValue( &H000C, 32 )
-		  
-		  Me.ChatEventError              = mb.ColorValue( &H0010, 32 )
-		  Me.ChatEventInfo               = mb.ColorValue( &H0014, 32 )
-		  Me.ChatEventUserEmoteMessage   = mb.ColorValue( &H0018, 32 )
-		  Me.ChatEventUserEmoteName      = mb.ColorValue( &H001C, 32 )
-		  
-		  Me.ChatEventUserJoin           = mb.ColorValue( &H0020, 32 )
-		  Me.ChatEventUserLeave          = mb.ColorValue( &H0024, 32 )
-		  Me.ChatEventUserTalkMessage    = mb.ColorValue( &H0028, 32 )
-		  Me.ChatEventUserTalkName       = mb.ColorValue( &H002C, 32 )
-		  
-		  Me.ChatEventUserWhisperMessage = mb.ColorValue( &H0030, 32 )
-		  Me.ChatEventUserWhisperName    = mb.ColorValue( &H0034, 32 )
-		  Me.DefaultBackColor            = mb.ColorValue( &H0038, 32 )
-		  Me.DefaultFrameColor           = mb.ColorValue( &H003C, 32 )
-		  
-		  Me.DefaultHighlightColor       = mb.ColorValue( &H0040, 32 )
-		  Me.DefaultTextColor            = mb.ColorValue( &H0044, 32 )
-		  Me.InternalDebug               = mb.ColorValue( &H0048, 32 )
-		  Me.InternalError               = mb.ColorValue( &H004C, 32 )
-		  
-		  Me.InternalInfo                = mb.ColorValue( &H0050, 32 )
-		  Me.InternalNetworkDebug        = mb.ColorValue( &H0054, 32 )
-		  Me.InternalNetworkError        = mb.ColorValue( &H0058, 32 )
-		  Me.InternalNetworkInfo         = mb.ColorValue( &H005C, 32 )
-		  
-		  Me.InternalNetworkSuccess      = mb.ColorValue( &H0060, 32 )
-		  Me.InternalSuccess             = mb.ColorValue( &H0064, 32 )
+		  Try
+		    Me.ChatBackColor               = mb.ColorValue( &H0000, 32 )
+		    Me.ChatEventBroadcastMessage   = mb.ColorValue( &H0004, 32 )
+		    Me.ChatEventBroadcastName      = mb.ColorValue( &H0008, 32 )
+		    Me.ChatEventChannelJoin        = mb.ColorValue( &H000C, 32 )
+		    
+		    Me.ChatEventError              = mb.ColorValue( &H0010, 32 )
+		    Me.ChatEventInfo               = mb.ColorValue( &H0014, 32 )
+		    Me.ChatEventUserEmoteMessage   = mb.ColorValue( &H0018, 32 )
+		    Me.ChatEventUserEmoteName      = mb.ColorValue( &H001C, 32 )
+		    
+		    Me.ChatEventUserJoin           = mb.ColorValue( &H0020, 32 )
+		    Me.ChatEventUserLeave          = mb.ColorValue( &H0024, 32 )
+		    Me.ChatEventUserTalkMessage    = mb.ColorValue( &H0028, 32 )
+		    Me.ChatEventUserTalkName       = mb.ColorValue( &H002C, 32 )
+		    
+		    Me.ChatEventUserWhisperMessage = mb.ColorValue( &H0030, 32 )
+		    Me.ChatEventUserWhisperName    = mb.ColorValue( &H0034, 32 )
+		    Me.DefaultBackColor            = mb.ColorValue( &H0038, 32 )
+		    Me.DefaultFrameColor           = mb.ColorValue( &H003C, 32 )
+		    
+		    Me.DefaultHighlightBackColor   = mb.ColorValue( &H0040, 32 )
+		    Me.DefaultTextColor            = mb.ColorValue( &H0044, 32 )
+		    Me.InternalDebug               = mb.ColorValue( &H0048, 32 )
+		    Me.InternalError               = mb.ColorValue( &H004C, 32 )
+		    
+		    Me.InternalInfo                = mb.ColorValue( &H0050, 32 )
+		    Me.InternalNetworkDebug        = mb.ColorValue( &H0054, 32 )
+		    Me.InternalNetworkError        = mb.ColorValue( &H0058, 32 )
+		    Me.InternalNetworkInfo         = mb.ColorValue( &H005C, 32 )
+		    
+		    Me.InternalNetworkSuccess      = mb.ColorValue( &H0060, 32 )
+		    Me.InternalSuccess             = mb.ColorValue( &H0064, 32 )
+		    Me.DefaultHighlightTextColor   = mb.ColorValue( &H0068, 32 )
+		    
+		  Catch err As OutOfBoundsException
+		    
+		    // insufficient bytes to load one or more colors
+		    // assume we loaded defaults via Constructor() and exit here
+		    Return
+		    
+		  End Try
 		  
 		End Sub
 	#tag EndMethod
@@ -151,15 +163,15 @@ Implements Serializable
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		ChatEventInfo As Color = &c000000
+		ChatEventInfo As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		ChatEventUserEmoteMessage As Color = &c000000
+		ChatEventUserEmoteMessage As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		ChatEventUserEmoteName As Color = &c000000
+		ChatEventUserEmoteName As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -171,7 +183,7 @@ Implements Serializable
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		ChatEventUserTalkMessage As Color = &c000000
+		ChatEventUserTalkMessage As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -195,7 +207,11 @@ Implements Serializable
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		DefaultHighlightColor As Color
+		DefaultHighlightBackColor As Color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		DefaultHighlightTextColor As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -203,15 +219,15 @@ Implements Serializable
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		InternalDebug As Color = &c000000
+		InternalDebug As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		InternalError As Color = &c000000
+		InternalError As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		InternalInfo As Color = &c000000
+		InternalInfo As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -219,19 +235,19 @@ Implements Serializable
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		InternalNetworkError As Color = &c000000
+		InternalNetworkError As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		InternalNetworkInfo As Color = &c000000
+		InternalNetworkInfo As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		InternalNetworkSuccess As Color = &c000000
+		InternalNetworkSuccess As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		InternalSuccess As Color = &c000000
+		InternalSuccess As Color
 	#tag EndProperty
 
 
