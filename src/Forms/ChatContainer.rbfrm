@@ -65,7 +65,7 @@ Begin ContainerControl ChatContainer
       Visible         =   True
       Width           =   580
    End
-   Begin Listbox UserView
+   Begin ChatListbox UserView
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   ""
@@ -315,44 +315,6 @@ End
 		  If Self.client.chatParser.State = Self.client.chatParser.NotRunning Then
 		    Self.client.chatParser.Run()
 		  End If
-		  
-		  Return True
-		  
-		End Function
-	#tag EndEvent
-#tag EndEvents
-#tag Events UserView
-	#tag Event
-		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
-		  
-		  #pragma Unused column
-		  
-		  If Me.ListIndex = row Then
-		    g.ForeColor = HighlightColor()
-		  Else
-		    g.ForeColor = App.config.colors.ChatBackColor
-		  End If
-		  
-		  g.FillRect(0, 0, g.Width, g.Height)
-		  
-		  Return True
-		  
-		End Function
-	#tag EndEvent
-	#tag Event
-		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
-		  
-		  If row = Me.ListIndex Then
-		    g.ForeColor = App.config.colors.ChatBackColor
-		  Else
-		    g.ForeColor = App.config.colors.DefaultTextColor
-		  End If
-		  
-		  If row < 0 Or row >= Me.ListCount Or column < 0 Or column >= Me.ColumnCount Then
-		    Return False
-		  End If
-		  
-		  g.DrawString(Me.Cell(row, column), x, y, g.Width - x * 2, True)
 		  
 		  Return True
 		  

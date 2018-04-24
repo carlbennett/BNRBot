@@ -74,6 +74,7 @@ Class=UnbanCommand;src/Bot Commands/UnbanCommand.rbbas;&h1F43D7FF;&h2FF647FF;fal
 Class=UptimeCommand;src/Bot Commands/UptimeCommand.rbbas;&h9E8FFFF;&h2FF647FF;false
 Class=VersionCommand;src/Bot Commands/VersionCommand.rbbas;&h11F50FFF;&h2FF647FF;false
 Window=ChatContainer;src/Forms/ChatContainer.rbfrm;&h7CE75FFF;&h4FB32FFF;false
+Class=ChatListbox;src/Forms/ChatListbox.rbbas;&h39E357FF;&h4FB32FFF;false
 Window=ChatWindow;src/Forms/ChatWindow.rbfrm;&h7B418FFF;&h4FB32FFF;false
 Window=ChoiceWindow;src/Forms/ChoiceWindow.rbfrm;&h8C0AFFF;&h4FB32FFF;false
 Window=ConnectWindow;src/Forms/ConnectWindow.rbfrm;&h2BB67FFF;&h4FB32FFF;false
