@@ -75,6 +75,17 @@ Protected Class BNETClient
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Disconnect()
+		  
+		  GUIUpdateEvent.InternalMessage( "BNET: Disconnecting...", BitOr( ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagNetwork ), Me )
+		  
+		  Me.socBNLS.Disconnect()
+		  Me.socBNET.Disconnect()
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function getAcl(onlineName As String) As UserAccess
 		  
 		  Dim accountNameRealm   As String = Battlenet.onlineNameToAccountName(onlineName, Me.state.product, True, "")
