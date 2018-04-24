@@ -64,7 +64,7 @@ Inherits TCPSocket
 		  GUIUpdateEvent.InternalMessage("BNET: Socket error #" + Format(Me.LastErrorCode, "-#") + "!", _
 		  BitOr(ChatMessage.InternalFlagError, ChatMessage.InternalFlagNetwork), client)
 		  
-		  Me.client.state.bnetReadBuffer = Nil
+		  If Me.client.state <> Nil Then Me.client.state.bnetReadBuffer = Nil
 		  ReDim Me.client.chatParser.messages(-1)
 		  
 		  Dim bReconnect As Boolean = False
