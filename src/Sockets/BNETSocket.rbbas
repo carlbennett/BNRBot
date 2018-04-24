@@ -4,8 +4,12 @@ Inherits TCPSocket
 	#tag Event
 		Sub Connected()
 		  
-		  GUIUpdateEvent.InternalMessage("BNET: Connected to " + Me.RemoteAddress + "!", _
-		  BitOr(ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagSuccess, ChatMessage.InternalFlagNetwork), client)
+		  Dim e As New GUIUpdateEvent( Me.client, GUIUpdateEvent.TypeSocketConnected, Nil )
+		  
+		  e.Render()
+		  
+		  GUIUpdateEvent.InternalMessage( "BNET: Connected to " + Me.RemoteAddress + "!", _
+		  BitOr( ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagSuccess, ChatMessage.InternalFlagNetwork ), client )
 		  
 		  If Me.client.state = Nil Then
 		    Me.client.state = New BNETState(Me.client)

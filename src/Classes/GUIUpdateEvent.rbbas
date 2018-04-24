@@ -68,16 +68,19 @@ Protected Class GUIUpdateEvent
 	#tag EndProperty
 
 
-	#tag Constant, Name = TypeChannelJoin, Type = Double, Dynamic = False, Default = \"3", Scope = Public
+	#tag Constant, Name = TypeChannelJoin, Type = Double, Dynamic = False, Default = \"4", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = TypeChatOutput, Type = Double, Dynamic = False, Default = \"0", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = TypeUserJoin, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag Constant, Name = TypeSocketConnected, Type = Double, Dynamic = False, Default = \"1", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = TypeUserLeave, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag Constant, Name = TypeUserJoin, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = TypeUserLeave, Type = Double, Dynamic = False, Default = \"3", Scope = Public
 	#tag EndConstant
 
 

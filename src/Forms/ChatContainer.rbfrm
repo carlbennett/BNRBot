@@ -219,7 +219,7 @@ Begin ContainerControl ChatContainer
       TextSize        =   11
       TextUnit        =   0
       Top             =   0
-      Transparent     =   True
+      Transparent     =   False
       Underline       =   ""
       Visible         =   True
       Width           =   420

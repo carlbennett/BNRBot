@@ -134,6 +134,11 @@ Inherits Thread
 		        i = i - 1
 		      Wend
 		      
+		    ElseIf e.type = GUIUpdateEvent.TypeSocketConnected Then
+		      
+		      e.client.gui.UserView.DeleteAllRows()
+		      e.client.gui.StatusCtl.Text = "Please Wait"
+		      
 		    ElseIf e.type = GUIUpdateEvent.TypeChannelJoin Then
 		      
 		      e.client.gui.UserView.DeleteAllRows()

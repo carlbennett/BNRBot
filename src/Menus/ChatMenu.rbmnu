@@ -14,6 +14,24 @@ Begin Menu ChatMenu
          MenuModifier = True
          AutoEnable = True
       End
+      Begin MenuItem FileReconnectProfile
+         SpecialMenu = 0
+         Text = "Reconnect Profile"
+         Index = -2147483648
+         ShortcutKey = "R"
+         Shortcut = "Cmd+R"
+         MenuModifier = True
+         AutoEnable = True
+      End
+      Begin MenuItem FileDisconnectProfile
+         SpecialMenu = 0
+         Text = "Disconnect Profile"
+         Index = -2147483648
+         ShortcutKey = "D"
+         Shortcut = "Cmd+D"
+         MenuModifier = True
+         AutoEnable = True
+      End
       Begin MenuItem Separators
          SpecialMenu = 0
          Text = "-"
