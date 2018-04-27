@@ -1,12 +1,12 @@
 #tag Window
 Begin Window AccountsWindow
-   BackColor       =   16777215
+   BackColor       =   "&c2F3136"
    Backdrop        =   ""
    CloseButton     =   True
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
-   HasBackColor    =   False
+   HasBackColor    =   True
    Height          =   220
    ImplicitInstance=   True
    LiveResize      =   True
