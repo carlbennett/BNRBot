@@ -41,14 +41,90 @@ Inherits Listbox
 		End Function
 	#tag EndEvent
 
+	#tag Event
+		Sub MouseExit()
+		  
+		  If ( Me.MouseOverRow <> -1 Or Me.MouseOverColumn <> -1 ) Then
+		    CellMouseExit( Me.MouseOverRow, Me.MouseOverColumn )
+		  End If
+		  
+		  Me.MouseOverColumn = -1
+		  Me.MouseOverRow = -1
+		  
+		  MouseExit()
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseMove(X As Integer, Y As Integer)
+		  
+		  Dim column As Integer = Me.ColumnFromXY( X, Y )
+		  Dim row As Integer = Me.RowFromXY( X, Y )
+		  
+		  If ( row <> Me.MouseOverRow And Me.MouseOverRow <> -1 ) Or _
+		    ( column <> Me.MouseOverColumn And Me.MouseOverColumn <> -1 ) Then
+		    CellMouseExit( Me.MouseOverRow, Me.MouseOverColumn )
+		  End If
+		  
+		  If ( row <> -1 And row <> Me.MouseOverRow ) Or _
+		    ( column <> -1 And column <> Me.MouseOverColumn ) Then
+		    CellMouseEnter( row, column )
+		  End If
+		  
+		  Me.MouseOverColumn = column
+		  Me.MouseOverRow = row
+		  
+		  MouseMove( X, Y )
+		  
+		End Sub
+	#tag EndEvent
+
+
+	#tag Method, Flags = &h1000
+		Sub Constructor()
+		  // Calling the overridden superclass constructor.
+		  Super.Constructor()
+		  
+		  Me.MouseOverColumn = -1
+		  Me.MouseOverRow = -1
+		  
+		End Sub
+	#tag EndMethod
+
 
 	#tag Hook, Flags = &h0
 		Event CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
+		Event CellMouseEnter(row As Integer, column As Integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event CellMouseExit(row As Integer, column As Integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
 		Event CellTextPaint(g As Graphics, row As Integer, column As Integer, x As Integer, y As Integer) As Boolean
 	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event MouseExit()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event MouseMove(X As Integer, Y As Integer)
+	#tag EndHook
+
+
+	#tag Property, Flags = &h21
+		Private MouseOverColumn As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private MouseOverRow As Integer
+	#tag EndProperty
 
 
 	#tag ViewBehavior
