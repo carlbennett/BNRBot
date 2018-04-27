@@ -45,7 +45,7 @@ Inherits Application
 		  
 		  w.SetProgress("Initializing " + Me.ProjectName() + "...", "Configuring internal settings...", 0, 0)
 		  
-		  Me.AutoQuit = False
+		  Me.AutoQuit = True
 		  Me.uptimeConstant = Microseconds()
 		  
 		  w.SetProgress("Initializing " + Me.ProjectName() + "...", "Reading user settings...", 0, 0)
@@ -55,7 +55,16 @@ Inherits Application
 		  
 		  w.SetProgress("Testing for BNCSUtil...", 0, 1)
 		  
-		  w.SetProgress("BNCSUtil version: " + Battlenet.bncsutilVersion(), 1, 1)
+		  Try
+		    w.SetProgress("BNCSUtil version: " + Battlenet.bncsutilVersion(), 1, 1)
+		  Catch err As FunctionNotFoundException
+		    w.SetProgress("BNCSUtil version not found!", 0, 0)
+		    If App.UserChoice( "BNCSUtil missing", "BNCSUtil library missing or cannot be executed", _
+		      "Would you like to continue? Doing so may cause application errors or issues with service.", "&Continue", "E&xit" ) = App.UserChoiceCancel Then
+		      Quit( 1 )
+		      Return
+		    End If
+		  End Try
 		  
 		  If config.globalConfig.CheckForUpdates Then
 		    
