@@ -426,6 +426,22 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub CellMouseExit(row As Integer, column As Integer)
+		  
+		  Me.CellUnderline( row, column ) = False
+		  Me.MouseCursor = Nil
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub CellMouseEnter(row As Integer, column As Integer)
+		  
+		  Me.CellUnderline( row, column ) = True
+		  Me.MouseCursor = System.Cursors.FingerPointer
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events NoProfileLabels
 	#tag Event
