@@ -1,5 +1,5 @@
 #tag Class
-Class ColorProgressBar
+Class StyledProgressBar
 Inherits Canvas
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
@@ -34,14 +34,14 @@ Inherits Canvas
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor
 		  
-		  If ColorProgressBar.RedrawThread = Nil Then
-		    ColorProgressBar.RedrawThread = New ColorProgressBarThread()
+		  If StyledProgressBar.RedrawThread = Nil Then
+		    StyledProgressBar.RedrawThread = New StyledProgressBarThread()
 		  End If
 		  
-		  ColorProgressBar.RedrawThread.ProgressBars.Append( Me )
+		  StyledProgressBar.RedrawThread.ProgressBars.Append( Me )
 		  
-		  If ColorProgressBar.RedrawThread.State = ColorProgressBarThread.NotRunning Then
-		    ColorProgressBar.RedrawThread.Run()
+		  If StyledProgressBar.RedrawThread.State = StyledProgressBarThread.NotRunning Then
+		    StyledProgressBar.RedrawThread.Run()
 		  End If
 		  
 		End Sub
@@ -50,26 +50,26 @@ Inherits Canvas
 	#tag Method, Flags = &h0
 		Sub Destructor()
 		  
-		  If ColorProgressBar.RedrawThread = Nil Then Return
+		  If StyledProgressBar.RedrawThread = Nil Then Return
 		  
-		  If ColorProgressBar.RedrawThread.State = ColorProgressBarThread.Running Then
-		    ColorProgressBar.RedrawThread.Kill()
+		  If StyledProgressBar.RedrawThread.State = StyledProgressBarThread.Running Then
+		    StyledProgressBar.RedrawThread.Kill()
 		  End If
 		  
-		  Dim i As Integer = UBound( ColorProgressBar.RedrawThread.ProgressBars )
+		  Dim i As Integer = UBound( StyledProgressBar.RedrawThread.ProgressBars )
 		  
 		  While i >= 0
-		    If ColorProgressBar.RedrawThread.ProgressBars( i ) = Me Then
-		      ColorProgressBar.RedrawThread.ProgressBars.Remove( i )
+		    If StyledProgressBar.RedrawThread.ProgressBars( i ) = Me Then
+		      StyledProgressBar.RedrawThread.ProgressBars.Remove( i )
 		      Exit While
 		    End If
 		    i = i - 1
 		  Wend
 		  
-		  If UBound( ColorProgressBar.RedrawThread.ProgressBars ) < 0 Then
-		    ColorProgressBar.RedrawThread = Nil
+		  If UBound( StyledProgressBar.RedrawThread.ProgressBars ) < 0 Then
+		    StyledProgressBar.RedrawThread = Nil
 		  Else
-		    ColorProgressBar.RedrawThread.Run()
+		    StyledProgressBar.RedrawThread.Run()
 		  End If
 		  
 		End Sub
@@ -113,7 +113,7 @@ Inherits Canvas
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
-		Protected Shared RedrawThread As ColorProgressBarThread
+		Protected Shared RedrawThread As StyledProgressBarThread
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0

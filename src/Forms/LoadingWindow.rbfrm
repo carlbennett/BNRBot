@@ -67,6 +67,7 @@ Begin Window LoadingWindow
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Please Wait..."
       TextAlign       =   0
       TextColor       =   "&cF0F0F0"
@@ -79,7 +80,7 @@ Begin Window LoadingWindow
       Visible         =   True
       Width           =   300
    End
-   Begin ColorProgressBar ProgressBar1
+   Begin StyledProgressBar ProgressBar1
       AcceptFocus     =   ""
       AcceptTabs      =   ""
       AutoDeactivate  =   True
@@ -110,6 +111,7 @@ Begin Window LoadingWindow
       Width           =   328
    End
    Begin Timer Timer1
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   0
@@ -117,8 +119,11 @@ Begin Window LoadingWindow
       Mode            =   2
       Period          =   2000
       Scope           =   0
+      TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   44
+      Visible         =   True
       Width           =   32
    End
    Begin Label Label2
@@ -143,6 +148,7 @@ Begin Window LoadingWindow
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   0
       TextColor       =   "&cADBAC2"

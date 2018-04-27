@@ -1,5 +1,5 @@
 #tag Class
-Protected Class ColorProgressBarThread
+Protected Class StyledProgressBarThread
 Inherits Thread
 	#tag Event
 		Sub Run()
@@ -25,7 +25,7 @@ Inherits Thread
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		ProgressBars() As ColorProgressBar
+		ProgressBars() As StyledProgressBar
 	#tag EndProperty
 
 
