@@ -114,7 +114,7 @@ Protected Class BNETState
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		friendsList() As Friend
+		friendsList() As BNETFriend
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

@@ -637,7 +637,7 @@ Protected Module Packets
 	#tag Method, Flags = &h1
 		Protected Sub ReceiveBNET_SID_FRIENDSLIST(client As BNETClient, packetObject As MemoryBlock)
 		  
-		  Dim friends() As Friend
+		  Dim friends() As BNETFriend
 		  Dim friend, locationStr As String
 		  Dim status, location As UInt8
 		  Dim product As UInt32
@@ -655,7 +655,7 @@ Protected Module Packets
 		    locationStr = packetObject.CString( cursor + 6 )
 		    cursor = cursor + LenB( locationStr ) + 7
 		    
-		    friends.Append( new Friend( friend, status, location, product, locationStr ))
+		    friends.Append( new BNETFriend( friend, status, location, product, locationStr ))
 		    
 		    If cursor >= packetObject.Size Then Exit Do
 		  Loop
