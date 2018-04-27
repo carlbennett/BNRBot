@@ -1,12 +1,12 @@
 #tag Window
 Begin Window LoadingWindow
-   BackColor       =   &hFFFFFF
+   BackColor       =   "&c2F3136"
    Backdrop        =   ""
    CloseButton     =   False
    Composite       =   False
    Frame           =   4
    FullScreen      =   False
-   HasBackColor    =   False
+   HasBackColor    =   True
    Height          =   96
    ImplicitInstance=   True
    LiveResize      =   True
@@ -69,7 +69,7 @@ Begin Window LoadingWindow
       TabPanelIndex   =   0
       Text            =   "Please Wait..."
       TextAlign       =   0
-      TextColor       =   &h000000
+      TextColor       =   "&cF0F0F0"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
@@ -136,7 +136,7 @@ Begin Window LoadingWindow
       TabPanelIndex   =   0
       Text            =   ""
       TextAlign       =   0
-      TextColor       =   &h000000
+      TextColor       =   "&cADBAC2"
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
