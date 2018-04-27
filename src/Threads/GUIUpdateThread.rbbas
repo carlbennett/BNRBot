@@ -186,17 +186,30 @@ Inherits Thread
 		 Shared Sub AddChat(client As BNETClient, ParamArray values As Variant)
 		  
 		  For Each v As Variant In values
+		    
+		    If client = Nil Or client.gui = Nil Or client.gui.ChatOutput = Nil Then
+		      // Fail fast if gui becomes destroyed while processing, as could occur when
+		      // the bot is exiting but events are still being received
+		      Dim err As New BotException( "Unable to access ChatOutput control", 0, Nil )
+		      Raise err
+		    End If
+		    
 		    Select Case VarType(v)
+		      
 		    Case Variant.TypeColor
 		      client.gui.ChatOutput.SelStart     = Len(client.gui.ChatOutput.Text)
 		      client.gui.ChatOutput.SelTextColor = v.ColorValue
+		      
 		    Case Variant.TypeString
 		      client.gui.ChatOutput.SelStart = Len(client.gui.ChatOutput.Text)
 		      client.gui.ChatOutput.SelText  = v.StringValue
+		      
 		    Case Else
-		      Dim err As New BotException("Unable to handle addchat parameter", 0, Nil)
+		      Dim err As New BotException( "Unable to handle AddChat parameter", 0, Nil )
 		      Raise err
+		      
 		    End Select
+		    
 		  Next
 		  
 		End Sub
