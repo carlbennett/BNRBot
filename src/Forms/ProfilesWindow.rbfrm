@@ -1609,7 +1609,11 @@ End
 		  
 		  Dim p As Configuration = Self.ProfileListCtl.RowTag( Self.ProfileListCtl.ListIndex )
 		  
-		  p.product = Me.RowTag( Me.ListIndex )
+		  If Me.ListIndex = -1 Then
+		    p.product = 0
+		  Else
+		    p.product = Me.RowTag( Me.ListIndex )
+		  End If
 		  
 		  Self.ProfileGameKeyCtl1.Enabled = Battlenet.needsGameKey1( p.product )
 		  Self.ProfileGameKeyCtl2.Enabled = Battlenet.needsGameKey2( p.product )
