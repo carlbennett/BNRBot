@@ -79,9 +79,15 @@ Begin Window LoadingWindow
       Visible         =   True
       Width           =   300
    End
-   Begin ProgressBar ProgressBar1
+   Begin ColorProgressBar ProgressBar1
+      AcceptFocus     =   ""
+      AcceptTabs      =   ""
       AutoDeactivate  =   True
+      BackColor       =   "&c000000"
+      DoubleBuffer    =   True
       Enabled         =   True
+      EraseBackground =   True
+      ForeColor       =   "&c000000"
       Height          =   16
       HelpTag         =   ""
       Index           =   -2147483648
@@ -94,8 +100,11 @@ Begin Window LoadingWindow
       LockTop         =   False
       Maximum         =   0
       Scope           =   0
+      TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   64
+      UseFocusRing    =   ""
       Value           =   0
       Visible         =   True
       Width           =   328
@@ -167,6 +176,16 @@ End
 
 #tag EndWindowCode
 
+#tag Events ProgressBar1
+	#tag Event
+		Sub Open()
+		  
+		  Me.BackColor = &c42464D
+		  Me.ForeColor = &cADBAC2
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events Timer1
 	#tag Event
 		Sub Action()
