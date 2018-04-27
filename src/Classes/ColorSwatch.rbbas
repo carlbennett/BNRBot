@@ -23,7 +23,7 @@ Implements Serializable
 		  Me.DefaultBackColor            = &c2F3136
 		  Me.DefaultFrameColor           = &c686878
 		  Me.DefaultHighlightBackColor   = &c42464D
-		  Me.DefaultHighlightTextColor   = &cADBAC2
+		  Me.DefaultHighlightTextColor   = &cF0F0F0
 		  Me.DefaultTextColor            = &cADBAC2
 		  
 		  Me.InternalDebug               = &cDD7928
@@ -349,7 +349,13 @@ Implements Serializable
 			Type="Color"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="DefaultHighlightColor"
+			Name="DefaultHighlightBackColor"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DefaultHighlightTextColor"
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="Color"
