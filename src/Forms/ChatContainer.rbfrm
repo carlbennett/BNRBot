@@ -23,48 +23,6 @@ Begin ContainerControl ChatContainer
    UseFocusRing    =   ""
    Visible         =   True
    Width           =   580
-   Begin TextField ChatInput
-      AcceptTabs      =   ""
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   &hFFFFFF
-      Bold            =   ""
-      Border          =   False
-      CueText         =   ""
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Format          =   ""
-      Height          =   22
-      HelpTag         =   ""
-      Index           =   -2147483648
-      Italic          =   ""
-      Left            =   0
-      LimitText       =   0
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   False
-      Mask            =   ""
-      Password        =   ""
-      ReadOnly        =   ""
-      Scope           =   0
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextColor       =   &h000000
-      TextFont        =   "Arial"
-      TextSize        =   12
-      TextUnit        =   0
-      Top             =   338
-      Underline       =   ""
-      UseFocusRing    =   True
-      Visible         =   True
-      Width           =   580
-   End
    Begin ChatListbox UserView
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
@@ -83,7 +41,7 @@ Begin ContainerControl ChatContainer
       GridLinesVertical=   0
       HasHeading      =   ""
       HeadingIndex    =   -1
-      Height          =   292
+      Height          =   274
       HelpTag         =   ""
       Hierarchical    =   ""
       Index           =   -2147483648
@@ -101,13 +59,13 @@ Begin ContainerControl ChatContainer
       ScrollbarHorizontal=   ""
       ScrollBarVertical=   True
       SelectionType   =   0
-      TabIndex        =   1
+      TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "Arial"
       TextSize        =   11
       TextUnit        =   0
-      Top             =   36
+      Top             =   38
       Underline       =   ""
       UseFocusRing    =   False
       Visible         =   True
@@ -126,7 +84,7 @@ Begin ContainerControl ChatContainer
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   314
+      Height          =   312
       HelpTag         =   ""
       HideSelection   =   True
       Index           =   -2147483648
@@ -147,7 +105,7 @@ Begin ContainerControl ChatContainer
       ScrollbarHorizontal=   ""
       ScrollbarVertical=   True
       Styled          =   True
-      TabIndex        =   2
+      TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
@@ -155,7 +113,7 @@ Begin ContainerControl ChatContainer
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   14
+      Top             =   0
       Underline       =   ""
       UseFocusRing    =   True
       Visible         =   True
@@ -171,7 +129,7 @@ Begin ContainerControl ChatContainer
       Enabled         =   True
       EraseBackground =   True
       ForeColor       =   ""
-      Height          =   328
+      Height          =   312
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -182,7 +140,7 @@ Begin ContainerControl ChatContainer
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   3
+      TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   0
@@ -202,15 +160,15 @@ Begin ContainerControl ChatContainer
       InitialParent   =   ""
       Italic          =   ""
       Left            =   0
-      LockBottom      =   ""
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Multiline       =   ""
       Scope           =   0
       Selectable      =   False
-      TabIndex        =   5
+      TabIndex        =   6
       TabPanelIndex   =   0
       Text            =   "USER INTERFACE ALPHA"
       TextAlign       =   1
@@ -218,11 +176,11 @@ Begin ContainerControl ChatContainer
       TextFont        =   "Arial"
       TextSize        =   11
       TextUnit        =   0
-      Top             =   0
+      Top             =   346
       Transparent     =   False
       Underline       =   ""
       Visible         =   True
-      Width           =   420
+      Width           =   580
    End
    Begin Rectangle StatusBackCtl
       AutoDeactivate  =   True
@@ -230,7 +188,7 @@ Begin ContainerControl ChatContainer
       BottomRightColor=   &h000000
       Enabled         =   True
       FillColor       =   &hFFFFFF
-      Height          =   24
+      Height          =   26
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -241,7 +199,7 @@ Begin ContainerControl ChatContainer
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   4
+      TabIndex        =   5
       TabPanelIndex   =   0
       Top             =   0
       TopLeftColor    =   &h000000
@@ -253,7 +211,7 @@ Begin ContainerControl ChatContainer
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         Height          =   22
+         Height          =   24
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "StatusBackCtl"
@@ -282,6 +240,73 @@ Begin ContainerControl ChatContainer
          Width           =   146
       End
    End
+   Begin Rectangle ChatInputBackCtl
+      AutoDeactivate  =   True
+      BorderWidth     =   0
+      BottomRightColor=   &h000000
+      Enabled         =   True
+      FillColor       =   &hFFFFFF
+      Height          =   24
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   0
+      TabPanelIndex   =   0
+      Top             =   322
+      TopLeftColor    =   &h000000
+      Visible         =   True
+      Width           =   580
+      Begin TextField ChatInput
+         AcceptTabs      =   ""
+         Alignment       =   0
+         AutoDeactivate  =   True
+         AutomaticallyCheckSpelling=   False
+         BackColor       =   "&cF0F0F0"
+         Bold            =   ""
+         Border          =   False
+         CueText         =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Format          =   ""
+         Height          =   16
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ChatInputBackCtl"
+         Italic          =   ""
+         Left            =   2
+         LimitText       =   0
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Mask            =   ""
+         Password        =   ""
+         ReadOnly        =   ""
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   ""
+         TextColor       =   &h000000
+         TextFont        =   "Arial"
+         TextSize        =   12
+         TextUnit        =   0
+         Top             =   326
+         Underline       =   ""
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   574
+      End
+   End
 End
 #tag EndWindow
 
@@ -293,34 +318,6 @@ End
 
 #tag EndWindowCode
 
-#tag Events ChatInput
-	#tag Event
-		Sub Open()
-		  
-		  Me.BackColor = App.config.colors.ChatBackColor
-		  Me.TextColor = App.config.colors.DefaultTextColor
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Function KeyDown(Key As String) As Boolean
-		  
-		  Dim KeyAsc As Integer = Asc(Key)
-		  
-		  If Not (KeyAsc = 3 Or KeyAsc = 13) Then Return False
-		  
-		  Self.client.chatParser.responses.Insert(0, New ChatResponse(ChatResponse.TYPE_TALK, Me.Text))
-		  Me.Text = ""
-		  
-		  If Self.client.chatParser.State = Self.client.chatParser.NotRunning Then
-		    Self.client.chatParser.Run()
-		  End If
-		  
-		  Return True
-		  
-		End Function
-	#tag EndEvent
-#tag EndEvents
 #tag Events ChatOutput
 	#tag Event
 		Sub Open()
@@ -404,5 +401,45 @@ End
 		  Me.TextColor = App.config.colors.DefaultTextColor
 		  
 		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ChatInputBackCtl
+	#tag Event
+		Sub Open()
+		  
+		  Me.FillColor = App.config.colors.ChatBackColor
+		  
+		  Me.TopLeftColor = Me.FillColor
+		  Me.BottomRightColor = Me.FillColor
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ChatInput
+	#tag Event
+		Sub Open()
+		  
+		  Me.BackColor = App.config.colors.ChatBackColor
+		  Me.TextColor = App.config.colors.DefaultTextColor
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  
+		  Dim KeyAsc As Integer = Asc(Key)
+		  
+		  If Not (KeyAsc = 3 Or KeyAsc = 13) Then Return False
+		  
+		  Self.client.chatParser.responses.Insert(0, New ChatResponse(ChatResponse.TYPE_TALK, Me.Text))
+		  Me.Text = ""
+		  
+		  If Self.client.chatParser.State = Self.client.chatParser.NotRunning Then
+		    Self.client.chatParser.Run()
+		  End If
+		  
+		  Return True
+		  
+		End Function
 	#tag EndEvent
 #tag EndEvents
