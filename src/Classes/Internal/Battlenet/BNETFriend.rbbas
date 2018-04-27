@@ -1,5 +1,5 @@
 #tag Class
-Protected Class Friend
+Protected Class BNETFriend
 	#tag Method, Flags = &h0
 		Sub Constructor(username As String, status As UInt8, location As UInt8, product As UInt32, locationString As String)
 		  
