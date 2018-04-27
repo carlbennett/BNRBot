@@ -73,6 +73,7 @@ Begin Window ExceptionWindow
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "An unhandled exception error has been thrown"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -107,6 +108,7 @@ Begin Window ExceptionWindow
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "There are no other details."
       TextAlign       =   0
       TextColor       =   &h000000
