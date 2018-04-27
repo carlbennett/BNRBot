@@ -42,7 +42,6 @@ Begin Window ProfilesWindow
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Value           =   1
       Visible         =   True
@@ -69,7 +68,6 @@ Begin Window ProfilesWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   1
-         TabStop         =   True
          Text            =   "No profile selected."
          TextAlign       =   1
          TextColor       =   &h000000
@@ -104,7 +102,6 @@ Begin Window ProfilesWindow
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   1
-         TabStop         =   True
          Text            =   "Select from the left or click Create."
          TextAlign       =   1
          TextColor       =   &h000000
@@ -136,7 +133,6 @@ Begin Window ProfilesWindow
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   2
-         TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -207,7 +203,6 @@ Begin Window ProfilesWindow
          Scope           =   0
          TabIndex        =   1
          TabPanelIndex   =   2
-         TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -343,7 +338,6 @@ Begin Window ProfilesWindow
          Scope           =   0
          TabIndex        =   3
          TabPanelIndex   =   2
-         TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -479,7 +473,6 @@ Begin Window ProfilesWindow
          Scope           =   0
          TabIndex        =   2
          TabPanelIndex   =   2
-         TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -538,7 +531,6 @@ Begin Window ProfilesWindow
          Scope           =   0
          TabIndex        =   4
          TabPanelIndex   =   2
-         TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -759,7 +751,6 @@ Begin Window ProfilesWindow
          Scope           =   0
          TabIndex        =   5
          TabPanelIndex   =   2
-         TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -948,7 +939,6 @@ Begin Window ProfilesWindow
          Scope           =   0
          TabIndex        =   6
          TabPanelIndex   =   2
-         TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
@@ -1116,7 +1106,7 @@ Begin Window ProfilesWindow
       Visible         =   True
       Width           =   80
    End
-   Begin Listbox ProfileListCtl
+   Begin ChatListbox ProfileListCtl
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   ""
@@ -1126,7 +1116,7 @@ Begin Window ProfilesWindow
       ColumnWidths    =   ""
       DataField       =   ""
       DataSource      =   ""
-      DefaultRowHeight=   18
+      DefaultRowHeight=   20
       Enabled         =   True
       EnableDrag      =   True
       EnableDragReorder=   True
@@ -1160,7 +1150,7 @@ Begin Window ProfilesWindow
       TextUnit        =   0
       Top             =   18
       Underline       =   ""
-      UseFocusRing    =   True
+      UseFocusRing    =   False
       Visible         =   True
       Width           =   150
       _ScrollWidth    =   -1
