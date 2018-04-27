@@ -4,7 +4,7 @@ Begin Window ChoiceWindow
    Backdrop        =   ""
    CloseButton     =   True
    Composite       =   False
-   Frame           =   0
+   Frame           =   10
    FullScreen      =   False
    HasBackColor    =   False
    Height          =   156
@@ -19,7 +19,7 @@ Begin Window ChoiceWindow
    MinHeight       =   156
    MinimizeButton  =   True
    MinWidth        =   400
-   Placement       =   2
+   Placement       =   3
    Resizeable      =   False
    Title           =   "Choice"
    Visible         =   True
@@ -73,6 +73,7 @@ Begin Window ChoiceWindow
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "There are no other details."
       TextAlign       =   0
       TextColor       =   &h000000
@@ -107,6 +108,7 @@ Begin Window ChoiceWindow
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Pick an option below to continue"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -224,6 +226,7 @@ Begin Window ChoiceWindow
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Expires In:"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -258,6 +261,7 @@ Begin Window ChoiceWindow
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "60 seconds"
       TextAlign       =   0
       TextColor       =   &h000000
@@ -271,6 +275,7 @@ Begin Window ChoiceWindow
       Width           =   120
    End
    Begin Timer ExpireTimer
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   16
@@ -278,8 +283,11 @@ Begin Window ChoiceWindow
       Mode            =   0
       Period          =   100
       Scope           =   0
+      TabIndex        =   8
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   52
+      Visible         =   True
       Width           =   32
    End
 End
