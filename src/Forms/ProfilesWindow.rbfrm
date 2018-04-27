@@ -4,7 +4,7 @@ Begin Window ProfilesWindow
    Backdrop        =   ""
    CloseButton     =   True
    Composite       =   False
-   Frame           =   1
+   Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
    Height          =   400
@@ -1262,6 +1262,23 @@ End
 
 
 	#tag Method, Flags = &h1
+		Protected Sub AddProfile()
+		  
+		  Dim c As New Configuration()
+		  
+		  App.config.profiles.Append( c )
+		  
+		  c.alias = "Profile #" + Format( UBound( App.config.profiles ) + 2, "-#" )
+		  
+		  Self.ProfileListCtl.AddRow( c.alias )
+		  Self.ProfileListCtl.RowTag( Self.ProfileListCtl.LastIndex ) = c
+		  
+		  Self.ProfileListCtl.ListIndex = Self.ProfileListCtl.LastIndex
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Sub Reload()
 		  
 		  Dim i, ub As Integer
@@ -1319,6 +1336,57 @@ End
 		    i = i - 1
 		  Wend
 		  If i < 0 Then Self.ProfileProductCtl.ListIndex = -1
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub RemoveProfile()
+		  
+		  Dim c As Configuration
+		  Dim i As Integer
+		  Dim row As Integer = Self.ProfileListCtl.ListIndex
+		  Dim consent As Boolean = False
+		  
+		  c = Self.ProfileListCtl.RowTag( row )
+		  
+		  i = UBound( App.clients )
+		  While i >= 0
+		    If App.clients( i ).config = c Then
+		      
+		      If App.UserChoice( "Remove profile", "Remove profile that is currently loaded?", _
+		        "The profile you're trying to remove is currently active. Are you sure?", "&Remove", "&Cancel" ) = App.UserChoiceCancel Then
+		        Return
+		      Else
+		        consent = True
+		      End If
+		      
+		      App.clients( i ).Disconnect()
+		      
+		      If App.clients( i ).gui IsA ChatWindow Then
+		        ChatWindow( App.clients( i ).gui.Window ).RemoveClient( App.clients( i ))
+		      End If
+		      
+		      App.clients.Remove( i )
+		      
+		      Exit While
+		      
+		    End If
+		    i = i - 1
+		  Wend
+		  
+		  If Not consent Then
+		    consent = ( App.UserChoice( "Remove profile", "Do you wish to remove this profile?", _
+		    c.alias + " (" + c.username + ")", "&Remove", "&Cancel" ) = App.UserChoiceAction )
+		  End If
+		  
+		  If Not consent Then
+		    Return
+		  End If
+		  
+		  Self.ProfileListCtl.ListIndex = row - 1
+		  
+		  Self.ProfileListCtl.RemoveRow( row )
 		  
 		End Sub
 	#tag EndMethod
@@ -1715,6 +1783,24 @@ End
 		  End If
 		  
 		  Self.DeleteButtonCtl.Enabled = ( Me.ListIndex <> -1 )
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CreateButtonCtl
+	#tag Event
+		Sub Action()
+		  
+		  Self.AddProfile()
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DeleteButtonCtl
+	#tag Event
+		Sub Action()
+		  
+		  Self.RemoveProfile()
 		  
 		End Sub
 	#tag EndEvent

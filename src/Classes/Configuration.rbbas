@@ -16,7 +16,7 @@ Implements Serializable
 		  Me.email                    = ""
 		  Me.gameKey1                 = ""
 		  Me.gameKey2                 = ""
-		  Me.gameKeyOwner             = App.ProjectName() + "v" + Format(App.MajorVersion, "-#")
+		  Me.gameKeyOwner             = ""
 		  Me.gameKeySpawn             = False
 		  Me.greetAclExclusive        = False
 		  Me.greetEnabled             = False
@@ -447,6 +447,7 @@ Implements Serializable
 			Name="alias"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="autoRejoinOnKick"
@@ -597,6 +598,7 @@ Implements Serializable
 			Name="proxyHost"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
