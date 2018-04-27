@@ -24,7 +24,7 @@ Begin Window GameKeysWindow
    Title           =   "Game Key Manager"
    Visible         =   True
    Width           =   620
-   Begin ChatListbox KeyList
+   Begin StyledListbox KeyList
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   ""

@@ -23,7 +23,7 @@ Begin ContainerControl ChatContainer
    UseFocusRing    =   ""
    Visible         =   True
    Width           =   580
-   Begin ChatListbox UserView
+   Begin StyledListbox UserView
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   ""

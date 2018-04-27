@@ -24,7 +24,7 @@ Begin Window ChatWindow
    Title           =   "Chat Window"
    Visible         =   True
    Width           =   760
-   Begin ChatListbox ChatContainerList
+   Begin StyledListbox ChatContainerList
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   ""
@@ -91,6 +91,7 @@ Begin Window ChatWindow
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -117,6 +118,7 @@ Begin Window ChatWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   1
+         TabStop         =   True
          Text            =   "No profile selected."
          TextAlign       =   1
          TextColor       =   &h000000
@@ -151,6 +153,7 @@ Begin Window ChatWindow
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   1
+         TabStop         =   True
          Text            =   "Select from the left or open Profile Manager."
          TextAlign       =   1
          TextColor       =   &h000000
@@ -445,7 +448,7 @@ End
 #tag EndEvents
 #tag Events NoProfileLabels
 	#tag Event
-		Sub Open(index as Integer)
+		Sub Open()
 		  
 		  #pragma Unused index
 		  

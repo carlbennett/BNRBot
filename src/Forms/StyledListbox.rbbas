@@ -1,5 +1,5 @@
 #tag Class
-Protected Class ChatListbox
+Protected Class StyledListbox
 Inherits Listbox
 	#tag Event
 		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
