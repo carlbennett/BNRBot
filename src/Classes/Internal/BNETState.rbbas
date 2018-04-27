@@ -305,6 +305,11 @@ Protected Class BNETState
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="optionalWorkMpq"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="password"
 			Group="Behavior"
 			Type="String"
@@ -320,6 +325,11 @@ Protected Class BNETState
 			Name="reconnecting"
 			Group="Behavior"
 			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="requiredWorkMpq"
+			Group="Behavior"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="serverSignature"

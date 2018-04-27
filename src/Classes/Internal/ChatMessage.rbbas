@@ -125,6 +125,11 @@ Protected Class ChatMessage
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
+		#tag ViewProperty
+			Name="_origin"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
 #tag EndClass
