@@ -34,7 +34,7 @@ Begin Window ChatWindow
       ColumnWidths    =   ""
       DataField       =   ""
       DataSource      =   ""
-      DefaultRowHeight=   20
+      DefaultRowHeight=   18
       Enabled         =   True
       EnableDrag      =   True
       EnableDragReorder=   True
@@ -64,7 +64,7 @@ Begin Window ChatWindow
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "Arial"
-      TextSize        =   12
+      TextSize        =   11
       TextUnit        =   0
       Top             =   0
       Underline       =   ""

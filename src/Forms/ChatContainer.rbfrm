@@ -70,12 +70,12 @@ Begin ContainerControl ChatContainer
       AutoHideScrollbars=   True
       Bold            =   ""
       Border          =   False
-      ColumnCount     =   1
+      ColumnCount     =   2
       ColumnsResizable=   ""
-      ColumnWidths    =   ""
+      ColumnWidths    =   36
       DataField       =   ""
       DataSource      =   ""
-      DefaultRowHeight=   20
+      DefaultRowHeight=   18
       Enabled         =   True
       EnableDrag      =   ""
       EnableDragReorder=   ""
@@ -105,7 +105,7 @@ Begin ContainerControl ChatContainer
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "Arial"
-      TextSize        =   12
+      TextSize        =   11
       TextUnit        =   0
       Top             =   36
       Underline       =   ""
@@ -212,7 +212,6 @@ Begin ContainerControl ChatContainer
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "USER INTERFACE ALPHA"
       TextAlign       =   1
       TextColor       =   &h000000
@@ -244,7 +243,6 @@ Begin ContainerControl ChatContainer
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       TopLeftColor    =   &h000000
       Visible         =   True
@@ -271,7 +269,6 @@ Begin ContainerControl ChatContainer
          Selectable      =   True
          TabIndex        =   0
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "Status"
          TextAlign       =   1
          TextColor       =   &h000000

@@ -70,7 +70,7 @@ Protected Class GUIUpdateEvent
 	#tag EndProperty
 
 
-	#tag Constant, Name = TypeChannelJoin, Type = Double, Dynamic = False, Default = \"4", Scope = Public
+	#tag Constant, Name = TypeChannelJoin, Type = Double, Dynamic = False, Default = \"5", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = TypeChatOutput, Type = Double, Dynamic = False, Default = \"0", Scope = Public
@@ -83,6 +83,9 @@ Protected Class GUIUpdateEvent
 	#tag EndConstant
 
 	#tag Constant, Name = TypeUserLeave, Type = Double, Dynamic = False, Default = \"3", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = TypeUserUpdate, Type = Double, Dynamic = False, Default = \"4", Scope = Public
 	#tag EndConstant
 
 

@@ -6,6 +6,7 @@ Inherits Thread
 		  
 		  Dim e As GUIUpdateEvent
 		  Dim i As Integer
+		  Dim msg As ChatMessage
 		  
 		  While UBound(Me.events) >= 0
 		    e = Me.events(0)
@@ -15,7 +16,7 @@ Inherits Thread
 		    If e.client.gui = Nil Then Continue While
 		    
 		    If e.type = GUIUpdateEvent.TypeChatOutput And e.data IsA ChatMessage Then
-		      Dim msg As ChatMessage = ChatMessage(e.data)
+		      msg = ChatMessage(e.data)
 		      
 		      Select Case msg._origin
 		      Case ChatMessage.OriginInternal
@@ -55,14 +56,14 @@ Inherits Thread
 		        
 		        Select Case msg.eventId
 		        Case Packets.EID_USERSHOW
-		          Me.events.Append(New GUIUpdateEvent(e.client, GUIUpdateEvent.TypeUserJoin, msg.username))
+		          Me.events.Append(New GUIUpdateEvent(e.client, GUIUpdateEvent.TypeUserJoin, msg))
 		          
 		        Case Packets.EID_USERJOIN
-		          Me.events.Append(New GUIUpdateEvent(e.client, GUIUpdateEvent.TypeUserJoin, msg.username))
+		          Me.events.Append(New GUIUpdateEvent(e.client, GUIUpdateEvent.TypeUserJoin, msg))
 		          Me.AddChat(e.client, App.config.colors.ChatEventUserJoin, "-- " + msg.username + " joined the channel" + EndOfLine)
 		          
 		        Case Packets.EID_USERLEAVE
-		          Me.events.Append(New GUIUpdateEvent(e.client, GUIUpdateEvent.TypeUserLeave, msg.username))
+		          Me.events.Append(New GUIUpdateEvent(e.client, GUIUpdateEvent.TypeUserLeave, msg))
 		          Me.AddChat(e.client, App.config.colors.ChatEventUserLeave, "-- " + msg.username + " left the channel" + EndOfLine)
 		          
 		        Case Packets.EID_WHISPER
@@ -87,7 +88,7 @@ Inherits Thread
 		          Me.AddChat(e.client, App.config.colors.ChatEventChannelJoin, "-- Joined Channel: " + msg.text + EndOfLine)
 		          
 		        Case Packets.EID_USERUPDATE
-		          Me.AddChat(e.client, App.config.colors.InternalDebug, "-- User updated: " + msg.username + EndOfLine)
+		          Me.events.Append(New GUIUpdateEvent(e.client, GUIUpdateEvent.TypeUserUpdate, msg))
 		          
 		        Case Packets.EID_WHISPERSENT
 		          Me.AddChat(e.client, App.config.colors.ChatEventUserWhisperName, "<To: " + msg.username + "> ", _
@@ -121,18 +122,45 @@ Inherits Thread
 		      
 		    ElseIf e.type = GUIUpdateEvent.TypeUserJoin Then
 		      
-		      e.client.gui.UserView.AddRow(e.data.StringValue)
+		      msg = ChatMessage( e.data )
+		      
+		      e.client.gui.UserView.AddRow( LeftB( msg.text, 4 ))
+		      e.client.gui.UserView.Cell( e.client.gui.UserView.LastIndex, 1 ) = _
+		      Battlenet.onlineNameToAccountName( msg.username, e.client.state.product, False, "" )
 		      
 		    ElseIf e.type = GUIUpdateEvent.TypeUserLeave Then
 		      
+		      msg = ChatMessage( e.data )
+		      
 		      i = e.client.gui.UserView.ListCount - 1
 		      While i >= 0
-		        If e.client.gui.UserView.Cell(i, 0) = e.data.StringValue Then
-		          e.client.gui.UserView.RemoveRow(i)
+		        If e.client.gui.UserView.Cell( i, 1 ) = _
+		          Battlenet.onlineNameToAccountName( msg.username, e.client.state.product, False, "" ) Then
+		          e.client.gui.UserView.RemoveRow( i )
 		          Exit While
 		        End If
 		        i = i - 1
 		      Wend
+		      
+		    ElseIf e.type = GUIUpdateEvent.TypeUserUpdate Then
+		      
+		      msg = ChatMessage( e.data )
+		      
+		      i = e.client.gui.UserView.ListCount - 1
+		      While i >= 0
+		        If e.client.gui.UserView.Cell( i, 1 ) = _
+		          Battlenet.onlineNameToAccountName( msg.username, e.client.state.product, False, "" ) Then
+		          e.client.gui.UserView.Cell( i, 0 ) = LeftB( msg.text, 4 )
+		          Exit While
+		        End If
+		        i = i - 1
+		      Wend
+		      
+		      If i < 0 Then
+		        e.client.gui.UserView.AddRow( LeftB( msg.text, 4 ))
+		        e.client.gui.UserView.Cell( e.client.gui.UserView.LastIndex, 1 ) = _
+		        Battlenet.onlineNameToAccountName( msg.username, e.client.state.product, False, "" )
+		      End If
 		      
 		    ElseIf e.type = GUIUpdateEvent.TypeSocketConnected Then
 		      
