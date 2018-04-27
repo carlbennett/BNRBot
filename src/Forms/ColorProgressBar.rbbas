@@ -11,7 +11,7 @@ Inherits Canvas
 		  g.ForeColor = Me.ForeColor
 		  
 		  Dim infinite As Boolean = ( Me.mMaximum = 0 )
-		  Dim infiniteSectionWidth As Integer = 30
+		  Dim infiniteSectionWidth As Integer = g.Width / 5
 		  Dim x As Integer = 0
 		  
 		  If Not infinite Then
