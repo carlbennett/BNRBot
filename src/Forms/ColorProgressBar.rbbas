@@ -16,7 +16,7 @@ Inherits Canvas
 		  
 		  If Not infinite Then
 		    x = ( Me.mValue / Me.mMaximum * g.Width )
-		    g.FillRect( 0, x, 0, g.Height )
+		    g.FillRect( 0, 0, x, g.Height )
 		  Else
 		    x = ( REALbasic.Ticks() Mod infiniteSectionWidth * 2 ) - infiniteSectionWidth
 		    While x <= g.Width
