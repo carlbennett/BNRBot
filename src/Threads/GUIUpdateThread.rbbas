@@ -126,7 +126,7 @@ Inherits Thread
 		      
 		      e.client.gui.UserView.AddRow( LeftB( msg.text, 4 ))
 		      e.client.gui.UserView.Cell( e.client.gui.UserView.LastIndex, 1 ) = _
-		      Battlenet.onlineNameToAccountName( msg.username, e.client.state.product, False, "" )
+		      Battlenet.onlineNameToAccountName( msg.username, e.client.state.product, True, "" )
 		      
 		    ElseIf e.type = GUIUpdateEvent.TypeUserLeave Then
 		      
@@ -135,7 +135,7 @@ Inherits Thread
 		      i = e.client.gui.UserView.ListCount - 1
 		      While i >= 0
 		        If e.client.gui.UserView.Cell( i, 1 ) = _
-		          Battlenet.onlineNameToAccountName( msg.username, e.client.state.product, False, "" ) Then
+		          Battlenet.onlineNameToAccountName( msg.username, e.client.state.product, True, "" ) Then
 		          e.client.gui.UserView.RemoveRow( i )
 		          Exit While
 		        End If
@@ -149,7 +149,7 @@ Inherits Thread
 		      i = e.client.gui.UserView.ListCount - 1
 		      While i >= 0
 		        If e.client.gui.UserView.Cell( i, 1 ) = _
-		          Battlenet.onlineNameToAccountName( msg.username, e.client.state.product, False, "" ) Then
+		          Battlenet.onlineNameToAccountName( msg.username, e.client.state.product, True, "" ) Then
 		          e.client.gui.UserView.Cell( i, 0 ) = LeftB( msg.text, 4 )
 		          Exit While
 		        End If
@@ -159,7 +159,7 @@ Inherits Thread
 		      If i < 0 Then
 		        e.client.gui.UserView.AddRow( LeftB( msg.text, 4 ))
 		        e.client.gui.UserView.Cell( e.client.gui.UserView.LastIndex, 1 ) = _
-		        Battlenet.onlineNameToAccountName( msg.username, e.client.state.product, False, "" )
+		        Battlenet.onlineNameToAccountName( msg.username, e.client.state.product, True, "" )
 		      End If
 		      
 		    ElseIf e.type = GUIUpdateEvent.TypeSocketConnected Then
