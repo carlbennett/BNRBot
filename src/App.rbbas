@@ -4,6 +4,16 @@ Inherits Application
 	#tag Event
 		Sub Close()
 		  
+		  // Clean up
+		  
+		  Dim i As Integer
+		  
+		  i = UBound( Me.clients )
+		  While i >= 0
+		    Me.clients( i ).Disconnect()
+		    i = i - 1
+		  Wend
+		  
 		  Logger.WriteLine(True, "Session ended")
 		  Logger.Close()
 		  
