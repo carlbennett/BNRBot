@@ -4,8 +4,6 @@ Inherits Listbox
 	#tag Event
 		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
 		  
-		  If CellBackgroundPaint( g, row, column ) = True Then Return True
-		  
 		  If Me.ListIndex = row Then
 		    g.ForeColor = App.config.colors.DefaultHighlightBackColor
 		  Else
@@ -13,6 +11,8 @@ Inherits Listbox
 		  End If
 		  
 		  g.FillRect( 0, 0, g.Width, g.Height )
+		  
+		  CellBackgroundPaint( g, row, column )
 		  
 		  Return True
 		  
@@ -94,7 +94,7 @@ Inherits Listbox
 
 
 	#tag Hook, Flags = &h0
-		Event CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
+		Event CellBackgroundPaint(g As Graphics, row As Integer, column As Integer)
 	#tag EndHook
 
 	#tag Hook, Flags = &h0

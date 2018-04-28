@@ -92,6 +92,7 @@ Begin Window GameKeysWindow
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
@@ -121,6 +122,7 @@ Begin Window GameKeysWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Key:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -155,6 +157,7 @@ Begin Window GameKeysWindow
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Product:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -189,6 +192,7 @@ Begin Window GameKeysWindow
          Selectable      =   True
          TabIndex        =   4
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "N/A"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -223,6 +227,7 @@ Begin Window GameKeysWindow
          Selectable      =   False
          TabIndex        =   5
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Public:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -257,6 +262,7 @@ Begin Window GameKeysWindow
          Selectable      =   True
          TabIndex        =   6
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "N/A"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -291,6 +297,7 @@ Begin Window GameKeysWindow
          Selectable      =   False
          TabIndex        =   7
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Private:"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -325,6 +332,7 @@ Begin Window GameKeysWindow
          Selectable      =   True
          TabIndex        =   8
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "N/A"
          TextAlign       =   0
          TextColor       =   &h000000
@@ -356,6 +364,7 @@ Begin Window GameKeysWindow
          Scope           =   0
          TabIndex        =   1
          TabPanelIndex   =   0
+         TabStop         =   True
          Top             =   48
          TopLeftColor    =   &h000000
          Visible         =   True
@@ -426,6 +435,7 @@ Begin Window GameKeysWindow
          Selectable      =   True
          TabIndex        =   3
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "N/A"
          TextAlign       =   2
          TextColor       =   &h000000
