@@ -1,9 +1,0 @@
-File,X,Y,Width,Height,Bars,Low,High
-LagIcons.png,6,0,3,11,6,,-1
-,,,,,0,0,0
-LagIcons.png,0,0,3,11,1,1,150
-LagIcons.png,0,0,3,11,2,151,250
-LagIcons.png,3,0,3,11,3,251,350
-LagIcons.png,3,0,3,11,4,351,450
-LagIcons.png,6,0,3,11,5,451,550
-LagIcons.png,6,0,3,11,6,551,

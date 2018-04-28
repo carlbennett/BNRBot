@@ -33,7 +33,7 @@ Begin ContainerControl ChatContainer
       ColumnWidths    =   36
       DataField       =   ""
       DataSource      =   ""
-      DefaultRowHeight=   18
+      DefaultRowHeight=   15
       Enabled         =   True
       EnableDrag      =   ""
       EnableDragReorder=   ""
@@ -318,40 +318,6 @@ End
 
 #tag EndWindowCode
 
-#tag Events UserView
-	#tag Event
-		Sub CellBackgroundPaint(g As Graphics, row As Integer, column As Integer)
-		  
-		  If row >= 0 And row < Me.ListCount And column = 0 Then
-		    
-		    Dim icon As Picture
-		    Dim mb As New MemoryBlock( 4 )
-		    
-		    mb.LittleEndian = True
-		    mb.StringValue( 0, 4 ) = Me.Cell( row, column )
-		    
-		    icon = ProductIcon.GetCachedIcon( mb.UInt32Value( 0 ))
-		    
-		    g.DrawPicture( icon, 0, 0, g.Width, g.Height )
-		    
-		  End If
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x As Integer, y As Integer) As Boolean
-		  
-		  #pragma Unused g
-		  #pragma Unused x
-		  #pragma Unused y
-		  
-		  If row >= 0 And row < Me.ListCount And column = 0 Then Return True
-		  
-		  Return False
-		  
-		End Function
-	#tag EndEvent
-#tag EndEvents
 #tag Events ChatOutput
 	#tag Event
 		Sub Open()
