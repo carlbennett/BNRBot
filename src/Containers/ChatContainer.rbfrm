@@ -212,7 +212,7 @@ Begin ContainerControl ChatContainer
          DataSource      =   ""
          Enabled         =   True
          Height          =   24
-         HelpTag         =   ""
+         HelpTag         =   "Current channel or service status."
          Index           =   -2147483648
          InitialParent   =   "StatusBackCtl"
          Italic          =   ""
@@ -401,6 +401,38 @@ End
 		  Me.TextColor = App.config.colors.DefaultTextColor
 		  
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
+		  
+		  If base = Nil Or x < 0 Or x > Me.Width Or y < 0 Or y > Me.Height Then Return False
+		  
+		  base.Append( New MenuItem( "&Copy" ))
+		  
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
+		  
+		  If hitItem = Nil Then Return False
+		  
+		  Select Case hitItem.Text
+		    
+		  Case "&Copy"
+		    Dim c As New Clipboard()
+		    c.Text = Replace( Me.Text, "&&", "&" )
+		    c.Close()
+		    
+		  Case Else
+		    Return False
+		    
+		  End Select
+		  
+		  Return True
+		  
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events ChatInputBackCtl
