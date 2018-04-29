@@ -170,6 +170,7 @@ Begin ContainerControl ChatContainer
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "USER INTERFACE ALPHA"
       TextAlign       =   1
       TextColor       =   &h000000
@@ -201,6 +202,7 @@ Begin ContainerControl ChatContainer
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       TopLeftColor    =   &h000000
       Visible         =   True
@@ -227,6 +229,7 @@ Begin ContainerControl ChatContainer
          Selectable      =   True
          TabIndex        =   0
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Status"
          TextAlign       =   1
          TextColor       =   &h000000
@@ -259,6 +262,7 @@ Begin ContainerControl ChatContainer
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   322
       TopLeftColor    =   &h000000
       Visible         =   True

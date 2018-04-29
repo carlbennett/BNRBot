@@ -70,6 +70,16 @@ Inherits Canvas
 	#tag EndEvent
 
 	#tag Event
+		Sub Open()
+		  
+		  Me.MouseCursor = System.Cursors.HandOpen
+		  
+		  Open()
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  
 		  #pragma Unused areas
@@ -117,16 +127,6 @@ Inherits Canvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h1000
-		Sub Constructor()
-		  // Calling the overridden superclass constructor.
-		  Super.Constructor()
-		  
-		  Me.MouseCursor = System.Cursors.HandOpen
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		Sub Detach(c As RectControl)
 		  
@@ -157,6 +157,10 @@ Inherits Canvas
 
 	#tag Hook, Flags = &h0
 		Event MoveControl(c As RectControl, dX As Integer, dY As Integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event Open()
 	#tag EndHook
 
 
