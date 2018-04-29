@@ -20,6 +20,8 @@ Implements Serializable
 		  Me.ChatEventUserWhisperMessage = &cA0A0A0
 		  Me.ChatEventUserWhisperName    = &cC0C0C0
 		  
+		  Me.ChatTimestamp               = &c808080
+		  
 		  Me.DefaultBackColor            = &c2F3136
 		  Me.DefaultFrameColor           = &c686878
 		  Me.DefaultHighlightBackColor   = &c42464D
@@ -44,7 +46,7 @@ Implements Serializable
 		Function Serialize() As String
 		  // Part of the Serializable interface.
 		  
-		  Dim mb As New MemoryBlock( &H006C )
+		  Dim mb As New MemoryBlock( &H0070 )
 		  
 		  mb.LittleEndian = True
 		  
@@ -81,6 +83,7 @@ Implements Serializable
 		  mb.ColorValue( &H0060, 32 ) = Me.InternalNetworkSuccess
 		  mb.ColorValue( &H0064, 32 ) = Me.InternalSuccess
 		  mb.ColorValue( &H0068, 32 ) = Me.DefaultHighlightTextColor
+		  mb.ColorValue( &H006C, 32 ) = Me.ChatTimestamp
 		  
 		  Return mb
 		  
@@ -129,6 +132,7 @@ Implements Serializable
 		    Me.InternalNetworkSuccess      = mb.ColorValue( &H0060, 32 )
 		    Me.InternalSuccess             = mb.ColorValue( &H0064, 32 )
 		    Me.DefaultHighlightTextColor   = mb.ColorValue( &H0068, 32 )
+		    Me.ChatTimestamp               = mb.ColorValue( &H006C, 32 )
 		    
 		  Catch err As OutOfBoundsException
 		    
@@ -196,6 +200,10 @@ Implements Serializable
 
 	#tag Property, Flags = &h0
 		ChatEventUserWhisperName As Color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ChatTimestamp As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
