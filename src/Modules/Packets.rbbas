@@ -645,20 +645,22 @@ Protected Module Packets
 		  
 		  count = packetObject.UInt8Value( 0 )
 		  
-		  Do
-		    friend = packetObject.CString( cursor )
-		    cursor = cursor + LenB( friend ) + 1
-		    
-		    status = packetObject.UInt8Value( cursor )
-		    location = packetObject.UInt8Value( cursor + 1 )
-		    product = packetObject.UInt32Value( cursor + 2 )
-		    locationStr = packetObject.CString( cursor + 6 )
-		    cursor = cursor + LenB( locationStr ) + 7
-		    
-		    friends.Append( new BNETFriend( friend, status, location, product, locationStr ))
-		    
-		    If cursor >= packetObject.Size Then Exit Do
-		  Loop
+		  If count > 0 Then
+		    Do
+		      friend = packetObject.CString( cursor )
+		      cursor = cursor + LenB( friend ) + 1
+		      
+		      status = packetObject.UInt8Value( cursor )
+		      location = packetObject.UInt8Value( cursor + 1 )
+		      product = packetObject.UInt32Value( cursor + 2 )
+		      locationStr = packetObject.CString( cursor + 6 )
+		      cursor = cursor + LenB( locationStr ) + 7
+		      
+		      friends.Append( new BNETFriend( friend, status, location, product, locationStr ))
+		      
+		      If cursor >= packetObject.Size Then Exit Do
+		    Loop
+		  End If
 		  
 		  client.state.friendsList = friends
 		  
