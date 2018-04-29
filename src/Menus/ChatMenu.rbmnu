@@ -178,6 +178,20 @@ Begin Menu ChatMenu
       Text = "&Window"
       Index = -2147483648
       AutoEnable = True
+      Begin AboutMenuItem WindowAbout
+         SpecialMenu = 0
+         Text = "&About"
+         Index = -2147483648
+         ShortcutKey = "F1"
+         Shortcut = "F1"
+         AutoEnable = True
+      End
+      Begin MenuItem Separators
+         SpecialMenu = 0
+         Text = "-"
+         Index = 5
+         AutoEnable = True
+      End
       Begin WindowMaximizeMenuItem WindowMaximize
          SpecialMenu = 0
          Text = "Ma&ximize"
