@@ -1,6 +1,20 @@
 #tag Module
 Protected Module ExtendFunctions
 	#tag Method, Flags = &h0
+		Function Hex(Extends c As Color) As String
+		  
+		  Dim a As String = ""
+		  
+		  If c.Alpha <> 0 Then
+		    a = Right( "0" + Hex( c.Alpha ), 2 )
+		  End If
+		  
+		  Return Right( "0" + Hex( c.Red ), 2 ) + Right( "0" + Hex( c.Green ), 2 ) + Right( "0" + Hex( c.Blue ), 2 ) + a
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function ReadCString(Extends stream As BinaryStream) As String
 		  
 		  Dim buffer As String
