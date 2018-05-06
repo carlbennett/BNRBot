@@ -2024,6 +2024,7 @@ End
 		      
 		      If Self.Config.BNET.ClanTag <> 0 Then
 		        
+		        base.Append(New MenuItem("View Clan Motd"))
 		        base.Append(New MenuItem(base.TextSeparator))
 		        base.Append(New MenuItem("Leave clan"))
 		        If Self.Config.BNET.ClanRank >= 4 Then
@@ -2224,6 +2225,17 @@ End
 		        
 		      Else
 		        Self.Config.AddChat(True, Colors.SkyBlue, "Error - viewing clan info is only supported on BNET binary protocol.")
+		      End If
+		    End If
+		    
+		  Case "View Clan Motd"
+		    
+		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
+		      If Self.Config.BNET.ClanTag <> 0 Then
+		        Dim Cookie As New Cookie(Cookie.TypeClanMotd)
+		        Self.Config.BNET.Send(Packets.CreateSID_CLANMOTD(Cookie.Cookie))
+		      Else
+		        Self.Config.AddChat(True, Colors.SkyBlue, "Error - refreshing clan motd is only available when you are part of a clan.")
 		      End If
 		    End If
 		    
