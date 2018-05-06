@@ -331,22 +331,25 @@ Protected Module Packets
 		    
 		  Catch err As OutOfBoundsException // thrown if trying to read past end of MemoryBlock object
 		    
-		    GUIUpdateEvent.InternalMessage("BNET: Out of bounds while parsing packet id 0x" + Right("0" + Hex(packetId), 2), _
-		    BitOr(ChatMessage.InternalFlagError, ChatMessage.InternalFlagNetwork), client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError + InternalMessage.FlagNetwork, _
+		    "BNET: Out of bounds while parsing message id 0x" + Right( "0" + Hex( packetId ), 2 )))
+		    
 		    Return False
 		    
 		  Catch err As UnknownNetworkMessageException // thrown if packetId is unknown
 		    
-		    GUIUpdateEvent.InternalMessage("BNET: Unable to recognize packet id 0x" + Right("0" + Hex(packetId), 2), _
-		    BitOr(ChatMessage.InternalFlagError, ChatMessage.InternalFlagNetwork), client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError + InternalMessage.FlagNetwork, _
+		    "BNET: Unable to recognize message id 0x" + Right( "0" + Hex( packetId ), 2 )))
+		    
 		    Return False
 		    
 		  Finally // path achievable only if successfully handled packet
 		    
 		    If client.config.logNetwork Then
-		      GUIUpdateEvent.InternalMessage("BNET: Parsed packet id 0x" + Right("0" + Hex(packetId), 2), _
-		      BitOr(ChatMessage.InternalFlagDebug, ChatMessage.InternalFlagNetwork), client)
+		      MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagDebug + InternalMessage.FlagNetwork, _
+		      "BNET: Parsed message id 0x" + Right( "0" + Hex( packetId ), 2 )))
 		    End If
+		    
 		    Return True
 		    
 		  End Try
@@ -367,13 +370,13 @@ Protected Module Packets
 		  
 		  Select Case status
 		  Case STATUS_ACCEPTED
-		    GUIUpdateEvent.InternalMessage( "BNET: Account name accepted, send password.", BitOr( ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagDebug ), client )
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagDebug, "BNET: Account name accepted, send password." ))
 		    
 		  Case STATUS_NOT_FOUND
-		    GUIUpdateEvent.InternalMessage( "BNET: Account does not exist.", ChatMessage.InternalFlagError, client )
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Account does not exist." ))
 		    
 		  Case STATUS_UPGRADE
-		    GUIUpdateEvent.InternalMessage( "BNET: Account requires upgrade.", ChatMessage.InternalFlagError, client )
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Account requires upgrade." ))
 		    
 		  Case Else
 		    Raise New InvalidPacketException()
@@ -408,25 +411,28 @@ Protected Module Packets
 		  Const STATUS_ERROR_STRING = &H0F
 		  
 		  If Not client.state.nls.ServerPasswordProof( serverPasswordProof ) Then
-		    GUIUpdateEvent.InternalMessage( "BNET: Server password proof failed! The server does not really know the password.", _
-		    BitOr( ChatMessage.InternalFlagError, ChatMessage.InternalFlagDebug ), client )
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagDebug, _
+		    "BNET: Server password proof failed! The server does not really know the password." ))
 		  End If
 		  
 		  Select Case status
 		  Case STATUS_SUCCESS, STATUS_SET_EMAIL
+		    // Handled further below.
 		    
 		  Case STATUS_BAD_PASSWORD
-		    GUIUpdateEvent.InternalMessage( "BNET: Incorrect password.", ChatMessage.InternalFlagError, client )
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Incorrect password." ))
 		    
 		  Case STATUS_CLOSED
 		    If Len( statusString ) > 0 Then
-		      GUIUpdateEvent.InternalMessage( "BNET: Account has been closed. Reason: " + statusString, ChatMessage.InternalFlagError, client )
+		      MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, _
+		      "BNET: Account has been closed. Reason: " + statusString ))
 		    Else
-		      GUIUpdateEvent.InternalMessage( "BNET: Account has been closed.", ChatMessage.InternalFlagError, client )
+		      MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, _
+		      "BNET: Account has been closed." ))
 		    End If
 		    
 		  Case STATUS_ERROR_STRING
-		    GUIUpdateEvent.InternalMessage( "BNET: " + statusString, ChatMessage.InternalFlagError, client )
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: " + statusString ))
 		    
 		  Case Else
 		    Raise New InvalidPacketException()
@@ -442,7 +448,8 @@ Protected Module Packets
 		    Battlenet.setEmail( client )
 		  End If
 		  
-		  GUIUpdateEvent.InternalMessage( "BNET: Account login success.", BitOr( ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagSuccess ), client )
+		  MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagSuccess + _
+		  InternalMessage.FlagInfo, "BNET: Account logon success." ))
 		  
 		  client.socBNET.Write( Packets.CreateBNET_SID_ENTERCHAT( client.state.username, "" ))
 		  
@@ -474,29 +481,29 @@ Protected Module Packets
 		  Select Case result
 		  Case RESULT_SUCCESS
 		  Case RESULT_OLD_VERSION
-		    GUIUpdateEvent.InternalMessage("BNET: Game version too old.", ChatMessage.InternalFlagError, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Game version too old." ))
 		  Case RESULT_BAD_VERSION
-		    GUIUpdateEvent.InternalMessage("BNET: Game version invalid.", ChatMessage.InternalFlagError, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Game version invalid." ))
 		  Case RESULT_NEW_VERSION
-		    GUIUpdateEvent.InternalMessage("BNET: Game version too new.", ChatMessage.InternalFlagError, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Game version too new." ))
 		  Case client.state.versionByte
-		    GUIUpdateEvent.InternalMessage("BNET: Game version byte invalid.", ChatMessage.InternalFlagError, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Game version byte invalid." ))
 		  Case RESULT_KEY1_INVALID
-		    GUIUpdateEvent.InternalMessage("BNET: Invalid game key.", ChatMessage.InternalFlagError, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Invalid game key." ))
 		  Case RESULT_KEY1_IN_USE
-		    GUIUpdateEvent.InternalMessage("BNET: Game key in use by " + value + ".", ChatMessage.InternalFlagError, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Game key in use by " + value + "." ))
 		  Case RESULT_KEY1_BANNED
-		    GUIUpdateEvent.InternalMessage("BNET: Banned game key.", ChatMessage.InternalFlagError, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Banned game key." ))
 		  Case RESULT_KEY1_PRODUCT_MISMATCH
-		    GUIUpdateEvent.InternalMessage("BNET: Mismatched game key product.", ChatMessage.InternalFlagError, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Mismatched game key product." ))
 		  Case RESULT_KEY2_INVALID
-		    GUIUpdateEvent.InternalMessage("BNET: Invalid expansion key.", ChatMessage.InternalFlagError, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Invalid expansion key." ))
 		  Case RESULT_KEY2_IN_USE
-		    GUIUpdateEvent.InternalMessage("BNET: Expansion key in use by " + value + ".", ChatMessage.InternalFlagError, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Expansion key in use by " + value + "." ))
 		  Case RESULT_KEY2_BANNED
-		    GUIUpdateEvent.InternalMessage("BNET: Banned expansion key.", ChatMessage.InternalFlagError, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Banned expansion key." ))
 		  Case RESULT_KEY2_PRODUCT_MISMATCH
-		    GUIUpdateEvent.InternalMessage("BNET: Mismatched expansion key product.", ChatMessage.InternalFlagError, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Mismatched expansion key product." ))
 		  Case Else
 		    Raise New InvalidPacketException()
 		  End Select
@@ -506,8 +513,8 @@ Protected Module Packets
 		    Return
 		  End If
 		  
-		  GUIUpdateEvent.InternalMessage("BNET: Version and key challenge passed.", _
-		  BitOr(ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagSuccess), client)
+		  MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagInfo + InternalMessage.FlagSuccess, _
+		  "BNET: Version and key challenge passed." ))
 		  
 		  // Battlenet.resetPassword(client)
 		  
@@ -564,8 +571,7 @@ Protected Module Packets
 		    client.state.password     = client.state.passwordNew
 		    client.state.passwordNew  = ""
 		  Case STATUS_FAILURE
-		    GUIUpdateEvent.InternalMessage("BNET: Failed to change password.", _
-		    ChatMessage.InternalFlagError, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Failed to change password." ))
 		  Case Else
 		    Raise New InvalidPacketException()
 		  End Select
@@ -575,8 +581,8 @@ Protected Module Packets
 		    Return
 		  End If
 		  
-		  GUIUpdateEvent.InternalMessage("BNET: Password was successfully changed.", _
-		  BitOr(ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagSuccess), client)
+		  MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagInfo + InternalMessage.FlagSuccess, _
+		  "BNET: Password was successfully changed." ))
 		  
 		  Battlenet.login(client)
 		  
@@ -586,18 +592,18 @@ Protected Module Packets
 	#tag Method, Flags = &h1
 		Protected Sub ReceiveBNET_SID_CHATEVENT(client As BNETClient, packetObject As MemoryBlock)
 		  
-		  Dim msg As New ChatMessage(ChatMessage.OriginBattlenet)
+		  Dim msg As New ChatMessage( client, False )
 		  
-		  msg.eventId               = packetObject.UInt32Value(0)
-		  msg.flags                 = packetObject.UInt32Value(4)
-		  msg.ping                  = packetObject.Int32Value(8)
-		  msg.ipAddress             = packetObject.UInt32Value(12)
-		  msg.accountNumber         = packetObject.UInt32Value(16)
-		  msg.registrationAuthority = packetObject.UInt32Value(20)
-		  msg.username              = packetObject.CString(24)
-		  msg.text                  = packetObject.CString(25 + LenB(msg.username))
+		  msg.eventId               = packetObject.UInt32Value( 0 )
+		  msg.flags                 = packetObject.UInt32Value( 4 )
+		  msg.ping                  = packetObject.Int32Value( 8 )
+		  msg.ipAddress             = packetObject.UInt32Value( 12 )
+		  msg.accountNumber         = packetObject.UInt32Value( 16 )
+		  msg.registrationAuthority = packetObject.UInt32Value( 20 )
+		  msg.username              = packetObject.CString( 24 )
+		  msg.text                  = packetObject.CString( 25 + LenB( msg.username ))
 		  
-		  client.chatParser.messages.Insert(0, msg)
+		  client.chatParser.messages.Insert( 0, msg )
 		  
 		  If client.chatParser.State = client.chatParser.NotRunning Then
 		    client.chatParser.Run()
@@ -613,8 +619,8 @@ Protected Module Packets
 		  client.state.statstring  = packetObject.CString(1 + LenB(client.state.uniqueName))
 		  client.state.accountName = packetObject.CString(2 + LenB(client.state.uniqueName) + LenB(client.state.statstring))
 		  
-		  GUIUpdateEvent.InternalMessage("BNET: Logged on as " + client.state.uniqueName + "!", _
-		  BitOr(ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagSuccess), client)
+		  MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagInfo + InternalMessage.FlagSuccess, _
+		  "BNET: Logged on as " + client.state.uniqueName + "!" ))
 		  
 		  Dim flags As UInt32, channel As String
 		  
@@ -673,7 +679,7 @@ Protected Module Packets
 		    message = "BNET: Received " + Format(total, "-#") + " friends."
 		  End If
 		  
-		  GUIUpdateEvent.InternalMessage( message, ChatMessage.InternalFlagInfo, client )
+		  MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagInfo, message ))
 		  
 		End Sub
 	#tag EndMethod
@@ -702,7 +708,7 @@ Protected Module Packets
 		    message = "BNET: Received " + Format(total, "-#") + " channels."
 		  End If
 		  
-		  GUIUpdateEvent.InternalMessage(message, ChatMessage.InternalFlagInfo, client)
+		  MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagInfo, message ))
 		  
 		End Sub
 	#tag EndMethod
@@ -710,8 +716,12 @@ Protected Module Packets
 	#tag Method, Flags = &h1
 		Protected Sub ReceiveBNET_SID_LOGONRESPONSE2(client As BNETClient, packetObject As MemoryBlock)
 		  
-		  Dim status As UInt32 = packetObject.UInt32Value(0)
+		  Dim status As UInt32 = packetObject.UInt32Value( 0 )
 		  Dim value As String  = ""
+		  
+		  If packetObject.Size > 4 Then
+		    value = packetObject.CString( 4 )
+		  End If
 		  
 		  Const STATUS_SUCCESS      = &H00
 		  Const STATUS_NOT_FOUND    = &H01
@@ -719,25 +729,33 @@ Protected Module Packets
 		  Const STATUS_CLOSED       = &H06
 		  
 		  Select Case status
+		    
 		  Case STATUS_SUCCESS
+		    // Handled further below.
+		    
 		  Case STATUS_NOT_FOUND
-		    GUIUpdateEvent.InternalMessage("BNET: Account does not exist.", ChatMessage.InternalFlagError, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Account does not exist." ))
+		    
 		  Case STATUS_BAD_PASSWORD
-		    GUIUpdateEvent.InternalMessage("BNET: Incorrect password.", ChatMessage.InternalFlagError, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: Incorrect password." ))
+		    
 		  Case STATUS_CLOSED
-		    value = packetObject.CString(4)
-		    GUIUpdateEvent.InternalMessage("BNET: " + value, ChatMessage.InternalFlagError, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, "BNET: " + value ))
+		    
 		  Case Else
 		    Raise New InvalidPacketException()
+		    
 		  End Select
 		  
 		  If status <> STATUS_SUCCESS Then
+		    
 		    client.socBNET.Disconnect()
 		    Return
+		    
 		  End If
 		  
-		  GUIUpdateEvent.InternalMessage("BNET: Account login success.", _
-		  BitOr(ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagSuccess), client)
+		  MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagSuccess + _
+		  InternalMessage.FlagInfo, "BNET: Account logon success." ))
 		  
 		  Dim flags As UInt32, channel As String
 		  
@@ -772,7 +790,8 @@ Protected Module Packets
 		  
 		  client.state.optionalWorkMpq = mpqFilename
 		  
-		  GUIUpdateEvent.InternalMessage( "BNET: Optional Work: " + mpqFilename, ChatMessage.InternalFlagInfo + ChatMessage.InternalFlagDebug, client )
+		  MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagInfo + InternalMessage.FlagDebug, _
+		  "BNET: Optional Work: " + mpqFilename ))
 		  
 		End Sub
 	#tag EndMethod
@@ -792,7 +811,8 @@ Protected Module Packets
 		  
 		  client.state.requiredWorkMpq = mpqFilename
 		  
-		  GUIUpdateEvent.InternalMessage( "BNET: Required Work: " + mpqFilename, ChatMessage.InternalFlagInfo + ChatMessage.InternalFlagDebug, client )
+		  MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagInfo + InternalMessage.FlagDebug, _
+		  "BNET: Required Work: " + mpqFilename ))
 		  
 		End Sub
 	#tag EndMethod
@@ -823,22 +843,25 @@ Protected Module Packets
 		    
 		  Catch err As OutOfBoundsException // thrown if trying to read past end of MemoryBlock object
 		    
-		    GUIUpdateEvent.InternalMessage("BNLS: Out of bounds while parsing packet id 0x" + Right("0" + Hex(packetId), 2), _
-		    BitOr(ChatMessage.InternalFlagError, ChatMessage.InternalFlagNetwork), client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError + InternalMessage.FlagNetwork, _
+		    "BNLS: Out of bounds while parsing message id 0x" + Right( "0" + Hex( packetId ), 2 )))
+		    
 		    Return False
 		    
 		  Catch err As UnknownNetworkMessageException // thrown if packetId is unknown
 		    
-		    GUIUpdateEvent.InternalMessage("BNLS: Unable to recognize packet id 0x" + Right("0" + Hex(packetId), 2), _
-		    BitOr(ChatMessage.InternalFlagError, ChatMessage.InternalFlagNetwork), client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError + InternalMessage.FlagNetwork, _
+		    "BNLS: Unable to recognize message id 0x" + Right( "0" + Hex( packetId ), 2 )))
+		    
 		    Return False
 		    
 		  Finally // path achievable only if successfully handled packet
 		    
 		    If client.config.logNetwork Then
-		      GUIUpdateEvent.InternalMessage("BNLS: Parsed packet id 0x" + Right("0" + Hex(packetId), 2), _
-		      BitOr(ChatMessage.InternalFlagDebug, ChatMessage.InternalFlagNetwork), client)
+		      MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagDebug + InternalMessage.FlagNetwork, _
+		      "BNLS: Parsed message id 0x" + Right( "0" + Hex( packetId ), 2 )))
 		    End If
+		    
 		    Return True
 		    
 		  End Try
@@ -896,10 +919,15 @@ Protected Module Packets
 		  End If
 		  
 		  If success = 0 Then
-		    GUIUpdateEvent.InternalMessage("BNLS: Version check failed.", ChatMessage.InternalFlagError, client)
+		    
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError, _
+		    "BNLS: Version check failed." ))
+		    
 		    client.socBNLS.Disconnect()
 		    client.socBNET.Disconnect()
+		    
 		    Return
+		    
 		  End If
 		  
 		  client.state.versionNumber    = version
@@ -907,8 +935,8 @@ Protected Module Packets
 		  client.state.versionSignature = signature
 		  client.state.versionByte      = versionByte
 		  
-		  GUIUpdateEvent.InternalMessage("BNLS: Version check success.", _
-		  BitOr(ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagSuccess), client)
+		  MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagInfo + InternalMessage.FlagSuccess, _
+		  "BNLS: Version check success." ))
 		  
 		  Dim numberOfKeys As UInt32 = 0
 		  Dim keyData() As String

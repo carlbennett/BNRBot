@@ -4,8 +4,8 @@ Inherits TCPSocket
 	#tag Event
 		Sub Connected()
 		  
-		  GUIUpdateEvent.InternalMessage("BNLS: Connected to " + Me.RemoteAddress + "!", _
-		  BitOr(ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagSuccess, ChatMessage.InternalFlagNetwork), client)
+		  MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( Me.client, InternalMessage.FlagNetwork + _
+		  InternalMessage.FlagInfo + InternalMessage.FlagSuccess, "BNLS: Connected to " + Me.RemoteAddress + "!" ))
 		  
 		  If Me.client.state = Nil Then
 		    Me.client.state = New BNETState(Me.client)
@@ -52,7 +52,7 @@ Inherits TCPSocket
 		    message = "BNLS: Socket error #" + Format(Me.LastErrorCode, "-#") + ", service no longer required."
 		  End If
 		  
-		  GUIUpdateEvent.InternalMessage(message, BitOr(ChatMessage.InternalFlagError, ChatMessage.InternalFlagNetwork), client)
+		  MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( Me.client, InternalMessage.FlagError + InternalMessage.FlagNetwork, message ))
 		  
 		End Sub
 	#tag EndEvent

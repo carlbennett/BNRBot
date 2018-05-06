@@ -13,18 +13,18 @@ Inherits Thread
 		  If Me.client.state.bnlsReadBuffer <> Nil Then
 		    While Me.client.state.bnlsReadBuffer.Size >= 3
 		      
-		      pktLen = Me.client.state.bnlsReadBuffer.UInt16Value(0)
+		      pktLen = Me.client.state.bnlsReadBuffer.UInt16Value( 0 )
 		      
 		      If pktLen > Me.client.state.bnlsReadBuffer.Size Then Exit While
 		      
 		      If Me.client.config.logNetwork Then
-		        GUIUpdateEvent.InternalMessage("BNLS: Received packet id 0x" + Right("0" + Hex(Me.client.state.bnlsReadBuffer.UInt8Value(2)), 2), _
-		        BitOr(ChatMessage.InternalFlagDebug, ChatMessage.InternalFlagNetwork), client)
+		        MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagDebug + InternalMessage.FlagNetwork, _
+		        "BNLS: Received message id 0x" + Right( "0" + Hex( Me.client.state.bnlsReadBuffer.UInt8Value( 2 )), 2 )))
 		      End If
 		      
 		      If Packets.ReceiveBNLS(Me.client, Me.client.state.bnlsReadBuffer.StringValue(0, pktLen)) = False Then
-		        GUIUpdateEvent.InternalMessage("BNLS: Packet corruption during parsing, truncating buffer...", _
-		        BitOr(ChatMessage.InternalFlagError, ChatMessage.InternalFlagNetwork), client)
+		        MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError + InternalMessage.FlagNetwork, _
+		        "BNLS: Stream corruption during parsing, truncating buffer..." ))
 		        Me.client.state.bnlsReadBuffer = Nil
 		        Exit While
 		      End If
@@ -32,7 +32,7 @@ Inherits Thread
 		      If Me.client.state = Nil Then Return
 		      
 		      If Me.client.state.bnlsReadBuffer <> Nil Then
-		        Me.client.state.bnlsReadBuffer = MidB(Me.client.state.bnlsReadBuffer, pktLen + 1)
+		        Me.client.state.bnlsReadBuffer = MidB( Me.client.state.bnlsReadBuffer, pktLen + 1 )
 		      End If
 		      
 		    Wend
@@ -42,24 +42,24 @@ Inherits Thread
 		    While Me.client.state.bnetReadBuffer.Size >= 4
 		      
 		      If Me.client.state.bnetReadBuffer.UInt8Value(0) <> &HFF Then
-		        GUIUpdateEvent.InternalMessage("BNET: Packet corruption at signature byte, truncating buffer...", _
-		        BitOr(ChatMessage.InternalFlagError, ChatMessage.InternalFlagNetwork), client)
+		        MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError + InternalMessage.FlagNetwork, _
+		        "BNET: Stream corruption at signature byte, truncating buffer..." ))
 		        Me.client.state.bnetReadBuffer = Nil
 		        Exit While
 		      End If
 		      
-		      pktLen = Me.client.state.bnetReadBuffer.UInt16Value(2)
+		      pktLen = Me.client.state.bnetReadBuffer.UInt16Value( 2 )
 		      
 		      If pktLen > Me.client.state.bnetReadBuffer.Size Then Exit While
 		      
 		      If Me.client.config.logNetwork Then
-		        GUIUpdateEvent.InternalMessage("BNET: Received packet id 0x" + Right("0" + Hex(Me.client.state.bnetReadBuffer.UInt8Value(1)), 2), _
-		        BitOr(ChatMessage.InternalFlagDebug, ChatMessage.InternalFlagNetwork), client)
+		        MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagDebug + InternalMessage.FlagNetwork, _
+		        "BNET: Received message id 0x" + Right( "0" + Hex( Me.client.state.bnetReadBuffer.UInt8Value( 1 )), 2 )))
 		      End If
 		      
 		      If Packets.ReceiveBNET(Me.client, Me.client.state.bnetReadBuffer.StringValue(0, pktLen)) = False Then
-		        GUIUpdateEvent.InternalMessage("BNET: Packet corruption during parsing, truncating buffer...", _
-		        BitOr(ChatMessage.InternalFlagError, ChatMessage.InternalFlagNetwork), client)
+		        MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagError + InternalMessage.FlagNetwork, _
+		        "BNET: Stream corruption during parsing, truncating buffer..." ))
 		        Me.client.state.bnetReadBuffer = Nil
 		        Exit While
 		      End If

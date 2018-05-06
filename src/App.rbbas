@@ -28,6 +28,11 @@ Inherits Application
 		  w.SetProgress("Initializing " + Me.ProjectName() + "...", "", 0, 0)
 		  w.Show()
 		  
+		  w.SetProgress("Initializing " + Me.ProjectName() + "...", "Spawning messenger thread...", 0, 0)
+		  
+		  MessengerThread.Messenger = New MessengerThread()
+		  MessengerThread.Messenger.Run()
+		  
 		  w.SetProgress("Initializing " + Me.ProjectName() + "...", "Opening log file...", 0, 0)
 		  
 		  Logger.Initialize()
@@ -75,7 +80,6 @@ Inherits Application
 		      Return
 		    End If
 		  End Try
-		  
 		  If config.globalConfig.CheckForUpdates Then
 		    
 		    w.SetProgress("Checking for updates...", "", 0, 0)

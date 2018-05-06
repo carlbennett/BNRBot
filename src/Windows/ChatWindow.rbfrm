@@ -3,7 +3,7 @@ Begin Window ChatWindow
    BackColor       =   &hFFFFFF
    Backdrop        =   ""
    CloseButton     =   True
-   Composite       =   False
+   Composite       =   True
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
@@ -86,14 +86,14 @@ Begin Window ChatWindow
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      PanelCount      =   1
+      PanelCount      =   3
       Panels          =   ""
       Scope           =   0
-      TabIndex        =   1
+      TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   0
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   600
       Begin Label NoProfileLabels
@@ -166,6 +166,339 @@ Begin Window ChatWindow
          Visible         =   True
          Width           =   600
       End
+      Begin StyledListbox UserView
+         AutoDeactivate  =   True
+         AutoHideScrollbars=   True
+         Bold            =   ""
+         Border          =   False
+         ColumnCount     =   2
+         ColumnsResizable=   ""
+         ColumnWidths    =   36
+         DataField       =   ""
+         DataSource      =   ""
+         DefaultRowHeight=   15
+         Enabled         =   True
+         EnableDrag      =   ""
+         EnableDragReorder=   ""
+         GridLinesHorizontal=   0
+         GridLinesVertical=   0
+         HasHeading      =   ""
+         HeadingIndex    =   -1
+         Height          =   314
+         HelpTag         =   ""
+         Hierarchical    =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ChatContainers"
+         InitialValue    =   ""
+         Italic          =   ""
+         Left            =   610
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         RequiresSelection=   ""
+         Scope           =   0
+         ScrollbarHorizontal=   ""
+         ScrollBarVertical=   True
+         SelectionType   =   0
+         TabIndex        =   1
+         TabPanelIndex   =   2
+         TabStop         =   True
+         TextFont        =   "Arial"
+         TextSize        =   11
+         TextUnit        =   0
+         Top             =   38
+         Underline       =   ""
+         UseFocusRing    =   False
+         Visible         =   True
+         Width           =   150
+         _ScrollWidth    =   -1
+      End
+      Begin SizeGripControl SizeGripControl2
+         AcceptFocus     =   ""
+         AcceptTabs      =   ""
+         AutoDeactivate  =   True
+         BackColor       =   ""
+         Backdrop        =   ""
+         DoubleBuffer    =   True
+         Enabled         =   True
+         EraseBackground =   True
+         ForeColor       =   ""
+         Height          =   352
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ChatContainers"
+         Left            =   600
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   3
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Top             =   0
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   10
+      End
+      Begin Rectangle StatusBackCtl
+         AutoDeactivate  =   True
+         BorderWidth     =   0
+         BottomRightColor=   &h000000
+         Enabled         =   True
+         FillColor       =   &hFFFFFF
+         Height          =   26
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ChatContainers"
+         Left            =   610
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   2
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Top             =   0
+         TopLeftColor    =   &h000000
+         Visible         =   True
+         Width           =   150
+         Begin Label StatusCtl
+            AutoDeactivate  =   True
+            Bold            =   ""
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   24
+            HelpTag         =   "Current channel or service status."
+            Index           =   -2147483648
+            InitialParent   =   "StatusBackCtl"
+            Italic          =   ""
+            Left            =   612
+            LockBottom      =   True
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Multiline       =   ""
+            Scope           =   0
+            Selectable      =   True
+            TabIndex        =   0
+            TabPanelIndex   =   2
+            TabStop         =   True
+            Text            =   "Status"
+            TextAlign       =   1
+            TextColor       =   &h000000
+            TextFont        =   "Microsoft Sans Serif"
+            TextSize        =   11
+            TextUnit        =   0
+            Top             =   2
+            Transparent     =   True
+            Underline       =   ""
+            Visible         =   True
+            Width           =   146
+         End
+      End
+      Begin Rectangle ChatInputBackCtl
+         AutoDeactivate  =   True
+         BorderWidth     =   0
+         BottomRightColor=   &h000000
+         Enabled         =   True
+         FillColor       =   &hFFFFFF
+         Height          =   24
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ChatContainers"
+         Left            =   160
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   False
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Top             =   362
+         TopLeftColor    =   &h000000
+         Visible         =   True
+         Width           =   600
+         Begin TextField ChatInput
+            AcceptTabs      =   ""
+            Alignment       =   0
+            AutoDeactivate  =   True
+            AutomaticallyCheckSpelling=   False
+            BackColor       =   "&cF0F0F0"
+            Bold            =   ""
+            Border          =   False
+            CueText         =   ""
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Format          =   ""
+            Height          =   16
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "ChatInputBackCtl"
+            Italic          =   ""
+            Left            =   162
+            LimitText       =   0
+            LockBottom      =   True
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Mask            =   ""
+            Password        =   ""
+            ReadOnly        =   ""
+            Scope           =   0
+            TabIndex        =   0
+            TabPanelIndex   =   2
+            TabStop         =   True
+            Text            =   ""
+            TextColor       =   &h000000
+            TextFont        =   "Arial"
+            TextSize        =   12
+            TextUnit        =   0
+            Top             =   366
+            Underline       =   ""
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   594
+         End
+      End
+      Begin Label UIAlphaLabel
+         AutoDeactivate  =   True
+         Bold            =   True
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   14
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ChatContainers"
+         Italic          =   ""
+         Left            =   160
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   False
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   5
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Text            =   "USER INTERFACE ALPHA"
+         TextAlign       =   1
+         TextColor       =   &h000000
+         TextFont        =   "Arial"
+         TextSize        =   11
+         TextUnit        =   0
+         Top             =   386
+         Transparent     =   False
+         Underline       =   ""
+         Visible         =   True
+         Width           =   600
+      End
+      Begin StyledChat ChatOutput
+         AutoDeactivate  =   True
+         Enabled         =   True
+         Height          =   352
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "ChatContainers"
+         Left            =   160
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Renderer        =   1
+         Scope           =   0
+         TabIndex        =   4
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Top             =   0
+         Visible         =   True
+         Width           =   440
+      End
+      Begin Label NoProfileLabels
+         AutoDeactivate  =   True
+         Bold            =   True
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   14
+         HelpTag         =   ""
+         Index           =   2
+         InitialParent   =   "ChatContainers"
+         Italic          =   ""
+         Left            =   160
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   False
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   0
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Text            =   "Whisper chat panel not implemented."
+         TextAlign       =   1
+         TextColor       =   &h000000
+         TextFont        =   "Arial"
+         TextSize        =   11
+         TextUnit        =   0
+         Top             =   22
+         Transparent     =   True
+         Underline       =   ""
+         Visible         =   True
+         Width           =   600
+      End
+      Begin Label NoProfileLabels
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   14
+         HelpTag         =   ""
+         Index           =   3
+         InitialParent   =   "ChatContainers"
+         Italic          =   ""
+         Left            =   160
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   False
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   1
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Text            =   "Select from the left to move on."
+         TextAlign       =   1
+         TextColor       =   &h000000
+         TextFont        =   "Arial"
+         TextSize        =   11
+         TextUnit        =   0
+         Top             =   38
+         Transparent     =   True
+         Underline       =   ""
+         Visible         =   True
+         Width           =   600
+      End
    End
    Begin SizeGripControl SizeGripControl1
       AcceptFocus     =   ""
@@ -188,7 +521,7 @@ Begin Window ChatWindow
       LockRight       =   ""
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   2
+      TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   0
@@ -274,20 +607,18 @@ End
 	#tag Method, Flags = &h0
 		Sub AddClient(client As BNETClient, focus As Boolean)
 		  
-		  Me.clients.Append(client)
+		  Me.clients.Append( client )
 		  
 		  Me.ChatContainers.Append()
 		  
-		  Me.ChatContainerList.AddRow(client.config.alias)
-		  Me.ChatContainerList.RowTag(Me.ChatContainerList.LastIndex) = client
-		  Me.ChatContainerList.CellTag(Me.ChatContainerList.LastIndex, 1) = Me.ChatContainers.PanelCount - 1
+		  Me.ChatContainerList.AddRow( client.config.alias )
+		  Me.ChatContainerList.RowTag( Me.ChatContainerList.LastIndex ) = client
 		  
-		  If client.gui = Nil Then
-		    client.gui = New ChatContainer()
+		  If client.chatWindow <> Nil Then
+		    client.chatWindow.RemoveClient( client )
 		  End If
 		  
-		  client.gui.EmbedWithinPanel(Me.ChatContainers, Me.ChatContainers.PanelCount - 1, _
-		  0, 0, Me.ChatContainers.Width, Me.ChatContainers.Height)
+		  client.chatWindow = Me
 		  
 		  If focus Then
 		    Me.ChatContainerList.ListIndex = Me.ChatContainerList.LastIndex
@@ -301,10 +632,10 @@ End
 		  
 		  Dim i As Integer
 		  
-		  i = UBound(Me.clients)
+		  i = UBound( Me.clients )
 		  While i >= 0
-		    If Me.clients(i) = client Then
-		      Me.clients.Remove(i)
+		    If Me.clients( i ) = client Then
+		      Me.clients.Remove( i )
 		      Exit While
 		    End If
 		    i = i - 1
@@ -312,18 +643,28 @@ End
 		  
 		  i = Me.ChatContainerList.ListCount - 1
 		  While i >= 0
-		    If Me.ChatContainerList.RowTag(i) = client Then
-		      Me.ChatContainers.Remove(Me.ChatContainerList.CellTag(i, 1))
-		      Me.ChatContainerList.RemoveRow(i)
+		    If Me.ChatContainerList.RowTag( i ) = client Then
+		      Me.ChatContainerList.RemoveRow( i )
 		      Exit While
 		    End If
 		    i = i - 1
 		  Wend
 		  
-		  client.gui.Close()
-		  client.gui = Nil
+		  client.chatWindow = Nil
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function SelectedClient() As BNETClient
+		  
+		  Dim c As BNETClient = Nil
+		  
+		  If Me.ChatContainerList.ListIndex = -1 Then Return c
+		  
+		  Return Me.ChatContainerList.RowTag( Me.ChatContainerList.ListIndex )
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
@@ -417,15 +758,17 @@ End
 	#tag Event
 		Sub Change()
 		  
-		  Dim page As Integer
+		  Self.ChatOutput.LoadURL( "about:blank" )
 		  
 		  If Me.ListIndex = -1 Then
-		    page = 0
+		    
+		    Self.ChatContainers.Value = 0
+		    
 		  Else
-		    page = Me.CellTag(Me.ListIndex, 1)
+		    
+		    Self.ChatContainers.Value = 1
+		    
 		  End If
-		  
-		  Self.ChatContainers.Value = page
 		  
 		End Sub
 	#tag EndEvent
@@ -448,11 +791,166 @@ End
 #tag EndEvents
 #tag Events NoProfileLabels
 	#tag Event
-		Sub Open()
+		Sub Open(index as Integer)
 		  
 		  #pragma Unused index
 		  
 		  Me.TextColor = App.config.colors.DefaultTextColor
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SizeGripControl2
+	#tag Event
+		Sub Open()
+		  
+		  Me.Direction = SizeGripControl.DirectionType.Vertical
+		  
+		  Me.Attach(Self.ChatOutput)
+		  Me.Attach(Self.StatusBackCtl)
+		  Me.Attach(Self.UserView)
+		  
+		  Me.BackColor = App.config.colors.DefaultBackColor
+		  Me.ForeColor = App.config.colors.DefaultTextColor
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MoveControl(c As RectControl, dX As Integer, dY As Integer)
+		  
+		  #pragma Unused dY
+		  
+		  Select Case c
+		    
+		  Case Self.ChatOutput
+		    
+		    c.Width = c.Width + dX
+		    
+		  Case Self.StatusBackCtl
+		    
+		    c.Left = c.Left + dX
+		    c.Width = c.Width - dX
+		    
+		  Case Self.UserView
+		    
+		    c.Left = c.Left + dX
+		    c.Width = c.Width - dX
+		    
+		  End Select
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events StatusBackCtl
+	#tag Event
+		Sub Open()
+		  
+		  Me.FillColor = App.config.colors.ChatBackColor
+		  
+		  Me.TopLeftColor = Me.FillColor
+		  Me.BottomRightColor = Me.FillColor
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events StatusCtl
+	#tag Event
+		Sub Open()
+		  
+		  Me.TextColor = App.config.colors.DefaultTextColor
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
+		  
+		  If base = Nil Or x < 0 Or x > Me.Width Or y < 0 Or y > Me.Height Then Return False
+		  
+		  base.Append( New MenuItem( "&Copy" ))
+		  
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
+		  
+		  If hitItem = Nil Then Return False
+		  
+		  Select Case hitItem.Text
+		    
+		  Case "&Copy"
+		    Dim c As New Clipboard()
+		    c.Text = Replace( Me.Text, "&&", "&" )
+		    c.Close()
+		    
+		  Case Else
+		    Return False
+		    
+		  End Select
+		  
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events ChatInputBackCtl
+	#tag Event
+		Sub Open()
+		  
+		  Me.FillColor = App.config.colors.ChatBackColor
+		  
+		  Me.TopLeftColor = Me.FillColor
+		  Me.BottomRightColor = Me.FillColor
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ChatInput
+	#tag Event
+		Sub Open()
+		  
+		  Me.BackColor = App.config.colors.ChatBackColor
+		  Me.TextColor = App.config.colors.DefaultTextColor
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  
+		  Dim KeyAsc As Integer = Asc( Key )
+		  
+		  If Not ( KeyAsc = 3 Or KeyAsc = 13 ) Then Return False
+		  
+		  Dim client As BNETClient = BNETClient( Self.ChatContainerList.RowTag( Self.ChatContainerList.ListIndex ))
+		  
+		  client.chatParser.responses.Insert( 0, New ChatResponse( ChatResponse.TYPE_TALK, Me.Text ))
+		  Me.Text = ""
+		  
+		  If client.chatParser.State = client.chatParser.NotRunning Then
+		    client.chatParser.Run()
+		  End If
+		  
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events UIAlphaLabel
+	#tag Event
+		Sub Open()
+		  
+		  Me.TextColor = App.config.colors.DefaultTextColor
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ChatOutput
+	#tag Event
+		Sub DocumentComplete(URL as String)
+		  
+		  If URL <> "about:blank" Then Return
+		  
 		  
 		End Sub
 	#tag EndEvent

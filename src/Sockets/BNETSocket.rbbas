@@ -4,12 +4,10 @@ Inherits TCPSocket
 	#tag Event
 		Sub Connected()
 		  
-		  Dim e As New GUIUpdateEvent( Me.client, GUIUpdateEvent.TypeSocketConnected, Nil )
+		  MessengerThread.Messenger.Messages.Insert( 0, New InterfaceMessage( Me.client, BaseMessage.Ids.SocketConnected ))
 		  
-		  e.Render()
-		  
-		  GUIUpdateEvent.InternalMessage( "BNET: Connected to " + Me.RemoteAddress + "!", _
-		  BitOr( ChatMessage.InternalFlagInfo, ChatMessage.InternalFlagSuccess, ChatMessage.InternalFlagNetwork ), client )
+		  MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( Me.client, InternalMessage.FlagNetwork + _
+		  InternalMessage.FlagInfo + InternalMessage.FlagSuccess, "BNET: Connected to " + Me.RemoteAddress + "!" ))
 		  
 		  If Me.client.state = Nil Then
 		    Me.client.state = New BNETState(Me.client)
@@ -61,8 +59,8 @@ Inherits TCPSocket
 	#tag Event
 		Sub Error()
 		  
-		  GUIUpdateEvent.InternalMessage("BNET: Socket error #" + Format(Me.LastErrorCode, "-#") + "!", _
-		  BitOr(ChatMessage.InternalFlagError, ChatMessage.InternalFlagNetwork), client)
+		  MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( Me.client, _
+		  InternalMessage.FlagError + InternalMessage.FlagNetwork, "BNET: Socket error #" + Format( Me.LastErrorCode, "-#" ) + "!" ))
 		  
 		  If Me.client.state <> Nil Then Me.client.state.bnetReadBuffer = Nil
 		  ReDim Me.client.chatParser.messages(-1)

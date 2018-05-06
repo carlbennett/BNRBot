@@ -34,7 +34,7 @@ Protected Module Battlenet
 		    
 		  Case TYPE_NLS_BETA, TYPE_NLS
 		    
-		    GUIUpdateEvent.InternalMessage("DEBUG: NLS", ChatMessage.InternalFlagDebug, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagDebug, "DEBUG: NLS" ))
 		    
 		  Case Else
 		    
@@ -575,7 +575,7 @@ Protected Module Battlenet
 		    
 		  Case TYPE_NLS_BETA, TYPE_NLS
 		    
-		    GUIUpdateEvent.InternalMessage("DEBUG: NLS", ChatMessage.InternalFlagDebug, client)
+		    MessengerThread.Messenger.Messages.Insert( 0, New InternalMessage( client, InternalMessage.FlagDebug, "DEBUG: NLS" ))
 		    
 		  Case Else
 		    

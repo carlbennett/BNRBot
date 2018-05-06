@@ -10,7 +10,11 @@ Inherits Thread
 		  
 		  Dim localResponses() As ChatResponse
 		  
-		  Do Until UBound(Me.messages) < 0
+		  Dim collectUserJoin As Dictionary
+		  Dim collectUserLeave As Dictionary
+		  Dim collectUserUpdate As Dictionary
+		  
+		  Do Until UBound( Me.messages ) < 0
 		    
 		    msg = Me.messages.Pop()
 		    acl = Nil
@@ -19,11 +23,18 @@ Inherits Thread
 		    Select Case msg.eventId
 		    Case Packets.EID_USERSHOW, Packets.EID_USERJOIN, Packets.EID_USERUPDATE
 		      
-		      Dim username As String = Battlenet.onlineNameToAccountName(msg.username, Me.client.state.product, True, "")
+		      Dim username As String = Battlenet.onlineNameToAccountName( msg.username, Me.client.state.product, True, "" )
+		      Dim chlUser As New ChannelUser( msg.username, msg.text, msg.ping, msg.flags )
 		      
-		      Me.client.state.channelUsers.Value(username) = New ChannelUser(msg.username, msg.text, msg.ping, msg.flags)
+		      If Not Me.client.state.channelUsers.HasKey( username ) Then
+		        If collectUserJoin = Nil Then collectUserJoin = New Dictionary()
+		        collectUserJoin.Value( username ) = chlUser
+		      Else
+		        If collectUserUpdate = Nil Then collectUserUpdate = New Dictionary()
+		        collectUserUpdate.Value( username ) = chlUser
+		      End If
 		      
-		      GUIUpdateEvent.BattlenetMessage(msg, Me.client)
+		      Me.client.state.channelUsers.Value( username ) = chlUser
 		      
 		      If msg.eventId = Packets.EID_USERJOIN And Me.client.config.greetEnabled = True Then
 		        Dim greetMsg As ChatResponse = Battlenet.GreetBot(Me.client, msg, username)
@@ -32,41 +43,43 @@ Inherits Thread
 		      
 		    Case Packets.EID_USERLEAVE
 		      
-		      Dim username As String = Battlenet.onlineNameToAccountName(msg.username, Me.client.state.product, True, "")
+		      Dim username As String = Battlenet.onlineNameToAccountName( msg.username, Me.client.state.product, True, "" )
+		      Dim chlUser As New ChannelUser( msg.username, msg.text, msg.ping, msg.flags )
 		      
-		      If Me.client.state.channelUsers.HasKey(username) Then
-		        Me.client.state.channelUsers.Remove(username)
+		      If collectUserLeave = Nil Then collectUserLeave = New Dictionary()
+		      collectUserLeave.Value( username ) = chlUser
+		      
+		      If Me.client.state.channelUsers.HasKey( username ) Then
+		        Me.client.state.channelUsers.Remove( username )
 		      End If
-		      
-		      GUIUpdateEvent.BattlenetMessage(msg, Me.client)
 		      
 		    Case Packets.EID_WHISPER, Packets.EID_TALK, Packets.EID_EMOTE
 		      
-		      GUIUpdateEvent.BattlenetMessage(msg, Me.client)
+		      MessengerThread.Messenger.Messages.Insert( 0, msg )
 		      
 		      acl            = Me.client.getAcl(msg.username)
 		      localResponses = BotCommand.handleCommand(Me.client, acl, msg)
 		      
 		    Case Packets.EID_BROADCAST
 		      
-		      GUIUpdateEvent.BattlenetMessage(msg, Me.client)
+		      MessengerThread.Messenger.Messages.Insert( 0, msg )
 		      
 		    Case Packets.EID_CHANNEL
 		      
 		      Me.client.state.channel      = msg.text
 		      Me.client.state.channelUsers = New Dictionary()
 		      
-		      GUIUpdateEvent.BattlenetMessage(msg, Me.client)
+		      MessengerThread.Messenger.Messages.Insert( 0, msg )
 		      
 		    Case Packets.EID_CHANNEL_EMPTY
 		      
-		      GUIUpdateEvent.BattlenetMessage(msg, Me.client)
+		      MessengerThread.Messenger.Messages.Insert( 0, msg )
 		      
 		      Me.client.socBNET.Write(Packets.CreateBNET_SID_JOINCHANNEL(Packets.FLAG_FORCEJOIN, msg.text))
 		      
 		    Case Packets.EID_CHANNEL_FULL
 		      
-		      GUIUpdateEvent.BattlenetMessage(msg, Me.client)
+		      MessengerThread.Messenger.Messages.Insert( 0, msg )
 		      
 		      If Me.client.state.joinCommandState <> Nil And _
 		        Me.client.state.joinCommandState.Right = msg.text Then
@@ -76,7 +89,7 @@ Inherits Thread
 		      
 		    Case Packets.EID_CHANNEL_RESTRICTED
 		      
-		      GUIUpdateEvent.BattlenetMessage(msg, Me.client)
+		      MessengerThread.Messenger.Messages.Insert( 0, msg )
 		      
 		      If Me.client.state.joinCommandState <> Nil And _
 		        Me.client.state.joinCommandState.Right = msg.text Then
@@ -86,7 +99,7 @@ Inherits Thread
 		      
 		    Case Else
 		      
-		      GUIUpdateEvent.BattlenetMessage(msg, Me.client)
+		      MessengerThread.Messenger.Messages.Insert( 0, msg )
 		      
 		    End Select
 		    
@@ -106,25 +119,29 @@ Inherits Thread
 		    res = Me.responses.Pop()
 		    
 		    Select Case res.type
+		      
 		    Case res.TYPE_PACKET
-		      If LenB(res.text) > 0 Then
-		        Me.client.socBNET.Write(res.text)
+		      If LenB( res.text ) > 0 Then
+		        Me.client.socBNET.Write( res.text )
 		      End If
+		      
 		    Case res.TYPE_TALK
 		      If LenB(res.text) > 0 Then
-		        Me.client.socBNET.Write(Packets.CreateBNET_SID_CHATCOMMAND(res.text))
+		        Me.client.socBNET.Write( Packets.CreateBNET_SID_CHATCOMMAND( res.text ))
 		        
-		        msg          = New ChatMessage(ChatMessage.OriginInternal)
-		        msg.flags    = ChatMessage.InternalFlagChatSent
+		        msg          = New ChatMessage( Me.client, True )
 		        msg.username = Me.client.state.uniqueName
 		        msg.text     = res.text
 		        
-		        GUIUpdateEvent.BattlenetMessage(msg, Me.client)
+		        MessengerThread.Messenger.Messages.Insert( 0, msg )
 		      End If
+		      
 		    Case res.TYPE_EMOTE
-		      Me.client.socBNET.Write(Packets.CreateBNET_SID_CHATCOMMAND("/me " + res.text))
+		      Me.client.socBNET.Write( Packets.CreateBNET_SID_CHATCOMMAND( "/me " + res.text ))
+		      
 		    Case res.TYPE_WHISPER
-		      Me.client.socBNET.Write(Packets.CreateBNET_SID_CHATCOMMAND("/w " + msg.username + " " + res.text))
+		      Me.client.socBNET.Write( Packets.CreateBNET_SID_CHATCOMMAND( "/w " + msg.username + " " + res.text ))
+		      
 		    End Select
 		    
 		  Loop

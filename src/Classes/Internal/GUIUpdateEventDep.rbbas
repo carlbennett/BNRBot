@@ -1,35 +1,11 @@
 #tag Class
-Protected Class GUIUpdateEvent
-	#tag Method, Flags = &h0
-		 Shared Sub BattlenetMessage(message As ChatMessage, client As BNETClient)
-		  
-		  Dim e As New GUIUpdateEvent(client, GUIUpdateEvent.TypeChatOutput, message)
-		  
-		  e.Render()
-		  
-		End Sub
-	#tag EndMethod
-
+Protected Class GUIUpdateEventDep
 	#tag Method, Flags = &h0
 		Sub Constructor(client As BNETClient, type As Integer, data As Variant)
 		  
 		  Me.client = client
 		  Me.type   = type
 		  Me.data   = data
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		 Shared Sub InternalMessage(messageText As String, messageFlags As UInt32, client As BNETClient)
-		  
-		  Dim m As New ChatMessage( True )
-		  Dim e As New GUIUpdateEvent(client, GUIUpdateEvent.TypeChatOutput, m)
-		  
-		  m.flags = messageFlags
-		  m.text  = messageText
-		  
-		  e.Render()
 		  
 		End Sub
 	#tag EndMethod
