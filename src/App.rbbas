@@ -82,6 +82,14 @@ Inherits Application
 
 
 	#tag Method, Flags = &h0
+		Function AuthorName() As String
+		  
+		  Return "Caaaaarrrrlll"
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetProjectName() As String
 		  
 		  Return "BNRBot"

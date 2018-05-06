@@ -906,9 +906,9 @@ End
 		  Case "Version", "Ver", "About"
 		    
 		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
-		      BNETText = "/me is using " + App.VersionString() + " by Jailout2000"
+		      BNETText = "/me is using " + App.VersionString() + " by " + App.AuthorName()
 		    Else
-		      Self.Config.AddChat(True, Colors.SkyBlue, "You are using " + App.VersionString() + " by Jailout2000.")
+		      Self.Config.AddChat(True, Colors.SkyBlue, "You are using " + App.VersionString() + " by " + App.AuthorName() + ".")
 		    End If
 		    
 		  Case Else
@@ -1840,7 +1840,7 @@ End
 		  
 		  #If DebugBuild = True Then
 		    Me.AddRow("")
-		    Me.Cell(Me.LastIndex, 1) = "Jailout2000@Azeroth"
+		    Me.Cell(Me.LastIndex, 1) = "Carl#Azeroth"
 		    Me.CellTag(Me.LastIndex, 0) = "3RAW 2R3W 0" // Statstring
 		    Me.CellTag(Me.LastIndex, 1) = 0 // Flags
 		    Me.CellTag(Me.LastIndex, 2) = 0 // Ping
