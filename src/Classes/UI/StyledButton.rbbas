@@ -113,6 +113,7 @@ Inherits Canvas
 	#tag Event
 		Sub Open()
 		  
+		  Me.DoubleBuffer = True
 		  Me.MouseCursor = System.Cursors.FingerPointer
 		  
 		  Open()
