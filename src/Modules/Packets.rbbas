@@ -238,6 +238,14 @@ Protected Module Packets
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function CreateSID_CLANMOTD(Cookie As UInt32) As String
+		  
+		  Return Packets.CreateSID( Packets.SID_CLANMOTD, MemClass.WriteDWORD( Cookie, True ))
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function CreateSID_CLANRANKCHANGE(Cookie As UInt32, Username As String, NewRank As Byte) As String
 		  
 		  Dim Buffer As String
@@ -555,6 +563,9 @@ Protected Module Packets
 		    
 		  Case Packets.SID_CLANRANKCHANGE
 		    ret = Packets.ParseSID_CLANRANKCHANGE(Sock, PktData)
+		    
+		  Case Packets.SID_CLANMOTD
+		    ret = Packets.ParseSID_CLANMOTD(Sock, PktData)
 		    
 		  Case Packets.SID_CLANMEMBERLIST
 		    ret = Packets.ParseSID_CLANMEMBERLIST(Sock, PktData)
@@ -1959,6 +1970,10 @@ Protected Module Packets
 		  End If
 		  
 		  Sock.Send(Packets.CreateSID_CLANMEMBERLIST(0))
+		  
+		  Dim Cookie As New Cookie( Cookie.TypeClanMotd )
+		  Sock.Send( Packets.CreateSID_CLANMOTD( Cookie.Cookie ))
+		  
 		  Return True
 		  
 		End Function
@@ -2235,6 +2250,40 @@ Protected Module Packets
 		      Globals.ClanRankName(User.Value("OldRank")), Colors.Cyan, " to ", Colors.Teal, _
 		      Globals.ClanRankName(Rank), Colors.Cyan, ".")
 		    End If
+		  End If
+		  
+		  Return True
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function ParseSID_CLANMOTD(Sock As BNETSocket, PktData As String) As Boolean
+		  
+		  If Sock = Nil Then Return False
+		  If Sock.IsConnected = False Then Return False
+		  If LenB( PktData ) < 9 Then Return False
+		  
+		  Dim CookieId As UInt32 = MemClass.ReadDWORD( PktData, 1, True )
+		  Dim Unknown As UInt32 = MemClass.ReadDWORD( PktData, 5, True )
+		  Dim Message As String = MemClass.ReadCString( PktData, 9 )
+		  
+		  Dim Cookie As Cookie = Cookie.Lookup( CookieId, True )
+		  
+		  If Cookie = Nil Then
+		    Sock.Config.AddChat( True, Colors.Red, "BNET: Received unknown clan message of the day response." )
+		    Return True
+		  End If
+		  
+		  If Unknown <> 0 Then
+		    Sock.Config.AddChat( True, Colors.Red, "BNET: SID_CLANMOTD unknown value is non-zero (" + MemClass.HexPrefix( Unknown, "0x" ) + ")." )
+		  End If
+		  
+		  If LenB( Message ) = 0 Then
+		    Sock.Config.AddChat( True, Colors.GoldenRod, "BNET: There is no message of the day for the clan." )
+		  Else
+		    Sock.Config.AddChat( True, Colors.GoldenRod, "BNET: Clan message of the day:" )
+		    Sock.Config.AddChat( True, Colors.GoldenRod, Message )
 		  End If
 		  
 		  Return True
@@ -3376,6 +3425,9 @@ Protected Module Packets
 	#tag EndConstant
 
 	#tag Constant, Name = SID_CLANMEMBERSTATUSCHANGE, Type = Double, Dynamic = False, Default = \"&H7F", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = SID_CLANMOTD, Type = Double, Dynamic = False, Default = \"&H7C", Scope = Protected
 	#tag EndConstant
 
 	#tag Constant, Name = SID_CLANQUITNOTIFY, Type = Double, Dynamic = False, Default = \"&H76", Scope = Protected

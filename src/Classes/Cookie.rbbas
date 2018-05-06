@@ -108,6 +108,9 @@ Protected Class Cookie
 	#tag Constant, Name = TypeClanMemberRemove, Type = Double, Dynamic = False, Default = \"5", Scope = Public
 	#tag EndConstant
 
+	#tag Constant, Name = TypeClanMotd, Type = Double, Dynamic = False, Default = \"7", Scope = Public
+	#tag EndConstant
+
 	#tag Constant, Name = TypeExtendedAccount, Type = Double, Dynamic = False, Default = \"0", Scope = Public
 	#tag EndConstant
 
