@@ -1,4 +1,6 @@
 # BNRBot
+![Github Releases](https://img.shields.io/github/downloads/carlbennett/BNRBot/latest/total.svg)
+
 ## Summary
 **B**attle.**N**et **R**ealbasic **Bot** is a [Classic
 Battle.net&trade;](http://classic.battle.net) chat bot written by
