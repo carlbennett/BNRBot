@@ -1,5 +1,5 @@
 # BNRBot
-![Github Releases](https://img.shields.io/github/downloads/carlbennett/BNRBot/latest/total.svg)
+[![Github Releases](https://img.shields.io/github/downloads/carlbennett/BNRBot/latest/total.svg)](https://github.com/carlbennett/BNRBot/releases/latest)
 
 ## Summary
 **B**attle.**N**et **R**ealbasic **Bot** is a [Classic
