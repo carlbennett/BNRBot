@@ -7,16 +7,16 @@ Begin BotWindow ConfigWindow
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   True
-   Height          =   604
+   Height          =   644
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
-   MaxHeight       =   604
+   MaxHeight       =   644
    MaximizeButton  =   False
    MaxWidth        =   32000
    MenuBar         =   ""
    MenuBarVisible  =   True
-   MinHeight       =   604
+   MinHeight       =   644
    MinimizeButton  =   True
    MinWidth        =   512
    Placement       =   3
@@ -42,7 +42,7 @@ Begin BotWindow ConfigWindow
       GridLinesVertical=   0
       HasHeading      =   False
       HeadingIndex    =   -1
-      Height          =   604
+      Height          =   644
       HelpTag         =   ""
       Hierarchical    =   ""
       Index           =   -2147483648
@@ -99,7 +99,7 @@ Begin BotWindow ConfigWindow
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   568
+      Top             =   608
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -130,7 +130,7 @@ Begin BotWindow ConfigWindow
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   568
+      Top             =   608
       Underline       =   ""
       Visible         =   True
       Width           =   120
@@ -161,7 +161,7 @@ Begin BotWindow ConfigWindow
       TextFont        =   "Arial"
       TextSize        =   12
       TextUnit        =   0
-      Top             =   568
+      Top             =   608
       Underline       =   ""
       Visible         =   False
       Width           =   120
@@ -169,7 +169,7 @@ Begin BotWindow ConfigWindow
    Begin PagePanel Pages
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   554
+      Height          =   594
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -185,7 +185,7 @@ Begin BotWindow ConfigWindow
       TabIndex        =   1
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   2
+      Value           =   1
       Visible         =   True
       Width           =   392
       Begin Label txtJunk
@@ -194,7 +194,7 @@ Begin BotWindow ConfigWindow
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         Height          =   530
+         Height          =   570
          HelpTag         =   ""
          Index           =   0
          InitialParent   =   "Pages"
@@ -230,7 +230,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the name of this profile here."
-         Index           =   5
+         Index           =   7
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -264,7 +264,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the account name you wish to login with.\r\nIf the account does not exist, it will be created."
-         Index           =   6
+         Index           =   8
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -298,7 +298,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the password to the account."
-         Index           =   7
+         Index           =   9
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -332,7 +332,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the host address of the Battle.net server.\r\nYou may optionally include a port.  Format:  address:port"
-         Index           =   8
+         Index           =   10
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -366,7 +366,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the host of the BNLS here."
-         Index           =   11
+         Index           =   13
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -432,7 +432,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   22
          HelpTag         =   "Select the product/game you wish to connect with.\r\nYour CD-Key(s) must match the product you choose."
-         Index           =   12
+         Index           =   14
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -466,7 +466,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the version byte in decimal format (base 10).\r\n\r\nIf you enter it in hex, you must prefix with 0x or &H.\r\nIf we detect any letters A-F, it'll assume hex and auto-convert it for you."
-         Index           =   13
+         Index           =   15
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -564,7 +564,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Using the 6 checkboxes, select what timestamp data you wish to have.\r\nIf you want to change the formatting of the timestamp itself, do that with\r\nyour system's internationalization control panel.You may select up to 1 date format.\r\nYou may select up to 1 time format.Military time is optional for all time formats.You may optionally select none, which effectively disables the timestamp."
-         Index           =   19
+         Index           =   21
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -598,7 +598,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the home channel you wish for the profile to join upon logon.\r\nOmit this field to let Battle.net choose the channel for you."
-         Index           =   18
+         Index           =   20
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -632,7 +632,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the e-mail address that will be used when Battle.net requests one."
-         Index           =   17
+         Index           =   19
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -666,7 +666,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter the name you wish to have show up when someone else attempts\r\nto use one of your CD-Keys. In most cases, this is either your real name\r\nor a nickname; some even set it to the username they login with.\r\n\r\nThe official Blizzard clients set this to the name you supplied duration\r\ninstallation of the game that required a CD-Key. For those clients\r\nwithout CD-Key support, this is left blank."
-         Index           =   16
+         Index           =   18
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -700,7 +700,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter your second (expansion-set) CD-Key for the product you chose.\r\nOmit this field if you do not have one."
-         Index           =   15
+         Index           =   17
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -734,7 +734,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter your first (original) CD-Key for the product you chose."
-         Index           =   14
+         Index           =   16
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -1823,7 +1823,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   14
          HelpTag         =   ""
-         Index           =   2
+         Index           =   4
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -1835,7 +1835,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   11
+         TabIndex        =   14
          TabPanelIndex   =   2
          Text            =   "* Right-click the list for options (such as adding and removing)."
          TextAlign       =   0
@@ -1843,7 +1843,7 @@ Begin BotWindow ConfigWindow
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
-         Top             =   294
+         Top             =   334
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -1869,13 +1869,13 @@ Begin BotWindow ConfigWindow
          LockRight       =   True
          LockTop         =   True
          Scope           =   0
-         TabIndex        =   8
+         TabIndex        =   11
          TabPanelIndex   =   2
          TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
-         Top             =   268
+         Top             =   308
          Underline       =   ""
          Visible         =   True
          Width           =   80
@@ -1900,13 +1900,13 @@ Begin BotWindow ConfigWindow
          LockRight       =   ""
          LockTop         =   True
          Scope           =   0
-         TabIndex        =   6
+         TabIndex        =   10
          TabPanelIndex   =   2
          TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
-         Top             =   268
+         Top             =   308
          Underline       =   ""
          Visible         =   True
          Width           =   118
@@ -1947,13 +1947,13 @@ Begin BotWindow ConfigWindow
          ScrollbarHorizontal=   ""
          ScrollBarVertical=   True
          SelectionType   =   0
-         TabIndex        =   5
+         TabIndex        =   9
          TabPanelIndex   =   2
          TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
-         Top             =   69
+         Top             =   109
          Underline       =   ""
          UseFocusRing    =   True
          Visible         =   True
@@ -1968,7 +1968,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   15
          HelpTag         =   ""
-         Index           =   1
+         Index           =   3
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -1980,7 +1980,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   4
+         TabIndex        =   8
          TabPanelIndex   =   2
          Text            =   "Ping Ranges:  (for displaying user pings)"
          TextAlign       =   0
@@ -1988,7 +1988,7 @@ Begin BotWindow ConfigWindow
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
-         Top             =   52
+         Top             =   92
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -2014,13 +2014,13 @@ Begin BotWindow ConfigWindow
          LockTop         =   True
          Scope           =   0
          State           =   0
-         TabIndex        =   9
+         TabIndex        =   12
          TabPanelIndex   =   2
          TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
-         Top             =   271
+         Top             =   311
          Underline       =   ""
          Value           =   False
          Visible         =   True
@@ -2046,7 +2046,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   10
+         TabIndex        =   13
          TabPanelIndex   =   2
          Text            =   "Flush bars to the right"
          TextAlign       =   0
@@ -2054,7 +2054,7 @@ Begin BotWindow ConfigWindow
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
-         Top             =   271
+         Top             =   311
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -2477,7 +2477,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   15
          HelpTag         =   ""
-         Index           =   3
+         Index           =   5
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -2489,7 +2489,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   12
+         TabIndex        =   15
          TabPanelIndex   =   2
          Text            =   "Message Blacklist:"
          TextAlign       =   0
@@ -2497,7 +2497,7 @@ Begin BotWindow ConfigWindow
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
-         Top             =   313
+         Top             =   353
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -2539,13 +2539,13 @@ Begin BotWindow ConfigWindow
          ScrollbarHorizontal=   ""
          ScrollBarVertical=   True
          SelectionType   =   0
-         TabIndex        =   13
+         TabIndex        =   16
          TabPanelIndex   =   2
          TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
-         Top             =   330
+         Top             =   370
          Underline       =   ""
          UseFocusRing    =   True
          Visible         =   True
@@ -2560,7 +2560,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   14
          HelpTag         =   ""
-         Index           =   4
+         Index           =   6
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   136
@@ -2572,7 +2572,7 @@ Begin BotWindow ConfigWindow
          Multiline       =   ""
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   17
+         TabIndex        =   20
          TabPanelIndex   =   2
          Text            =   "* Right-click the list for options (such as adding and removing)."
          TextAlign       =   0
@@ -2580,7 +2580,7 @@ Begin BotWindow ConfigWindow
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
-         Top             =   508
+         Top             =   548
          Transparent     =   False
          Underline       =   ""
          Visible         =   True
@@ -2606,13 +2606,13 @@ Begin BotWindow ConfigWindow
          LockRight       =   True
          LockTop         =   True
          Scope           =   0
-         TabIndex        =   14
+         TabIndex        =   17
          TabPanelIndex   =   2
          TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
-         Top             =   482
+         Top             =   522
          Underline       =   ""
          Visible         =   True
          Width           =   80
@@ -2668,7 +2668,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter how soon after a disconnect you'd like to reconnect.\r\nDefault: 300000 milliseconds (5 minutes)\r\nMinimum: 250 milliseconds (0.25 seconds)\r\n\r\nIf you enter it in hex, you must prefix with 0x or &H.\r\nIf we detect any letters A-F, it'll assume hex and auto-convert it for you."
-         Index           =   9
+         Index           =   11
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   132
@@ -2702,7 +2702,7 @@ Begin BotWindow ConfigWindow
          Enabled         =   True
          Height          =   15
          HelpTag         =   "Enter how soon after a disconnect you'd like to reconnect.\r\nDefault: 300000 milliseconds (5 minutes)\r\nMinimum: 250 milliseconds (0.25 seconds)\r\n\r\nIf you enter it in hex, you must prefix with 0x or &H.\r\nIf we detect any letters A-F, it'll assume hex and auto-convert it for you."
-         Index           =   10
+         Index           =   12
          InitialParent   =   "Pages"
          Italic          =   ""
          Left            =   428
@@ -2814,13 +2814,13 @@ Begin BotWindow ConfigWindow
          LockRight       =   True
          LockTop         =   True
          Scope           =   0
-         TabIndex        =   15
+         TabIndex        =   18
          TabPanelIndex   =   2
          TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
-         Top             =   482
+         Top             =   522
          Underline       =   ""
          Visible         =   True
          Width           =   80
@@ -2845,16 +2845,170 @@ Begin BotWindow ConfigWindow
          LockRight       =   False
          LockTop         =   True
          Scope           =   0
-         TabIndex        =   16
+         TabIndex        =   19
          TabPanelIndex   =   2
          TabStop         =   True
          TextFont        =   "Arial"
          TextSize        =   12
          TextUnit        =   0
-         Top             =   482
+         Top             =   522
          Underline       =   ""
          Visible         =   True
          Width           =   80
+      End
+      Begin Label txtJunk
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   15
+         HelpTag         =   "Enter the font family that will be used in chat. Example: Arial\r\nThese special values exist: Monospace, Sans, Sans-Serif, System, SmallSystem"
+         Index           =   1
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   132
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   4
+         TabPanelIndex   =   2
+         Text            =   "Chat Font Family:"
+         TextAlign       =   0
+         TextColor       =   "#Colors.UI.ControlTextColor"
+         TextFont        =   "Arial"
+         TextSize        =   12
+         TextUnit        =   0
+         Top             =   52
+         Transparent     =   False
+         Underline       =   ""
+         Visible         =   True
+         Width           =   100
+      End
+      Begin TextField fldGlobalFontFamily
+         AcceptTabs      =   ""
+         Alignment       =   0
+         AutoDeactivate  =   True
+         AutomaticallyCheckSpelling=   False
+         BackColor       =   "#Colors.UI.ControlBackColor"
+         Bold            =   ""
+         Border          =   False
+         CueText         =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Format          =   ""
+         Height          =   15
+         HelpTag         =   "Enter the font family that will be used in chat. Example: Arial\r\nThese special values exist: Monospace, Sans, Sans-Serif, System, SmallSystem"
+         Index           =   -2147483648
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   236
+         LimitText       =   0
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Mask            =   ""
+         Password        =   ""
+         ReadOnly        =   ""
+         Scope           =   0
+         TabIndex        =   5
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Text            =   ""
+         TextColor       =   "#Colors.UI.ControlTextColor"
+         TextFont        =   "Arial"
+         TextSize        =   12
+         TextUnit        =   0
+         Top             =   52
+         Underline       =   ""
+         UseFocusRing    =   False
+         Visible         =   True
+         Width           =   164
+      End
+      Begin Label txtJunk
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   15
+         HelpTag         =   "Enter the font size that will be used in chat. Example: 12px"
+         Index           =   2
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   404
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   6
+         TabPanelIndex   =   2
+         Text            =   "Size:"
+         TextAlign       =   2
+         TextColor       =   "#Colors.UI.ControlTextColor"
+         TextFont        =   "Arial"
+         TextSize        =   12
+         TextUnit        =   0
+         Top             =   52
+         Transparent     =   False
+         Underline       =   ""
+         Visible         =   True
+         Width           =   34
+      End
+      Begin TextField fldGlobalFontSize
+         AcceptTabs      =   ""
+         Alignment       =   0
+         AutoDeactivate  =   True
+         AutomaticallyCheckSpelling=   False
+         BackColor       =   "#Colors.UI.ControlBackColor"
+         Bold            =   ""
+         Border          =   False
+         CueText         =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Format          =   ""
+         Height          =   15
+         HelpTag         =   "Enter the font size that will be used in chat. Example: 12px"
+         Index           =   -2147483648
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   442
+         LimitText       =   0
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Mask            =   ""
+         Password        =   ""
+         ReadOnly        =   ""
+         Scope           =   0
+         TabIndex        =   7
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Text            =   ""
+         TextColor       =   "#Colors.UI.ControlTextColor"
+         TextFont        =   "Arial"
+         TextSize        =   12
+         TextUnit        =   0
+         Top             =   52
+         Underline       =   ""
+         UseFocusRing    =   False
+         Visible         =   True
+         Width           =   50
       End
    End
 End
@@ -2918,6 +3072,9 @@ End
 		  chkCheckForUpdates.Value = Settings.PrefCheckForUpdates
 		  chkMinimizeToTray.Value = Settings.PrefMinimizeToTray
 		  chkPingRangesFlushRight.Value = Settings.PrefPingRangesFlushRight
+		  
+		  fldGlobalFontFamily.Text = Settings.PrefGlobalFontFamily
+		  fldGlobalFontSize.Text = Settings.PrefGlobalFontSize
 		  
 		  i = 0
 		  While i <= UBound(Settings.PrefPingRanges)
@@ -5108,6 +5265,64 @@ End
 		  Wend
 		  
 		  s.Close()
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events fldGlobalFontFamily
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
+		  
+		  Dim i As Integer = UBound( Settings.Configurations )
+		  While i >= 0
+		    Settings.Configurations( i ).Container.oChatOutput.SetBodyFontFamily( Settings.PrefGlobalFontFamily )
+		    i = i - 1
+		  Wend
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub TextChange()
+		  
+		  Settings.PrefGlobalFontFamily = Me.Text
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events fldGlobalFontSize
+	#tag Event
+		Sub LostFocus()
+		  
+		  Self.Refresh(False)
+		  
+		  Dim i As Integer = UBound( Settings.Configurations )
+		  While i >= 0
+		    Settings.Configurations( i ).Container.oChatOutput.SetBodyFontSize( Settings.PrefGlobalFontSize )
+		    i = i - 1
+		  Wend
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  
+		  Self.Refresh(False)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub TextChange()
+		  
+		  Settings.PrefGlobalFontSize = Me.Text
 		  
 		End Sub
 	#tag EndEvent

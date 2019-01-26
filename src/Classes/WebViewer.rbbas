@@ -102,6 +102,9 @@ Inherits HTMLViewer
 		  
 		  Me.ExecuteJavaScript("document.write(" + StringToJSON(source) + ");")
 		  
+		  Me.SetBodyFontFamily(Settings.PrefGlobalFontFamily)
+		  Me.SetBodyFontSize(Settings.PrefGlobalFontSize)
+		  
 		End Sub
 	#tag EndEvent
 
@@ -191,6 +194,30 @@ Inherits HTMLViewer
 		  Return source
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetBodyFontFamily(value As String)
+		  
+		  Dim js As String
+		  
+		  js = "document.getElementsByTagName('body')[0].style['font-family'] = " + StringToJSON( value )
+		  
+		  Me.ExecuteJavaScript( js )
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetBodyFontSize(value As String)
+		  
+		  Dim js As String
+		  
+		  js = "document.getElementsByTagName('body')[0].style['font-size'] = " + StringToJSON( value )
+		  
+		  Me.ExecuteJavaScript( js )
+		  
+		End Sub
 	#tag EndMethod
 
 
