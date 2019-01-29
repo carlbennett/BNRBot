@@ -2991,7 +2991,7 @@ Protected Module Packets
 		  If Sock.Product = Packets.BNETProduct_CHAT And Sock.Init6Protocol = True Then
 		    Packets.ReceiveInit6(Sock)
 		  ElseIf Sock.Product = Packets.BNETProduct_CHAT And Sock.Init6Protocol = False Then
-		    Packets.ReceiveCHAT(Sock)
+		    Packets.ReceiveChat(Sock)
 		  Else
 		    Packets.ReceiveSID(Sock)
 		  End If
@@ -3027,7 +3027,7 @@ Protected Module Packets
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Sub ReceiveCHAT(Sock As BNETSocket)
+		Protected Sub ReceiveChat(Sock As BNETSocket)
 		  
 		  If Sock = Nil Then Return
 		  Dim Data As String = ReplaceLineEndings(Sock.DataBuffer, EndOfLine)
