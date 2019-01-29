@@ -1799,7 +1799,7 @@ Protected Module Globals
 		    If ForChannels = False Then Return "Warcraft III The Frozen Throne" Else Return "Frozen Throne"
 		    
 		  Case Packets.BNETProduct_CHAT
-		    If ForChannels = False Then Return "Telnet" Else Return "Chat"
+		    If ForChannels = False Then Return "Chat Client" Else Return "Chat"
 		    
 		  Case Else
 		    Return "(unknown: " + MemClass.HexPrefix(Product, "0x", 8) + ")"

@@ -604,7 +604,7 @@ Protected Module Packets
 		  If Sock.Config = Nil Then Return False
 		  
 		  If Sock.Config.VerbosePackets = True Then _
-		  Sock.Config.AddChat(True, Colors.Yellow, "RECV TELNET " + Line)
+		  Sock.Config.AddChat(True, Colors.Yellow, "RECV CHAT " + Line)
 		  
 		  Return True
 		  

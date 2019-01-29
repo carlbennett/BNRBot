@@ -367,7 +367,7 @@ Inherits TCPSocket
 		  Case ChrB(&H02)
 		    Me.Config.AddChat(True, Colors.Yellow, "SEND (PROTOCOL BNFTP)")
 		  Case ChrB(&H03)
-		    Me.Config.AddChat(True, Colors.Yellow, "SEND (PROTOCOL TELNET)")
+		    Me.Config.AddChat(True, Colors.Yellow, "SEND (PROTOCOL CHAT)")
 		  Case "C1" + EndOfLine.Windows
 		    Me.Config.AddChat(True, Colors.Yellow, "SEND (PROTOCOL INIT6)")
 		  Case Else
@@ -379,7 +379,7 @@ Inherits TCPSocket
 		      Next
 		    ElseIf Me.Product = Packets.BNETProduct_CHAT And Me.Init6Protocol = False Then
 		      If Data = ChrB(&H04) Then
-		        Me.Config.AddChat(True, Colors.Yellow, "SEND (TELNET'S LOGIN BYTE)")
+		        Me.Config.AddChat(True, Colors.Yellow, "SEND (CHAT'S LOGIN BYTE)")
 		      Else
 		        Dim Lines() As String = Split(ReplaceLineEndings(Data, EndOfLine), EndOfLine)
 		        If Len(Lines(UBound(Lines))) = 0 Then Lines.Remove(UBound(Lines))
