@@ -461,158 +461,7 @@ Protected Module Packets
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Function Parse(Sock As BNETSocket, PktID As Byte, PktData As String, PktFull As String) As Boolean
-		  
-		  If Sock = Nil Then Return False
-		  If Sock.IsConnected = False Then Return False
-		  If Sock.Config = Nil Then Return False
-		  
-		  If Sock.Config.VerbosePackets = True Then _
-		  Sock.Config.AddChat(True, Colors.Yellow, "RECV SID_0x" + Right("00" + Hex(PktID), 2) + _
-		  " (Bytes: " + Str(4 + LenB(PktData)) + ")" + EndOfLine)
-		  
-		  Dim ret As Boolean = True
-		  
-		  Select Case PktID
-		  Case Packets.SID_NULL
-		    ret = Packets.ParseSID_NULL(Sock, PktData)
-		    
-		  Case Packets.SID_ENTERCHAT
-		    ret = Packets.ParseSID_ENTERCHAT(Sock, PktData)
-		    
-		  Case Packets.SID_GETCHANNELLIST
-		    ret = Packets.ParseSID_GETCHANNELLIST(Sock, PktData)
-		    
-		  Case Packets.SID_CHATEVENT
-		    ret = Packets.ParseSID_CHATEVENT(Sock, PktData)
-		    
-		  Case Packets.SID_FLOODDETECTED
-		    ret = Packets.ParseSID_FLOODDETECTED(Sock, PktData)
-		    
-		  Case Packets.SID_MESSAGEBOX
-		    ret = Packets.ParseSID_MESSAGEBOX(Sock, PktData)
-		    
-		  Case Packets.SID_PING
-		    ret = Packets.ParseSID_PING(Sock, PktData)
-		    
-		  Case Packets.SID_READUSERDATA
-		    ret = Packets.ParseSID_READUSERDATA(Sock, PktData)
-		    
-		  Case Packets.SID_LOGONRESPONSE2
-		    ret = Packets.ParseSID_LOGONRESPONSE2(Sock, PktData)
-		    
-		  Case Packets.SID_CREATEACCOUNT2
-		    ret = Packets.ParseSID_CREATEACCOUNT2(Sock, PktData)
-		    
-		  Case Packets.SID_REQUIREDWORK
-		    ret = Packets.ParseSID_REQUIREDWORK(Sock, PktData)
-		    
-		  Case Packets.SID_AUTH_INFO
-		    ret = Packets.ParseSID_AUTH_INFO(Sock, PktData)
-		    
-		  Case Packets.SID_AUTH_CHECK
-		    ret = Packets.ParseSID_AUTH_CHECK(Sock, PktData)
-		    
-		  Case Packets.SID_AUTH_ACCOUNTCREATE
-		    ret = Packets.ParseSID_AUTH_ACCOUNTCREATE(Sock, PktData)
-		    
-		  Case Packets.SID_AUTH_ACCOUNTLOGON
-		    ret = Packets.ParseSID_AUTH_ACCOUNTLOGON(Sock, PktData)
-		    
-		  Case Packets.SID_AUTH_ACCOUNTLOGONPROOF
-		    ret = Packets.ParseSID_AUTH_ACCOUNTLOGONPROOF(Sock, PktData)
-		    
-		  Case Packets.SID_SETEMAIL
-		    ret = Packets.ParseSID_SETEMAIL(Sock, PktData)
-		    
-		  Case Packets.SID_FRIENDSLIST
-		    ret = Packets.ParseSID_FRIENDSLIST(Sock, PktData)
-		    
-		  Case Packets.SID_FRIENDSUPDATE
-		    ret = Packets.ParseSID_FRIENDSUPDATE(Sock, PktData)
-		    
-		  Case Packets.SID_FRIENDSADD
-		    ret = Packets.ParseSID_FRIENDSADD(Sock, PktData)
-		    
-		  Case Packets.SID_FRIENDSREMOVE
-		    ret = Packets.ParseSID_FRIENDSREMOVE(Sock, PktData)
-		    
-		  Case Packets.SID_FRIENDSPOSITION
-		    ret = Packets.ParseSID_FRIENDSPOSITION(Sock, PktData)
-		    
-		  Case Packets.SID_CLANCREATIONINVITATION
-		    ret = Packets.ParseSID_CLANCREATIONINVITATION(Sock, PktData)
-		    
-		  Case Packets.SID_CLANDISBAND
-		    ret = Packets.ParseSID_CLANDISBAND(Sock, PktData)
-		    
-		  Case Packets.SID_CLANINFO
-		    ret = Packets.ParseSID_CLANINFO(Sock, PktData)
-		    
-		  Case Packets.SID_CLANQUITNOTIFY
-		    ret = Packets.ParseSID_CLANQUITNOTIFY(Sock, PktData)
-		    
-		  Case Packets.SID_CLANINVITATION
-		    ret = Packets.ParseSID_CLANINVITATION(Sock, PktData)
-		    
-		  Case Packets.SID_CLANREMOVEMEMBER
-		    ret = Packets.ParseSID_CLANREMOVEMEMBER(Sock, PktData)
-		    
-		  Case Packets.SID_CLANINVITATIONRESPONSE
-		    ret = Packets.ParseSID_CLANINVITATIONRESPONSE(Sock, PktData)
-		    
-		  Case Packets.SID_CLANRANKCHANGE
-		    ret = Packets.ParseSID_CLANRANKCHANGE(Sock, PktData)
-		    
-		  Case Packets.SID_CLANMOTD
-		    ret = Packets.ParseSID_CLANMOTD(Sock, PktData)
-		    
-		  Case Packets.SID_CLANMEMBERLIST
-		    ret = Packets.ParseSID_CLANMEMBERLIST(Sock, PktData)
-		    
-		  Case Packets.SID_CLANMEMBERREMOVED
-		    ret = Packets.ParseSID_CLANMEMBERREMOVED(Sock, PktData)
-		    
-		  Case Packets.SID_CLANMEMBERSTATUSCHANGE
-		    ret = Packets.ParseSID_CLANMEMBERSTATUSCHANGE(Sock, PktData)
-		    
-		  Case Packets.SID_CLANMEMBERANKCHANGE
-		    ret = Packets.ParseSID_CLANMEMBERRANKCHANGE(Sock, PktData)
-		    
-		  Case Packets.SID_CLANMEMBERINFORMATION
-		    ret = Packets.ParseSID_CLANMEMBERINFORMATION(Sock, PktData)
-		    
-		  Case Else
-		    Sock.BadPacketCount = Sock.BadPacketCount + 1
-		    Sock.Config.AddChat(True, Colors.Red, "BNET: Protocol error - unknown packet!")
-		    //Sock.Config.AddChatHexDump(MemClass.HexPrefix(PktID, "SID_0x", 2), PktFull)
-		    #pragma Unused PktFull
-		    ret = (Sock.BadPacketCount < 3)
-		    If ret = False Then Sock.DoDisconnect(False)
-		    
-		  End Select
-		  Return ret
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Function Parse(Sock As BNETSocket, Line As String) As Boolean
-		  
-		  If Sock = Nil Then Return False
-		  If Sock.IsConnected = False Then Return False
-		  If Sock.Config = Nil Then Return False
-		  
-		  If Sock.Config.VerbosePackets = True Then _
-		  Sock.Config.AddChat(True, Colors.Yellow, "RECV CHAT " + Line)
-		  
-		  Return True
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Function Parse(Sock As BNLSSocket, PktID As Byte, PktData As String) As Boolean
+		Protected Function ParseBNLS(Sock As BNLSSocket, PktID As Byte, PktData As String) As Boolean
 		  
 		  If Sock = Nil Then Return False
 		  If Sock.IsConnected = False Then Return False
@@ -687,6 +536,21 @@ Protected Module Packets
 		  Sock.BNET.EXEInfo = EXEInfo
 		  
 		  Return Packets.SendSID_AUTH_CHECK(Sock.BNET, True)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function ParseChat(Sock As BNETSocket, Line As String) As Boolean
+		  
+		  If Sock = Nil Then Return False
+		  If Sock.IsConnected = False Then Return False
+		  If Sock.Config = Nil Then Return False
+		  
+		  If Sock.Config.VerbosePackets = True Then _
+		  Sock.Config.AddChat(True, Colors.Yellow, "RECV CHAT " + Line)
+		  
+		  Return True
 		  
 		End Function
 	#tag EndMethod
@@ -1225,6 +1089,142 @@ Protected Module Packets
 		  End Select
 		  
 		  Return True
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function ParseSID(Sock As BNETSocket, PktID As Byte, PktData As String, PktFull As String) As Boolean
+		  
+		  If Sock = Nil Then Return False
+		  If Sock.IsConnected = False Then Return False
+		  If Sock.Config = Nil Then Return False
+		  
+		  If Sock.Config.VerbosePackets = True Then _
+		  Sock.Config.AddChat(True, Colors.Yellow, "RECV SID_0x" + Right("00" + Hex(PktID), 2) + _
+		  " (Bytes: " + Str(4 + LenB(PktData)) + ")" + EndOfLine)
+		  
+		  Dim ret As Boolean = True
+		  
+		  Select Case PktID
+		  Case Packets.SID_NULL
+		    ret = Packets.ParseSID_NULL(Sock, PktData)
+		    
+		  Case Packets.SID_ENTERCHAT
+		    ret = Packets.ParseSID_ENTERCHAT(Sock, PktData)
+		    
+		  Case Packets.SID_GETCHANNELLIST
+		    ret = Packets.ParseSID_GETCHANNELLIST(Sock, PktData)
+		    
+		  Case Packets.SID_CHATEVENT
+		    ret = Packets.ParseSID_CHATEVENT(Sock, PktData)
+		    
+		  Case Packets.SID_FLOODDETECTED
+		    ret = Packets.ParseSID_FLOODDETECTED(Sock, PktData)
+		    
+		  Case Packets.SID_MESSAGEBOX
+		    ret = Packets.ParseSID_MESSAGEBOX(Sock, PktData)
+		    
+		  Case Packets.SID_PING
+		    ret = Packets.ParseSID_PING(Sock, PktData)
+		    
+		  Case Packets.SID_READUSERDATA
+		    ret = Packets.ParseSID_READUSERDATA(Sock, PktData)
+		    
+		  Case Packets.SID_LOGONRESPONSE2
+		    ret = Packets.ParseSID_LOGONRESPONSE2(Sock, PktData)
+		    
+		  Case Packets.SID_CREATEACCOUNT2
+		    ret = Packets.ParseSID_CREATEACCOUNT2(Sock, PktData)
+		    
+		  Case Packets.SID_REQUIREDWORK
+		    ret = Packets.ParseSID_REQUIREDWORK(Sock, PktData)
+		    
+		  Case Packets.SID_AUTH_INFO
+		    ret = Packets.ParseSID_AUTH_INFO(Sock, PktData)
+		    
+		  Case Packets.SID_AUTH_CHECK
+		    ret = Packets.ParseSID_AUTH_CHECK(Sock, PktData)
+		    
+		  Case Packets.SID_AUTH_ACCOUNTCREATE
+		    ret = Packets.ParseSID_AUTH_ACCOUNTCREATE(Sock, PktData)
+		    
+		  Case Packets.SID_AUTH_ACCOUNTLOGON
+		    ret = Packets.ParseSID_AUTH_ACCOUNTLOGON(Sock, PktData)
+		    
+		  Case Packets.SID_AUTH_ACCOUNTLOGONPROOF
+		    ret = Packets.ParseSID_AUTH_ACCOUNTLOGONPROOF(Sock, PktData)
+		    
+		  Case Packets.SID_SETEMAIL
+		    ret = Packets.ParseSID_SETEMAIL(Sock, PktData)
+		    
+		  Case Packets.SID_FRIENDSLIST
+		    ret = Packets.ParseSID_FRIENDSLIST(Sock, PktData)
+		    
+		  Case Packets.SID_FRIENDSUPDATE
+		    ret = Packets.ParseSID_FRIENDSUPDATE(Sock, PktData)
+		    
+		  Case Packets.SID_FRIENDSADD
+		    ret = Packets.ParseSID_FRIENDSADD(Sock, PktData)
+		    
+		  Case Packets.SID_FRIENDSREMOVE
+		    ret = Packets.ParseSID_FRIENDSREMOVE(Sock, PktData)
+		    
+		  Case Packets.SID_FRIENDSPOSITION
+		    ret = Packets.ParseSID_FRIENDSPOSITION(Sock, PktData)
+		    
+		  Case Packets.SID_CLANCREATIONINVITATION
+		    ret = Packets.ParseSID_CLANCREATIONINVITATION(Sock, PktData)
+		    
+		  Case Packets.SID_CLANDISBAND
+		    ret = Packets.ParseSID_CLANDISBAND(Sock, PktData)
+		    
+		  Case Packets.SID_CLANINFO
+		    ret = Packets.ParseSID_CLANINFO(Sock, PktData)
+		    
+		  Case Packets.SID_CLANQUITNOTIFY
+		    ret = Packets.ParseSID_CLANQUITNOTIFY(Sock, PktData)
+		    
+		  Case Packets.SID_CLANINVITATION
+		    ret = Packets.ParseSID_CLANINVITATION(Sock, PktData)
+		    
+		  Case Packets.SID_CLANREMOVEMEMBER
+		    ret = Packets.ParseSID_CLANREMOVEMEMBER(Sock, PktData)
+		    
+		  Case Packets.SID_CLANINVITATIONRESPONSE
+		    ret = Packets.ParseSID_CLANINVITATIONRESPONSE(Sock, PktData)
+		    
+		  Case Packets.SID_CLANRANKCHANGE
+		    ret = Packets.ParseSID_CLANRANKCHANGE(Sock, PktData)
+		    
+		  Case Packets.SID_CLANMOTD
+		    ret = Packets.ParseSID_CLANMOTD(Sock, PktData)
+		    
+		  Case Packets.SID_CLANMEMBERLIST
+		    ret = Packets.ParseSID_CLANMEMBERLIST(Sock, PktData)
+		    
+		  Case Packets.SID_CLANMEMBERREMOVED
+		    ret = Packets.ParseSID_CLANMEMBERREMOVED(Sock, PktData)
+		    
+		  Case Packets.SID_CLANMEMBERSTATUSCHANGE
+		    ret = Packets.ParseSID_CLANMEMBERSTATUSCHANGE(Sock, PktData)
+		    
+		  Case Packets.SID_CLANMEMBERANKCHANGE
+		    ret = Packets.ParseSID_CLANMEMBERRANKCHANGE(Sock, PktData)
+		    
+		  Case Packets.SID_CLANMEMBERINFORMATION
+		    ret = Packets.ParseSID_CLANMEMBERINFORMATION(Sock, PktData)
+		    
+		  Case Else
+		    Sock.BadPacketCount = Sock.BadPacketCount + 1
+		    Sock.Config.AddChat(True, Colors.Red, "BNET: Protocol error - unknown packet!")
+		    //Sock.Config.AddChatHexDump(MemClass.HexPrefix(PktID, "SID_0x", 2), PktFull)
+		    #pragma Unused PktFull
+		    ret = (Sock.BadPacketCount < 3)
+		    If ret = False Then Sock.DoDisconnect(False)
+		    
+		  End Select
+		  Return ret
 		  
 		End Function
 	#tag EndMethod
@@ -3019,7 +3019,7 @@ Protected Module Packets
 		    PktData = MidB(Sock.DataBuffer, 4, PktLen - 3)
 		    Sock.DataBuffer = MidB(Sock.DataBuffer, PktLen + 1)
 		    
-		    If Packets.Parse(Sock, PktID, PktData) = False Then Exit While
+		    If Packets.ParseBNLS(Sock, PktID, PktData) = False Then Exit While
 		    
 		  Wend
 		  
@@ -3037,7 +3037,7 @@ Protected Module Packets
 		    Line = NthField(Data, EndOfLine, 1)
 		    Data = Mid(Data, Len(Line + EndOfLine) + 1)
 		    
-		    If Packets.Parse(Sock, Line) = False Then Exit While
+		    If Packets.ParseChat(Sock, Line) = False Then Exit While
 		    
 		  Wend
 		  
@@ -3093,7 +3093,7 @@ Protected Module Packets
 		    PktFull = MidB(Sock.DataBuffer, 1, PktLen)
 		    Sock.DataBuffer = MidB(Sock.DataBuffer, PktLen + 1)
 		    
-		    If Packets.Parse(Sock, PktID, PktData, PktFull) = False Then Exit While
+		    If Packets.ParseSID(Sock, PktID, PktData, PktFull) = False Then Exit While
 		    
 		  Wend
 		  
