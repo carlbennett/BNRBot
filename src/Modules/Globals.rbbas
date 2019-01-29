@@ -1869,6 +1869,42 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ReverseString(value As String) As String
+		  
+		  Dim i As Integer
+		  Dim j As Integer
+		  Dim r As String
+		  
+		  j = Len( value )
+		  
+		  For i = j DownTo 1
+		    r = r + Mid( value, i, 1 )
+		  Next
+		  
+		  Return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ReverseStringB(value As String) As String
+		  
+		  Dim i As Integer
+		  Dim j As Integer
+		  Dim r As String
+		  
+		  j = LenB( value )
+		  
+		  For i = j DownTo 1
+		    r = r + MidB( value, i, 1 )
+		  Next
+		  
+		  Return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function SafeString(strValue As String, strSafeValue As String = " ") As String
 		  
 		  Dim i As Integer, buf As String = strValue

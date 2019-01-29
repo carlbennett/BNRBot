@@ -297,6 +297,7 @@ Inherits TCPSocket
 		  Me.ChannelName = ""
 		  ReDim Me.Channels(-1)
 		  Me.ChannelUsers = New Dictionary()
+		  Me.ChatProtoTxnId = Me.ChatProtoTxnLoggingIn
 		  Me.ClanMembers = Nil
 		  Me.ClanRank = 0
 		  Me.ClanTag = 0
@@ -520,6 +521,10 @@ Inherits TCPSocket
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		ChatProtoTxnId As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		ClanMembers As Dictionary
 	#tag EndProperty
 
@@ -691,6 +696,12 @@ Inherits TCPSocket
 		WaitingForUDP As Boolean
 	#tag EndProperty
 
+
+	#tag Constant, Name = ChatProtoTxnChatting, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = ChatProtoTxnLoggingIn, Type = Double, Dynamic = False, Default = \"0", Scope = Public
+	#tag EndConstant
 
 	#tag Constant, Name = Init6TransactionChatting, Type = Double, Dynamic = False, Default = \"1", Scope = Public
 	#tag EndConstant

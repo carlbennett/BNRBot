@@ -550,6 +550,438 @@ Protected Module Packets
 		  If Sock.Config.VerbosePackets = True Then _
 		  Sock.Config.AddChat(True, Colors.Yellow, "RECV CHAT " + Line)
 		  
+		  Select Case Sock.ChatProtoTxnId
+		  Case Sock.ChatProtoTxnLoggingIn
+		    
+		    If InStr( Line, "connection from" ) > 0 Then
+		      
+		      Sock.Config.AddChat( True, Colors.Gray, Line )
+		      
+		    ElseIf InStr( Line, "2010 NAME" ) > 0 Then
+		      
+		      Sock.ChatProtoTxnId = Sock.ChatProtoTxnChatting
+		      Return Packets.ParseChat( Sock, Line )
+		      
+		    Else
+		      
+		      Sock.Config.AddChat( True, Colors.DarkRed, "Unknown Chat protocol message: ", Colors.Red, Line )
+		      
+		    End If
+		    
+		  Case Sock.ChatProtoTxnChatting
+		    
+		    Dim bTmp As Boolean
+		    Dim colorA, colorB, colorC As Color
+		    Dim dTmp As Dictionary
+		    
+		    Dim msgIdVal As UInt32
+		    Dim msgIdStr As String
+		    Dim msgName As String
+		    Dim msgArgs As String
+		    
+		    msgIdStr = NthField( Line, " ", 1 )
+		    msgName = NthField( Line, " ", 2 )
+		    msgArgs = Mid( Line, LenB( msgIdStr + msgName ) + 3 )
+		    
+		    msgIdVal = Val( msgIdStr )
+		    
+		    If msgIdVal >= 1000 And msgIdVal < 2000 Then
+		      
+		      msgIdVal = msgIdVal - 1000
+		      
+		      Select Case msgIdVal
+		      Case 1, 2, 9 // EID_USERSHOW, EID_USERJOIN, EID_USERUPDATE
+		        
+		        Dim username As String = NthFieldB( msgArgs, " ", 1 )
+		        Dim flagsStr As String = NthFieldB( msgArgs, " ", 2 )
+		        Dim flags As UInt32 = Val( "&H" + flagsStr )
+		        Dim ping As Int32 = 0
+		        Dim statstring As String
+		        
+		        statstring = MidB( msgArgs, LenB( username + flagsStr ) + 4 )
+		        statstring = LeftB( statstring, LenB( statstring ) - 1 )
+		        
+		        // On Chat, the product is reversed, un-reverse it:
+		        statstring = ReverseStringB( LeftB( statstring, 4 )) + MidB( statstring, 5 )
+		        
+		        If username = Sock.UniqueName Then
+		          Sock.Flags = flags
+		          Sock.Ping = 0
+		          Sock.Statstring = statstring
+		        End If
+		        
+		        If Sock.ChannelUsers.HasKey( username ) = True Then
+		          dTmp = Sock.ChannelUsers.Value( username )
+		          dTmp.Value( "Username" ) = username
+		          dTmp.Value( "FlagsOld" ) = dTmp.Value("Flags")
+		          dTmp.Value( "Flags" ) = flags
+		          dTmp.Value( "Ping" ) = ping
+		          If LenB( statstring ) > 0 Then dTmp.Value("Statstring") = statstring
+		          dTmp.Value( "LastMessageTime") = Microseconds()
+		          dTmp.Value( "LastMessageType") = msgIdVal
+		          dTmp.Value( "LastMessage") = ""
+		          
+		        Else
+		          dTmp = New Dictionary()
+		          dTmp.Value( "Username" ) = username
+		          dTmp.Value( "FlagsOld" ) = flags
+		          dTmp.Value( "Flags" ) = flags
+		          dTmp.Value( "Ping" ) = ping
+		          dTmp.Value( "Statstring" ) = statstring
+		          dTmp.Value( "LastMessageTime" ) = Microseconds()
+		          dTmp.Value( "LastMessageType" ) = msgIdVal
+		          dTmp.Value( "LastMessage" ) = ""
+		          dTmp.Value( "TimeEntered" ) = Microseconds()
+		          Sock.ChannelUsers.Value(username) = dTmp
+		          
+		          If msgIdVal = 2 And Sock.Config.ShowJoinLeaveMessages = True Then
+		            Sock.Config.AddChat( True, Colors.DarkSeaGreen, "-- ", _
+		            Colors.LightSeaGreen, username, _
+		            Colors.DarkSeaGreen, " joined the channel using ", _
+		            Colors.LightSeaGreen, Globals.ProductName( MemClass.ReadDWORD( statstring, 1, True ), False ))
+		          End If
+		          
+		        End If
+		        
+		        Dim oldFlags As UInt32 = dTmp.Value( "FlagsOld" ).Int32Value
+		        If Sock.Config.ShowUserUpdateMessages = True And Flags <> OldFlags Then
+		          If MainWindow.IsConfigSelected( Sock.Config ) = False And msgIdVal = 9 Then
+		            
+		            Sock.Config.CacheChatUnread = True
+		            Sock.Config.Container.lstUsersTimer.Reset()
+		            
+		          End If
+		          If BitAnd( OldFlags, &H01) = 0 And BitAnd(Flags, &H01) > 0 Then
+		            Sock.Config.AddChat(True, Colors.Cyan, "CHAT: User ", _
+		            Colors.Teal, Username, _
+		            Colors.Cyan, " is now a ", _
+		            Colors.LightSkyBlue, "Blizzard representative", _
+		            Colors.Cyan, ".")
+		          End If
+		          If BitAnd( oldFlags, &H02) = 0 And BitAnd( flags, &H02) > 0 Then
+		            Sock.Config.AddChat( True, Colors.Cyan, "CHAT: User ", Colors.Teal, username, _
+		            Colors.Cyan, " is now a ", Colors.White, "channel operator", Colors.Cyan, "." )
+		          End If
+		          If BitAnd( oldFlags, &H04) = 0 And BitAnd( flags, &H04) > 0 Then
+		            Sock.Config.AddChat( True, Colors.Cyan, "CHAT: User ", Colors.Teal, username, _
+		            Colors.Cyan, " is now a ", Colors.Yellow, "channel speaker", Colors.Cyan, "." )
+		          End If
+		          If BitAnd( oldFlags, &H08) = 0 And BitAnd( flags, &H08) > 0 Then
+		            Sock.Config.AddChat( True, Colors.Cyan, "CHAT: User ", Colors.Teal, username, _
+		            Colors.Cyan, " is now a ", Colors.LightSeaGreen, "Battle.net administrator", Colors.Cyan, "." )
+		          End If
+		          If BitAnd( oldFlags, &H10) = 0 And BitAnd( flags, &H10) > 0 Then
+		            Sock.Config.AddChat( True, Colors.Cyan, "CHAT: User ", Colors.Teal, username, _
+		            Colors.Cyan, " no longer has ", Colors.Teal, "UDP support", Colors.Cyan, "." )
+		          End If
+		          If BitAnd( oldFlags, &H20) = 0 And BitAnd( flags, &H20) > 0 Then
+		            Sock.Config.AddChat( True, Colors.Cyan, "CHAT: User ", Colors.Teal, username, _
+		            Colors.Cyan, " is now ", Colors.Red, "squelched", Colors.Cyan, "." )
+		          End If
+		          If BitAnd( oldFlags, &H40) = 0 And BitAnd( flags, &H40) > 0 Then
+		            Sock.Config.AddChat( True, Colors.Cyan, "CHAT: User ", Colors.Teal, username, _
+		            Colors.Cyan, " is now a ", Colors.Pink, "guest", Colors.Cyan, "." )
+		          End If
+		          If BitAnd( oldFlags, &H01) > 0 And BitAnd( flags, &H01) = 0 Then
+		            Sock.Config.AddChat( True, Colors.Cyan, "CHAT: User ", Colors.Teal, username, _
+		            Colors.Cyan, " is no longer a ", Colors.LightSkyBlue, "Blizzard representative", Colors.Cyan, "." )
+		          End If
+		          If BitAnd( oldFlags, &H02) > 0 And BitAnd( flags, &H02) = 0 Then
+		            Sock.Config.AddChat( True, Colors.Cyan, "CHAT: User ", Colors.Teal, username, _
+		            Colors.Cyan, " is no longer a ", Colors.White, "channel operator", Colors.Cyan, "." )
+		          End If
+		          If BitAnd( oldFlags, &H04) > 0 And BitAnd( flags, &H04) = 0 Then
+		            Sock.Config.AddChat( True, Colors.Cyan, "CHAT: User ", Colors.Teal, username, _
+		            Colors.Cyan, " is no longer a ", Colors.Yellow, "channel speaker", Colors.Cyan, "." )
+		          End If
+		          If BitAnd( oldFlags, &H08) > 0 And BitAnd( flags, &H08) = 0 Then
+		            Sock.Config.AddChat( True, Colors.Cyan, "CHAT: User ", Colors.Teal, username, _
+		            Colors.Cyan, " is no longer a ", Colors.LightSeaGreen, "Battle.net administrator", Colors.Cyan, "." )
+		          End If
+		          If BitAnd( oldFlags, &H10) > 0 And BitAnd( flags, &H10) = 0 Then
+		            Sock.Config.AddChat( True, Colors.Cyan, "CHAT: User ", Colors.Teal, username, _
+		            Colors.Cyan, " now has ", Colors.Teal, "UDP support", Colors.Cyan, "." )
+		          End If
+		          If BitAnd( oldFlags, &H20) > 0 And BitAnd( flags, &H20) = 0 Then
+		            Sock.Config.AddChat( True, Colors.Cyan, "CHAT: User ", Colors.Teal, username, _
+		            Colors.Cyan, " is no longer ", Colors.Red, "squelched", Colors.Cyan, "." )
+		          End If
+		          If BitAnd( oldFlags, &H40) > 0 And BitAnd( flags, &H40) = 0 Then
+		            Sock.Config.AddChat( True, Colors.Cyan, "CHAT: User ", Colors.Teal, username, _
+		            Colors.Cyan, " is no longer a ", Colors.Pink, "guest", Colors.Cyan, "." )
+		          End If
+		        End If
+		        
+		        If MainWindow.GetSelectedConfig() = Sock.Config Then Sock.Config.Container.lstUsersTimer.Reset()
+		        
+		      Case 3 // EID_USERLEAVE
+		        
+		        Dim username As String = NthFieldB( msgArgs, " ", 1 )
+		        Dim flagsStr As String = NthFieldB( msgArgs, " ", 2 )
+		        Dim flags As UInt32 = Val( "&H" + flagsStr )
+		        
+		        If Sock.ChannelUsers.HasKey( username ) = True Then
+		          Sock.ChannelUsers.Remove( username )
+		          
+		          If Sock.Config.ShowJoinLeaveMessages = True Then
+		            Sock.Config.AddChat( True, Colors.FireBrick, "-- ", Colors.Crimson, username, Colors.FireBrick, " left the channel" )
+		          End If
+		          
+		          If MainWindow.GetSelectedConfig() = Sock.Config Then Sock.Config.Container.lstUsersTimer.Reset()
+		          
+		        End If
+		        
+		      Case 4 // EID_WHISPERFROM
+		        
+		        Dim username As String = NthField( msgArgs, " ", 1 )
+		        Dim flagsStr As String = NthField( msgArgs, " ", 2 )
+		        Dim flags As UInt32 = Val( "&H" + flagsStr )
+		        
+		        Dim x As Integer = Len( username + flagsStr ) + 2
+		        
+		        Dim text As String = Mid( msgArgs, x + 2, Len( msgArgs ) - x - 2 )
+		        
+		        If Sock.Config.EnableUTF8 = True Then text = DefineEncoding( text, Encodings.UTF8 )
+		        
+		        dTmp = Sock.ChannelUsers.Lookup( username, Nil )
+		        If dTmp <> Nil Then
+		          dTmp.Value( "LastMessageTime" ) = Microseconds()
+		          dTmp.Value( "LastMessageType" ) = msgIdVal
+		          dTmp.Value( "LastMessage" ) = Text
+		        End If
+		        
+		        If BitAnd( flags, &H20 ) <= 0 Then
+		          Globals.DesktopNotification( "Whisper received from " + username, text, 0 )
+		          If MainWindow.IsConfigSelected( Sock.Config ) = False Then
+		            Sock.Config.CacheChatMention = True
+		            Sock.Config.Container.lstUsersTimer.Reset()
+		          End If
+		          Sock.Config.AddChat( True, Colors.GoldenRod, "From ", Colors.Gold, username, Colors.GoldenRod, ": ", Colors.SlateGray, text )
+		        End If
+		        
+		      Case 5, 23 // EID_TALK, EID_EMOTE
+		        
+		        Dim username As String = NthField( msgArgs, " ", 1 )
+		        Dim flagsStr As String = NthField( msgArgs, " ", 2 )
+		        Dim flags As UInt32 = Val( "&H" + flagsStr )
+		        
+		        Dim x As Integer = Len( username + flagsStr ) + 2
+		        
+		        Dim text As String = Mid( msgArgs, x + 2, Len( msgArgs ) - x - 2 )
+		        
+		        If Sock.Config.SpamPrevention = True Then dTmp = Sock.ChannelUsers.Lookup( username, Nil )
+		        bTmp = ( Sock.Config.SpamPrevention = True And dTmp <> Nil And dTmp.Value( "TimeEntered" ).DoubleValue + 400000 > Microseconds() )
+		        
+		        // If bTmp = True then they are talking at most 0.4 seconds after entering.
+		        
+		        If dTmp <> Nil Then
+		          If bTmp = False And Sock.Config.SpamPrevention = True And Text = dTmp.Value( "LastMessage" ) Then bTmp = True
+		          dTmp.Value( "LastMessageTime" ) = Microseconds()
+		          dTmp.Value( "LastMessageType" ) = msgIdVal
+		          dTmp.Value( "LastMessage" ) = text
+		        End If
+		        
+		        // If bTmp = True now then they may also be repeating their message.
+		        
+		        If bTmp = False And Globals.MessageBlacklistMatch( text ) = True Then bTmp = True
+		        
+		        // If bTmp = True now then the message may even also be on the blacklist
+		        
+		        If BitAnd( flags, &H20 ) <= 0 And bTmp = False Then
+		          If BitAnd( flags, &H09 ) > 0 Then
+		            If msgIdVal = 5 Then 
+		              colorA = Colors.Teal
+		              colorB = Colors.Cyan
+		              colorC = Colors.Cyan
+		            ElseIf msgIdVal = 23 Then
+		              colorA = Colors.GoldenRod
+		              colorB = Colors.Cyan
+		              colorC = Colors.GoldenRod
+		            End If
+		          ElseIf BitAnd( flags, &H02 ) > 0 Then
+		            If msgIdVal = 5 Then
+		              colorA = Colors.Silver
+		              colorB = Colors.White
+		              colorC = Colors.White
+		            ElseIf msgIdVal = 23 Then
+		              colorA = Colors.Silver
+		              colorB = Colors.White
+		              colorC = Colors.Silver
+		            End If
+		          ElseIf msgIdVal = 23 And username = Sock.UniqueName Then
+		            colorA = Colors.MediumOrchid
+		            colorB = Colors.MediumVioletRed
+		            colorC = Colors.MediumOrchid
+		          Else
+		            If msgIdVal = 5 Then
+		              colorA = Colors.GoldenRod
+		              colorB = Colors.Gold
+		              If BitAnd( flags, &H04 ) > 0 Then colorC = Colors.Yellow Else colorC = Colors.White
+		            ElseIf msgIdVal = 23 Then
+		              colorA = Colors.GoldenRod
+		              colorB = Colors.Gold
+		              colorC = Colors.GoldenRod
+		            End If
+		          End If
+		          
+		          If InStr( text, Sock.UniqueName ) > 0 Or InStr( text, Sock.AccountName ) > 0 Then
+		            Globals.DesktopNotification( "Mentioned by " + username, text, 0 )
+		            If MainWindow.IsConfigSelected( Sock.Config ) = False Then
+		              Sock.Config.CacheChatMention = True
+		              Sock.Config.Container.lstUsersTimer.Reset()
+		            End If
+		          End If
+		          
+		          If msgIdVal = 5 Then
+		            Sock.Config.AddChat( True, colorB, username, colorA, ": ", colorC, text )
+		          ElseIf msgIdVal = 23 Then
+		            Sock.Config.AddChat( True, colorA, "-- ", colorB, username, colorA, " ", colorC, text )
+		          End If
+		        End If
+		        
+		        If MainWindow.GetSelectedConfig() = Sock.Config And _
+		          Sock.Config.Container.lstUsers_View = ChatContainer.lstUsers_View_Channel_Activity Then _
+		          Sock.Config.Container.lstUsersTimer.Reset()
+		          
+		      Case 6 // EID_BROADCAST
+		        
+		        Sock.Config.AddChat( True, Colors.Cyan, "Server broadcast: ", Colors.Silver, Mid( msgArgs, 2, Len( msgArgs ) - 2 ))
+		        
+		      Case 7 // EID_CHANNEL
+		        
+		        Dim reverseStr As String = ReverseString( msgArgs )
+		        Dim indexQuote As Integer = InStr( reverseStr, """" )
+		        
+		        Sock.ChannelName = Mid( msgArgs, 2, Len( msgArgs ) - indexQuote - 1 )
+		        Sock.ChannelFlags = Val( Right( msgArgs, Len( msgArgs ) - Len( Sock.ChannelName ) + 2 ) )
+		        Sock.ChannelUsers.Clear()
+		        
+		        If MainWindow.GetSelectedConfig() = Sock.Config Then _
+		        Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
+		        
+		        Sock.Config.AddChat( True, Colors.LightSeaGreen, "-- Entered channel: ", Colors.Aquamarine, Sock.ChannelName, _
+		        Colors.SlateGray, " (" + Globals.SChannelFlags( Sock.ChannelFlags ) + ")" )
+		        
+		      Case 10 // EID_WHISPERTO
+		        
+		        Dim username As String
+		        Dim flagsStr As String
+		        
+		        If Left( msgArgs, 12 ) = "your friends" Then
+		          username = NthField( msgArgs, " ", 1 ) + " " + NthField( msgArgs, " ", 2 )
+		          flagsStr = NthField( msgArgs, " ", 3 )
+		        Else
+		          username = NthField( msgArgs, " ", 1 )
+		          flagsStr = NthField( msgArgs, " ", 2 )
+		        End If
+		        
+		        Dim x As Integer = Len( username + flagsStr ) + 2
+		        
+		        Dim flags As UInt32 = Val( "&H" + flagsStr )
+		        Dim text As String = Mid( msgArgs, x + 2, Len( msgArgs ) - x - 2 )
+		        
+		        If Sock.Config.EnableUTF8 = True Then text = DefineEncoding( text, Encodings.UTF8 )
+		        
+		        dTmp = Sock.ChannelUsers.Lookup( username, Nil )
+		        If dTmp <> Nil Then
+		          dTmp.Value( "LastMessageTime" ) = Microseconds()
+		          dTmp.Value( "LastMessageType" ) = msgIdVal
+		          dTmp.Value( "LastMessage" ) = Text
+		        End If
+		        
+		        If BitAnd( flags, &H20 ) <= 0 Then
+		          Sock.Config.AddChat( True, Colors.MediumVioletRed, "To ", Colors.MediumOrchid, username, Colors.MediumVioletRed, ": ", Colors.SlateGray, text )
+		        End If
+		        
+		      Case 13 // EID_CHANNELFULL
+		        
+		        Dim channelName As String = Mid( msgArgs, 2, Len( msgArgs ) - 2 )
+		        
+		        Sock.Config.AddChat( True, Colors.FireBrick, "CHAT: The channel ", Colors.Crimson, channelName, Colors.FireBrick, " is full." )
+		        
+		      Case 14 // EID_CHANNELEMPTY
+		        
+		        Dim channelName As String = Mid( msgArgs, 2, Len( msgArgs ) - 2 )
+		        
+		        Sock.Config.AddChat( True, Colors.FireBrick, "CHAT: The channel ", Colors.Crimson, channelName, Colors.FireBrick, " is empty", _
+		        Colors.GoldenRod, "; attempting join...")
+		        
+		        Sock.Send( "/join " + channelName + EndOfLine )
+		        
+		      Case 15 // EID_CHANNELRESTRICTED
+		        
+		        Dim channelName As String = Mid( msgArgs, 2, Len( msgArgs ) - 2 )
+		        
+		        Sock.Config.AddChat( True, Colors.FireBrick, "CHAT: The channel ", Colors.Crimson, channelName, Colors.FireBrick, " is restricted." )
+		        
+		      Case 18 // EID_INFO
+		        
+		        If Sock.Config.IgnoreBanKickUnban = True And _
+		          ( InStr( msgArgs, "was unbanned by" ) > 0 Or _
+		          InStr( msgArgs, "was banned by" ) > 0 Or _
+		          InStr( msgArgs, "was kicked out of the channel by" ) > 0 ) Then
+		          bTmp = False
+		          
+		        ElseIf Sock.Config.ShowUserUpdateMessages = True And _
+		          ( Right( msgArgs, Len( " has been squelched." )) = " has been squelched." Or _
+		          Right( msgArgs, Len( " has been unsquelched." )) = " has been unsquelched." ) Then
+		          bTmp = False
+		          
+		        Else
+		          bTmp = True
+		          
+		        End If
+		        
+		        If bTmp = True Then
+		          Sock.Config.AddChat( True, Colors.GoldenRod, Mid( msgArgs, 2, Len( msgArgs ) - 2 ))
+		        End If
+		        
+		        If Sock.Config.AutoRejoinWhenKicked = True And LenB( Sock.ChannelName ) > 0 And _
+		          Right( msgArgs, Len( "kicked you out of the channel!" )) = "kicked you out of the channel!" Then _
+		          Sock.Send( "/join " + Sock.ChannelName + EndOfLine )
+		          
+		      Case 19 // EID_ERROR
+		        
+		        Sock.Config.AddChat( True, Colors.FireBrick, Mid( msgArgs, 2, Len( msgArgs ) - 2 ))
+		        
+		      Case Else
+		        Sock.Config.AddChat( True, Colors.DarkRed, "Unknown Chat event: ", Colors.Red, Line )
+		        
+		      End Select
+		      
+		    ElseIf msgIdVal >= 2000 And msgIdVal < 2256 Then // SID-style messages
+		      
+		      msgIdVal = msgIdVal - 2000
+		      
+		      Select Case msgIdVal
+		      Case Packets.SID_NULL
+		        Sock.Send( "/unignore " + Sock.UniqueName + EndOfLine )
+		        
+		      Case Packets.SID_ENTERCHAT
+		        Sock.AccountName = Sock.Config.Username
+		        Sock.UniqueName = NthField( msgArgs, " ", 1 )
+		        
+		        Sock.Config.Container.lstUsers_View = Sock.Config.Container.lstUsers_View
+		        Sock.Config.AddChat( True, Colors.Cyan, "CHAT: Logged on as ", Colors.Teal, Sock.UniqueName, Colors.Cyan, "!" )
+		        
+		      Case Else
+		        Sock.Config.AddChat( True, Colors.DarkRed, "Unknown Chat protocol message: ", Colors.Red, Line )
+		        
+		      End Select
+		      
+		    Else
+		      Sock.Config.AddChat( True, Colors.DarkRed, "Unknown Chat protocol message: ", Colors.Red, Line )
+		      
+		    End If
+		    
+		  Case Else
+		    
+		    Dim e As New RuntimeException()
+		    e.Message = "Unknown Chat protocol transaction id: " + Format( Sock.ChatProtoTxnId, "-#" )
+		    Raise e
+		    
+		  End Select
+		  
 		  Return True
 		  
 		End Function
