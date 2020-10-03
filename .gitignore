@@ -23,11 +23,15 @@
 .Spotlight-V100
 .Trashes
 ._*
+/BNCSUtil.dll
+/BNCSutil.dll
 /BNRBot.dat
 /BNRBot\ Libs/
 /Builds - BNRBot.rbvcp/
+/CheckRevision.dll
 /DebugBNRBot/
 /Hashes/
 /License.dat
 /bin/
+/bncsutil.dll
 Thumbs.db
