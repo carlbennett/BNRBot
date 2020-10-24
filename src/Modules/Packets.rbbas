@@ -789,7 +789,7 @@ Protected Module Packets
 		        
 		        If BitAnd( flags, &H20 ) <= 0 And bTmp = False Then
 		          If BitAnd( flags, &H09 ) > 0 Then
-		            If msgIdVal = 5 Then 
+		            If msgIdVal = 5 Then
 		              colorA = Colors.Teal
 		              colorB = Colors.Cyan
 		              colorC = Colors.Cyan
@@ -1717,7 +1717,7 @@ Protected Module Packets
 		    Case &H00 // Logon accepted, requires proof.
 		      Sock.Send(Packets.CreateSID_AUTH_ACCOUNTLOGONPROOF(Sock.NLS.AccountLogonProof(MidB(PktData, 5, 32), MidB(PktData, 37, 32))))
 		    Case &H01 // Account doesn't exist.
-		      Sock.Config.AddChat(True, Colors.Red, "BNET: Account is non-existant; ", Colors.Yellow, "creating it...")
+		      Sock.Config.AddChat(True, Colors.Red, "BNET: Account does not exist; ", Colors.Yellow, "creating it...")
 		    Case &H05 // Account requires upgrade.
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Account requires upgrade. (NYI)")
 		    Case Else // Unknown (failure).
@@ -3198,7 +3198,7 @@ Protected Module Packets
 		  Case &H01 // Account does not exist
 		    
 		    If Sock.Config <> Nil Then
-		      Sock.Config.AddChat(True, Colors.Red, "BNET: Account is non-existant; ", Colors.Yellow, "creating it...")
+		      Sock.Config.AddChat(True, Colors.Red, "BNET: Account does not exist; ", Colors.Yellow, "creating it...")
 		    End If
 		    
 		    // Try to create the account...
