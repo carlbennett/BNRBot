@@ -7,7 +7,7 @@ Begin BotWindow MainWindow
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   True
-   Height          =   400
+   Height          =   540
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -23,7 +23,7 @@ Begin BotWindow MainWindow
    Resizeable      =   True
    Title           =   "BNRBot"
    Visible         =   True
-   Width           =   800
+   Width           =   1000
    Begin Listbox lstProfiles
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
@@ -42,7 +42,7 @@ Begin BotWindow MainWindow
       GridLinesVertical=   0
       HasHeading      =   ""
       HeadingIndex    =   -1
-      Height          =   400
+      Height          =   540
       HelpTag         =   ""
       Hierarchical    =   ""
       Index           =   -2147483648
@@ -76,7 +76,7 @@ Begin BotWindow MainWindow
    Begin PagePanel Pages
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   400
+      Height          =   540
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -91,15 +91,14 @@ Begin BotWindow MainWindow
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
-      Width           =   649
+      Width           =   849
       Begin WebViewer oDefaultPage
          AutoDeactivate  =   True
          Enabled         =   True
-         Height          =   374
+         Height          =   514
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "Pages"
@@ -113,10 +112,9 @@ Begin BotWindow MainWindow
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   1
-         TabStop         =   True
          Top             =   13
          Visible         =   True
-         Width           =   627
+         Width           =   827
       End
    End
 End
