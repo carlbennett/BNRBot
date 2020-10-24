@@ -1789,18 +1789,7 @@ End
 		  Else
 		    
 		    If Self.lstUsers_Viewing_Channel() = True Then
-		      Dim Flags As UInt32 = Me.CellTag(row, 1)
-		      If BitAnd(Flags, &H20) > 0 Then
-		        g.ForeColor = Colors.Red
-		      ElseIf BitAnd(Flags, &H09) > 0 Then
-		        g.ForeColor = Colors.Cyan
-		      ElseIf BitAnd(Flags, &H02) > 0 Then
-		        g.ForeColor = Colors.White
-		      ElseIf BitAnd(Flags, &H04) > 0 Then
-		        g.ForeColor = Colors.Yellow
-		      Else
-		        g.ForeColor = Colors.UI.ListSelectionColor
-		      End If
+		      g.ForeColor = Globals.UserColor(Me.CellTag(row, 1), Colors.UI.ListSelectionColor)
 		    ElseIf Self.lstUsers_Viewing_Friends() = True Then
 		      If Me.CellTag(row, 2) = &H00 Then
 		        g.ForeColor = Colors.Maroon

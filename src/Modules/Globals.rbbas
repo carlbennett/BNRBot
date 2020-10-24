@@ -2211,6 +2211,32 @@ Protected Module Globals
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Function UserColor(Flags As UInt32, defaultColor As Color) As Color
+		  
+		  Dim c As Color
+		  
+		  If BitAnd(Flags, &H20) > 0 Then
+		    c = Colors.Crimson
+		  ElseIf BitAnd(Flags, &H01) > 0 Then
+		    c = Colors.SkyBlue
+		  ElseIf BitAnd(Flags, &H08) > 0 Then
+		    c = Colors.LightGreen
+		  ElseIf BitAnd(Flags, &H02) > 0 Then
+		    c = Colors.White
+		  ElseIf BitAnd(Flags, &H04) > 0 Then
+		    c = Colors.BurlyWood
+		  ElseIf BitAnd(Flags, &H40) > 0 Then
+		    c = Colors.Pink
+		  Else
+		    c = defaultColor
+		  End If
+		  
+		  Return c
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function WildcardMatch(Source As String, Target As String) As Boolean
 		  

@@ -2006,64 +2006,66 @@ Protected Module Packets
 		        Sock.Config.Container.lstUsersTimer.Reset()
 		        
 		      End If
+		      
+		      Dim cGainColor As Color = Colors.DarkSeaGreen
+		      Dim cLossColor As Color = Colors.FireBrick
+		      Dim cUserColor As Color = Globals.UserColor(Flags, Colors.UI.ListSelectionColor)
+		      
 		      If BitAnd(OldFlags, &H01) = 0 And BitAnd(Flags, &H01) > 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", _
-		        Colors.Teal, Username, _
-		        Colors.Cyan, " is now a ", _
-		        Colors.LightSkyBlue, "Blizzard representative", _
-		        Colors.Cyan, ".")
+		        Sock.Config.AddChat( True, cGainColor, "-- ", cUserColor, Username, cGainColor, " gained ", _
+		        Colors.RoyalBlue, new Pair("Bold", "Blizzard representative"), cGainColor, " status" )
 		      End If
 		      If BitAnd(OldFlags, &H02) = 0 And BitAnd(Flags, &H02) > 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
-		        Colors.Cyan, " is now a ", Colors.White, "channel operator", Colors.Cyan, ".")
+		        Sock.Config.AddChat( True, cGainColor, "-- ", cUserColor, Username, cGainColor, " gained ", _
+		        Colors.White, new Pair("Bold", "channel operator"), cGainColor, " status" )
 		      End If
 		      If BitAnd(OldFlags, &H04) = 0 And BitAnd(Flags, &H04) > 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
-		        Colors.Cyan, " is now a ", Colors.Yellow, "channel speaker", Colors.Cyan, ".")
+		        Sock.Config.AddChat( True, cGainColor, "-- ", cUserColor, Username, cGainColor, " gained ", _
+		        Colors.BurlyWood, new Pair("Bold", "channel speaker"), cGainColor, " status" )
 		      End If
 		      If BitAnd(OldFlags, &H08) = 0 And BitAnd(Flags, &H08) > 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
-		        Colors.Cyan, " is now a ", Colors.LightSeaGreen, "Battle.net administrator", Colors.Cyan, ".")
+		        Sock.Config.AddChat( True, cGainColor, "-- ", cUserColor, Username, cGainColor, " gained ", _
+		        Colors.LightGreen, new Pair("Bold", "Battle.net administrator"), cGainColor, " status" )
 		      End If
 		      If BitAnd(OldFlags, &H10) = 0 And BitAnd(Flags, &H10) > 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
-		        Colors.Cyan, " no longer has ", Colors.Teal, "UDP support", Colors.Cyan, ".")
+		        Sock.Config.AddChat( True, cLossColor, "-- ", cUserColor, Username, cLossColor, " lost ", _
+		        Colors.Silver, new Pair("Bold", "UDP support"), cLossColor, " status" )
 		      End If
 		      If BitAnd(OldFlags, &H20) = 0 And BitAnd(Flags, &H20) > 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
-		        Colors.Cyan, " is now ", Colors.Red, "squelched", Colors.Cyan, ".")
+		        Sock.Config.AddChat( True, cGainColor, "-- ", cUserColor, Username, cGainColor, " gained ", _
+		        Colors.Red, new Pair("Bold", "squelched"), cGainColor, " status" )
 		      End If
 		      If BitAnd(OldFlags, &H40) = 0 And BitAnd(Flags, &H40) > 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
-		        Colors.Cyan, " is now a ", Colors.Pink, "guest", Colors.Cyan, ".")
+		        Sock.Config.AddChat( True, cGainColor, "-- ", cUserColor, Username, cGainColor, " gained ", _
+		        Colors.Pink, new Pair("Bold", "guest"), cGainColor, " status" )
 		      End If
 		      If BitAnd(OldFlags, &H01) > 0 And BitAnd(Flags, &H01) = 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
-		        Colors.Cyan, " is no longer a ", Colors.LightSkyBlue, "Blizzard representative", Colors.Cyan, ".")
+		        Sock.Config.AddChat( True, cLossColor, "-- ", cUserColor, Username, cLossColor, " lost ", _
+		        Colors.RoyalBlue, new Pair("Bold", "Blizzard representative"), cLossColor, " status" )
 		      End If
 		      If BitAnd(OldFlags, &H02) > 0 And BitAnd(Flags, &H02) = 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
-		        Colors.Cyan, " is no longer a ", Colors.White, "channel operator", Colors.Cyan, ".")
+		        Sock.Config.AddChat( True, cLossColor, "-- ", cUserColor, Username, cLossColor, " lost ", _
+		        Colors.White, new Pair("Bold", "channel operator"), cLossColor, " status" )
 		      End If
 		      If BitAnd(OldFlags, &H04) > 0 And BitAnd(Flags, &H04) = 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
-		        Colors.Cyan, " is no longer a ", Colors.Yellow, "channel speaker", Colors.Cyan, ".")
+		        Sock.Config.AddChat( True, cLossColor, "-- ", cUserColor, Username, cLossColor, " lost ", _
+		        Colors.BurlyWood, new Pair("Bold", "channel speaker"), cLossColor, " status" )
 		      End If
 		      If BitAnd(OldFlags, &H08) > 0 And BitAnd(Flags, &H08) = 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
-		        Colors.Cyan, " is no longer a ", Colors.LightSeaGreen, "Battle.net administrator", Colors.Cyan, ".")
+		        Sock.Config.AddChat( True, cLossColor, "-- ", cUserColor, Username, cLossColor, " lost ", _
+		        Colors.LightGreen, new Pair("Bold", "Battle.net administrator"), cLossColor, " status" )
 		      End If
 		      If BitAnd(OldFlags, &H10) > 0 And BitAnd(Flags, &H10) = 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
-		        Colors.Cyan, " now has ", Colors.Teal, "UDP support", Colors.Cyan, ".")
+		        Sock.Config.AddChat( True, cGainColor, "-- ", cUserColor, Username, cGainColor, " gained ", _
+		        Colors.Silver, new Pair("Bold", "UDP support"), cGainColor, " status" )
 		      End If
 		      If BitAnd(OldFlags, &H20) > 0 And BitAnd(Flags, &H20) = 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
-		        Colors.Cyan, " is no longer ", Colors.Red, "squelched", Colors.Cyan, ".")
+		        Sock.Config.AddChat( True, cLossColor, "-- ", cUserColor, Username, cLossColor, " lost ", _
+		        Colors.Red, new Pair("Bold", "squelched"), cLossColor, " status" )
 		      End If
 		      If BitAnd(OldFlags, &H40) > 0 And BitAnd(Flags, &H40) = 0 Then
-		        Sock.Config.AddChat(True, Colors.Cyan, "BNET: User ", Colors.Teal, Username, _
-		        Colors.Cyan, " is no longer a ", Colors.Pink, "guest", Colors.Cyan, ".")
+		        Sock.Config.AddChat( True, cLossColor, "-- ", cUserColor, Username, cLossColor, " lost ", _
+		        Colors.Pink, new Pair("Bold", "guest"), cLossColor, " status" )
 		      End If
 		    End If
 		    
@@ -2121,20 +2123,6 @@ Protected Module Packets
 		    // If bTmp = True now then the message may even also be on the blacklist
 		    
 		    If BitAnd(Flags, &H20) <= 0 And bTmp = False Then
-		      If BitAnd(Flags, &H09) > 0 Then
-		        colorA = Colors.Teal
-		        colorB = Colors.Cyan
-		        colorC = Colors.Cyan
-		      ElseIf BitAnd(Flags, &H02) > 0 Then
-		        colorA = Colors.Silver
-		        colorB = Colors.White
-		        colorC = Colors.White
-		      Else
-		        colorA = Colors.GoldenRod
-		        colorB = Colors.Gold
-		        If BitAnd(Flags, &H04) > 0 Then colorC = Colors.Yellow Else colorC = Colors.White
-		      End If
-		      
 		      If InStr(Text, Sock.UniqueName) > 0 Or InStr(Text, Sock.AccountName) > 0 Then
 		        Globals.DesktopNotification("Mentioned by " + Username, Text, 0)
 		        If MainWindow.IsConfigSelected(Sock.Config) = False Then
@@ -2143,7 +2131,7 @@ Protected Module Packets
 		        End If
 		      End If
 		      
-		      Sock.Config.AddChat(True, colorB, Username, colorA, ": ", colorC, Text)
+		      Sock.Config.AddChat(True, Globals.UserColor(Flags, Colors.Yellow), Username, Colors.Yellow, ": ", Colors.AliceBlue, Text)
 		    End If
 		    
 		    If MainWindow.GetSelectedConfig() = Sock.Config And _
@@ -2262,25 +2250,7 @@ Protected Module Packets
 		    // If bTmp = True now then the message may even also be on the blacklist
 		    
 		    If BitAnd(Flags, &H20) <= 0 And bTmp = False Then
-		      If BitAnd(Flags, &H09) > 0 Then
-		        colorA = Colors.GoldenRod
-		        colorB = Colors.Cyan
-		        colorC = Colors.GoldenRod
-		      ElseIf BitAnd(Flags, &H02) > 0 Then
-		        colorA = Colors.Silver
-		        colorB = Colors.White
-		        colorC = Colors.Silver
-		      ElseIf Username = Sock.UniqueName Then
-		        colorA = Colors.MediumOrchid
-		        colorB = Colors.MediumVioletRed
-		        colorC = Colors.MediumOrchid
-		      Else
-		        colorA = Colors.GoldenRod
-		        colorB = Colors.Gold
-		        colorC = Colors.GoldenRod
-		      End If
-		      
-		      Sock.Config.AddChat(True, colorA, "-- ", colorB, Username, colorA, " ", colorC, Text)
+		      Sock.Config.AddChat(True, Globals.UserColor(Flags, Colors.Yellow), Username, Colors.Yellow, ": ", Colors.AliceBlue, Text)
 		    End If
 		    
 		    If MainWindow.GetSelectedConfig() = Sock.Config And _

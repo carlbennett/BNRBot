@@ -64,6 +64,16 @@ Protected Class Configuration
 		    ElseIf value.Type = Variant.TypeObject And value.ObjectValue IsA Pair Then
 		      p = Pair(value.ObjectValue)
 		      Select Case p.Left
+		      Case "Bold"
+		        js = js + "var chat = document.createElement('span');"
+		        js = js + "chat.style.color = 'rgb(" _
+		        + Format(c.Red, "-#") + "," _
+		        + Format(c.Green, "-#") + "," _
+		        + Format(c.Blue, "-#") + ")';"
+		        js = js + "chat.style.fontWeight = 'bold';"
+		        js = js + "chat.innerText = " + StringToJSON(p.Right) + ";"
+		        js = js + "chat.innerHTML = urlify(chat.innerHTML);"
+		        js = js + "line.appendChild(chat);"
 		      Case "HTML"
 		        js = js + "var chat = document.createElement('span');"
 		        js = js + "chat.style.color = 'rgb(" _
