@@ -33,6 +33,7 @@ Window=ConfigWindow;src/Windows/ConfigWindow.rbfrm;&h70CA3FFF;&h3DC777FF;false
 Window=ChatContainer;src/Windows/ChatContainer.rbfrm;&h60ABB7FF;&h3DC777FF;false
 Window=ExceptionWindow;src/Windows/ExceptionWindow.rbfrm;&h1B3A8FFF;&h3DC777FF;false
 Window=MainWindow;src/Windows/MainWindow.rbfrm;&h550A17FF;&h3DC777FF;false
+Window=PacketBuilderWindow;src/Windows/PacketBuilderWindow.rbfrm;&h4BA527FF;&h3DC777FF;false
 Window=ProfileWindow;src/Windows/ProfileWindow.rbfrm;&h2643D7FF;&h3DC777FF;false
 Window=UpdateWindow;src/Windows/UpdateWindow.rbfrm;&h68F7E7FF;&h3DC777FF;false
 Picture=imgUserIcons;src/Resources/UserIcons.png;&h163C9FFF;&h794A17FF;false;0;&h0

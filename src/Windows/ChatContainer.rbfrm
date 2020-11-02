@@ -560,31 +560,32 @@ End
 		  Case "?", "Help"
 		    
 		    Self.Config.AddChat(True, Colors.SkyBlue, App.VersionString() + "'s Internal Commands:")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //ad  --  Get the current advertisement banner from the server.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //cls  --  Clears this profile's chat log. (Hotkey: F4)")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //config  --  Opens the configuration dialog. (Hotkey: F3)")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //disconnect  --  Disconnects this profile from Battle.net. (Hotkey: F2)")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //exit  --  Disconnects all profiles and closes the bot. (Hotkey: Alt+F4)")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //fakejoin <game>  --  Makes Battle.net think you entered a <game>.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //filetime <filename>  --  Asks the server for the last written time of <filename>.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //force <channel>  --  Forces you into a <channel>.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //home  --  Forces you into your home channel, otherwise requests a first-join from Battle.net.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //join <channel>  --  Gracefully attempts to join <channel>.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //leave  --  Forces you out of chat; only friends will be able to chat with you.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //lenny [message]  --  Types [message] ( ͡° ͜ʖ ͡°) to the chat.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //ping [username]  --  Pings [username] or yourself if [username] omitted.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //pingme  --  Pings yourself.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //profile [username] [GAME]  --  Opens a profile dialog for you or [username].")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //proxy <server[:port]|on|off>  --  Sets the proxy host and/or toggles proxy use.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //pvpgn [text]  --  Sends //[text] to Battle.net.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //reconnect  --  Reconnects this profile to Battle.net. (Hotkey: F1)")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //rejoin  --  Forces you out of then back into the current channel.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //shrug [message]  --  Types [message] ¯\_(ツ)_/¯ to the chat.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //time  --  Announces your system's time to the channel.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //update  --  Checks to see if there are updates to the bot.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //uptime  --  Announces the uptime of your system, bot, and connection.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //utf8  --  Toggles UTF-8 encoding for this profile.")
-		    Self.Config.AddChat(True, Colors.SkyBlue, "  //version  --  Announces the version of this bot to the channel.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //ad — Get the current advertisement banner from the server.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //cls — Clears this profile's chat log. (Hotkey: F4)")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //config — Opens the configuration dialog. (Hotkey: F3)")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //disconnect — Disconnects this profile from Battle.net. (Hotkey: F2)")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //exit — Disconnects all profiles and closes the bot. (Hotkey: Alt+F4)")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //fakejoin <game> — Makes Battle.net think you entered a <game>.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //filetime <filename> — Asks the server for the last written time of <filename>.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //force <channel> — Forces you into a <channel>.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //home — Forces you into your home channel, otherwise requests a first-join from Battle.net.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //join <channel> — Gracefully attempts to join <channel>.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //leave — Forces you out of chat; only friends will be able to chat with you.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //lenny [message] — Types [message] ( ͡° ͜ʖ ͡°) to the chat.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //packet — Opens the packet builder.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //ping [username] — Pings [username] or yourself if [username] omitted.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //pingme — Pings yourself.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //profile [username] [GAME] — Opens a profile dialog for you or [username].")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //proxy <server[:port]|on|off> — Sets the proxy host and/or toggles proxy use.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //pvpgn [text] — Sends //[text] to Battle.net.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //reconnect — Reconnects this profile to Battle.net. (Hotkey: F1)")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //rejoin — Forces you out of then back into the current channel.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //shrug [message] — Types [message] ¯\_(ツ)_/¯ to the chat.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //time — Announces your system's time to the channel.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //update — Checks to see if there are updates to the bot.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //uptime — Announces the uptime of your system, bot, and connection.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //utf8 — Toggles UTF-8 encoding for this profile.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //version — Announces the version of this bot to the channel.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "End of " + App.VersionString() + "'s internal commands.")
 		    
 		  Case "Ad", "Advertisement"
@@ -730,6 +731,21 @@ End
 		    
 		    BNETText = "( ͡° ͜ʖ ͡°)"
 		    If Len(Rest) > 0 Then BNETText = Rest + " " + BNETText
+		    
+		  Case "Packet"
+		    
+		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
+		      If Self.Config.BNET.Product <> Packets.BNETProduct_CHAT Then
+		        Dim w As New PacketBuilderWindow()
+		        w.Config = Self.Config
+		        w.Show()
+		      Else
+		        Self.Config.AddChat(True, Colors.SkyBlue, "Error - //packet is only supported on BNET binary protocol.")
+		        BNETText = ""
+		      End If
+		    Else
+		      BNETText = " "
+		    End If
 		    
 		  Case "Ping"
 		    
