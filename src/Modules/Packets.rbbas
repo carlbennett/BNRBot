@@ -315,6 +315,20 @@ Protected Module Packets
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function CreateSID_GETFILETIME(RequestId As UInt32, Unknown As UInt32, Filename As String) As String
+		  
+		  Dim Buffer As String
+		  
+		  MemClass.WriteDWORD(Buffer, RequestId)
+		  MemClass.WriteDWORD(Buffer, Unknown)
+		  MemClass.WriteCString(Buffer, Filename)
+		  
+		  Return Packets.CreateSID(Packets.SID_GETFILETIME, Buffer)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function CreateSID_GETICONDATA() As String
 		  
 		  Return Packets.CreateSID(Packets.SID_GETICONDATA, "")
@@ -1562,6 +1576,9 @@ Protected Module Packets
 		    
 		  Case Packets.SID_READUSERDATA
 		    ret = Packets.ParseSID_READUSERDATA(Sock, PktData)
+		    
+		  Case Packets.SID_GETFILETIME
+		    ret = Packets.ParseSID_GETFILETIME(Sock, PktData)
 		    
 		  Case Packets.SID_LOGONRESPONSE2
 		    ret = Packets.ParseSID_LOGONRESPONSE2(Sock, PktData)
@@ -3157,6 +3174,39 @@ Protected Module Packets
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function ParseSID_GETFILETIME(Sock As BNETSocket, PktData As String) As Boolean
+		  
+		  If Sock = Nil Then Return False
+		  If Sock.IsConnected = False Then Return False
+		  If LenB(PktData) < 17 Then Return False
+		  
+		  Dim requestId As UInt32 = MemClass.ReadDWORD(PktData, 1)
+		  Dim unknown As UInt32 = MemClass.ReadDWORD(PktData, 5)
+		  Dim lastUpdateTimeL As UInt32 = MemClass.ReadQWORD(PktData, 9)
+		  Dim lastUpdateTimeH As UInt32 = MemClass.ReadQWORD(PktData, 13)
+		  Dim filename As String = MemClass.ReadCString(PktData, 17)
+		  
+		  If Sock.Config <> Nil Then
+		    Sock.Config.AddChat(True, Colors.Gray, "BNET: File modification time reply:")
+		    Sock.Config.AddChat(True, Colors.Gray, "-- Request Id: " + Right("0000000" + Hex(requestId), 8))
+		    Sock.Config.AddChat(True, Colors.Gray, "-- Filename: " + Filename)
+		    If lastUpdateTimeL = 0 And lastUpdateTimeH = 0 Then
+		      Sock.Config.AddChat(True, Colors.Gray, "-- Error: File does not exist")
+		    Else
+		      Dim lastUpdateTimeDate As Date = Globals.WindowsFileTimeToDate(lastUpdateTimeL, lastUpdateTimeH)
+		      Sock.Config.AddChat(True, Colors.Gray, "-- Last written: " + lastUpdateTimeDate.ShortDate + " " + lastUpdateTimeDate.LongTime)
+		    End If
+		    If unknown <> 0 Then _
+		    Sock.Config.AddChat(True, Colors.FireBrick, "-- Unknown: ", Colors.Red, _
+		    Right("0000000" + Hex(unknown), 8), Colors.FireBrick, " (should be zero)")
+		  End If
+		  
+		  Return True
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function ParseSID_LOGONRESPONSE2(Sock As BNETSocket, PktData As String) As Boolean
 		  
 		  If Sock = Nil Then Return False
@@ -3874,6 +3924,9 @@ Protected Module Packets
 	#tag EndConstant
 
 	#tag Constant, Name = SID_GETCHANNELLIST, Type = Double, Dynamic = False, Default = \"&H0B", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = SID_GETFILETIME, Type = Double, Dynamic = False, Default = \"&H33", Scope = Protected
 	#tag EndConstant
 
 	#tag Constant, Name = SID_GETICONDATA, Type = Double, Dynamic = False, Default = \"&H2D", Scope = Protected

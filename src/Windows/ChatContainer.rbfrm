@@ -138,7 +138,6 @@ Begin ContainerControl ChatContainer
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   12
       TopLeftColor    =   "#Colors.UI.ControlBorderColor"
       Visible         =   True
@@ -165,7 +164,6 @@ Begin ContainerControl ChatContainer
          Selectable      =   True
          TabIndex        =   6
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "Offline"
          TextAlign       =   1
          TextColor       =   "#Colors.UI.ControlTextColor"
@@ -309,13 +307,11 @@ Begin ContainerControl ChatContainer
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   13
       Visible         =   True
       Width           =   403
    End
    Begin Timer lstUsersTimer
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   637
@@ -323,11 +319,8 @@ Begin ContainerControl ChatContainer
       Mode            =   0
       Period          =   75
       Scope           =   0
-      TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   64
-      Visible         =   True
       Width           =   32
    End
 End
@@ -572,6 +565,7 @@ End
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //disconnect  --  Disconnects this profile from Battle.net. (Hotkey: F2)")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //exit  --  Disconnects all profiles and closes the bot. (Hotkey: Alt+F4)")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //fakejoin <game>  --  Makes Battle.net think you entered a <game>.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //filetime <filename>  --  Asks the server for the last written time of <filename>.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //force <channel>  --  Forces you into a <channel>.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //home  --  Forces you into your home channel, otherwise requests a first-join from Battle.net.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //join <channel>  --  Gracefully attempts to join <channel>.")
@@ -627,6 +621,24 @@ End
 		        End If
 		      Else
 		        Self.Config.AddChat(True, Colors.SkyBlue, "Error - //fakejoin is only supported on BNET binary protocol.")
+		        BNETText = ""
+		      End If
+		    Else
+		      BNETText = " "
+		    End If
+		    
+		  Case "Filetime"
+		    
+		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
+		      If Self.Config.BNET.Product <> Packets.BNETProduct_CHAT Then
+		        If LenB(Rest) > 0 Then
+		          Self.Config.AddChat(True, Colors.SkyBlue, "Requesting filetime for [", Colors.AliceBlue, Rest, Colors.SkyBlue, "]...")
+		          Self.Config.BNET.Send(Packets.CreateSID_GETFILETIME(0, 0, Rest))
+		        Else
+		          Self.Config.AddChat(True, Colors.SkyBlue, "Error - that command requires its filename parameter.")
+		        End If
+		      Else
+		        Self.Config.AddChat(True, Colors.SkyBlue, "Error - //filetime is only supported on BNET binary protocol.")
 		        BNETText = ""
 		      End If
 		    Else
