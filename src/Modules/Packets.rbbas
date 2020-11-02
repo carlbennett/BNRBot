@@ -1926,7 +1926,6 @@ Protected Module Packets
 		  #pragma Unused RegistrationAuthority
 		  
 		  Dim dTmp As Dictionary
-		  Dim colorA, colorB, colorC As Color
 		  Dim bTmp As Boolean
 		  
 		  // A timer on the MainWindow delays the users list redraw a tiny bit so that it doesn't lag so much.
@@ -2250,7 +2249,16 @@ Protected Module Packets
 		    // If bTmp = True now then the message may even also be on the blacklist
 		    
 		    If BitAnd(Flags, &H20) <= 0 And bTmp = False Then
-		      Sock.Config.AddChat(True, Globals.UserColor(Flags, Colors.Yellow), Username, Colors.Yellow, ": ", Colors.AliceBlue, Text)
+		      Dim userColor, accent As Color
+		      If Username = Sock.UniqueName Then
+		        userColor = Colors.MediumOrchid
+		        accent = Colors.MediumVioletRed
+		      Else
+		        userColor = Colors.Yellow
+		        accent = Colors.Orange
+		      End If
+		      userColor = Globals.UserColor(Flags, userColor)
+		      Sock.Config.AddChat(True, accent, "-- ", userColor, Username, accent, " ", userColor, Text)
 		    End If
 		    
 		    If MainWindow.GetSelectedConfig() = Sock.Config And _
