@@ -3188,7 +3188,9 @@ Protected Module Packets
 		  
 		  If Sock.Config <> Nil Then
 		    Sock.Config.AddChat(True, Colors.Gray, "BNET: File modification time reply:")
-		    Sock.Config.AddChat(True, Colors.Gray, "-- Request Id: " + Right("0000000" + Hex(requestId), 8))
+		    If requestId <> 0 Then _
+		    Sock.Config.AddChat(True, Colors.FireBrick, "-- Request Id: ", Colors.Red, _
+		    Right("0000000" + Hex(requestId), 8), Colors.FireBrick, " (should be zero)")
 		    Sock.Config.AddChat(True, Colors.Gray, "-- Filename: " + Filename)
 		    If lastUpdateTimeL = 0 And lastUpdateTimeH = 0 Then
 		      Sock.Config.AddChat(True, Colors.Gray, "-- Error: File does not exist")
