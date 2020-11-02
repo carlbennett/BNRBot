@@ -560,6 +560,7 @@ End
 		  Case "?", "Help"
 		    
 		    Self.Config.AddChat(True, Colors.SkyBlue, App.VersionString() + "'s Internal Commands:")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //ad  --  Get the current advertisement banner from the server.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //cls  --  Clears this profile's chat log. (Hotkey: F4)")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //config  --  Opens the configuration dialog. (Hotkey: F3)")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //disconnect  --  Disconnects this profile from Battle.net. (Hotkey: F2)")
@@ -585,6 +586,22 @@ End
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //utf8  --  Toggles UTF-8 encoding for this profile.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //version  --  Announces the version of this bot to the channel.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "End of " + App.VersionString() + "'s internal commands.")
+		    
+		  Case "Ad", "Advertisement"
+		    
+		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True And LenB(Self.Config.BNET.UniqueName) > 0 Then
+		      If Self.Config.BNET.Product <> Packets.BNETProduct_CHAT Then
+		        Self.Config.AddChat(True, Colors.SkyBlue, "Requesting current advertisement banner...")
+		        Self.Config.AddChat(True, Colors.Gray, "(Requesting last ad banner id: 0x" + _
+		        Right("0000000" + Hex(Self.Config.BNET.LastAdId), 8) + ", last time: " + Format(Self.Config.BNET.LastAdTime, "-#") + ")")
+		        Self.Config.BNET.Send(Packets.CreateSID_CHECKAD(Self.Config.BNET.Platform, Self.Config.BNET.Product, Self.Config.BNET.LastAdId, Self.Config.BNET.LastAdTime))
+		      Else
+		        Self.Config.AddChat(True, Colors.SkyBlue, "Error - //ad is only supported on BNET binary protocol.")
+		        BNETText = ""
+		      End If
+		    Else
+		      BNETText = " "
+		    End If
 		    
 		  Case "Cls", "Clearscreen"
 		    

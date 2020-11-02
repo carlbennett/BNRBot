@@ -312,6 +312,8 @@ Inherits TCPSocket
 		  Me.FriendsList = Nil
 		  Me.Init6Protocol = Me.Config.Init6Protocol
 		  Me.Init6TransactionId = Me.Init6TransactionLoggingIn
+		  Me.LastAdId = 0
+		  Me.LastAdTime = 0
 		  Me.LastNullReceive = 0
 		  If Me.LogonTimeoutTimer = Nil Then Me.LogonTimeoutTimer = New SocketTimer(Me, 2000, SocketTimer.ModeSingle, False)
 		  Me.LogonType = 0
@@ -585,6 +587,14 @@ Inherits TCPSocket
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		LastAdId As UInt32
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		LastAdTime As UInt32
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		LastNullReceive As Double
 	#tag EndProperty
 
@@ -735,6 +745,11 @@ Inherits TCPSocket
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ChatProtoTxnId"
+			Group="Behavior"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ConnectionTime"

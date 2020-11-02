@@ -1227,6 +1227,20 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GetUnixTimestamp() As UInt32
+		  
+		  // DiffSecs = seconds between 12:00AM, January 1, 1904 and 00:00:00 UTC on 1 January 1970
+		  
+		  Const DiffSecs = 2082823200
+		  
+		  Dim timestamp As New Date()
+		  
+		  Return Round(timestamp.TotalSeconds - DiffSecs)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetUserIcon(Flags As UInt32, Statstring As String) As Picture
 		  
 		  Dim Buffer As New Picture(28 * 2, 14, 24), g As Graphics = Buffer.Graphics

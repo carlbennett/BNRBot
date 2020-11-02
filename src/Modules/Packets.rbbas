@@ -165,6 +165,21 @@ Protected Module Packets
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function CreateSID_CHECKAD(PlatformId As UInt32, ProductId As UInt32, LastAdId As UInt32, CurrentTime As UInt32) As String
+		  
+		  Dim Buffer As String
+		  
+		  MemClass.WriteDWORD(Buffer, PlatformId)
+		  MemClass.WriteDWORD(Buffer, ProductId)
+		  MemClass.WriteDWORD(Buffer, LastAdId)
+		  MemClass.WriteDWORD(Buffer, CurrentTime)
+		  
+		  Return Packets.CreateSID(Packets.SID_CHECKAD, Buffer)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function CreateSID_CLANCREATIONINVITATION(Cookie As UInt32, ClanTag As UInt32, Inviter As String, Result As Byte) As String
 		  
 		  Dim Buffer As String
@@ -1568,6 +1583,9 @@ Protected Module Packets
 		  Case Packets.SID_FLOODDETECTED
 		    ret = Packets.ParseSID_FLOODDETECTED(Sock, PktData)
 		    
+		  Case Packets.SID_CHECKAD
+		    ret = Packets.ParseSID_CHECKAD(Sock, PktData)
+		    
 		  Case Packets.SID_MESSAGEBOX
 		    ret = Packets.ParseSID_MESSAGEBOX(Sock, PktData)
 		    
@@ -2285,6 +2303,47 @@ Protected Module Packets
 		  Case Else
 		    Sock.Config.AddChat(True, Colors.Red, "BNET: Protocol error - unknown chat event.")
 		  End Select
+		  
+		  Return True
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function ParseSID_CHECKAD(Sock As BNETSocket, PktData As String) As Boolean
+		  
+		  '(UINT32) Ad ID
+		  '(UINT32) File extension
+		  '(FILETIME) Local file time
+		  '(STRING) Filename
+		  '(STRING) Link URL
+		  
+		  If Sock = Nil Then Return False
+		  If Sock.IsConnected = False Then Return False
+		  If LenB(PktData) < 18 Then Return False
+		  
+		  Dim adId As UInt32 = MemClass.ReadDWORD(PktData, 1)
+		  Dim adFileExtension As String = ReplaceAll(MemClass.ReadRaw(PktData, 5, 4), ChrB(0), "")
+		  Dim adModifiedTimeL As UInt32 = MemClass.ReadQWORD(PktData, 9)
+		  Dim adModifiedTimeH As UInt32 = MemClass.ReadQWORD(PktData, 13)
+		  Dim adFileName As String = MemClass.ReadCString(PktData, 17)
+		  Dim adUrl As String = MemClass.ReadCString(PktData, 18 + LenB(adFileName))
+		  
+		  Sock.LastAdId = adId
+		  Sock.LastAdTime = Globals.GetUnixTimestamp()
+		  
+		  If Sock.Config <> Nil Then
+		    Sock.Config.AddChat(True, Colors.Gray, "BNET: Current advertisement banner: [Id: 0x" + Right("0000000" + Hex(adId), 8) + "]")
+		    Sock.Config.AddChat(True, Colors.Gray, "-- Ad file: " + adFileName _
+		    + IIf(LenB(adFileExtension) > 0, " (extension: " + adFileExtension + ")", ""))
+		    Sock.Config.AddChat(True, Colors.Gray, "-- Ad url: " + adUrl)
+		    If adModifiedTimeL = 0 And adModifiedTimeH = 0 Then
+		      Sock.Config.AddChat(True, Colors.Gray, "-- Error: File does not exist")
+		    Else
+		      Dim adModifiedDate As Date = Globals.WindowsFileTimeToDate(adModifiedTimeL, adModifiedTimeH)
+		      Sock.Config.AddChat(True, Colors.Gray, "-- Last written: " + adModifiedDate.ShortDate + " " + adModifiedDate.LongTime)
+		    End If
+		  End If
 		  
 		  Return True
 		  
@@ -3857,6 +3916,9 @@ Protected Module Packets
 	#tag EndConstant
 
 	#tag Constant, Name = SID_CHATEVENT, Type = Double, Dynamic = False, Default = \"&H0F", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = SID_CHECKAD, Type = Double, Dynamic = False, Default = \"&H15", Scope = Protected
 	#tag EndConstant
 
 	#tag Constant, Name = SID_CLANCREATIONINVITATION, Type = Double, Dynamic = False, Default = \"&H72", Scope = Protected
