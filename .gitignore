@@ -10,6 +10,7 @@
 *.iso
 *.jar
 *.log
+*.obsolete
 *.patch
 *.rar
 *.rbuistate
