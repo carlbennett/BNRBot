@@ -3767,14 +3767,14 @@ Protected Module Packets
 		    
 		  ElseIf Sock.Product = Packets.BNETProduct_CHAT And Sock.Init6Protocol = False Then
 		    
-		    Sock.Send(&H03)
-		    Sock.Send(&H04)
+		    Sock.Send(ChrB(&H03))
+		    Sock.Send(ChrB(&H04))
 		    Sock.Send(Sock.Username + ChrB(13))
 		    Sock.Send(Sock.Password + ChrB(13))
 		    
 		  Else
 		    
-		    Sock.Send(&H01)
+		    Sock.Send(ChrB(&H01))
 		    Sock.Send(Packets.CreateSID_AUTH_INFO(&H00000000, Sock.Platform, Sock.Product, Sock.VersionByte, _
 		    &H00000000, Globals.IPToDWORD(Sock.LocalAddress), Globals.TimezoneBias(), 1033, 1033, "USA", "United States"))
 		    

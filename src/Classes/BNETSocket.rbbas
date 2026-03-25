@@ -346,18 +346,6 @@ Inherits TCPSocket
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Send(ParamArray Bytes As Byte)
-		  
-		  Dim Buffer As String
-		  For Each sByte As Byte In Bytes
-		    Buffer = Buffer + ChrB(sByte)
-		  Next
-		  Me.Send(Buffer)
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub Send(Data As String)
 		  
 		  If Me.IsConnected = False Then Return
