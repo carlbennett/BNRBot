@@ -24,7 +24,7 @@ Inherits TCPSocket
 		      Me.Send(ChrB(4) + ChrB(1) + MemClass.WriteWORD(Val(NthField(Host, ":", 2)), False) _
 		      + MemClass.WriteDWORD(Globals.IPToDWORD(NthField(Host, ":", 1)), True) + ChrB(0))
 		    Case Configuration.ProxySOCKS5
-		      Me.Send(ChrB(5) + ChrB(1) + ChrB(0))
+		      Me.Send(ChrB(Me.SOCKS5_VERSION) + ChrB(1) + ChrB(Me.SOCKS5_AUTH_NONE))
 		    End Select
 		  Else
 		    Packets.SendFirstSIDs(Me)
@@ -61,19 +61,19 @@ Inherits TCPSocket
 		        #pragma Unused VN
 		        #pragma Unused DstPort
 		        Select Case CN
-		        Case 90
+		        Case Me.SOCKS4_REQUEST_GRANTED
 		          Me.Config.AddChat(True, Colors.Lime, "PROXY: Connected to " + DstIP + ".")
 		          Me.ProxyWait = 1
 		          Packets.SendFirstSIDs(Me)
 		          If Me.BytesAvailable > 0 Then Packets.Receive(Me)
-		        Case 91
+		        Case Me.SOCKS4_REQUEST_REJECTED
 		          Me.Config.AddChat(True, Colors.Red, "PROXY: Request rejected or failed.")
 		          Me.Disconnect()
-		        Case 92
+		        Case Me.SOCKS4_IDENTD_UNREACHABLE
 		          Me.Config.AddChat(True, Colors.Red, "PROXY: Request rejected because SOCKS server cannot " _
 		          + "connect to identd on the client.")
 		          Me.Disconnect()
-		        Case 93
+		        Case Me.SOCKS4_IDENTD_MISMATCH
 		          Me.Config.AddChat(True, Colors.Red, "PROXY: request rejected because the client program " _
 		          + "and identd report different user-ids.")
 		          Me.Disconnect()
@@ -85,10 +85,10 @@ Inherits TCPSocket
 		      If Me.ProxyWait = 0 And Me.BytesAvailable >= 2 Then
 		        Dim VN As Byte = AscB(Me.Read(1))
 		        Dim MN As Byte = AscB(Me.Read(1))
-		        If VN <> 5 Then
+		        If VN <> Me.SOCKS5_VERSION Then
 		          Me.Config.AddChat(True, Colors.Red, "PROXY: Server sent unexpected SOCKS version (" + Format(VN, "-#") + ")")
 		          Me.Disconnect()
-		        ElseIf MN <> 0 Then
+		        ElseIf MN <> Me.SOCKS5_AUTH_NONE Then
 		          Me.Config.AddChat(True, Colors.Red, "PROXY: Proxy requires authentication (type " + Format(MN, "-#") + ")")
 		          Me.Disconnect()
 		        Else
@@ -101,54 +101,54 @@ Inherits TCPSocket
 		            Host = Left(Host, Len(Host) - Len(":" + NthField(Host, ":", CountFields(Host, ":"))))
 		          End If
 		          If Globals.IsIPv6(Host) Then
-		            Me.Send(ChrB(5) + ChrB(1) + ChrB(0) + ChrB(4) + Globals.IPToBytes(Host) + MemClass.WriteWORD(Port, False))
+		            Me.Send(ChrB(Me.SOCKS5_VERSION) + ChrB(Me.SOCKS5_CMD_CONNECT) + ChrB(0) + ChrB(Me.SOCKS5_ATYP_IPV6) + Globals.IPToBytes(Host) + MemClass.WriteWORD(Port, False))
 		          ElseIf Globals.IsIPv4(Host) Then
-		            Me.Send(ChrB(5) + ChrB(1) + ChrB(0) + ChrB(1) + MemClass.WriteDWORD(Globals.IPToDWORD(Host), True) + MemClass.WriteWORD(Port, False))
+		            Me.Send(ChrB(Me.SOCKS5_VERSION) + ChrB(Me.SOCKS5_CMD_CONNECT) + ChrB(0) + ChrB(Me.SOCKS5_ATYP_IPV4) + MemClass.WriteDWORD(Globals.IPToDWORD(Host), True) + MemClass.WriteWORD(Port, False))
 		          Else
-		            Me.Send(ChrB(5) + ChrB(1) + ChrB(0) + ChrB(3) + ChrB(LenB(Host)) + Host + MemClass.WriteWORD(Port, False))
+		            Me.Send(ChrB(Me.SOCKS5_VERSION) + ChrB(Me.SOCKS5_CMD_CONNECT) + ChrB(0) + ChrB(Me.SOCKS5_ATYP_DOMAINNAME) + ChrB(LenB(Host)) + Host + MemClass.WriteWORD(Port, False))
 		          End If
 		          Me.ProxyWait = 1
 		        End If
 		      ElseIf Me.ProxyWait = 1 Then
 		        Dim VN As Byte = AscB(Me.Read(1))
 		        Dim RF As Byte = AscB(Me.Read(1))
-		        If VN <> 5 Then
+		        If VN <> Me.SOCKS5_VERSION Then
 		          Me.Config.AddChat(True, Colors.Red, "PROXY: Server sent unexpected SOCKS version (" + Format(VN, "-#") + ")")
 		          Me.Disconnect()
 		        Else
 		          Select Case RF
-		          Case 0
+		          Case Me.SOCKS5_REPLY_SUCCEEDED
 		            Me.Config.AddChat(True, Colors.Lime, "PROXY: Connected.")
-		          Case 1
+		          Case Me.SOCKS5_REPLY_GENERAL_FAILURE
 		            Me.Config.AddChat(True, Colors.Red, "PROXY: General SOCKS server failure.")
-		          Case 2
+		          Case Me.SOCKS5_REPLY_NOT_ALLOWED
 		            Me.Config.AddChat(True, Colors.Red, "PROXY: Connection not allowed by ruleset.")
-		          Case 3
+		          Case Me.SOCKS5_REPLY_NETWORK_UNREACHABLE
 		            Me.Config.AddChat(True, Colors.Red, "PROXY: Network unreachable.")
-		          Case 4
+		          Case Me.SOCKS5_REPLY_HOST_UNREACHABLE
 		            Me.Config.AddChat(True, Colors.Red, "PROXY: Host unreachable.")
-		          Case 5
+		          Case Me.SOCKS5_REPLY_CONNECTION_REFUSED
 		            Me.Config.AddChat(True, Colors.Red, "PROXY: Connection refused.")
-		          Case 6
+		          Case Me.SOCKS5_REPLY_TTL_EXPIRED
 		            Me.Config.AddChat(True, Colors.Red, "PROXY: TTL expired.")
-		          Case 7
+		          Case Me.SOCKS5_REPLY_COMMAND_NOT_SUPPORTED
 		            Me.Config.AddChat(True, Colors.Red, "PROXY: Command not supported.")
-		          Case 8
+		          Case Me.SOCKS5_REPLY_ADDRESS_TYPE_NOT_SUPPORTED
 		            Me.Config.AddChat(True, Colors.Red, "PROXY: Address type not supported.")
 		          Case Else
 		            Me.Config.AddChat(True, Colors.Red, "PROXY: Unexpected SOCKSv5 error code received (" + Format(RF, "-#") + ").")
 		          End Select
-		          If RF <> 0 Then
+		          If RF <> Me.SOCKS5_REPLY_SUCCEEDED Then
 		            Me.Disconnect()
 		          Else
 		            Call Me.Read(1) // Reserved Byte
 		            Dim ATYP As Byte = AscB(Me.Read(1))
 		            Select Case ATYP
-		            Case 1
+		            Case Me.SOCKS5_ATYP_IPV4
 		              Call Me.Read(4) // Bound IPv4
-		            Case 3
+		            Case Me.SOCKS5_ATYP_DOMAINNAME
 		              Call Me.Read(4) // Bound DOMAINNAME
-		            Case 4
+		            Case Me.SOCKS5_ATYP_IPV6
 		              Call Me.Read(16) // Bound IPv6
 		            End Select
 		            Call Me.Read(2) // Bound Port
@@ -705,6 +705,63 @@ Inherits TCPSocket
 	#tag EndConstant
 
 	#tag Constant, Name = Init6TransactionLoggingIn, Type = Double, Dynamic = False, Default = \"0", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS4_IDENTD_MISMATCH, Type = Double, Dynamic = False, Default = \"93", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS4_IDENTD_UNREACHABLE, Type = Double, Dynamic = False, Default = \"92", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS4_REQUEST_GRANTED, Type = Double, Dynamic = False, Default = \"90", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS4_REQUEST_REJECTED, Type = Double, Dynamic = False, Default = \"91", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS5_AUTH_NONE, Type = Double, Dynamic = False, Default = \"0", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS5_ATYP_DOMAINNAME, Type = Double, Dynamic = False, Default = \"3", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS5_ATYP_IPV4, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS5_ATYP_IPV6, Type = Double, Dynamic = False, Default = \"4", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS5_CMD_CONNECT, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS5_REPLY_ADDRESS_TYPE_NOT_SUPPORTED, Type = Double, Dynamic = False, Default = \"8", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS5_REPLY_COMMAND_NOT_SUPPORTED, Type = Double, Dynamic = False, Default = \"7", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS5_REPLY_CONNECTION_REFUSED, Type = Double, Dynamic = False, Default = \"5", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS5_REPLY_GENERAL_FAILURE, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS5_REPLY_HOST_UNREACHABLE, Type = Double, Dynamic = False, Default = \"4", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS5_REPLY_NETWORK_UNREACHABLE, Type = Double, Dynamic = False, Default = \"3", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS5_REPLY_NOT_ALLOWED, Type = Double, Dynamic = False, Default = \"2", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS5_REPLY_SUCCEEDED, Type = Double, Dynamic = False, Default = \"0", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS5_REPLY_TTL_EXPIRED, Type = Double, Dynamic = False, Default = \"6", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS5_VERSION, Type = Double, Dynamic = False, Default = \"5", Scope = Public
 	#tag EndConstant
 
 
