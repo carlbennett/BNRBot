@@ -126,7 +126,7 @@ Inherits TCPSocket
 		          Case 3
 		            Me.Config.AddChat(True, Colors.Red, "PROXY: Network unreachable.")
 		          Case 4
-		            Me.Config.AddChat(True, Colors.Red, "PROXY: Host uneachable.")
+		            Me.Config.AddChat(True, Colors.Red, "PROXY: Host unreachable.")
 		          Case 5
 		            Me.Config.AddChat(True, Colors.Red, "PROXY: Connection refused.")
 		          Case 6
