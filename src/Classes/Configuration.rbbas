@@ -3,6 +3,7 @@ Protected Class Configuration
 	#tag Method, Flags = &h0
 		Sub AddChat(timestamp As Boolean, ParamArray values As Variant)
 		  
+		  Dim logLine As String = "[" + Me.Name + "]: "
 		  Dim js As String = "", c As Color = Colors.UI.ControlTextColor
 		  
 		  js = js + "var scrollAfterInsert = (window.innerHeight + window.scrollY >= document.body.offsetHeight);"
@@ -53,6 +54,7 @@ Protected Class Configuration
 		    If value.Type = Variant.TypeColor Then
 		      c = value.ColorValue
 		    ElseIf value.Type = Variant.TypeString Then
+		      logLine = logLine + value.StringValue
 		      js = js + "var chat = document.createElement('span');"
 		      js = js + "chat.style.color = 'rgb(" _
 		      + Format(c.Red, "-#") + "," _
@@ -65,6 +67,7 @@ Protected Class Configuration
 		      p = Pair(value.ObjectValue)
 		      Select Case p.Left
 		      Case "Bold"
+		        logLine = logLine + p.Right
 		        js = js + "var chat = document.createElement('span');"
 		        js = js + "chat.style.color = 'rgb(" _
 		        + Format(c.Red, "-#") + "," _
@@ -75,6 +78,7 @@ Protected Class Configuration
 		        js = js + "chat.innerHTML = urlify(chat.innerHTML);"
 		        js = js + "line.appendChild(chat);"
 		      Case "HTML"
+		        logLine = logLine + p.Right
 		        js = js + "var chat = document.createElement('span');"
 		        js = js + "chat.style.color = 'rgb(" _
 		        + Format(c.Red, "-#") + "," _
@@ -83,6 +87,7 @@ Protected Class Configuration
 		        js = js + "chat.innerHTML = " + StringToJSON(p.Right) + ";"
 		        js = js + "line.appendChild(chat);"
 		      Case "Monospace"
+		        logLine = logLine + p.Right
 		        js = js + "var chat = document.createElement('span');"
 		        js = js + "chat.style.color = 'rgb(" _
 		        + Format(c.Red, "-#") + "," _
@@ -100,6 +105,7 @@ Protected Class Configuration
 		    End If
 		  Next
 		  
+		  If Me.LogChat = True Then Logger.WriteLine(timestamp, logLine)
 		  js = js + "body.appendChild(line);"
 		  js = js + "if (scrollAfterInsert) chat.scrollIntoView({block:""end"",behavior:""auto""});"
 		  
@@ -262,6 +268,10 @@ Protected Class Configuration
 
 	#tag Property, Flags = &h0
 		Init6Protocol As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		LogChat As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

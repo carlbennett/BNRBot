@@ -1755,7 +1755,7 @@ Protected Module Packets
 		    Case &H01 // Account doesn't exist.
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Account does not exist, ", Colors.Yellow, "attempting to create it...")
 		    Case &H05 // Account requires upgrade.
-		      Sock.Config.AddChat(True, Colors.Red, "BNET: Account requires upgrade, " + App.GetProjectName() + " does not support this yet.")
+		      Sock.Config.AddChat(True, Colors.Red, "BNET: Account requires upgrade, " + App.ProjectName() + " does not support this yet.")
 		    Case Else // Unknown (failure).
 		      Sock.Config.AddChat(True, Colors.Red, "BNET: Unknown NLS logon failure: ", Colors.Gray, MemClass.HexPrefix(Status, "0x"))
 		    End Select
@@ -1787,7 +1787,7 @@ Protected Module Packets
 		  
 		  If Sock.NLS.ServerPasswordProof(ServerPasswordProof) = False Then
 		    If Sock.Config <> Nil Then Sock.Config.AddChat(True, Colors.Red, "BNET: " _
-		    + App.GetProjectName() + " cannot prove the server knows your password!")
+		    + App.ProjectName() + " cannot prove the server knows your password!")
 		    Sock.DoDisconnect(False)
 		    Return False
 		  End If
@@ -2828,7 +2828,7 @@ Protected Module Packets
 		  Dim Cookie As Cookie = Cookie.Lookup(CookieId, True)
 		  
 		  If Cookie = Nil Then
-		    Sock.Config.AddChat(True, Colors.Red, "BNET: Received unknown clan rank change reply." + EndOfLine)
+		    Sock.Config.AddChat(True, Colors.Red, "BNET: Received unknown clan rank change reply.")
 		    Return True
 		  End If
 		  
@@ -3011,7 +3011,7 @@ Protected Module Packets
 		  If Sock.Config = Nil Then Return False
 		  If LenB(PktData) <> 0 Then Return False
 		  
-		  Sock.Config.AddChat(True, Colors.Red, "BNET: Flood detected, " + App.GetProjectName() + " may be throttled or disconnected.")
+		  Sock.Config.AddChat(True, Colors.Red, "BNET: Flood detected, " + App.ProjectName() + " may be throttled or disconnected.")
 		  Sock.ReturnChannel = Sock.ChannelName
 		  
 		  Return True
@@ -3833,7 +3833,7 @@ Protected Module Packets
 		  
 		  If FromBNLS = False Then
 		    If Settings.CheckRevDLL = Nil Or Not Settings.CheckRevDLL.Exists Then
-		      Sock.Config.AddChat(True, Colors.Red, "BNET: Error - it appears CheckRevision.dll is missing." + EndOfLine)
+		      Sock.Config.AddChat(True, Colors.Red, "BNET: Error - it appears CheckRevision.dll is missing.")
 		      Sock.DoDisconnect()
 		      Return False
 		    End If
@@ -3843,7 +3843,7 @@ Protected Module Packets
 		    
 		    If CRevResult = &H0 Then
 		      // Invalid check revision
-		      Sock.Config.AddChat(True, Colors.Red, "BNET: CheckRevision.dll failed. Use BNLS or update local hashes." + EndOfLine)
+		      Sock.Config.AddChat(True, Colors.Red, "BNET: CheckRevision.dll failed. Use BNLS or update local hashes.")
 		      Sock.DoDisconnect(False)
 		      Return False
 		    End If
@@ -3860,15 +3860,15 @@ Protected Module Packets
 		  NeedsKey2 = (Len(Sock.Config.CDKeyExpansion) > 0)
 		  
 		  If NeedsKey1 And Not Globals.NeedsCDKey(Sock.Product) Then
-		    Sock.Config.AddChat(True, Colors.Orange, "BNET: Original CD-Key is being used when it's considered not required." + EndOfLine)
+		    Sock.Config.AddChat(True, Colors.Orange, "BNET: Original CD-Key is being used when it's considered not required.")
 		  ElseIf Not NeedsKey1 And Globals.NeedsCDKey(Sock.Product) Then
-		    Sock.Config.AddChat(True, Colors.Orange, "BNET: Original CD-Key is missing when it's considered required." + EndOfLine)
+		    Sock.Config.AddChat(True, Colors.Orange, "BNET: Original CD-Key is missing when it's considered required.")
 		  End If
 		  
 		  If NeedsKey2 And Not Globals.NeedsCDKeyExpansion(Sock.Product) Then
-		    Sock.Config.AddChat(True, Colors.Orange, "BNET: Expansion-set CD-Key is being used when it's considered not required." + EndOfLine)
+		    Sock.Config.AddChat(True, Colors.Orange, "BNET: Expansion-set CD-Key is being used when it's considered not required.")
 		  ElseIf Not NeedsKey2 And Globals.NeedsCDKeyExpansion(Sock.Product) Then
-		    Sock.Config.AddChat(True, Colors.Orange, "BNET: Expansion-set CD-Key is missing when it's considered required." + EndOfLine)
+		    Sock.Config.AddChat(True, Colors.Orange, "BNET: Expansion-set CD-Key is missing when it's considered required.")
 		  End If
 		  
 		  // CD-Key decrypting begins here.
@@ -3876,7 +3876,7 @@ Protected Module Packets
 		  If NeedsKey1 Or NeedsKey2 Then
 		    
 		    If Settings.BNCSUtil = Nil Or Not Settings.BNCSUtil.Exists Then
-		      Sock.Config.AddChat(True, Colors.Red, "BNET: Error - it appears " + App.BNCSUtil + " is missing." + EndOfLine)
+		      Sock.Config.AddChat(True, Colors.Red, "BNET: Error - it appears " + App.BNCSUtil + " is missing.")
 		      Sock.DoDisconnect()
 		      Return False
 		    End If
@@ -3886,7 +3886,7 @@ Protected Module Packets
 		      TempKey = Globals.DecryptCDKey(Sock.Config.CDKey, Sock.ClientToken, Sock.ServerToken)
 		      If LenB(TempKey) < 1 Then
 		        // Invalid CD-Key
-		        Sock.Config.AddChat(True, Colors.Red, "BNET: Failed to validate your CD-Key." + EndOfLine)
+		        Sock.Config.AddChat(True, Colors.Red, "BNET: Failed to validate your CD-Key.")
 		        Sock.DoDisconnect(False)
 		        Return False
 		      End If
@@ -3899,7 +3899,7 @@ Protected Module Packets
 		      TempKey = Globals.DecryptCDKey(Sock.Config.CDKeyExpansion, Sock.ClientToken, Sock.ServerToken)
 		      If LenB(TempKey) < 1 Then
 		        // Invalid CD-Key
-		        Sock.Config.AddChat(True, Colors.Red, "BNET: Failed to validate your expansion-set CD-Key." + EndOfLine)
+		        Sock.Config.AddChat(True, Colors.Red, "BNET: Failed to validate your expansion-set CD-Key.")
 		        Sock.DoDisconnect(False)
 		        Return False
 		      End If

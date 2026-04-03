@@ -32,13 +32,13 @@ Inherits UDPSocket
 		        Me.BNET.UDPCodeSet = True
 		        
 		      ElseIf Me.BNET.Config <> Nil Then
-		        Me.BNET.Config.AddChat(True, Colors.Red, "BNUDP: Received UDP response code too late!" + EndOfLine)
+		        Me.BNET.Config.AddChat(True, Colors.Red, "BNUDP: Received UDP response code too late!")
 		        
 		      End If
 		      
 		    Case Else
 		      If Me.BNET.Config <> Nil Then Me.BNET.Config.AddChat(True, Colors.Red, _
-		      MemClass.HexPrefix(PktID, "BNUDP: Unknown packet received. (0x", 2) + ")" + EndOfLine)
+		      MemClass.HexPrefix(PktID, "BNUDP: Unknown packet received. (0x", 2) + ")")
 		      
 		    End Select
 		    

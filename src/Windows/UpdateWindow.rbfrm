@@ -292,7 +292,7 @@ End
 		    url = "https://api.carlbennett.me/software/update"
 		    
 		    Dim vars As New Dictionary()
-		    vars.Value("product") = App.GetProjectName()
+		    vars.Value("product") = App.ProjectName()
 		    vars.Value("version") = _
 		    Format(App.MajorVersion, "-#") + "." + _
 		    Format(App.MinorVersion, "-#") + "." + _
@@ -366,7 +366,7 @@ End
 		  Select Case stepId
 		  Case Self.STEP_CHECK
 		    
-		    uiStatus.Text = "BNRBot: Checking for updates..."
+		    uiStatus.Text = App.ProjectName() + ": Checking for updates..."
 		    uiSubstatus.Text = "(User initiated)"
 		    uiProgress.Maximum = 0
 		    uiProgress.Value = 0
@@ -382,7 +382,7 @@ End
 		    
 		  Case Self.STEP_CHECK_AUTO
 		    
-		    uiStatus.Text = "BNRBot: Checking for updates..."
+		    uiStatus.Text = App.ProjectName() + ": Checking for updates..."
 		    uiSubstatus.Text = "(Automatically initiated)"
 		    uiProgress.Maximum = 0
 		    uiProgress.Value = 0
@@ -398,7 +398,7 @@ End
 		    
 		  Case Self.STEP_HTTP_SENDING
 		    
-		    uiStatus.Text = "BNRBot: Checking for updates..."
+		    uiStatus.Text = App.ProjectName() + ": Checking for updates..."
 		    uiSubstatus.Text = "Sending request..."
 		    uiProgress.Maximum = 0
 		    uiProgress.Value = 0
@@ -409,7 +409,7 @@ End
 		    
 		  Case Self.STEP_HTTP_RECEIVING
 		    
-		    uiStatus.Text = "BNRBot: Checking for updates..."
+		    uiStatus.Text = App.ProjectName() + ": Checking for updates..."
 		    uiSubstatus.Text = "Receiving response..."
 		    uiProgress.Maximum = 0
 		    uiProgress.Value = 0
@@ -439,7 +439,7 @@ End
 		  Case Self.STEP_UPDATE_AVAILABLE
 		    
 		    uiCurrentAction.Caption = "Co&ntinue"
-		    uiStatus.Text = "BNRBot: Update found!"
+		    uiStatus.Text = App.ProjectName() + ": Update found!"
 		    uiSubstatus.Text = "Click " + uiCurrentAction.Caption + " to download in your web browser."
 		    uiProgress.Visible = False
 		    uiProgressWheel.Visible = False
@@ -449,7 +449,7 @@ End
 		    
 		    If Self.stateAuto = False Then
 		      Self.Hide()
-		      Call MsgBox("You are running the latest version of BNRBot.", 64, Self.Title)
+		      Call MsgBox("You are running the latest version of " + App.ProjectName() + ".", 64, Self.Title)
 		    End If
 		    Self.Close()
 		    

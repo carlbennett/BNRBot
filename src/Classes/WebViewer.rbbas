@@ -56,13 +56,14 @@ Inherits HTMLViewer
 		  
 		  If Config = Nil Then
 		    
-		    source = source + "<header class=""main-page"">BNRBot</header><main>"
+		    source = source + "<header class=""main-page"">" + App.ProjectName() + "</header><main>"
 		    
 		    source = source + "<article><header>Getting Started</header><section><p>" _
 		    + "Right click the list on the left and choose &quot;Configure&quot;, or <a href=""" _
 		    + "chrome://settings"">click here</a>.</p></section></article>"
 		    
-		    If Settings.BNCSUtil = Nil Or Settings.CheckRevDLL = Nil Or Settings.ProductFiles = Nil Or Len( Settings.LoadErrors ) > 0 Then
+		    If Settings.BNCSUtil = Nil Or Settings.CheckRevDLL = Nil Or Settings.ProductFiles = Nil _
+		      Or Len( Settings.LoadErrors ) > 0 Or Len( Settings.SaveErrors ) > 0 Then
 		      
 		      source = source + "<article><header class=""red"">Integrity Check Failed</header><section class=""red"">"
 		      
@@ -87,9 +88,11 @@ Inherits HTMLViewer
 		    End If
 		    
 		    If Len( Settings.LoadErrors ) > 0 Then
-		      
 		      source = source + "<p>" + ReplaceAll(Settings.LoadErrors, EndOfLine, "<br>") + "</p>"
-		      
+		    End If
+		    
+		    If Len( Settings.SaveErrors ) > 0 Then
+		      source = source + "<p>" + ReplaceAll(Settings.SaveErrors, EndOfLine, "<br>") + "</p>"
 		    End If
 		    
 		    source = source + "</section></article>"

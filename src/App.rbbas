@@ -17,6 +17,9 @@ Inherits Application
 		    i = i - 1
 		  Wend
 		  
+		  Logger.WriteLine(True, "Session ended")
+		  Logger.Close()
+		  
 		End Sub
 	#tag EndEvent
 
@@ -25,13 +28,29 @@ Inherits Application
 		  
 		  Globals.TimeStarted = Microseconds()
 		  
+		  Logger.Initialize()
+		  Logger.Open()
+		  Logger.Write(True, "Session started [" + App.VersionString() + "] on [")
+		  #If TargetWin32 Then
+		    Logger.Write(False, "Windows Platform")
+		  #ElseIf TargetLinux Then
+		    Logger.Write(False, "Linux Platform")
+		  #ElseIf TargetMacOS Then
+		    Logger.Write(False, "Mac OS Platform")
+		  #EndIf
+		  Logger.Write(False, "]")
+		  #If DebugBuild Then
+		    Logger.Write(False, " with debugging enabled")
+		  #EndIf
+		  Logger.WriteLine(False, " from [" + App.ExecutableFile.AbsolutePath + "]")
+		  
 		  #If TargetLinux = True Then
 		    Try
 		      Dim LibFolder As String
 		      #If DebugBuild = True Then
-		        LibFolder = "DebugBNRBot Libs"
+		        LibFolder = "Debug" + App.ProjectName() + " Libs"
 		      #Else
-		        LibFolder = "BNRBot Libs"
+		        LibFolder = App.ProjectName() + " Libs"
 		      #EndIf
 		      If App.ExecutableFile.Parent.Child(LibFolder).Child("RBGUIFramework.so").Exists And _
 		        Not App.ExecutableFile.Parent.Child("RBGUIFramework.so").Exists Then
@@ -90,7 +109,7 @@ Inherits Application
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function GetProjectName() As String
+		Function ProjectName() As String
 		  
 		  Return "BNRBot"
 		  
@@ -100,7 +119,7 @@ Inherits Application
 	#tag Method, Flags = &h0
 		Function VersionString(httpUserAgent As Boolean = False) As String
 		  
-		  Dim s As String = Me.GetProjectName()
+		  Dim s As String = Me.ProjectName()
 		  
 		  If httpUserAgent = False Then
 		    s = s + " v"

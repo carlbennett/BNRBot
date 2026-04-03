@@ -222,7 +222,7 @@ Inherits TCPSocket
 		    IIf(Me.ReconnectTimer.Period < 1000, _
 		    Format(Me.ReconnectTimer.Period, "-#") + "ms", _
 		    Globals.TimeString(Me.ReconnectTimer.Period / 1000)) + _
-		    "." + EndOfLine)
+		    ".")
 		  End If
 		  
 		  If Me.SendNullTimer <> Nil Then Me.SendNullTimer.Enabled = False
@@ -719,9 +719,6 @@ Inherits TCPSocket
 	#tag Constant, Name = SOCKS4_REQUEST_REJECTED, Type = Double, Dynamic = False, Default = \"91", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = SOCKS5_AUTH_NONE, Type = Double, Dynamic = False, Default = \"0", Scope = Public
-	#tag EndConstant
-
 	#tag Constant, Name = SOCKS5_ATYP_DOMAINNAME, Type = Double, Dynamic = False, Default = \"3", Scope = Public
 	#tag EndConstant
 
@@ -729,6 +726,9 @@ Inherits TCPSocket
 	#tag EndConstant
 
 	#tag Constant, Name = SOCKS5_ATYP_IPV6, Type = Double, Dynamic = False, Default = \"4", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = SOCKS5_AUTH_NONE, Type = Double, Dynamic = False, Default = \"0", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = SOCKS5_CMD_CONNECT, Type = Double, Dynamic = False, Default = \"1", Scope = Public

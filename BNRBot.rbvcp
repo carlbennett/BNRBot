@@ -13,6 +13,7 @@ Class=BNUDPSocket;src/Classes/BNUDPSocket.rbbas;&h13DB67FF;&h4952FFF;false
 Class=BotWindow;src/Classes/BotWindow.rbbas;&h47116FFF;&h4952FFF;false
 Class=Configuration;src/Classes/Configuration.rbbas;&h20287FF;&h4952FFF;false
 Class=Cookie;src/Classes/Cookie.rbbas;&h360957FF;&h4952FFF;false
+Class=Logger;src/Classes/Logger.rbbas;&h6734FFFF;&h4952FFF;false
 Class=MemClass;src/Classes/MemClass.rbbas;&h4C370FFF;&h4952FFF;false
 Class=NLS;src/Classes/NLS.rbbas;&h192027FF;&h4952FFF;false
 Class=PingRange;src/Classes/PingRange.rbbas;&h5CA647FF;&h4952FFF;false

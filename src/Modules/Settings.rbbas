@@ -4,6 +4,7 @@ Protected Module Settings
 		Private Sub AppendLoadError(Line As String)
 		  
 		  Settings.LoadErrors = Settings.LoadErrors + Line + EndOfLine
+		  Logger.WriteLine(True, "Settings: " + Line)
 		  
 		End Sub
 	#tag EndMethod
@@ -11,7 +12,8 @@ Protected Module Settings
 	#tag Method, Flags = &h21
 		Private Sub AppendSaveError(Line As String)
 		  
-		  Settings.LoadErrors = Settings.LoadErrors + Line + EndOfLine
+		  Settings.SaveErrors = Settings.SaveErrors + Line + EndOfLine
+		  Logger.WriteLine(True, "Settings: " + Line)
 		  
 		End Sub
 	#tag EndMethod
@@ -178,12 +180,25 @@ Protected Module Settings
 		    
 		  Next
 		  
+		  If Settings.BNCSUtil = Nil Then _
+		  Logger.WriteLine(True, "Settings: Cannot find " + App.BNCSUtil + "!") _
+		  Else Logger.WriteLine(True, "Settings: Found " + App.BNCSUtil + ": " + Settings.BNCSUtil.AbsolutePath)
+		    
+		    If Settings.CheckRevDLL = Nil Then _
+		    Logger.WriteLine(True, "Settings: Cannot find CheckRevision.dll!") _
+		    Else Logger.WriteLine(True, "Settings: Found CheckRevision.dll: " + Settings.CheckRevDLL.AbsolutePath)
+		      
+		      If Settings.ProductFiles = Nil Then _
+		      Logger.WriteLine(True, "Settings: Cannot find Hashes directory!") _
+		      Else Logger.WriteLine(True, "Settings: Found Hashes directory: " + Settings.ProductFiles.AbsolutePath)
+		        
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Sub Load(File As FolderItem)
 		  
+		  Logger.WriteLine(True, "Settings: Loading...")
 		  Settings.LoadErrors = ""
 		  
 		  If File = Nil Then File = Settings.SettingsFile()
@@ -215,6 +230,8 @@ Protected Module Settings
 		  Buffer.Close()
 		  
 		  Settings.Parse(Data)
+		  
+		  Logger.WriteLine(True, "Settings: Loaded from [" + File.AbsolutePath + "].")
 		  
 		End Sub
 	#tag EndMethod
@@ -378,6 +395,7 @@ Protected Module Settings
 		        Configs(UBound(Configs)).CreateAccountsFirst = (BitAnd(Options, &H1000) > 0)
 		        Configs(UBound(Configs)).ShowUserUpdateMessages = (BitAnd(Options, &H2000) > 0)
 		        Configs(UBound(Configs)).Init6Protocol = False
+		        Configs(UBound(Configs)).LogChat = False
 		        
 		        Call Buffer.ReadCString() // Unused String, used to be CBNET
 		        Configs(UBound(Configs)).ProxyType = Buffer.ReadBYTE()
@@ -458,6 +476,7 @@ Protected Module Settings
 		        Configs(UBound(Configs)).CreateAccountsFirst = (BitAnd(Options, &H800) > 0)
 		        Configs(UBound(Configs)).ShowUserUpdateMessages = (BitAnd(Options, &H1000) > 0)
 		        Configs(UBound(Configs)).Init6Protocol = False
+		        Configs(UBound(Configs)).LogChat = False
 		        
 		        Configs(UBound(Configs)).ProxyType = Buffer.ReadBYTE()
 		        Configs(UBound(Configs)).ProxyHost = Buffer.ReadCString()
@@ -537,6 +556,7 @@ Protected Module Settings
 		        Configs(UBound(Configs)).CreateAccountsFirst = (BitAnd(Options, &H800) > 0)
 		        Configs(UBound(Configs)).ShowUserUpdateMessages = (BitAnd(Options, &H1000) > 0)
 		        Configs(UBound(Configs)).Init6Protocol = (BitAnd(Options, &H2000) > 0)
+		        Configs(UBound(Configs)).LogChat = False
 		        
 		        Configs(UBound(Configs)).ProxyType = Buffer.ReadBYTE()
 		        Configs(UBound(Configs)).ProxyHost = Buffer.ReadCString()
@@ -616,6 +636,7 @@ Protected Module Settings
 		        Configs(UBound(Configs)).CreateAccountsFirst = (BitAnd(Options, &H800) > 0)
 		        Configs(UBound(Configs)).ShowUserUpdateMessages = (BitAnd(Options, &H1000) > 0)
 		        Configs(UBound(Configs)).Init6Protocol = (BitAnd(Options, &H2000) > 0)
+		        Configs(UBound(Configs)).LogChat = (BitAnd(Options, &H4000) > 0)
 		        
 		        Configs(UBound(Configs)).ProxyType = Buffer.ReadBYTE()
 		        Configs(UBound(Configs)).ProxyHost = Buffer.ReadCString()
@@ -645,6 +666,7 @@ Protected Module Settings
 		Protected Sub Save(File As FolderItem)
 		  
 		  Settings.SaveErrors = ""
+		  Logger.WriteLine(True, "Settings: Saving...")
 		  
 		  If File = Nil Then File = Settings.SettingsFile()
 		  If File = Nil Then
@@ -673,6 +695,8 @@ Protected Module Settings
 		  Buffer.Write(Settings.SaveData())
 		  Buffer.Close()
 		  
+		  Logger.WriteLine(True, "Settings: Saved to [" + File.AbsolutePath + "].")
+		  
 		End Sub
 	#tag EndMethod
 
@@ -689,7 +713,7 @@ Protected Module Settings
 		  Dim Options As UInt32
 		  
 		  // The warning
-		  Buffer.WriteCString("EDIT THIS FILE WITH BNRBOT, DO NOT MODIFY THIS FILE YOURSELF.")
+		  Buffer.WriteCString("EDIT THIS FILE WITH " + Uppercase(App.ProjectName()) + ", DO NOT MODIFY THIS FILE YOURSELF.")
 		  
 		  // File version
 		  Buffer.WriteBYTE(&H03)
@@ -766,6 +790,7 @@ Protected Module Settings
 		    If Config.CreateAccountsFirst = True Then Options = BitOr(Options, &H800)
 		    If Config.ShowUserUpdateMessages = True Then Options = BitOr(Options, &H1000)
 		    If Config.Init6Protocol = True Then Options = BitOr(Options, &H2000)
+		    If Config.LogChat = True Then Options = BitOr(Options, &H4000)
 		    Buffer.WriteDWORD(Options)
 		    
 		    Buffer.WriteBYTE(Config.ProxyType)
@@ -786,24 +811,24 @@ Protected Module Settings
 		  
 		  If App.ExecutableFile <> Nil And SpecialFolder.Applications <> Nil And _
 		    InStr(App.ExecutableFile.AbsolutePath, SpecialFolder.Applications.AbsolutePath) > 0 Then
-		    If SpecialFolder.ApplicationData.Child("BNRBot v2").Exists = True Then _
-		    SpecialFolder.ApplicationData.Child("BNRBot v2").Name = "BNRBot"
-		    Folder = SpecialFolder.ApplicationData.Child("BNRBot")
+		    If SpecialFolder.ApplicationData.Child(App.ProjectName() + " v2").Exists = True Then _
+		    SpecialFolder.ApplicationData.Child(App.ProjectName() + " v2").Name = App.ProjectName()
+		    Folder = SpecialFolder.ApplicationData.Child(App.ProjectName())
 		  Else
 		    Folder = GetFolderItem("")
 		    #If DebugBuild = True Then Folder = Folder.Parent()
 		  End If
 		  
 		  If Folder = Nil Then Return Nil
-		  Dim Filename As String = "BNRBot.dat"
+		  Dim Filename As String = App.ProjectName() + ".dat"
 		  
 		  If App.ExecutableFile <> Nil And InStr(App.ExecutableFile.Name, ".") > 0 Then
 		    Dim Extension As String = NthField(App.ExecutableFile.Name, ".", CountFields(App.ExecutableFile.Name, "."))
 		    Filename = Left(Filename, Len(Filename) - Len(Extension)) + "dat"
 		  End If
 		  
-		  If Folder.Child("BNRBot v2.dat").Exists = True Then _
-		  Folder.Child("BNRBot v2.dat").Name = Filename
+		  If Folder.Child(App.ProjectName() + " v2.dat").Exists = True Then _
+		  Folder.Child(App.ProjectName() + " v2.dat").Name = Filename
 		  
 		  Return Folder.Child(Filename)
 		  

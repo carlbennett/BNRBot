@@ -91,6 +91,7 @@ Begin BotWindow MainWindow
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -112,6 +113,7 @@ Begin BotWindow MainWindow
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   1
+         TabStop         =   True
          Top             =   13
          Visible         =   True
          Width           =   827
@@ -135,7 +137,7 @@ End
 		  If i < 0 Then Return False
 		  
 		  i = MsgBox("There is at least one profile that is still connected to Battle.net." + EndOfLine + _
-		  EndOfLine + "Are you sure you wish to exit?", 305, "Still Connected - BNRBot")
+		  EndOfLine + "Are you sure you wish to exit?", 305, "Still Connected - " + App.ProjectName())
 		  
 		  Return (i = 2 Or i = 3 Or i = 7)
 		  

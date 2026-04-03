@@ -873,7 +873,7 @@ End
 		        BNETText = BNETText + "enabled over SOCKS v5. Host: " + Self.Config.ProxyHost
 		      End Select
 		      
-		      Self.Config.AddChat(True, Colors.SkyBlue, BNETText + EndOfLine)
+		      Self.Config.AddChat(True, Colors.SkyBlue, BNETText)
 		      BNETText = ""
 		      
 		    End If
@@ -2219,6 +2219,7 @@ End
 		    If Self.Config.BNET <> Nil And Self.Config.BNET.IsConnected = True Then
 		      sTmp = "/" + Lowercase(hitItem.Text) + " " + hitItem.Tag
 		      If Self.Config.EnableUTF8 = True Then sTmp = ConvertEncoding(sTmp, Encodings.UTF8)
+		      If Self.Config.LogChat = True Then Logger.WriteLine(True, "[" + Self.Config.Name + "] " + sTmp)
 		      If Self.Config.BNET.Product = Packets.BNETProduct_CHAT And Self.Config.BNET.Init6Protocol = True Then
 		        Self.Config.BNET.Send(sTmp + EndOfLine.Windows)
 		      ElseIf Self.Config.BNET.Product = Packets.BNETProduct_CHAT And Self.Config.BNET.Init6Protocol = False Then
@@ -2290,9 +2291,7 @@ End
 		      Dim Cookie As New Cookie(Cookie.TypeClanMemberInvite)
 		      Cookie.Value("Username") = hitItem.Tag
 		      Self.Config.BNET.Send(Packets.CreateSID_CLANINVITATION(Cookie.Cookie, hitItem.Tag))
-		      Self.Config.AddChat(True, Colors.Yellow, "BNET: Inviting ")
-		      Self.Config.AddChat(False, Colors.Orange, hitItem.Tag)
-		      Self.Config.AddChat(False, Colors.Yellow, " to the clan..." + EndOfLine)
+		      Self.Config.AddChat(True, Colors.Yellow, "BNET: Inviting ", Colors.Orange, hitItem.Tag, Colors.Yellow, " to the clan...")
 		    End If
 		    
 		  Case "Remove from clan"
@@ -2418,6 +2417,7 @@ End
 		  For Each Line In Lines
 		    
 		    If Left(Line, 2) = "//" Then
+		      Config.AddChat(True, Colors.SkyBlue, Line)
 		      Self.HandleChatInput(Mid(Line, 3))
 		      Continue For
 		    End If
@@ -2461,8 +2461,8 @@ End
 		    If Left(Line, 1) <> "/" And Config.BNET.Init6Protocol = False Then
 		      Self.DisplayChatSend( Line )
 		      
-		      'Else
-		      'Config.AddChat(True, Colors.SkyBlue, Line + EndOfLine)
+		    ElseIf Left(Line, 1) = "/" Then
+		      Config.AddChat(True, Colors.SkyBlue, Line)
 		      
 		    End If
 		    

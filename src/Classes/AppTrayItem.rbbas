@@ -18,7 +18,8 @@ Inherits TrayItem
 		    
 		  Case Else
 		    #If TargetWin32 = False Then Beep()
-		    Call MsgBox("Error - unrecognized mouse button.", 64, "BNRBot")
+		    Logger.WriteLine(True, "AppTrayItem: Error - unrecognized mouse button: " + Format(cause, "#"))
+		    Call MsgBox("Error - unrecognized mouse button.", 64, App.ProjectName())
 		    
 		  End Select
 		  

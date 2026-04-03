@@ -185,7 +185,7 @@ Begin BotWindow ConfigWindow
       TabIndex        =   1
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   1
+      Value           =   2
       Visible         =   True
       Width           =   392
       Begin Label txtJunk
@@ -3010,6 +3010,72 @@ Begin BotWindow ConfigWindow
          Visible         =   True
          Width           =   50
       End
+      Begin CheckBox chkLogChat
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   15
+         HelpTag         =   "Writes almost everything displayed in the chat viewer to the current log file."
+         Index           =   -2147483648
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   132
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   56
+         TabPanelIndex   =   3
+         TabStop         =   True
+         TextFont        =   "Arial"
+         TextSize        =   12
+         TextUnit        =   0
+         Top             =   547
+         Underline       =   ""
+         Value           =   False
+         Visible         =   True
+         Width           =   15
+      End
+      Begin Label txtLogChat
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   15
+         HelpTag         =   "Writes almost everything displayed in the chat viewer to the current log file."
+         Index           =   -2147483648
+         InitialParent   =   "Pages"
+         Italic          =   ""
+         Left            =   152
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   57
+         TabPanelIndex   =   3
+         Text            =   "Log chat to file"
+         TextAlign       =   0
+         TextColor       =   "#Colors.UI.ControlTextColor"
+         TextFont        =   "Arial"
+         TextSize        =   12
+         TextUnit        =   0
+         Top             =   547
+         Transparent     =   False
+         Underline       =   ""
+         Visible         =   True
+         Width           =   348
+      End
    End
 End
 #tag EndWindow
@@ -3224,7 +3290,7 @@ End
 		  Config.VersionByte = &HD3
 		  Config.CDKey = ""
 		  Config.CDKeyExpansion = ""
-		  Config.CDKeyOwner = "BNRBotv2"
+		  Config.CDKeyOwner = App.ProjectName() + "v2"
 		  Config.CDKeySpawn = False
 		  Config.EmailAddress = ""
 		  Config.HomeChannel = ""
@@ -3238,6 +3304,7 @@ End
 		  Config.VerbosePackets = False
 		  Config.ConfirmRemovingClanMembers = True
 		  Config.CreateAccountsFirst = False
+		  Config.LogChat = True
 		  
 		  lstCategories.AddRow(Config.Name)
 		  lstCategories.CellTag(lstCategories.LastIndex, 0) = Config
@@ -3339,6 +3406,7 @@ End
 		  chkVerbosePackets.Value = Config.VerbosePackets
 		  chkConfirmRemovingClanMembers.Value = Config.ConfirmRemovingClanMembers
 		  chkCreateAccountsFirst.Value = Config.CreateAccountsFirst
+		  chkLogChat.Value = Config.LogChat
 		  
 		  lstTimestamp.CellCheck(0, 0) = (BitAnd(Config.Timestamp, Config.TimestampShortDate) > 0)
 		  lstTimestamp.CellCheck(1, 0) = (BitAnd(Config.Timestamp, Config.TimestampAbbreviatedDate) > 0)
@@ -3657,7 +3725,7 @@ End
 		  If Globals.NeedsCDKeyExpansion(Config.Product) And Len(Me.Text) = 0 Then _
 		  Warnings = Warnings + _
 		  "Your selected product requires an expansion-set CD-Key. Leaving " + EndOfLine + _
-		  "this blank will cause BNRBot to NOT use an expansion-set CD-Key." + EndOfLine + EndOfLine
+		  "this blank will cause " + App.ProjectName() + " to NOT use an expansion-set CD-Key." + EndOfLine + EndOfLine
 		  
 		  If Len(Warnings) > 0 Then Tooltip.Show(_
 		  Warnings + "You may continue at your own risk.", _
@@ -3698,7 +3766,7 @@ End
 		  If Globals.NeedsCDKey(Config.Product) And Len(Me.Text) = 0 Then _
 		  Warnings = Warnings + _
 		  "Your selected product requires a CD-Key. Leaving this blank will " + EndOfLine + _
-		  "cause BNRBot to NOT use a CD-Key." + EndOfLine + EndOfLine
+		  "cause " + App.ProjectName() + " to NOT use a CD-Key." + EndOfLine + EndOfLine
 		  
 		  If Len(Warnings) > 0 Then Tooltip.Show(_
 		  Warnings + "You may continue at your own risk.", _
@@ -5137,7 +5205,7 @@ End
 	#tag Event
 		Sub Action()
 		  
-		  Dim f As FolderItem = GetSaveFolderItem(FileTypes.TextPlain + FileTypes.TextTabSeparatedValues, "BNRBot Blacklist.tsv")
+		  Dim f As FolderItem = GetSaveFolderItem(FileTypes.TextPlain + FileTypes.TextTabSeparatedValues, App.ProjectName() + " Blacklist.tsv")
 		  
 		  If f = Nil Then Return // User cancelled
 		  
@@ -5323,6 +5391,38 @@ End
 		Sub TextChange()
 		  
 		  Settings.PrefGlobalFontSize = Me.Text
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events chkLogChat
+	#tag Event
+		Sub Action()
+		  
+		  Dim Config As Configuration = lstCategories.CellTag(lstCategories.ListIndex, 0)
+		  
+		  Config.LogChat = Me.Value
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events txtLogChat
+	#tag Event
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  
+		  #pragma Unused X
+		  #pragma Unused Y
+		  
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub MouseUp(X As Integer, Y As Integer)
+		  
+		  If X < 0 Or X > Me.Width Or Y < 0 Or Y > Me.Height Then Return
+		  
+		  chkLogChat.Value = Not chkLogChat.Value
 		  
 		End Sub
 	#tag EndEvent

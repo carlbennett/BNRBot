@@ -9,7 +9,7 @@ Protected Module Globals
 		  w.IsRemoving = False
 		  w.Keys = Keys
 		  
-		  w.Title = Username + "'s Profile - BNRBot"
+		  w.Title = Username + "'s Profile - " + App.ProjectName()
 		  w.fldUsername.Text = Username
 		  w.fldGame.Text = Globals.ProductName(Product)
 		  

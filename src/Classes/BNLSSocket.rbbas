@@ -7,7 +7,7 @@ Inherits TCPSocket
 		  Me.mIsConnecting = False
 		  
 		  If Me.BNET <> Nil And Me.BNET.Config <> Nil Then _
-		  Me.BNET.Config.AddChat(True, Colors.Lime, "BNLS: Connected to " + Me.RemoteAddress + "." + EndOfLine)
+		  Me.BNET.Config.AddChat(True, Colors.Lime, "BNLS: Connected to " + Me.RemoteAddress + ".")
 		  
 		  Me.Initialize()
 		  
@@ -52,7 +52,7 @@ Inherits TCPSocket
 		  
 		  If Me.IsConnected = True Then
 		    
-		    If Me.BNET <> Nil And Me.BNET.Config <> Nil Then Me.BNET.Config.AddChat(True, Colors.Cyan, "Disconnecting..." + EndOfLine)
+		    If Me.BNET <> Nil And Me.BNET.Config <> Nil Then Me.BNET.Config.AddChat(True, Colors.Cyan, "Disconnecting...")
 		    Me.DisconnectAlreadyHandled = True
 		    Me.Disconnect()
 		    
@@ -72,14 +72,14 @@ Inherits TCPSocket
 		  
 		  If Me.IsConnected = True Then
 		    
-		    If Me.BNET <> Nil And Me.BNET.Config <> Nil Then Me.BNET.Config.AddChat(True, Colors.Cyan, "Reconnecting..." + EndOfLine)
+		    If Me.BNET <> Nil And Me.BNET.Config <> Nil Then Me.BNET.Config.AddChat(True, Colors.Cyan, "Reconnecting...")
 		    Me.Disconnect()
 		    
 		  End If
 		  
 		  If Me.BNET <> Nil And Me.BNET.Config <> Nil Then
 		    Globals.AssignSocketDetails(Me, Me.BNET.Config.BNLSHost, 9367)
-		    Me.BNET.Config.AddChat(True, Colors.Yellow, "BNLS: Connecting to " + Me.Address + "..." + EndOfLine)
+		    Me.BNET.Config.AddChat(True, Colors.Yellow, "BNLS: Connecting to " + Me.Address + "...")
 		  End If
 		  
 		  Me.mIsConnecting = True
@@ -118,7 +118,7 @@ Inherits TCPSocket
 		  If Not (Me.BNET <> Nil And Me.BNET.Config <> Nil And Me.BNET.Config.VerbosePackets = True) Then Return
 		  
 		  Dim PktID As String = "0x" + Right("00" + Hex(AscB(MidB(Data, 3, 1))), 2)
-		  Me.BNET.Config.AddChat(True, Colors.Yellow, "SEND BNLS_" + PktID + " (Bytes: " + Str(LenB(Data)) + ")" + EndOfLine)
+		  Me.BNET.Config.AddChat(True, Colors.Yellow, "SEND BNLS_" + PktID + " (Bytes: " + Str(LenB(Data)) + ")")
 		  
 		End Sub
 	#tag EndMethod
