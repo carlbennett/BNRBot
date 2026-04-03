@@ -572,6 +572,7 @@ End
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //join <channel> — Gracefully attempts to join <channel>.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //leave — Forces you out of chat; only friends will be able to chat with you.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //lenny [message] — Types [message] ( ͡° ͜ʖ ͡°) to the chat.")
+		    Self.Config.AddChat(True, Colors.SkyBlue, "  //logs — Opens the logs directory for this profile.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //packet — Opens the packet builder.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //ping [username] — Pings [username] or yourself if [username] omitted.")
 		    Self.Config.AddChat(True, Colors.SkyBlue, "  //pingme — Pings yourself.")
@@ -731,6 +732,10 @@ End
 		    
 		    BNETText = "( ͡° ͜ʖ ͡°)"
 		    If Len(Rest) > 0 Then BNETText = Rest + " " + BNETText
+		    
+		  Case "Logs"
+		    
+		    Logger.OpenDirectory()
 		    
 		  Case "Packet"
 		    

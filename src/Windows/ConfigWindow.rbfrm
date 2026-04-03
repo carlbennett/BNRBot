@@ -109,7 +109,7 @@ Begin BotWindow ConfigWindow
       Bold            =   ""
       ButtonStyle     =   0
       Cancel          =   ""
-      Caption         =   "Create New Profile"
+      Caption         =   "New Profile"
       Default         =   ""
       Enabled         =   True
       Height          =   22
@@ -133,7 +133,7 @@ Begin BotWindow ConfigWindow
       Top             =   608
       Underline       =   ""
       Visible         =   True
-      Width           =   120
+      Width           =   80
    End
    Begin PushButton btnDeleteProfile
       AutoDeactivate  =   True
@@ -148,7 +148,7 @@ Begin BotWindow ConfigWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   254
+      Left            =   214
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -3077,6 +3077,37 @@ Begin BotWindow ConfigWindow
          Width           =   348
       End
    End
+   Begin PushButton btnOpenLogs
+      AutoDeactivate  =   True
+      Bold            =   ""
+      ButtonStyle     =   0
+      Cancel          =   False
+      Caption         =   "Open &Logs"
+      Default         =   False
+      Enabled         =   True
+      Height          =   22
+      HelpTag         =   "Click to open the log directory."
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   338
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   ""
+      LockRight       =   True
+      LockTop         =   ""
+      Scope           =   0
+      TabIndex        =   5
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "Arial"
+      TextSize        =   12
+      TextUnit        =   0
+      Top             =   608
+      Underline       =   ""
+      Visible         =   True
+      Width           =   80
+   End
 End
 #tag EndWindow
 
@@ -5423,6 +5454,15 @@ End
 		  If X < 0 Or X > Me.Width Or Y < 0 Or Y > Me.Height Then Return
 		  
 		  chkLogChat.Value = Not chkLogChat.Value
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnOpenLogs
+	#tag Event
+		Sub Action()
+		  
+		  Logger.OpenDirectory()
 		  
 		End Sub
 	#tag EndEvent

@@ -61,6 +61,19 @@ Protected Class Logger
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		 Shared Sub OpenDirectory()
+		  
+		  If Logger.file = Nil Then
+		    Call MsgBox("Error: Logger has not opened a log file, directory cannot open.", 48, "File not open")
+		    Return
+		  End If
+		  
+		  Logger.file.Parent.Launch()
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Shared Function Timestamp() As String
 		  
